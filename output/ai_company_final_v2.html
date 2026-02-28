@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<title>OpenClaw 打造一人公司，1+6个Agents终于协同工作了</title>
+</head>
+<body>
+<img src="https://gitee.com/jeffzhao/ai-company-output/raw/master/ai_company_cover_v3.png" alt="cover" style="display:block;width:100%;max-width:800px;margin:0 auto;">
+
+<h1 style="text-align:center;font-size:24px;padding:20px 15px 10px;margin:0;color:#333;">OpenClaw 打造一人公司，1+6个Agents终于协同工作了</h1>
+
+<p style="margin:0;padding:0 15px 20px;text-align:center;color:#999;font-size:14px;">文 / OpenClaw</p>
+
+<p style="margin:0;padding:15px;color:#333;line-height:1.8;font-size:16px;">用了半年AI Agent，我终于明白了一个道理：不是AI不够聪明，而是我们的架构太混乱。</p>
+
+<p style="margin:0;padding:15px;color:#333;line-height:1.8;font-size:16px;">每天醒来，Token已经烧掉几十万；Agent之间互相抢戏；想让它写代码，它给你聊产品；最崩溃的是——我明明只需要一个执行者，结果养了一群记忆错乱的演员。</p>
+
+<p style="margin:0;padding:15px;color:#333;line-height:1.8;font-size:16px;">这是大多数AI一人公司都会遇到的三个核心问题。</p>
+
+<h2 style="margin:20px 15px 15px;padding:0;font-size:18px;color:#333;">一、痛点：多Agent管理的三大坑</h2>
+
+<p style="margin:0;padding:15px 15px 10px;color:#333;line-height:1.8;font-size:16px;"><strong>坑1：Memory混乱</strong><br>每个Agent配一个独立Memory，结果Agent A记住的事，Agent B完全不知道，战略决策分散在各处，无法形成统一视图。</p>
+
+<p style="margin:0;padding:10px 15px 10px;color:#333;line-height:1.8;font-size:16px;"><strong>坑2：Token过度消耗</strong><br>每个Agent都要加载系统Prompt、项目背景、历史对话，一个任务消耗是单Agent的5到10倍。</p>
+
+<p style="margin:0;padding:10px 15px 15px;color:#333;line-height:1.8;font-size:16px;"><strong>坑3：上下文污染</strong><br>让Coding Agent写代码，它却继承了Product Agent的思维。</p>
+
+<h2 style="margin:20px 15px 15px;padding:0;font-size:18px;color:#333;">二、两种基础方案对比</h2>
+
+<p style="margin:0;padding:15px 15px 10px;color:#333;line-height:1.8;font-size:16px;"><strong>方案A：一个Chatbot + 主Agent + 多个Sub-Agent</strong><br>用户 → Chatbot → Chief Agent → Sub-Agent 1/2/3<br>优点：统一入口，用户体验好<br>缺点：记忆混乱，上下文容易污染</p>
+
+<p style="margin:0;padding:10px 15px 15px;color:#333;line-height:1.8;font-size:16px;"><strong>方案B：多个Chatbots</strong><br>优点：完全隔离<br>缺点：用户要在多个窗口切换，无法协作</p>
+
+<h2 style="margin:20px 15px 15px;padding:0;font-size:18px;color:#333;">三、我们的方案：在方案A基础上做优化</h2>
+
+<p style="margin:0;padding:15px;color:#333;line-height:1.8;font-size:16px;">我最终的方案不是另起炉灶，<strong>而是在方案A基础上做优化</strong>——保留其统一入口体验，同时解决其缺陷。</p>
+
+<p style="margin:0;padding:15px;color:#333;line-height:1.8;font-size:16px;">"1+6"含义：1个Chief Agent + 6个Sub Agents（Content/Growth/Coding/Product/Finance/User）</p>
+
+<h2 style="margin:20px 15px 15px;padding:0;font-size:18px;color:#333;">四、如何解决三大痛点</h2>
+
+<p style="margin:0;padding:15px 15px 10px;color:#333;line-height:1.8;font-size:16px;"><strong>1. Memory分层：只有Chief有记忆权</strong><br>Sub-Agent都是"无状态工人"，只负责执行，不存储长期记忆。</p>
+
+<p style="margin:0;padding:10px 15px 10px;color:#333;line-height:1.8;font-size:16px;"><strong>2. 精准Token使用：按需加载</strong><br>只有Chief加载完整上下文，Sub-Agent只加载任务相关Prompt，关键词精准匹配。效果：Token消耗降低70%。</p>
+
+<p style="margin:0;padding:10px 15px 15px;color:#333;line-height:1.8;font-size:16px;"><strong>3. 单一窗口上下文隔离：任务走廊机制</strong><br>用户发送任务 → Chief识别关键词 → 只加载对应Agent的Prompt → 执行 → 返回结果 → Chief合成 → 写入Memory。</p>
+
+<h2 style="margin:20px 15px 15px;padding:0;font-size:18px;color:#333;">五、可扩展性：升级到多员工架构</h2>
+
+<p style="margin:0;padding:15px;color:#333;line-height:1.8;font-size:16px;">这套架构稍加改造就能升级：</p>
+
+<p style="margin:0;padding:15px;color:#333;line-height:1.8;font-size:16px;">CEO → Chief Agent → 员工A/员工B/员工C</p>
+
+<p style="margin:0;padding:15px;color:#333;line-height:1.8;font-size:16px;">给每个真实员工开一个入口，Chief作为统一协调层。这就是未来AI公司的样子。</p>
+
+<h2 style="margin:20px 15px 15px;padding:0;font-size:18px;color:#333;">六、警惕过度设计</h2>
+
+<p style="margin:0;padding:15px;color:#333;line-height:1.8;font-size:16px;">有人问：能不能一个Agent一个Chatbot，通过群聊协作？</p>
+
+<p style="margin:0;padding:15px;color:#333;line-height:1.8;font-size:16px;">不建议，因为管理成本爆炸，无法共享上下文，用户体验差。</p>
+
+<p style="margin:0;padding:15px;color:#333;line-height:1.8;font-size:16px;">一人公司核心原则是<strong>不要过度设计</strong>。一个入口，一个窗口，一个Chief，够了。</p>
+
+<h2 style="margin:20px 15px 15px;padding:0;font-size:18px;color:#333;">七、总结</h2>
+
+<p style="margin:0;padding:15px;color:#333;line-height:1.8;font-size:16px;">1+6 Agent架构核心：</p>
+
+<ul style="margin:0;padding:15px 15px 15px 30px;color:#333;line-height:2;font-size:16px;">
+<li><strong>用户体验好</strong>：一个入口，一个窗口</li>
+<li><strong>成本可控</strong>：Token精确使用</li>
+<li><strong>战略清晰</strong>：记忆集中</li>
+<li><strong>可扩展</strong>：加新Agent只需配置几行</li>
+</ul>
+
+<p style="margin:0;padding:15px;color:#333;line-height:1.8;font-size:16px;">核心逻辑是让AI像真正的公司一样运转，有一个CEO（Chief）做决策，其他人都是执行者。</p>
+
+<hr style="border:none;border-top:1px solid #eee;margin:30px 15px;">
+
+<p style="margin:0;padding:20px 15px;text-align:center;color:#333;line-height:1.8;font-size:16px;"><strong>如果你觉得这篇文章有帮助，欢迎关注、点赞、分享！</strong></p>
+
+<p style="margin:0;padding:0 15px 30px;text-align:center;color:#666;line-height:1.8;font-size:14px;">我们下期再见，好运连连！🚀</p>
+
+</body>
+</html>
