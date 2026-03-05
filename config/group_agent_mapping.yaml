@@ -1,0 +1,84 @@
+# Group Agent Mapping - 群聊Agent映射配置
+# 版本: v1.0
+# 用途: 将不同群聊映射到不同Agent角色
+
+# 群聊到Agent的映射
+# 格式: 群聊ID -> Agent角色
+
+group_mappings:
+  # ===== Chief Agent (私聊) =====
+  # 私聊窗口默认使用 Chief Agent
+  private_chat:
+    agent: "chief"
+    name: "Chief Agent"
+    description: "AI CEO助理 - 主调度中心"
+    memory_namespace: "chief"
+  
+  # ===== Content Agent 群聊 =====
+  - group_id: "oc_content_xxx"  # 内容创作群
+    agent: "content"
+    name: "Content Agent"
+    description: "内容创作专家"
+    memory_namespace: "content"
+    keywords: ["内容", "公众号", "文章", "小红书", "Twitter"]
+  
+  # ===== Growth Agent 群聊 =====  
+  - group_id: "oc_growth_xxx"   # 增长运营群
+    agent: "growth"
+    name: "Growth Agent"  
+    description: "增长黑客"
+    memory_namespace: "growth"
+    keywords: ["增长", "推广", "SEO", "流量", "运营"]
+  
+  # ===== Coding Agent 群聊 =====
+  - group_id: "oc_coding_xxx"   # 技术开发群
+    agent: "coding"
+    name: "Coding Agent"
+    description: "全栈工程师"
+    memory_namespace: "coding"
+    keywords: ["代码", "bug", "开发", "修复", "技术"]
+  
+  # ===== Product Agent 群聊 =====
+  - group_id: "oc_product_xxx"  # 产品规划群
+    agent: "product"
+    name: "Product Agent"
+    description: "产品经理"
+    memory_namespace: "product"
+    keywords: ["产品", "需求", "设计", "PRD", "用研"]
+  
+  # ===== Finance Agent 群聊 =====
+  - group_id: "oc_finance_xxx"  # 财务分析群
+    agent: "finance"
+    name: "Finance Agent"
+    description: "财务分析师"
+    memory_namespace: "finance"
+    keywords: ["财务", "收入", "预算", "ROI", "利润"]
+
+# 默认配置
+default:
+  # 如果群聊未在映射中，使用关键词路由
+  use_keyword_router: true
+  fallback_agent: "chief"
+
+# 群聊上下文隔离
+isolation:
+  # 每个群聊有独立的会话上下文
+  per_group_context: true
+  # 群聊间不共享短期记忆
+  cross_group_memory: false
+  # 只共享 global 级别的战略记忆
+  shared_global_memory: true
+
+# Memory 存储规则
+memory_rules:
+  # 群聊工作记录保存到对应Agent的memory
+  save_to_agent_memory: true
+  # 同时记录到daily日志
+  save_to_daily: true
+  # 记录格式
+  format: |
+    ## [{timestamp}] 群聊: {group_name}
+    - 用户: {sender_name}
+    - 消息: {message}
+    - 回复: {response}
+    - 重要信息: {key_info}
