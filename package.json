@@ -1,0 +1,28 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffli2002/openclaw.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeffli2002/openclaw/issues"
+  },
+  "homepage": "https://github.com/jeffli2002/openclaw#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.98.0",
+    "better-sqlite3": "^12.6.2",
+    "playwright": "^1.58.2",
+    "puppeteer-core": "^24.38.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
+  }
+}

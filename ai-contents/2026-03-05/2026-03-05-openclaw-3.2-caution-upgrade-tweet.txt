@@ -1,0 +1,19 @@
+OpenClaw v2026.3.2 is out - but I'd wait before upgrading. Here's what happened:
+
+I updated immediately on my production server and hit major issues:
+- Feishu bot disconnected completely
+- Required manual config reset
+- Had to restart Gateway multiple times
+
+⚠️ If you're on v2026.3.2, backup first:
+- Backup openclaw.json
+- Backup workspace folder
+- Push to GitHub
+
+The update has good stuff (64 credential targets, better Discord/Telegram binding, Claude 4.6 reasoning) but stability is lacking right now.
+
+My take: production environments should wait for a patch. Stability first.
+
+What's your experience? Any issues after upgrading?
+
+#AI #OpenClaw #AIAgents #Tech
