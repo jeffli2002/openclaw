@@ -25,12 +25,13 @@ Before doing anything else:
 5. ✅ `memory/global/vision.md` — 愿景和目标
 6. ✅ `memory/agents/{agent}/memory.md` — 对应Agent专属记忆
 7. ✅ `memory/daily/YYYY-MM-DD.md` (today) — 今日工作上下文
+8. ✅ `memory/daily/YYYY-MM-DD.md` (yesterday) — 昨日工作记录
 
 **必须遵循的规则：**
 - 不要等待用户确认，直接读取这些文件
 - 所有 Sub Agent 共享相同的 USER.md 和 TOOLS.md
 - Global memory 是所有 Agent 的共同认知基础
-- 读取后根据这些信息执行任务
+- **必须读取今天 + 昨天两天的 daily 日志**
 
 Don't ask permission. Just do it.
 

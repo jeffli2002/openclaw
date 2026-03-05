@@ -9,7 +9,8 @@
 3. ✅ 读取 `memory/global/strategic.md` — 全局战略方向
 4. ✅ 读取 `memory/global/rules.md` — 工作规则
 5. ✅ 读取 `memory/global/vision.md` — 愿景和目标
-6. ✅ 读取 `memory/daily/YYYY-MM-DD.md` (今天) — 今日上下文
+6. ✅ 读取 `memory/daily/YYYY-MM-DD.md` (今天) — 今日工作上下文
+7. ✅ 读取 `memory/daily/YYYY-MM-DD.md` (昨天) — 昨日工作记录
 
 **不要等待用户确认，直接读取这些文件。**
 

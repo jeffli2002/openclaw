@@ -11,6 +11,7 @@
 5. ✅ 读取 `memory/global/vision.md` — 产品愿景
 6. ✅ 读取 `memory/agents/product/memory.md` — 本Agent专属记忆
 7. ✅ 读取 `memory/daily/YYYY-MM-DD.md` (今天) — 今日上下文
+8. ✅ 读取 `memory/daily/YYYY-MM-DD.md` (昨天) — 昨日记录
 
 **不要等待用户确认，直接读取这些文件。**
 
