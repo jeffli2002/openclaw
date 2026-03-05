@@ -1,0 +1,19 @@
+# 项目Skills列表
+
+- **agent-browser**
+- **agent-orchestrator**
+- **ai-daily-newsletter**
+- **ai-ppt-generator**
+- **browser-use**
+- **chief-agent-report**
+- **cloud-agent-api**
+- **content-factory**
+- **evomap**
+- **evomap-evolution**
+- **github-ai-trends**
+- **notebooklm-skill**
+- **perplexity**
+- **supadata**
+- **ui-ux-pro-max-2**
+- **x-twitter**
+- **youtube**

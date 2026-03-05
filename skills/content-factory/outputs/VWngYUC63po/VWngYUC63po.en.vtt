@@ -1,0 +1,3376 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.080 --> 00:00:01.750 align:start position:0%
+ 
+Hello<00:00:00.400><c> legends.</c><00:00:01.040><c> In</c><00:00:01.199><c> this</c><00:00:01.360><c> video,</c><00:00:01.600><c> we're</c>
+
+00:00:01.750 --> 00:00:01.760 align:start position:0%
+Hello legends. In this video, we're
+ 
+
+00:00:01.760 --> 00:00:03.190 align:start position:0%
+Hello legends. In this video, we're
+going<00:00:01.839><c> to</c><00:00:01.920><c> be</c><00:00:02.000><c> diving</c><00:00:02.320><c> into</c><00:00:02.560><c> the</c><00:00:02.720><c> new</c><00:00:02.879><c> Claude</c>
+
+00:00:03.190 --> 00:00:03.200 align:start position:0%
+going to be diving into the new Claude
+ 
+
+00:00:03.200 --> 00:00:05.510 align:start position:0%
+going to be diving into the new Claude
+Opus<00:00:03.679><c> 4.6</c><00:00:04.400><c> and</c><00:00:04.640><c> we'll</c><00:00:04.799><c> be</c><00:00:04.960><c> explicitly</c>
+
+00:00:05.510 --> 00:00:05.520 align:start position:0%
+Opus 4.6 and we'll be explicitly
+ 
+
+00:00:05.520 --> 00:00:07.670 align:start position:0%
+Opus 4.6 and we'll be explicitly
+exploring<00:00:05.920><c> the</c><00:00:06.160><c> new</c><00:00:06.319><c> agent</c><00:00:06.720><c> teams.</c><00:00:07.440><c> So,</c><00:00:07.600><c> I'm</c>
+
+00:00:07.670 --> 00:00:07.680 align:start position:0%
+exploring the new agent teams. So, I'm
+ 
+
+00:00:07.680 --> 00:00:09.030 align:start position:0%
+exploring the new agent teams. So, I'm
+going<00:00:07.759><c> to</c><00:00:07.839><c> be</c><00:00:08.000><c> running</c><00:00:08.160><c> an</c><00:00:08.400><c> experiment</c><00:00:08.800><c> in</c>
+
+00:00:09.030 --> 00:00:09.040 align:start position:0%
+going to be running an experiment in
+ 
+
+00:00:09.040 --> 00:00:09.990 align:start position:0%
+going to be running an experiment in
+this<00:00:09.200><c> video</c><00:00:09.440><c> where</c><00:00:09.599><c> I'm</c><00:00:09.760><c> going</c><00:00:09.840><c> to</c><00:00:09.920><c> be</c>
+
+00:00:09.990 --> 00:00:10.000 align:start position:0%
+this video where I'm going to be
+ 
+
+00:00:10.000 --> 00:00:11.990 align:start position:0%
+this video where I'm going to be
+spooling<00:00:10.400><c> up</c><00:00:10.559><c> a</c><00:00:10.719><c> Claude</c><00:00:11.120><c> code</c><00:00:11.360><c> instance</c><00:00:11.840><c> using</c>
+
+00:00:11.990 --> 00:00:12.000 align:start position:0%
+spooling up a Claude code instance using
+ 
+
+00:00:12.000 --> 00:00:14.789 align:start position:0%
+spooling up a Claude code instance using
+the<00:00:12.160><c> Opus</c><00:00:12.639><c> 4.6</c><00:00:13.200><c> model,</c><00:00:13.679><c> getting</c><00:00:14.000><c> one</c><00:00:14.240><c> agent</c><00:00:14.639><c> to</c>
+
+00:00:14.789 --> 00:00:14.799 align:start position:0%
+the Opus 4.6 model, getting one agent to
+ 
+
+00:00:14.799 --> 00:00:17.029 align:start position:0%
+the Opus 4.6 model, getting one agent to
+build<00:00:15.040><c> out</c><00:00:15.280><c> a</c><00:00:15.519><c> certain</c><00:00:15.839><c> project</c><00:00:16.240><c> for</c><00:00:16.400><c> us,</c><00:00:16.880><c> and</c>
+
+00:00:17.029 --> 00:00:17.039 align:start position:0%
+build out a certain project for us, and
+ 
+
+00:00:17.039 --> 00:00:18.150 align:start position:0%
+build out a certain project for us, and
+then<00:00:17.199><c> I'm</c><00:00:17.279><c> going</c><00:00:17.359><c> to</c><00:00:17.440><c> be</c><00:00:17.520><c> spooling</c><00:00:17.760><c> up</c><00:00:17.920><c> another</c>
+
+00:00:18.150 --> 00:00:18.160 align:start position:0%
+then I'm going to be spooling up another
+ 
+
+00:00:18.160 --> 00:00:20.230 align:start position:0%
+then I'm going to be spooling up another
+Cloud<00:00:18.480><c> Code</c><00:00:18.640><c> instance,</c><00:00:19.199><c> enabling</c><00:00:19.680><c> the</c><00:00:19.840><c> agent</c>
+
+00:00:20.230 --> 00:00:20.240 align:start position:0%
+Cloud Code instance, enabling the agent
+ 
+
+00:00:20.240 --> 00:00:22.070 align:start position:0%
+Cloud Code instance, enabling the agent
+teams<00:00:20.560><c> mode,</c><00:00:20.960><c> then</c><00:00:21.199><c> giving</c><00:00:21.359><c> the</c><00:00:21.600><c> exact</c><00:00:21.840><c> same</c>
+
+00:00:22.070 --> 00:00:22.080 align:start position:0%
+teams mode, then giving the exact same
+ 
+
+00:00:22.080 --> 00:00:23.990 align:start position:0%
+teams mode, then giving the exact same
+prompt,<00:00:22.320><c> and</c><00:00:22.480><c> then</c><00:00:22.720><c> comparing</c><00:00:23.039><c> the</c><00:00:23.279><c> results.</c>
+
+00:00:23.990 --> 00:00:24.000 align:start position:0%
+prompt, and then comparing the results.
+ 
+
+00:00:24.000 --> 00:00:25.429 align:start position:0%
+prompt, and then comparing the results.
+So<00:00:24.160><c> I</c><00:00:24.240><c> want</c><00:00:24.400><c> to</c><00:00:24.560><c> quickly</c><00:00:24.880><c> touch</c><00:00:25.039><c> on</c><00:00:25.199><c> the</c>
+
+00:00:25.429 --> 00:00:25.439 align:start position:0%
+So I want to quickly touch on the
+ 
+
+00:00:25.439 --> 00:00:27.750 align:start position:0%
+So I want to quickly touch on the
+anatomy<00:00:25.920><c> of</c><00:00:26.080><c> an</c><00:00:26.240><c> agent</c><00:00:26.640><c> team</c><00:00:26.960><c> versus</c><00:00:27.359><c> what</c><00:00:27.519><c> we</c>
+
+00:00:27.750 --> 00:00:27.760 align:start position:0%
+anatomy of an agent team versus what we
+ 
+
+00:00:27.760 --> 00:00:29.910 align:start position:0%
+anatomy of an agent team versus what we
+previously<00:00:28.160><c> had</c><00:00:28.400><c> which</c><00:00:28.560><c> was</c><00:00:28.720><c> a</c><00:00:28.880><c> sub</c><00:00:29.119><c> agent.</c><00:00:29.679><c> So</c>
+
+00:00:29.910 --> 00:00:29.920 align:start position:0%
+previously had which was a sub agent. So
+ 
+
+00:00:29.920 --> 00:00:31.990 align:start position:0%
+previously had which was a sub agent. So
+sub<00:00:30.160><c> aents</c><00:00:30.560><c> work</c><00:00:30.720><c> by</c><00:00:31.039><c> receiving</c><00:00:31.439><c> a</c><00:00:31.760><c> very</c>
+
+00:00:31.990 --> 00:00:32.000 align:start position:0%
+sub aents work by receiving a very
+ 
+
+00:00:32.000 --> 00:00:34.069 align:start position:0%
+sub aents work by receiving a very
+specific<00:00:32.399><c> prompt.</c><00:00:33.040><c> Then</c><00:00:33.280><c> that</c><00:00:33.440><c> prompt</c><00:00:33.840><c> is</c>
+
+00:00:34.069 --> 00:00:34.079 align:start position:0%
+specific prompt. Then that prompt is
+ 
+
+00:00:34.079 --> 00:00:36.069 align:start position:0%
+specific prompt. Then that prompt is
+actioned<00:00:34.559><c> and</c><00:00:34.719><c> completed</c><00:00:35.120><c> and</c><00:00:35.360><c> then</c><00:00:35.520><c> only</c><00:00:35.760><c> the</c>
+
+00:00:36.069 --> 00:00:36.079 align:start position:0%
+actioned and completed and then only the
+ 
+
+00:00:36.079 --> 00:00:37.910 align:start position:0%
+actioned and completed and then only the
+results<00:00:36.480><c> of</c><00:00:36.719><c> the</c><00:00:36.880><c> completion</c><00:00:37.360><c> are</c><00:00:37.600><c> shared</c>
+
+00:00:37.910 --> 00:00:37.920 align:start position:0%
+results of the completion are shared
+ 
+
+00:00:37.920 --> 00:00:39.830 align:start position:0%
+results of the completion are shared
+back<00:00:38.079><c> with</c><00:00:38.239><c> the</c><00:00:38.399><c> main</c><00:00:38.640><c> context</c><00:00:39.200><c> window.</c>
+
+00:00:39.830 --> 00:00:39.840 align:start position:0%
+back with the main context window.
+ 
+
+00:00:39.840 --> 00:00:41.110 align:start position:0%
+back with the main context window.
+Whereas<00:00:40.079><c> agent</c><00:00:40.399><c> teams</c><00:00:40.640><c> are</c><00:00:40.800><c> a</c><00:00:40.960><c> little</c><00:00:41.040><c> bit</c>
+
+00:00:41.110 --> 00:00:41.120 align:start position:0%
+Whereas agent teams are a little bit
+ 
+
+00:00:41.120 --> 00:00:43.350 align:start position:0%
+Whereas agent teams are a little bit
+more<00:00:41.280><c> sophisticated.</c><00:00:42.239><c> So</c><00:00:42.640><c> when</c><00:00:42.800><c> we</c><00:00:43.040><c> enable</c>
+
+00:00:43.350 --> 00:00:43.360 align:start position:0%
+more sophisticated. So when we enable
+ 
+
+00:00:43.360 --> 00:00:45.110 align:start position:0%
+more sophisticated. So when we enable
+the<00:00:43.520><c> agent</c><00:00:43.920><c> team,</c><00:00:44.160><c> we</c><00:00:44.399><c> actually</c><00:00:44.640><c> first</c><00:00:44.879><c> pull</c>
+
+00:00:45.110 --> 00:00:45.120 align:start position:0%
+the agent team, we actually first pull
+ 
+
+00:00:45.120 --> 00:00:47.670 align:start position:0%
+the agent team, we actually first pull
+up<00:00:45.280><c> a</c><00:00:45.520><c> team</c><00:00:45.760><c> lead</c><00:00:46.160><c> that</c><00:00:46.480><c> manages</c><00:00:46.960><c> a</c><00:00:47.280><c> number</c><00:00:47.520><c> of</c>
+
+00:00:47.670 --> 00:00:47.680 align:start position:0%
+up a team lead that manages a number of
+ 
+
+00:00:47.680 --> 00:00:48.950 align:start position:0%
+up a team lead that manages a number of
+different<00:00:47.920><c> prompts</c><00:00:48.320><c> depending</c><00:00:48.640><c> what</c><00:00:48.800><c> kind</c><00:00:48.879><c> of</c>
+
+00:00:48.950 --> 00:00:48.960 align:start position:0%
+different prompts depending what kind of
+ 
+
+00:00:48.960 --> 00:00:50.630 align:start position:0%
+different prompts depending what kind of
+tasks<00:00:49.280><c> we</c><00:00:49.440><c> need</c><00:00:49.600><c> to</c><00:00:49.760><c> complete.</c><00:00:50.239><c> The</c><00:00:50.480><c> team</c>
+
+00:00:50.630 --> 00:00:50.640 align:start position:0%
+tasks we need to complete. The team
+ 
+
+00:00:50.640 --> 00:00:51.830 align:start position:0%
+tasks we need to complete. The team
+leader<00:00:50.879><c> will</c><00:00:51.039><c> then</c><00:00:51.200><c> distribute</c><00:00:51.600><c> those</c>
+
+00:00:51.830 --> 00:00:51.840 align:start position:0%
+leader will then distribute those
+ 
+
+00:00:51.840 --> 00:00:53.510 align:start position:0%
+leader will then distribute those
+prompts<00:00:52.239><c> amongst</c><00:00:52.640><c> very</c><00:00:52.960><c> specialized</c>
+
+00:00:53.510 --> 00:00:53.520 align:start position:0%
+prompts amongst very specialized
+ 
+
+00:00:53.520 --> 00:00:55.350 align:start position:0%
+prompts amongst very specialized
+teammates<00:00:54.160><c> and</c><00:00:54.399><c> all</c><00:00:54.559><c> of</c><00:00:54.640><c> these</c><00:00:54.800><c> teammates</c>
+
+00:00:55.350 --> 00:00:55.360 align:start position:0%
+teammates and all of these teammates
+ 
+
+00:00:55.360 --> 00:00:57.270 align:start position:0%
+teammates and all of these teammates
+actually<00:00:55.680><c> spool</c><00:00:55.920><c> up</c><00:00:56.079><c> their</c><00:00:56.320><c> own</c><00:00:56.559><c> instance</c><00:00:57.039><c> of</c>
+
+00:00:57.270 --> 00:00:57.280 align:start position:0%
+actually spool up their own instance of
+ 
+
+00:00:57.280 --> 00:00:59.270 align:start position:0%
+actually spool up their own instance of
+clawed<00:00:57.760><c> code.</c><00:00:58.320><c> So</c><00:00:58.480><c> this</c><00:00:58.640><c> is</c><00:00:58.800><c> important</c><00:00:59.039><c> to</c>
+
+00:00:59.270 --> 00:00:59.280 align:start position:0%
+clawed code. So this is important to
+ 
+
+00:00:59.280 --> 00:01:01.349 align:start position:0%
+clawed code. So this is important to
+note<00:00:59.520><c> because</c><00:01:00.000><c> uh</c><00:01:00.239><c> sub</c><00:01:00.480><c> agents</c><00:01:00.960><c> actually</c><00:01:01.199><c> work</c>
+
+00:01:01.349 --> 00:01:01.359 align:start position:0%
+note because uh sub agents actually work
+ 
+
+00:01:01.359 --> 00:01:03.110 align:start position:0%
+note because uh sub agents actually work
+within<00:01:01.680><c> the</c><00:01:01.920><c> one</c><00:01:02.160><c> instance</c><00:01:02.480><c> or</c><00:01:02.719><c> the</c><00:01:02.879><c> one</c>
+
+00:01:03.110 --> 00:01:03.120 align:start position:0%
+within the one instance or the one
+ 
+
+00:01:03.120 --> 00:01:04.869 align:start position:0%
+within the one instance or the one
+session<00:01:03.680><c> but</c><00:01:03.920><c> then</c><00:01:04.080><c> each</c><00:01:04.320><c> of</c><00:01:04.400><c> these</c><00:01:04.640><c> guys</c>
+
+00:01:04.869 --> 00:01:04.879 align:start position:0%
+session but then each of these guys
+ 
+
+00:01:04.879 --> 00:01:06.710 align:start position:0%
+session but then each of these guys
+actually<00:01:05.199><c> runs</c><00:01:05.439><c> in</c><00:01:05.600><c> their</c><00:01:05.840><c> own</c><00:01:06.000><c> isolated</c><00:01:06.560><c> and</c>
+
+00:01:06.710 --> 00:01:06.720 align:start position:0%
+actually runs in their own isolated and
+ 
+
+00:01:06.720 --> 00:01:09.429 align:start position:0%
+actually runs in their own isolated and
+dedicated<00:01:07.280><c> session.</c><00:01:08.080><c> So</c><00:01:08.320><c> the</c><00:01:08.640><c> sub</c><00:01:08.880><c> agent</c>
+
+00:01:09.429 --> 00:01:09.439 align:start position:0%
+dedicated session. So the sub agent
+ 
+
+00:01:09.439 --> 00:01:12.149 align:start position:0%
+dedicated session. So the sub agent
+there<00:01:09.680><c> is</c><00:01:10.159><c> uh</c><00:01:10.400><c> lower</c><00:01:10.720><c> token</c><00:01:11.119><c> consumption</c><00:01:11.760><c> and</c>
+
+00:01:12.149 --> 00:01:12.159 align:start position:0%
+there is uh lower token consumption and
+ 
+
+00:01:12.159 --> 00:01:14.870 align:start position:0%
+there is uh lower token consumption and
+technically<00:01:12.640><c> speaking</c><00:01:12.960><c> a</c><00:01:13.280><c> lower</c><00:01:14.000><c> quality</c><00:01:14.560><c> of</c>
+
+00:01:14.870 --> 00:01:14.880 align:start position:0%
+technically speaking a lower quality of
+ 
+
+00:01:14.880 --> 00:01:16.310 align:start position:0%
+technically speaking a lower quality of
+output.<00:01:15.439><c> They're</c><00:01:15.600><c> meant</c><00:01:15.760><c> to</c><00:01:15.840><c> be</c><00:01:15.920><c> used</c><00:01:16.080><c> for</c>
+
+00:01:16.310 --> 00:01:16.320 align:start position:0%
+output. They're meant to be used for
+ 
+
+00:01:16.320 --> 00:01:17.830 align:start position:0%
+output. They're meant to be used for
+like<00:01:16.479><c> simpler</c><00:01:16.799><c> tasks.</c><00:01:17.360><c> But</c><00:01:17.520><c> when</c><00:01:17.680><c> you're</c>
+
+00:01:17.830 --> 00:01:17.840 align:start position:0%
+like simpler tasks. But when you're
+ 
+
+00:01:17.840 --> 00:01:19.510 align:start position:0%
+like simpler tasks. But when you're
+using<00:01:18.080><c> an</c><00:01:18.320><c> agent</c><00:01:18.720><c> team</c><00:01:19.040><c> because</c><00:01:19.200><c> they</c><00:01:19.439><c> have</c>
+
+00:01:19.510 --> 00:01:19.520 align:start position:0%
+using an agent team because they have
+ 
+
+00:01:19.520 --> 00:01:21.270 align:start position:0%
+using an agent team because they have
+their<00:01:19.680><c> own</c><00:01:19.840><c> instance,</c><00:01:20.560><c> they</c><00:01:20.880><c> can</c><00:01:21.040><c> actually</c>
+
+00:01:21.270 --> 00:01:21.280 align:start position:0%
+their own instance, they can actually
+ 
+
+00:01:21.280 --> 00:01:23.190 align:start position:0%
+their own instance, they can actually
+use<00:01:21.439><c> a</c><00:01:21.680><c> lot</c><00:01:21.840><c> more</c><00:01:22.000><c> tokens</c><00:01:22.479><c> and</c><00:01:22.720><c> they</c><00:01:22.960><c> can</c><00:01:23.040><c> run</c>
+
+00:01:23.190 --> 00:01:23.200 align:start position:0%
+use a lot more tokens and they can run
+ 
+
+00:01:23.200 --> 00:01:25.350 align:start position:0%
+use a lot more tokens and they can run
+more<00:01:23.439><c> independently.</c><00:01:24.560><c> Now</c><00:01:24.799><c> the</c><00:01:25.040><c> interesting</c>
+
+00:01:25.350 --> 00:01:25.360 align:start position:0%
+more independently. Now the interesting
+ 
+
+00:01:25.360 --> 00:01:27.109 align:start position:0%
+more independently. Now the interesting
+thing<00:01:25.520><c> is</c><00:01:25.759><c> that</c><00:01:26.240><c> all</c><00:01:26.400><c> these</c><00:01:26.720><c> guys</c><00:01:26.960><c> can</c>
+
+00:01:27.109 --> 00:01:27.119 align:start position:0%
+thing is that all these guys can
+ 
+
+00:01:27.119 --> 00:01:28.870 align:start position:0%
+thing is that all these guys can
+actually<00:01:27.439><c> speak</c><00:01:27.680><c> between</c><00:01:28.080><c> each</c><00:01:28.240><c> other.</c><00:01:28.560><c> So</c><00:01:28.720><c> if</c>
+
+00:01:28.870 --> 00:01:28.880 align:start position:0%
+actually speak between each other. So if
+ 
+
+00:01:28.880 --> 00:01:30.870 align:start position:0%
+actually speak between each other. So if
+teammate<00:01:29.360><c> A</c><00:01:29.600><c> is</c><00:01:29.840><c> working</c><00:01:30.000><c> on</c><00:01:30.159><c> the</c><00:01:30.320><c> front</c><00:01:30.479><c> end,</c>
+
+00:01:30.870 --> 00:01:30.880 align:start position:0%
+teammate A is working on the front end,
+ 
+
+00:01:30.880 --> 00:01:32.710 align:start position:0%
+teammate A is working on the front end,
+teammate<00:01:31.280><c> B</c><00:01:31.439><c> is</c><00:01:31.680><c> working</c><00:01:31.840><c> on</c><00:01:31.920><c> the</c><00:01:32.079><c> back</c><00:01:32.240><c> end.</c>
+
+00:01:32.710 --> 00:01:32.720 align:start position:0%
+teammate B is working on the back end.
+ 
+
+00:01:32.720 --> 00:01:34.230 align:start position:0%
+teammate B is working on the back end.
+If<00:01:32.880><c> teammate</c><00:01:33.280><c> A</c><00:01:33.520><c> gets</c><00:01:33.680><c> stuck,</c><00:01:33.920><c> they</c><00:01:34.079><c> can</c>
+
+00:01:34.230 --> 00:01:34.240 align:start position:0%
+If teammate A gets stuck, they can
+ 
+
+00:01:34.240 --> 00:01:36.390 align:start position:0%
+If teammate A gets stuck, they can
+directly<00:01:34.640><c> communicate</c><00:01:35.200><c> with</c><00:01:35.439><c> team</c><00:01:35.759><c> A</c><00:01:35.920><c> B</c><00:01:36.159><c> to</c>
+
+00:01:36.390 --> 00:01:36.400 align:start position:0%
+directly communicate with team A B to
+ 
+
+00:01:36.400 --> 00:01:37.990 align:start position:0%
+directly communicate with team A B to
+kind<00:01:36.560><c> of</c><00:01:36.640><c> get</c><00:01:36.799><c> unstuck</c><00:01:37.200><c> or</c><00:01:37.360><c> to</c><00:01:37.520><c> try</c><00:01:37.600><c> and</c><00:01:37.759><c> figure</c>
+
+00:01:37.990 --> 00:01:38.000 align:start position:0%
+kind of get unstuck or to try and figure
+ 
+
+00:01:38.000 --> 00:01:39.429 align:start position:0%
+kind of get unstuck or to try and figure
+things<00:01:38.240><c> out</c><00:01:38.640><c> and</c><00:01:38.880><c> they</c><00:01:39.040><c> can</c><00:01:39.200><c> keep</c>
+
+00:01:39.429 --> 00:01:39.439 align:start position:0%
+things out and they can keep
+ 
+
+00:01:39.439 --> 00:01:41.109 align:start position:0%
+things out and they can keep
+communicating<00:01:40.000><c> back</c><00:01:40.159><c> and</c><00:01:40.400><c> forth</c><00:01:40.640><c> between</c><00:01:40.880><c> the</c>
+
+00:01:41.109 --> 00:01:41.119 align:start position:0%
+communicating back and forth between the
+ 
+
+00:01:41.119 --> 00:01:43.030 align:start position:0%
+communicating back and forth between the
+team<00:01:41.360><c> lead</c><00:01:41.520><c> and</c><00:01:41.680><c> then</c><00:01:41.840><c> the</c><00:01:42.000><c> teammate.</c><00:01:42.720><c> Whereas</c>
+
+00:01:43.030 --> 00:01:43.040 align:start position:0%
+team lead and then the teammate. Whereas
+ 
+
+00:01:43.040 --> 00:01:44.550 align:start position:0%
+team lead and then the teammate. Whereas
+in<00:01:43.200><c> this</c><00:01:43.360><c> instance,</c><00:01:43.680><c> you'd</c><00:01:43.840><c> spool</c><00:01:44.079><c> up</c><00:01:44.240><c> the</c><00:01:44.400><c> sub</c>
+
+00:01:44.550 --> 00:01:44.560 align:start position:0%
+in this instance, you'd spool up the sub
+ 
+
+00:01:44.560 --> 00:01:45.990 align:start position:0%
+in this instance, you'd spool up the sub
+agent<00:01:44.960><c> that</c><00:01:45.040><c> would</c><00:01:45.200><c> complete</c><00:01:45.439><c> the</c><00:01:45.600><c> task</c><00:01:45.759><c> and</c>
+
+00:01:45.990 --> 00:01:46.000 align:start position:0%
+agent that would complete the task and
+ 
+
+00:01:46.000 --> 00:01:47.910 align:start position:0%
+agent that would complete the task and
+then<00:01:46.159><c> communicate</c><00:01:46.560><c> it</c><00:01:46.720><c> back</c><00:01:47.200><c> and</c><00:01:47.439><c> if</c><00:01:47.600><c> they</c><00:01:47.759><c> had</c>
+
+00:01:47.910 --> 00:01:47.920 align:start position:0%
+then communicate it back and if they had
+ 
+
+00:01:47.920 --> 00:01:49.910 align:start position:0%
+then communicate it back and if they had
+to<00:01:48.079><c> do</c><00:01:48.320><c> another</c><00:01:48.720><c> run</c><00:01:48.960><c> at</c><00:01:49.200><c> completing</c><00:01:49.600><c> a</c>
+
+00:01:49.910 --> 00:01:49.920 align:start position:0%
+to do another run at completing a
+ 
+
+00:01:49.920 --> 00:01:51.429 align:start position:0%
+to do another run at completing a
+specific<00:01:50.240><c> part</c><00:01:50.399><c> of</c><00:01:50.640><c> work,</c><00:01:51.040><c> it</c><00:01:51.200><c> wouldn't</c>
+
+00:01:51.429 --> 00:01:51.439 align:start position:0%
+specific part of work, it wouldn't
+ 
+
+00:01:51.439 --> 00:01:52.870 align:start position:0%
+specific part of work, it wouldn't
+actually<00:01:51.600><c> be</c><00:01:51.759><c> a</c><00:01:52.000><c> direct</c><00:01:52.320><c> communication.</c><00:01:52.799><c> It</c>
+
+00:01:52.870 --> 00:01:52.880 align:start position:0%
+actually be a direct communication. It
+ 
+
+00:01:52.880 --> 00:01:54.710 align:start position:0%
+actually be a direct communication. It
+would<00:01:52.960><c> just</c><00:01:53.119><c> kind</c><00:01:53.280><c> of</c><00:01:53.360><c> be</c><00:01:53.520><c> very</c><00:01:54.079><c> transactional</c>
+
+00:01:54.710 --> 00:01:54.720 align:start position:0%
+would just kind of be very transactional
+ 
+
+00:01:54.720 --> 00:01:55.990 align:start position:0%
+would just kind of be very transactional
+in<00:01:54.880><c> nature.</c><00:01:55.360><c> And</c><00:01:55.439><c> then</c><00:01:55.600><c> the</c><00:01:55.759><c> final</c>
+
+00:01:55.990 --> 00:01:56.000 align:start position:0%
+in nature. And then the final
+ 
+
+00:01:56.000 --> 00:01:57.270 align:start position:0%
+in nature. And then the final
+interesting<00:01:56.399><c> thing</c><00:01:56.560><c> is</c><00:01:56.720><c> that</c><00:01:56.960><c> we</c><00:01:57.119><c> can</c>
+
+00:01:57.270 --> 00:01:57.280 align:start position:0%
+interesting thing is that we can
+ 
+
+00:01:57.280 --> 00:01:59.109 align:start position:0%
+interesting thing is that we can
+actually<00:01:57.600><c> speak</c><00:01:57.840><c> to</c><00:01:58.159><c> any</c><00:01:58.399><c> one</c><00:01:58.640><c> of</c><00:01:58.719><c> the</c><00:01:58.880><c> team</c>
+
+00:01:59.109 --> 00:01:59.119 align:start position:0%
+actually speak to any one of the team
+ 
+
+00:01:59.119 --> 00:02:00.870 align:start position:0%
+actually speak to any one of the team
+members<00:01:59.439><c> at</c><00:01:59.680><c> any</c><00:01:59.920><c> time.</c><00:02:00.399><c> So</c><00:02:00.479><c> when</c><00:02:00.640><c> we're</c><00:02:00.799><c> in</c>
+
+00:02:00.870 --> 00:02:00.880 align:start position:0%
+members at any time. So when we're in
+ 
+
+00:02:00.880 --> 00:02:02.389 align:start position:0%
+members at any time. So when we're in
+the<00:02:01.040><c> cloud</c><00:02:01.280><c> code</c><00:02:01.520><c> terminal,</c><00:02:01.840><c> we'll</c><00:02:02.079><c> see</c><00:02:02.240><c> later</c>
+
+00:02:02.389 --> 00:02:02.399 align:start position:0%
+the cloud code terminal, we'll see later
+ 
+
+00:02:02.399 --> 00:02:03.590 align:start position:0%
+the cloud code terminal, we'll see later
+on<00:02:02.560><c> that</c><00:02:02.719><c> we</c><00:02:02.880><c> actually</c><00:02:03.040><c> have</c><00:02:03.200><c> access</c><00:02:03.520><c> to</c>
+
+00:02:03.590 --> 00:02:03.600 align:start position:0%
+on that we actually have access to
+ 
+
+00:02:03.600 --> 00:02:05.670 align:start position:0%
+on that we actually have access to
+toggle<00:02:04.079><c> between</c><00:02:04.320><c> the</c><00:02:04.560><c> team</c><00:02:04.799><c> leader</c><00:02:05.280><c> and</c><00:02:05.520><c> any</c>
+
+00:02:05.670 --> 00:02:05.680 align:start position:0%
+toggle between the team leader and any
+ 
+
+00:02:05.680 --> 00:02:07.190 align:start position:0%
+toggle between the team leader and any
+of<00:02:05.840><c> the</c><00:02:06.079><c> open</c><00:02:06.399><c> teammates</c><00:02:06.799><c> and</c><00:02:07.040><c> just</c>
+
+00:02:07.190 --> 00:02:07.200 align:start position:0%
+of the open teammates and just
+ 
+
+00:02:07.200 --> 00:02:08.869 align:start position:0%
+of the open teammates and just
+communicate<00:02:07.520><c> with</c><00:02:07.680><c> them</c><00:02:07.920><c> directly.</c><00:02:08.560><c> So</c><00:02:08.720><c> we</c>
+
+00:02:08.869 --> 00:02:08.879 align:start position:0%
+communicate with them directly. So we
+ 
+
+00:02:08.879 --> 00:02:10.389 align:start position:0%
+communicate with them directly. So we
+can<00:02:09.039><c> change</c><00:02:09.200><c> their</c><00:02:09.440><c> scope</c><00:02:09.679><c> of</c><00:02:09.920><c> work,</c><00:02:10.239><c> get</c>
+
+00:02:10.389 --> 00:02:10.399 align:start position:0%
+can change their scope of work, get
+ 
+
+00:02:10.399 --> 00:02:11.670 align:start position:0%
+can change their scope of work, get
+feedback<00:02:10.720><c> on</c><00:02:10.879><c> their</c><00:02:11.039><c> working,</c><00:02:11.360><c> what</c><00:02:11.520><c> what</c>
+
+00:02:11.670 --> 00:02:11.680 align:start position:0%
+feedback on their working, what what
+ 
+
+00:02:11.680 --> 00:02:13.190 align:start position:0%
+feedback on their working, what what
+they're<00:02:11.840><c> working</c><00:02:12.080><c> on,</c><00:02:12.480><c> and</c><00:02:12.720><c> even</c><00:02:12.879><c> try</c><00:02:13.040><c> and</c>
+
+00:02:13.190 --> 00:02:13.200 align:start position:0%
+they're working on, and even try and
+ 
+
+00:02:13.200 --> 00:02:14.790 align:start position:0%
+they're working on, and even try and
+unblock<00:02:13.599><c> them</c><00:02:13.760><c> if</c><00:02:14.000><c> they</c><00:02:14.160><c> get</c><00:02:14.319><c> stuck.</c>
+
+00:02:14.790 --> 00:02:14.800 align:start position:0%
+unblock them if they get stuck.
+ 
+
+00:02:14.800 --> 00:02:16.470 align:start position:0%
+unblock them if they get stuck.
+Anthropic<00:02:15.360><c> summarizes</c><00:02:15.920><c> the</c><00:02:16.160><c> difference</c>
+
+00:02:16.470 --> 00:02:16.480 align:start position:0%
+Anthropic summarizes the difference
+ 
+
+00:02:16.480 --> 00:02:18.229 align:start position:0%
+Anthropic summarizes the difference
+really<00:02:16.720><c> well</c><00:02:16.879><c> over</c><00:02:17.120><c> here</c><00:02:17.360><c> where</c><00:02:17.599><c> they</c><00:02:17.760><c> say</c><00:02:18.000><c> sub</c>
+
+00:02:18.229 --> 00:02:18.239 align:start position:0%
+really well over here where they say sub
+ 
+
+00:02:18.239 --> 00:02:19.750 align:start position:0%
+really well over here where they say sub
+agents<00:02:18.640><c> are</c><00:02:18.800><c> better</c><00:02:18.959><c> at</c><00:02:19.200><c> working</c><00:02:19.520><c> out</c>
+
+00:02:19.750 --> 00:02:19.760 align:start position:0%
+agents are better at working out
+ 
+
+00:02:19.760 --> 00:02:21.990 align:start position:0%
+agents are better at working out
+smaller,<00:02:20.160><c> more</c><00:02:20.400><c> focused</c><00:02:20.800><c> tasks,</c><00:02:21.520><c> and</c><00:02:21.760><c> then</c>
+
+00:02:21.990 --> 00:02:22.000 align:start position:0%
+smaller, more focused tasks, and then
+ 
+
+00:02:22.000 --> 00:02:24.070 align:start position:0%
+smaller, more focused tasks, and then
+agent<00:02:22.400><c> teams</c><00:02:22.640><c> are</c><00:02:22.879><c> better</c><00:02:23.040><c> at</c><00:02:23.200><c> figuring</c><00:02:23.520><c> out</c>
+
+00:02:24.070 --> 00:02:24.080 align:start position:0%
+agent teams are better at figuring out
+ 
+
+00:02:24.080 --> 00:02:25.910 align:start position:0%
+agent teams are better at figuring out
+complex<00:02:24.560><c> problems</c><00:02:25.280><c> where</c><00:02:25.520><c> they</c><00:02:25.760><c> can</c>
+
+00:02:25.910 --> 00:02:25.920 align:start position:0%
+complex problems where they can
+ 
+
+00:02:25.920 --> 00:02:27.750 align:start position:0%
+complex problems where they can
+collaborate<00:02:26.400><c> together.</c><00:02:27.040><c> So</c><00:02:27.200><c> here's</c><00:02:27.440><c> a</c><00:02:27.599><c> really</c>
+
+00:02:27.750 --> 00:02:27.760 align:start position:0%
+collaborate together. So here's a really
+ 
+
+00:02:27.760 --> 00:02:29.350 align:start position:0%
+collaborate together. So here's a really
+good<00:02:27.920><c> example</c><00:02:28.239><c> of</c><00:02:28.480><c> when</c><00:02:28.720><c> you</c><00:02:28.879><c> would</c><00:02:29.040><c> actually</c>
+
+00:02:29.350 --> 00:02:29.360 align:start position:0%
+good example of when you would actually
+ 
+
+00:02:29.360 --> 00:02:31.670 align:start position:0%
+good example of when you would actually
+fire<00:02:29.680><c> off</c><00:02:29.840><c> an</c><00:02:30.080><c> agent</c><00:02:30.480><c> team.</c><00:02:31.040><c> So</c><00:02:31.280><c> if</c><00:02:31.520><c> you</c><00:02:31.599><c> want</c>
+
+00:02:31.670 --> 00:02:31.680 align:start position:0%
+fire off an agent team. So if you want
+ 
+
+00:02:31.680 --> 00:02:33.430 align:start position:0%
+fire off an agent team. So if you want
+to<00:02:31.760><c> review</c><00:02:32.000><c> a</c><00:02:32.239><c> code</c><00:02:32.480><c> base,</c><00:02:32.879><c> typically</c><00:02:33.280><c> when</c>
+
+00:02:33.430 --> 00:02:33.440 align:start position:0%
+to review a code base, typically when
+ 
+
+00:02:33.440 --> 00:02:35.190 align:start position:0%
+to review a code base, typically when
+you<00:02:33.599><c> just</c><00:02:33.760><c> issue</c><00:02:34.080><c> one</c><00:02:34.319><c> agent</c><00:02:34.720><c> that</c><00:02:34.879><c> task,</c>
+
+00:02:35.190 --> 00:02:35.200 align:start position:0%
+you just issue one agent that task,
+ 
+
+00:02:35.200 --> 00:02:37.190 align:start position:0%
+you just issue one agent that task,
+they'll<00:02:35.519><c> latch</c><00:02:35.680><c> on</c><00:02:35.840><c> to</c><00:02:36.000><c> one</c><00:02:36.239><c> theme</c><00:02:36.480><c> or</c><00:02:36.720><c> one</c><00:02:36.959><c> key</c>
+
+00:02:37.190 --> 00:02:37.200 align:start position:0%
+they'll latch on to one theme or one key
+ 
+
+00:02:37.200 --> 00:02:39.110 align:start position:0%
+they'll latch on to one theme or one key
+area<00:02:37.680><c> and</c><00:02:37.920><c> then</c><00:02:38.080><c> struggle</c><00:02:38.400><c> to</c><00:02:38.640><c> actually</c>
+
+00:02:39.110 --> 00:02:39.120 align:start position:0%
+area and then struggle to actually
+ 
+
+00:02:39.120 --> 00:02:41.350 align:start position:0%
+area and then struggle to actually
+diversify<00:02:39.760><c> their</c><00:02:40.080><c> approach.</c><00:02:40.720><c> Whereas</c><00:02:41.040><c> if</c><00:02:41.280><c> you</c>
+
+00:02:41.350 --> 00:02:41.360 align:start position:0%
+diversify their approach. Whereas if you
+ 
+
+00:02:41.360 --> 00:02:43.030 align:start position:0%
+diversify their approach. Whereas if you
+have<00:02:41.519><c> an</c><00:02:41.680><c> agent</c><00:02:42.000><c> team,</c><00:02:42.239><c> you</c><00:02:42.400><c> can</c><00:02:42.480><c> give</c><00:02:42.720><c> each</c><00:02:42.879><c> of</c>
+
+00:02:43.030 --> 00:02:43.040 align:start position:0%
+have an agent team, you can give each of
+ 
+
+00:02:43.040 --> 00:02:44.949 align:start position:0%
+have an agent team, you can give each of
+those<00:02:43.200><c> members</c><00:02:43.519><c> in</c><00:02:43.680><c> a</c><00:02:43.920><c> team</c><00:02:44.319><c> a</c><00:02:44.560><c> different</c>
+
+00:02:44.949 --> 00:02:44.959 align:start position:0%
+those members in a team a different
+ 
+
+00:02:44.959 --> 00:02:46.869 align:start position:0%
+those members in a team a different
+distinct<00:02:45.440><c> area</c><00:02:45.680><c> to</c><00:02:45.920><c> focus</c><00:02:46.160><c> on.</c><00:02:46.480><c> Therefore,</c>
+
+00:02:46.869 --> 00:02:46.879 align:start position:0%
+distinct area to focus on. Therefore,
+ 
+
+00:02:46.879 --> 00:02:48.710 align:start position:0%
+distinct area to focus on. Therefore,
+each<00:02:47.040><c> of</c><00:02:47.200><c> these</c><00:02:47.360><c> areas</c><00:02:48.000><c> will</c><00:02:48.319><c> get</c><00:02:48.480><c> an</c>
+
+00:02:48.710 --> 00:02:48.720 align:start position:0%
+each of these areas will get an
+ 
+
+00:02:48.720 --> 00:02:50.869 align:start position:0%
+each of these areas will get an
+appropriate<00:02:49.280><c> coverage</c><00:02:49.760><c> from</c><00:02:50.080><c> each</c><00:02:50.319><c> agent.</c>
+
+00:02:50.869 --> 00:02:50.879 align:start position:0%
+appropriate coverage from each agent.
+ 
+
+00:02:50.879 --> 00:02:52.790 align:start position:0%
+appropriate coverage from each agent.
+And<00:02:51.040><c> the</c><00:02:51.200><c> second</c><00:02:51.440><c> example</c><00:02:51.760><c> from</c><00:02:52.080><c> anthropic</c><00:02:52.560><c> is</c>
+
+00:02:52.790 --> 00:02:52.800 align:start position:0%
+And the second example from anthropic is
+ 
+
+00:02:52.800 --> 00:02:54.630 align:start position:0%
+And the second example from anthropic is
+in<00:02:52.959><c> a</c><00:02:53.120><c> very</c><00:02:53.360><c> similar</c><00:02:53.680><c> light</c><00:02:54.000><c> where</c><00:02:54.239><c> if</c><00:02:54.480><c> you</c>
+
+00:02:54.630 --> 00:02:54.640 align:start position:0%
+in a very similar light where if you
+ 
+
+00:02:54.640 --> 00:02:57.270 align:start position:0%
+in a very similar light where if you
+want<00:02:54.800><c> to</c><00:02:55.200><c> understand</c><00:02:55.680><c> a</c><00:02:56.000><c> complex</c><00:02:56.400><c> issue,</c>
+
+00:02:57.270 --> 00:02:57.280 align:start position:0%
+want to understand a complex issue,
+ 
+
+00:02:57.280 --> 00:02:58.949 align:start position:0%
+want to understand a complex issue,
+typically<00:02:57.680><c> one</c><00:02:57.920><c> agent</c><00:02:58.239><c> would</c><00:02:58.480><c> again</c><00:02:58.720><c> just</c>
+
+00:02:58.949 --> 00:02:58.959 align:start position:0%
+typically one agent would again just
+ 
+
+00:02:58.959 --> 00:03:01.350 align:start position:0%
+typically one agent would again just
+find<00:02:59.280><c> one</c><00:02:59.680><c> possible</c><00:03:00.160><c> explanation,</c><00:03:00.879><c> one</c><00:03:01.120><c> key</c>
+
+00:03:01.350 --> 00:03:01.360 align:start position:0%
+find one possible explanation, one key
+ 
+
+00:03:01.360 --> 00:03:03.190 align:start position:0%
+find one possible explanation, one key
+theme,<00:03:01.680><c> latch</c><00:03:01.920><c> on</c><00:03:02.080><c> to</c><00:03:02.239><c> it.</c><00:03:02.720><c> So</c><00:03:02.879><c> then</c><00:03:03.040><c> you</c>
+
+00:03:03.190 --> 00:03:03.200 align:start position:0%
+theme, latch on to it. So then you
+ 
+
+00:03:03.200 --> 00:03:04.790 align:start position:0%
+theme, latch on to it. So then you
+actually<00:03:03.440><c> want</c><00:03:03.519><c> to</c><00:03:03.680><c> prompt</c><00:03:03.920><c> up</c><00:03:04.080><c> an</c><00:03:04.239><c> agent</c><00:03:04.560><c> team</c>
+
+00:03:04.790 --> 00:03:04.800 align:start position:0%
+actually want to prompt up an agent team
+ 
+
+00:03:04.800 --> 00:03:06.790 align:start position:0%
+actually want to prompt up an agent team
+and<00:03:05.040><c> then</c><00:03:05.200><c> give</c><00:03:05.840><c> different</c><00:03:06.239><c> members</c><00:03:06.480><c> of</c><00:03:06.640><c> the</c>
+
+00:03:06.790 --> 00:03:06.800 align:start position:0%
+and then give different members of the
+ 
+
+00:03:06.800 --> 00:03:08.949 align:start position:0%
+and then give different members of the
+team<00:03:07.120><c> distinct</c><00:03:07.599><c> areas</c><00:03:07.920><c> to</c><00:03:08.159><c> explore</c><00:03:08.560><c> and</c><00:03:08.800><c> to</c>
+
+00:03:08.949 --> 00:03:08.959 align:start position:0%
+team distinct areas to explore and to
+ 
+
+00:03:08.959 --> 00:03:10.710 align:start position:0%
+team distinct areas to explore and to
+look<00:03:09.120><c> at.</c><00:03:09.599><c> So</c><00:03:09.760><c> I've</c><00:03:09.920><c> got</c><00:03:10.000><c> two</c><00:03:10.239><c> instances</c><00:03:10.560><c> of</c>
+
+00:03:10.710 --> 00:03:10.720 align:start position:0%
+look at. So I've got two instances of
+ 
+
+00:03:10.720 --> 00:03:12.470 align:start position:0%
+look at. So I've got two instances of
+cursor<00:03:11.200><c> open</c><00:03:11.440><c> up.</c><00:03:11.680><c> I've</c><00:03:11.840><c> got</c><00:03:12.000><c> a</c><00:03:12.159><c> normal</c>
+
+00:03:12.470 --> 00:03:12.480 align:start position:0%
+cursor open up. I've got a normal
+ 
+
+00:03:12.480 --> 00:03:13.910 align:start position:0%
+cursor open up. I've got a normal
+instance<00:03:12.800><c> where</c><00:03:13.040><c> I'll</c><00:03:13.200><c> just</c><00:03:13.360><c> be</c><00:03:13.440><c> using</c><00:03:13.680><c> one</c>
+
+00:03:13.910 --> 00:03:13.920 align:start position:0%
+instance where I'll just be using one
+ 
+
+00:03:13.920 --> 00:03:15.830 align:start position:0%
+instance where I'll just be using one
+agent<00:03:14.239><c> to</c><00:03:14.480><c> build</c><00:03:14.640><c> out</c><00:03:14.800><c> this</c><00:03:14.959><c> prompt</c><00:03:15.280><c> for</c><00:03:15.440><c> us</c>
+
+00:03:15.830 --> 00:03:15.840 align:start position:0%
+agent to build out this prompt for us
+ 
+
+00:03:15.840 --> 00:03:17.350 align:start position:0%
+agent to build out this prompt for us
+and<00:03:16.080><c> then</c><00:03:16.239><c> another</c><00:03:16.560><c> instance</c><00:03:16.879><c> where</c><00:03:17.120><c> I'll</c><00:03:17.280><c> be</c>
+
+00:03:17.350 --> 00:03:17.360 align:start position:0%
+and then another instance where I'll be
+ 
+
+00:03:17.360 --> 00:03:18.949 align:start position:0%
+and then another instance where I'll be
+spooling<00:03:17.680><c> up</c><00:03:17.760><c> an</c><00:03:18.000><c> agent</c><00:03:18.239><c> team</c><00:03:18.400><c> and</c><00:03:18.640><c> giving</c><00:03:18.800><c> it</c>
+
+00:03:18.949 --> 00:03:18.959 align:start position:0%
+spooling up an agent team and giving it
+ 
+
+00:03:18.959 --> 00:03:20.790 align:start position:0%
+spooling up an agent team and giving it
+the<00:03:19.200><c> exact</c><00:03:19.440><c> same</c><00:03:19.599><c> prompt.</c><00:03:20.319><c> So</c><00:03:20.480><c> I'm</c><00:03:20.640><c> just</c>
+
+00:03:20.790 --> 00:03:20.800 align:start position:0%
+the exact same prompt. So I'm just
+ 
+
+00:03:20.800 --> 00:03:22.470 align:start position:0%
+the exact same prompt. So I'm just
+spooling<00:03:21.120><c> up</c><00:03:21.280><c> the</c><00:03:21.519><c> very</c><00:03:21.840><c> first</c><00:03:22.080><c> instance</c>
+
+00:03:22.470 --> 00:03:22.480 align:start position:0%
+spooling up the very first instance
+ 
+
+00:03:22.480 --> 00:03:24.470 align:start position:0%
+spooling up the very first instance
+using<00:03:22.720><c> this</c><00:03:22.959><c> single</c><00:03:23.280><c> agent.</c><00:03:23.840><c> I'm</c><00:03:24.080><c> asking</c><00:03:24.319><c> it</c>
+
+00:03:24.470 --> 00:03:24.480 align:start position:0%
+using this single agent. I'm asking it
+ 
+
+00:03:24.480 --> 00:03:27.190 align:start position:0%
+using this single agent. I'm asking it
+to<00:03:24.640><c> build</c><00:03:24.879><c> me</c><00:03:25.120><c> a</c><00:03:25.440><c> very</c><00:03:25.760><c> basic</c><00:03:26.400><c> task</c><00:03:26.800><c> manager</c>
+
+00:03:27.190 --> 00:03:27.200 align:start position:0%
+to build me a very basic task manager
+ 
+
+00:03:27.200 --> 00:03:29.270 align:start position:0%
+to build me a very basic task manager
+app<00:03:27.360><c> as</c><00:03:27.599><c> a</c><00:03:27.760><c> single</c><00:03:28.080><c> page</c><00:03:28.400><c> web</c><00:03:28.640><c> application.</c><00:03:29.120><c> So</c>
+
+00:03:29.270 --> 00:03:29.280 align:start position:0%
+app as a single page web application. So
+ 
+
+00:03:29.280 --> 00:03:31.190 align:start position:0%
+app as a single page web application. So
+it's<00:03:29.440><c> nothing</c><00:03:29.760><c> fancy.</c><00:03:30.480><c> It's</c><00:03:30.640><c> just</c><00:03:30.799><c> enough</c><00:03:31.040><c> for</c>
+
+00:03:31.190 --> 00:03:31.200 align:start position:0%
+it's nothing fancy. It's just enough for
+ 
+
+00:03:31.200 --> 00:03:32.710 align:start position:0%
+it's nothing fancy. It's just enough for
+us<00:03:31.280><c> to</c><00:03:31.440><c> test</c><00:03:31.680><c> this</c><00:03:31.840><c> out</c><00:03:32.000><c> and</c><00:03:32.319><c> see</c><00:03:32.480><c> what</c>
+
+00:03:32.710 --> 00:03:32.720 align:start position:0%
+us to test this out and see what
+ 
+
+00:03:32.720 --> 00:03:34.710 align:start position:0%
+us to test this out and see what
+happens.<00:03:33.440><c> So</c><00:03:33.599><c> now</c><00:03:33.680><c> in</c><00:03:33.840><c> our</c><00:03:34.000><c> next</c><00:03:34.159><c> terminal,</c><00:03:34.560><c> in</c>
+
+00:03:34.710 --> 00:03:34.720 align:start position:0%
+happens. So now in our next terminal, in
+ 
+
+00:03:34.720 --> 00:03:36.149 align:start position:0%
+happens. So now in our next terminal, in
+order<00:03:34.799><c> for</c><00:03:34.959><c> us</c><00:03:35.120><c> to</c><00:03:35.200><c> set</c><00:03:35.360><c> this</c><00:03:35.519><c> up,</c><00:03:35.760><c> we</c><00:03:35.920><c> first</c>
+
+00:03:36.149 --> 00:03:36.159 align:start position:0%
+order for us to set this up, we first
+ 
+
+00:03:36.159 --> 00:03:38.789 align:start position:0%
+order for us to set this up, we first
+have<00:03:36.319><c> to</c><00:03:36.560><c> initialize</c><00:03:37.440><c> agent</c><00:03:37.840><c> teams.</c><00:03:38.400><c> So</c><00:03:38.560><c> to</c>
+
+00:03:38.789 --> 00:03:38.799 align:start position:0%
+have to initialize agent teams. So to
+ 
+
+00:03:38.799 --> 00:03:40.949 align:start position:0%
+have to initialize agent teams. So to
+enable<00:03:39.280><c> agent</c><00:03:39.680><c> teams,</c><00:03:40.159><c> we</c><00:03:40.400><c> have</c><00:03:40.480><c> to</c><00:03:40.560><c> go</c><00:03:40.720><c> into</c>
+
+00:03:40.949 --> 00:03:40.959 align:start position:0%
+enable agent teams, we have to go into
+ 
+
+00:03:40.959 --> 00:03:43.589 align:start position:0%
+enable agent teams, we have to go into
+our<00:03:41.200><c> settings.json</c><00:03:42.239><c> file</c><00:03:42.720><c> and</c><00:03:42.879><c> then</c><00:03:43.120><c> add</c><00:03:43.360><c> this</c>
+
+00:03:43.589 --> 00:03:43.599 align:start position:0%
+our settings.json file and then add this
+ 
+
+00:03:43.599 --> 00:03:45.190 align:start position:0%
+our settings.json file and then add this
+environment<00:03:44.080><c> variable,</c><00:03:44.560><c> which</c><00:03:44.720><c> is</c><00:03:44.879><c> claude</c>
+
+00:03:45.190 --> 00:03:45.200 align:start position:0%
+environment variable, which is claude
+ 
+
+00:03:45.200 --> 00:03:47.190 align:start position:0%
+environment variable, which is claude
+code<00:03:45.440><c> experimental,</c><00:03:46.080><c> and</c><00:03:46.239><c> then</c><00:03:46.400><c> toggle</c><00:03:46.799><c> it</c><00:03:46.959><c> to</c>
+
+00:03:47.190 --> 00:03:47.200 align:start position:0%
+code experimental, and then toggle it to
+ 
+
+00:03:47.200 --> 00:03:49.190 align:start position:0%
+code experimental, and then toggle it to
+equal<00:03:47.599><c> one.</c><00:03:48.080><c> So</c><00:03:48.319><c> just</c><00:03:48.480><c> before</c><00:03:48.720><c> we</c><00:03:48.799><c> do</c><00:03:48.879><c> that,</c>
+
+00:03:49.190 --> 00:03:49.200 align:start position:0%
+equal one. So just before we do that,
+ 
+
+00:03:49.200 --> 00:03:50.390 align:start position:0%
+equal one. So just before we do that,
+make<00:03:49.280><c> sure</c><00:03:49.360><c> that</c><00:03:49.519><c> you're</c><00:03:49.680><c> running</c><00:03:49.840><c> the</c><00:03:50.080><c> latest</c>
+
+00:03:50.390 --> 00:03:50.400 align:start position:0%
+make sure that you're running the latest
+ 
+
+00:03:50.400 --> 00:03:52.470 align:start position:0%
+make sure that you're running the latest
+version<00:03:50.640><c> of</c><00:03:50.799><c> claude</c><00:03:51.280><c> code.</c><00:03:51.920><c> And</c><00:03:52.080><c> you</c><00:03:52.239><c> can</c><00:03:52.319><c> just</c>
+
+00:03:52.470 --> 00:03:52.480 align:start position:0%
+version of claude code. And you can just
+ 
+
+00:03:52.480 --> 00:03:53.910 align:start position:0%
+version of claude code. And you can just
+check<00:03:52.720><c> which</c><00:03:52.879><c> models</c><00:03:53.200><c> you</c><00:03:53.360><c> have</c><00:03:53.440><c> available</c><00:03:53.760><c> to</c>
+
+00:03:53.910 --> 00:03:53.920 align:start position:0%
+check which models you have available to
+ 
+
+00:03:53.920 --> 00:03:56.470 align:start position:0%
+check which models you have available to
+you<00:03:54.080><c> by</c><00:03:54.239><c> going</c><00:03:54.480><c> into</c><00:03:54.879><c> forward</c><00:03:55.280><c> slashmodel.</c>
+
+00:03:56.470 --> 00:03:56.480 align:start position:0%
+you by going into forward slashmodel.
+ 
+
+00:03:56.480 --> 00:03:57.990 align:start position:0%
+you by going into forward slashmodel.
+And<00:03:56.640><c> once</c><00:03:56.799><c> you</c><00:03:56.879><c> get</c><00:03:57.040><c> into</c><00:03:57.280><c> here,</c><00:03:57.439><c> you</c><00:03:57.680><c> got</c><00:03:57.760><c> two</c>
+
+00:03:57.990 --> 00:03:58.000 align:start position:0%
+And once you get into here, you got two
+ 
+
+00:03:58.000 --> 00:04:00.710 align:start position:0%
+And once you get into here, you got two
+different<00:03:58.159><c> options</c><00:03:58.560><c> for</c><00:03:58.879><c> an</c><00:03:59.120><c> Opus</c><00:03:59.599><c> 4.6</c><00:04:00.159><c> model.</c>
+
+00:04:00.710 --> 00:04:00.720 align:start position:0%
+different options for an Opus 4.6 model.
+ 
+
+00:04:00.720 --> 00:04:03.429 align:start position:0%
+different options for an Opus 4.6 model.
+You<00:04:00.959><c> have</c><00:04:01.040><c> the</c><00:04:01.360><c> regular</c><00:04:01.680><c> Opus</c><00:04:02.159><c> 4.6.</c><00:04:03.040><c> Then</c><00:04:03.200><c> you</c>
+
+00:04:03.429 --> 00:04:03.439 align:start position:0%
+You have the regular Opus 4.6. Then you
+ 
+
+00:04:03.439 --> 00:04:05.830 align:start position:0%
+You have the regular Opus 4.6. Then you
+also<00:04:03.599><c> have</c><00:04:03.760><c> the</c><00:04:04.000><c> 1</c><00:04:04.319><c> million</c><00:04:04.799><c> token</c><00:04:05.280><c> context</c>
+
+00:04:05.830 --> 00:04:05.840 align:start position:0%
+also have the 1 million token context
+ 
+
+00:04:05.840 --> 00:04:07.670 align:start position:0%
+also have the 1 million token context
+4.6,<00:04:06.480><c> which</c><00:04:06.640><c> is</c><00:04:06.720><c> better</c><00:04:06.959><c> for</c><00:04:07.120><c> those</c><00:04:07.360><c> longer</c>
+
+00:04:07.670 --> 00:04:07.680 align:start position:0%
+4.6, which is better for those longer
+ 
+
+00:04:07.680 --> 00:04:10.229 align:start position:0%
+4.6, which is better for those longer
+sessions<00:04:08.080><c> and</c><00:04:08.480><c> more</c><00:04:08.720><c> complex</c><00:04:09.200><c> tasks.</c><00:04:10.000><c> If</c><00:04:10.159><c> you</c>
+
+00:04:10.229 --> 00:04:10.239 align:start position:0%
+sessions and more complex tasks. If you
+ 
+
+00:04:10.239 --> 00:04:11.990 align:start position:0%
+sessions and more complex tasks. If you
+toggle<00:04:10.640><c> with</c><00:04:10.799><c> your</c><00:04:10.959><c> keyboard</c><00:04:11.519><c> left</c><00:04:11.760><c> and</c>
+
+00:04:11.990 --> 00:04:12.000 align:start position:0%
+toggle with your keyboard left and
+ 
+
+00:04:12.000 --> 00:04:13.589 align:start position:0%
+toggle with your keyboard left and
+right,<00:04:12.319><c> you'll</c><00:04:12.480><c> also</c><00:04:12.720><c> see</c><00:04:12.879><c> that</c><00:04:13.120><c> on</c><00:04:13.280><c> the</c><00:04:13.439><c> very</c>
+
+00:04:13.589 --> 00:04:13.599 align:start position:0%
+right, you'll also see that on the very
+ 
+
+00:04:13.599 --> 00:04:15.270 align:start position:0%
+right, you'll also see that on the very
+bottom,<00:04:14.080><c> you</c><00:04:14.319><c> can</c><00:04:14.400><c> toggle</c><00:04:14.720><c> your</c><00:04:14.879><c> reasoning</c>
+
+00:04:15.270 --> 00:04:15.280 align:start position:0%
+bottom, you can toggle your reasoning
+ 
+
+00:04:15.280 --> 00:04:16.629 align:start position:0%
+bottom, you can toggle your reasoning
+effort.<00:04:15.599><c> So</c><00:04:15.680><c> you</c><00:04:15.760><c> go</c><00:04:15.920><c> low</c><00:04:16.160><c> effort,</c>
+
+00:04:16.629 --> 00:04:16.639 align:start position:0%
+effort. So you go low effort,
+ 
+
+00:04:16.639 --> 00:04:18.550 align:start position:0%
+effort. So you go low effort,
+mid-effort,<00:04:17.280><c> and</c><00:04:17.440><c> then</c><00:04:17.600><c> high</c><00:04:17.840><c> effort,</c><00:04:18.320><c> where</c>
+
+00:04:18.550 --> 00:04:18.560 align:start position:0%
+mid-effort, and then high effort, where
+ 
+
+00:04:18.560 --> 00:04:20.789 align:start position:0%
+mid-effort, and then high effort, where
+high<00:04:18.799><c> effort</c><00:04:19.199><c> basically</c><00:04:19.680><c> uses</c><00:04:20.079><c> unrestricted</c>
+
+00:04:20.789 --> 00:04:20.799 align:start position:0%
+high effort basically uses unrestricted
+ 
+
+00:04:20.799 --> 00:04:22.310 align:start position:0%
+high effort basically uses unrestricted
+amount<00:04:20.959><c> of</c><00:04:21.120><c> tokens,</c><00:04:21.759><c> which</c><00:04:21.919><c> will</c><00:04:22.079><c> give</c><00:04:22.160><c> you</c>
+
+00:04:22.310 --> 00:04:22.320 align:start position:0%
+amount of tokens, which will give you
+ 
+
+00:04:22.320 --> 00:04:24.550 align:start position:0%
+amount of tokens, which will give you
+better<00:04:22.560><c> results</c><00:04:22.880><c> for</c><00:04:23.120><c> more</c><00:04:23.360><c> complex</c><00:04:24.080><c> tasks</c>
+
+00:04:24.550 --> 00:04:24.560 align:start position:0%
+better results for more complex tasks
+ 
+
+00:04:24.560 --> 00:04:26.469 align:start position:0%
+better results for more complex tasks
+and<00:04:24.800><c> bigger</c><00:04:25.199><c> project</c><00:04:25.520><c> builds.</c><00:04:26.080><c> I'm</c><00:04:26.320><c> going</c><00:04:26.400><c> to</c>
+
+00:04:26.469 --> 00:04:26.479 align:start position:0%
+and bigger project builds. I'm going to
+ 
+
+00:04:26.479 --> 00:04:28.469 align:start position:0%
+and bigger project builds. I'm going to
+leave<00:04:26.639><c> mine</c><00:04:26.960><c> on</c><00:04:27.360><c> low</c><00:04:27.680><c> effort</c><00:04:28.000><c> and</c><00:04:28.160><c> just</c><00:04:28.320><c> going</c>
+
+00:04:28.469 --> 00:04:28.479 align:start position:0%
+leave mine on low effort and just going
+ 
+
+00:04:28.479 --> 00:04:31.590 align:start position:0%
+leave mine on low effort and just going
+to<00:04:28.560><c> use</c><00:04:28.800><c> the</c><00:04:29.360><c> regular</c><00:04:29.840><c> Opus</c><00:04:30.320><c> 4.6</c><00:04:30.960><c> model.</c><00:04:31.440><c> And</c>
+
+00:04:31.590 --> 00:04:31.600 align:start position:0%
+to use the regular Opus 4.6 model. And
+ 
+
+00:04:31.600 --> 00:04:33.189 align:start position:0%
+to use the regular Opus 4.6 model. And
+I'm<00:04:31.759><c> going</c><00:04:31.840><c> to</c><00:04:31.919><c> ask</c><00:04:32.160><c> Claude</c><00:04:32.560><c> Code</c><00:04:32.880><c> to</c>
+
+00:04:33.189 --> 00:04:33.199 align:start position:0%
+I'm going to ask Claude Code to
+ 
+
+00:04:33.199 --> 00:04:35.749 align:start position:0%
+I'm going to ask Claude Code to
+initialize<00:04:34.160><c> the</c><00:04:34.720><c> uh</c><00:04:34.880><c> basically</c><00:04:35.280><c> change</c><00:04:35.600><c> the</c>
+
+00:04:35.749 --> 00:04:35.759 align:start position:0%
+initialize the uh basically change the
+ 
+
+00:04:35.759 --> 00:04:37.430 align:start position:0%
+initialize the uh basically change the
+settings<00:04:36.000><c> for</c><00:04:36.240><c> me</c><00:04:36.400><c> so</c><00:04:36.479><c> we</c><00:04:36.720><c> can</c><00:04:36.800><c> initialize</c>
+
+00:04:37.430 --> 00:04:37.440 align:start position:0%
+settings for me so we can initialize
+ 
+
+00:04:37.440 --> 00:04:39.510 align:start position:0%
+settings for me so we can initialize
+agent<00:04:37.840><c> teams.</c><00:04:38.560><c> So</c><00:04:38.720><c> Claude's</c><00:04:39.199><c> found</c><00:04:39.360><c> that</c>
+
+00:04:39.510 --> 00:04:39.520 align:start position:0%
+agent teams. So Claude's found that
+ 
+
+00:04:39.520 --> 00:04:41.030 align:start position:0%
+agent teams. So Claude's found that
+file.<00:04:39.840><c> Let's</c><00:04:40.000><c> just</c><00:04:40.160><c> give</c><00:04:40.240><c> it</c><00:04:40.400><c> permissions</c><00:04:40.800><c> for</c>
+
+00:04:41.030 --> 00:04:41.040 align:start position:0%
+file. Let's just give it permissions for
+ 
+
+00:04:41.040 --> 00:04:42.870 align:start position:0%
+file. Let's just give it permissions for
+the<00:04:41.199><c> session.</c><00:04:41.680><c> And</c><00:04:41.840><c> it's</c><00:04:42.240><c> identified</c><00:04:42.639><c> the</c>
+
+00:04:42.870 --> 00:04:42.880 align:start position:0%
+the session. And it's identified the
+ 
+
+00:04:42.880 --> 00:04:44.230 align:start position:0%
+the session. And it's identified the
+change<00:04:43.040><c> that</c><00:04:43.280><c> it</c><00:04:43.440><c> has</c><00:04:43.600><c> to</c><00:04:43.759><c> make.</c><00:04:43.919><c> So,</c><00:04:44.080><c> it's</c>
+
+00:04:44.230 --> 00:04:44.240 align:start position:0%
+change that it has to make. So, it's
+ 
+
+00:04:44.240 --> 00:04:45.830 align:start position:0%
+change that it has to make. So, it's
+going<00:04:44.320><c> to</c><00:04:44.400><c> be</c><00:04:44.560><c> adding</c><00:04:44.960><c> exactly</c><00:04:45.280><c> what</c><00:04:45.520><c> we</c><00:04:45.680><c> had</c>
+
+00:04:45.830 --> 00:04:45.840 align:start position:0%
+going to be adding exactly what we had
+ 
+
+00:04:45.840 --> 00:04:47.430 align:start position:0%
+going to be adding exactly what we had
+in<00:04:46.000><c> the</c><00:04:46.160><c> instructions.</c><00:04:46.880><c> So,</c><00:04:47.040><c> I'm</c><00:04:47.120><c> going</c><00:04:47.199><c> to</c><00:04:47.280><c> go</c>
+
+00:04:47.430 --> 00:04:47.440 align:start position:0%
+in the instructions. So, I'm going to go
+ 
+
+00:04:47.440 --> 00:04:49.110 align:start position:0%
+in the instructions. So, I'm going to go
+yes<00:04:47.759><c> once</c><00:04:48.000><c> again</c><00:04:48.320><c> and</c><00:04:48.560><c> done.</c><00:04:48.880><c> Looks</c><00:04:49.040><c> like</c>
+
+00:04:49.110 --> 00:04:49.120 align:start position:0%
+yes once again and done. Looks like
+ 
+
+00:04:49.120 --> 00:04:50.870 align:start position:0%
+yes once again and done. Looks like
+Claude<00:04:49.520><c> Code</c><00:04:49.680><c> has</c><00:04:49.840><c> made</c><00:04:50.000><c> that</c><00:04:50.240><c> change</c><00:04:50.479><c> for</c><00:04:50.720><c> us</c>
+
+00:04:50.870 --> 00:04:50.880 align:start position:0%
+Claude Code has made that change for us
+ 
+
+00:04:50.880 --> 00:04:53.270 align:start position:0%
+Claude Code has made that change for us
+in<00:04:51.120><c> the</c><00:04:51.360><c> settings.json</c><00:04:52.400><c> file.</c><00:04:53.040><c> Now,</c>
+
+00:04:53.270 --> 00:04:53.280 align:start position:0%
+in the settings.json file. Now,
+ 
+
+00:04:53.280 --> 00:04:54.950 align:start position:0%
+in the settings.json file. Now,
+important<00:04:53.600><c> to</c><00:04:53.759><c> note,</c><00:04:54.080><c> we</c><00:04:54.240><c> cannot</c><00:04:54.560><c> start</c><00:04:54.800><c> an</c>
+
+00:04:54.950 --> 00:04:54.960 align:start position:0%
+important to note, we cannot start an
+ 
+
+00:04:54.960 --> 00:04:56.790 align:start position:0%
+important to note, we cannot start an
+agent<00:04:55.280><c> team</c><00:04:55.520><c> in</c><00:04:55.759><c> this</c><00:04:55.919><c> specific</c><00:04:56.320><c> session.</c><00:04:56.639><c> We</c>
+
+00:04:56.790 --> 00:04:56.800 align:start position:0%
+agent team in this specific session. We
+ 
+
+00:04:56.800 --> 00:04:58.870 align:start position:0%
+agent team in this specific session. We
+have<00:04:56.960><c> to</c><00:04:57.120><c> restart</c><00:04:57.600><c> Claude</c><00:04:58.000><c> Code.</c><00:04:58.479><c> So,</c><00:04:58.639><c> to</c><00:04:58.800><c> do</c>
+
+00:04:58.870 --> 00:04:58.880 align:start position:0%
+have to restart Claude Code. So, to do
+ 
+
+00:04:58.880 --> 00:05:00.790 align:start position:0%
+have to restart Claude Code. So, to do
+that,<00:04:59.040><c> you</c><00:04:59.199><c> can</c><00:04:59.360><c> just</c><00:04:59.440><c> go</c><00:04:59.600><c> into</c><00:05:00.000><c> plus</c><00:05:00.400><c> and</c><00:05:00.639><c> then</c>
+
+00:05:00.790 --> 00:05:00.800 align:start position:0%
+that, you can just go into plus and then
+ 
+
+00:05:00.800 --> 00:05:03.189 align:start position:0%
+that, you can just go into plus and then
+go<00:05:00.880><c> into</c><00:05:01.120><c> a</c><00:05:01.280><c> new</c><00:05:01.440><c> terminal,</c><00:05:02.400><c> restart</c><00:05:02.880><c> Claude</c>
+
+00:05:03.189 --> 00:05:03.199 align:start position:0%
+go into a new terminal, restart Claude
+ 
+
+00:05:03.199 --> 00:05:04.950 align:start position:0%
+go into a new terminal, restart Claude
+Code<00:05:03.440><c> here.</c><00:05:03.840><c> And</c><00:05:04.000><c> now</c><00:05:04.160><c> Claude</c><00:05:04.479><c> will</c><00:05:04.639><c> be</c><00:05:04.800><c> able</c>
+
+00:05:04.950 --> 00:05:04.960 align:start position:0%
+Code here. And now Claude will be able
+ 
+
+00:05:04.960 --> 00:05:07.270 align:start position:0%
+Code here. And now Claude will be able
+to<00:05:05.280><c> access</c><00:05:05.680><c> the</c><00:05:05.919><c> agent</c><00:05:06.320><c> teams.</c><00:05:06.880><c> So</c><00:05:07.039><c> it's</c>
+
+00:05:07.270 --> 00:05:07.280 align:start position:0%
+to access the agent teams. So it's
+ 
+
+00:05:07.280 --> 00:05:08.310 align:start position:0%
+to access the agent teams. So it's
+important<00:05:07.440><c> to</c><00:05:07.600><c> note</c><00:05:07.840><c> when</c><00:05:07.919><c> we</c><00:05:08.080><c> want</c><00:05:08.160><c> to</c>
+
+00:05:08.310 --> 00:05:08.320 align:start position:0%
+important to note when we want to
+ 
+
+00:05:08.320 --> 00:05:10.230 align:start position:0%
+important to note when we want to
+initialize<00:05:08.800><c> a</c><00:05:09.039><c> new</c><00:05:09.199><c> agent</c><00:05:09.520><c> team</c><00:05:09.840><c> at</c><00:05:10.080><c> the</c>
+
+00:05:10.230 --> 00:05:10.240 align:start position:0%
+initialize a new agent team at the
+ 
+
+00:05:10.240 --> 00:05:12.310 align:start position:0%
+initialize a new agent team at the
+prompt<00:05:10.639><c> level.</c><00:05:11.120><c> We</c><00:05:11.280><c> have</c><00:05:11.440><c> to</c><00:05:11.600><c> explicitly</c><00:05:12.160><c> give</c>
+
+00:05:12.310 --> 00:05:12.320 align:start position:0%
+prompt level. We have to explicitly give
+ 
+
+00:05:12.320 --> 00:05:13.909 align:start position:0%
+prompt level. We have to explicitly give
+those<00:05:12.479><c> instructions</c><00:05:12.880><c> to</c><00:05:13.120><c> cloud</c><00:05:13.440><c> code</c><00:05:13.680><c> we</c><00:05:13.840><c> have</c>
+
+00:05:13.909 --> 00:05:13.919 align:start position:0%
+those instructions to cloud code we have
+ 
+
+00:05:13.919 --> 00:05:17.029 align:start position:0%
+those instructions to cloud code we have
+to<00:05:14.080><c> say</c><00:05:14.320><c> create</c><00:05:14.639><c> an</c><00:05:14.880><c> agent</c><00:05:15.199><c> team</c><00:05:15.520><c> to</c><00:05:16.160><c> XY</c><00:05:16.560><c> Z</c><00:05:16.800><c> to</c>
+
+00:05:17.029 --> 00:05:17.039 align:start position:0%
+to say create an agent team to XY Z to
+ 
+
+00:05:17.039 --> 00:05:18.550 align:start position:0%
+to say create an agent team to XY Z to
+complete<00:05:17.280><c> some</c><00:05:17.440><c> kind</c><00:05:17.520><c> of</c><00:05:17.680><c> task</c><00:05:17.919><c> or</c><00:05:18.240><c> project</c>
+
+00:05:18.550 --> 00:05:18.560 align:start position:0%
+complete some kind of task or project
+ 
+
+00:05:18.560 --> 00:05:20.629 align:start position:0%
+complete some kind of task or project
+for<00:05:18.800><c> us.</c><00:05:19.199><c> And</c><00:05:19.360><c> here</c><00:05:19.600><c> is</c><00:05:19.759><c> our</c><00:05:20.080><c> prompt.</c><00:05:20.400><c> So</c>
+
+00:05:20.629 --> 00:05:20.639 align:start position:0%
+for us. And here is our prompt. So
+ 
+
+00:05:20.639 --> 00:05:22.230 align:start position:0%
+for us. And here is our prompt. So
+create<00:05:20.880><c> an</c><00:05:21.039><c> agent</c><00:05:21.360><c> team</c><00:05:21.520><c> to</c><00:05:21.759><c> build</c><00:05:21.919><c> out</c><00:05:22.080><c> the</c>
+
+00:05:22.230 --> 00:05:22.240 align:start position:0%
+create an agent team to build out the
+ 
+
+00:05:22.240 --> 00:05:23.749 align:start position:0%
+create an agent team to build out the
+following<00:05:22.560><c> for</c><00:05:22.720><c> us.</c><00:05:22.960><c> And</c><00:05:23.120><c> this</c><00:05:23.280><c> is</c><00:05:23.360><c> the</c><00:05:23.520><c> exact</c>
+
+00:05:23.749 --> 00:05:23.759 align:start position:0%
+following for us. And this is the exact
+ 
+
+00:05:23.759 --> 00:05:25.350 align:start position:0%
+following for us. And this is the exact
+same<00:05:24.000><c> prompt</c><00:05:24.240><c> that</c><00:05:24.400><c> we</c><00:05:24.560><c> gave</c><00:05:24.720><c> to</c><00:05:24.880><c> the</c><00:05:25.120><c> very</c>
+
+00:05:25.350 --> 00:05:25.360 align:start position:0%
+same prompt that we gave to the very
+ 
+
+00:05:25.360 --> 00:05:27.749 align:start position:0%
+same prompt that we gave to the very
+first<00:05:25.600><c> instance</c><00:05:26.080><c> on</c><00:05:26.400><c> cursor</c><00:05:27.199><c> where</c><00:05:27.440><c> we</c><00:05:27.600><c> had</c>
+
+00:05:27.749 --> 00:05:27.759 align:start position:0%
+first instance on cursor where we had
+ 
+
+00:05:27.759 --> 00:05:29.990 align:start position:0%
+first instance on cursor where we had
+just<00:05:28.000><c> a</c><00:05:28.240><c> single</c><00:05:28.479><c> agent</c><00:05:28.880><c> working</c><00:05:29.199><c> for</c><00:05:29.759><c> working</c>
+
+00:05:29.990 --> 00:05:30.000 align:start position:0%
+just a single agent working for working
+ 
+
+00:05:30.000 --> 00:05:31.749 align:start position:0%
+just a single agent working for working
+on<00:05:30.160><c> this</c><00:05:30.400><c> project.</c><00:05:30.960><c> So</c><00:05:31.120><c> here</c><00:05:31.280><c> we</c><00:05:31.360><c> are.</c><00:05:31.520><c> Cloud</c>
+
+00:05:31.749 --> 00:05:31.759 align:start position:0%
+on this project. So here we are. Cloud
+ 
+
+00:05:31.759 --> 00:05:33.350 align:start position:0%
+on this project. So here we are. Cloud
+code<00:05:32.000><c> is</c><00:05:32.160><c> immediately</c><00:05:32.479><c> telling</c><00:05:32.720><c> us</c><00:05:33.120><c> I'll</c>
+
+00:05:33.350 --> 00:05:33.360 align:start position:0%
+code is immediately telling us I'll
+ 
+
+00:05:33.360 --> 00:05:34.710 align:start position:0%
+code is immediately telling us I'll
+create<00:05:33.520><c> a</c><00:05:33.680><c> team</c><00:05:33.840><c> to</c><00:05:34.000><c> build</c><00:05:34.160><c> out</c><00:05:34.240><c> this</c><00:05:34.400><c> task</c>
+
+00:05:34.710 --> 00:05:34.720 align:start position:0%
+create a team to build out this task
+ 
+
+00:05:34.720 --> 00:05:36.790 align:start position:0%
+create a team to build out this task
+manager<00:05:35.120><c> app</c><00:05:35.280><c> in</c><00:05:35.520><c> parallel.</c><00:05:36.240><c> let</c><00:05:36.479><c> me</c><00:05:36.560><c> set</c><00:05:36.720><c> up</c>
+
+00:05:36.790 --> 00:05:36.800 align:start position:0%
+manager app in parallel. let me set up
+ 
+
+00:05:36.800 --> 00:05:38.230 align:start position:0%
+manager app in parallel. let me set up
+the<00:05:36.960><c> team</c><00:05:37.120><c> and</c><00:05:37.280><c> then</c><00:05:37.440><c> break</c><00:05:37.680><c> down</c><00:05:37.840><c> the</c><00:05:38.000><c> work.</c>
+
+00:05:38.230 --> 00:05:38.240 align:start position:0%
+the team and then break down the work.
+ 
+
+00:05:38.240 --> 00:05:39.749 align:start position:0%
+the team and then break down the work.
+So,<00:05:38.400><c> we'll</c><00:05:38.560><c> first</c><00:05:38.720><c> be</c><00:05:38.880><c> building</c><00:05:39.039><c> out</c><00:05:39.199><c> the</c><00:05:39.440><c> plan</c>
+
+00:05:39.749 --> 00:05:39.759 align:start position:0%
+So, we'll first be building out the plan
+ 
+
+00:05:39.759 --> 00:05:41.749 align:start position:0%
+So, we'll first be building out the plan
+of<00:05:40.080><c> what</c><00:05:40.320><c> we</c><00:05:40.479><c> need</c><00:05:40.720><c> built</c><00:05:41.120><c> and</c><00:05:41.360><c> then</c><00:05:41.440><c> we'll</c><00:05:41.600><c> be</c>
+
+00:05:41.749 --> 00:05:41.759 align:start position:0%
+of what we need built and then we'll be
+ 
+
+00:05:41.759 --> 00:05:43.590 align:start position:0%
+of what we need built and then we'll be
+assigning<00:05:42.240><c> each</c><00:05:42.400><c> of</c><00:05:42.560><c> those</c><00:05:42.800><c> items</c><00:05:43.199><c> from</c><00:05:43.360><c> the</c>
+
+00:05:43.590 --> 00:05:43.600 align:start position:0%
+assigning each of those items from the
+ 
+
+00:05:43.600 --> 00:05:45.590 align:start position:0%
+assigning each of those items from the
+plan<00:05:43.759><c> to</c><00:05:44.000><c> a</c><00:05:44.160><c> separate</c><00:05:44.479><c> agent</c><00:05:44.800><c> on</c><00:05:44.960><c> our</c><00:05:45.199><c> team.</c>
+
+00:05:45.590 --> 00:05:45.600 align:start position:0%
+plan to a separate agent on our team.
+ 
+
+00:05:45.600 --> 00:05:47.029 align:start position:0%
+plan to a separate agent on our team.
+So,<00:05:45.759><c> now</c><00:05:45.919><c> we're</c><00:05:46.080><c> sporting</c><00:05:46.320><c> up</c><00:05:46.400><c> the</c><00:05:46.560><c> teammates</c>
+
+00:05:47.029 --> 00:05:47.039 align:start position:0%
+So, now we're sporting up the teammates
+ 
+
+00:05:47.039 --> 00:05:49.110 align:start position:0%
+So, now we're sporting up the teammates
+for<00:05:47.199><c> each</c><00:05:47.360><c> task</c><00:05:47.600><c> that</c><00:05:47.840><c> we</c><00:05:48.000><c> created.</c><00:05:48.800><c> So,</c><00:05:48.960><c> the</c>
+
+00:05:49.110 --> 00:05:49.120 align:start position:0%
+for each task that we created. So, the
+ 
+
+00:05:49.120 --> 00:05:51.189 align:start position:0%
+for each task that we created. So, the
+first<00:05:49.280><c> task</c><00:05:49.600><c> is</c><00:05:49.759><c> to</c><00:05:50.000><c> create</c><00:05:50.160><c> the</c><00:05:50.400><c> HTML</c><00:05:50.960><c> and</c>
+
+00:05:51.189 --> 00:05:51.199 align:start position:0%
+first task is to create the HTML and
+ 
+
+00:05:51.199 --> 00:05:52.870 align:start position:0%
+first task is to create the HTML and
+CSS.<00:05:51.680><c> So,</c><00:05:51.759><c> the</c><00:05:51.919><c> UI</c><00:05:52.240><c> builder</c><00:05:52.479><c> is</c><00:05:52.560><c> going</c><00:05:52.639><c> to</c><00:05:52.720><c> be</c>
+
+00:05:52.870 --> 00:05:52.880 align:start position:0%
+CSS. So, the UI builder is going to be
+ 
+
+00:05:52.880 --> 00:05:55.430 align:start position:0%
+CSS. So, the UI builder is going to be
+working<00:05:53.039><c> on</c><00:05:53.199><c> the</c><00:05:53.440><c> HTML</c><00:05:54.000><c> and</c><00:05:54.160><c> CSS.</c><00:05:54.960><c> Once</c><00:05:55.199><c> that's</c>
+
+00:05:55.430 --> 00:05:55.440 align:start position:0%
+working on the HTML and CSS. Once that's
+ 
+
+00:05:55.440 --> 00:05:57.590 align:start position:0%
+working on the HTML and CSS. Once that's
+done,<00:05:55.600><c> I'll</c><00:05:55.840><c> spawn</c><00:05:56.080><c> up</c><00:05:56.240><c> the</c><00:05:56.479><c> JS</c><00:05:56.880><c> developer</c><00:05:57.360><c> to</c>
+
+00:05:57.590 --> 00:05:57.600 align:start position:0%
+done, I'll spawn up the JS developer to
+ 
+
+00:05:57.600 --> 00:05:59.510 align:start position:0%
+done, I'll spawn up the JS developer to
+add<00:05:57.759><c> the</c><00:05:57.919><c> application</c><00:05:58.400><c> logic.</c><00:05:59.120><c> Let</c><00:05:59.199><c> me</c><00:05:59.360><c> wait</c>
+
+00:05:59.510 --> 00:05:59.520 align:start position:0%
+add the application logic. Let me wait
+ 
+
+00:05:59.520 --> 00:06:01.189 align:start position:0%
+add the application logic. Let me wait
+for<00:05:59.680><c> the</c><00:05:59.840><c> first</c><00:06:00.000><c> task</c><00:06:00.240><c> to</c><00:06:00.479><c> complete.</c><00:06:01.039><c> So,</c>
+
+00:06:01.189 --> 00:06:01.199 align:start position:0%
+for the first task to complete. So,
+ 
+
+00:06:01.199 --> 00:06:03.029 align:start position:0%
+for the first task to complete. So,
+after<00:06:01.440><c> each</c><00:06:01.680><c> task</c><00:06:02.000><c> was</c><00:06:02.240><c> defined,</c><00:06:02.560><c> then</c><00:06:02.720><c> Claude</c>
+
+00:06:03.029 --> 00:06:03.039 align:start position:0%
+after each task was defined, then Claude
+ 
+
+00:06:03.039 --> 00:06:05.029 align:start position:0%
+after each task was defined, then Claude
+Code<00:06:03.280><c> was</c><00:06:03.440><c> able</c><00:06:03.600><c> to</c><00:06:03.759><c> spin</c><00:06:03.919><c> up</c><00:06:04.080><c> the</c><00:06:04.240><c> teammates.</c>
+
+00:06:05.029 --> 00:06:05.039 align:start position:0%
+Code was able to spin up the teammates.
+ 
+
+00:06:05.039 --> 00:06:06.710 align:start position:0%
+Code was able to spin up the teammates.
+So,<00:06:05.199><c> it</c><00:06:05.360><c> span</c><00:06:05.520><c> up</c><00:06:05.680><c> the</c><00:06:05.840><c> very</c><00:06:06.000><c> first</c><00:06:06.240><c> teammate</c>
+
+00:06:06.710 --> 00:06:06.720 align:start position:0%
+So, it span up the very first teammate
+ 
+
+00:06:06.720 --> 00:06:08.550 align:start position:0%
+So, it span up the very first teammate
+which<00:06:06.960><c> is</c><00:06:07.120><c> building</c><00:06:07.440><c> out</c><00:06:07.680><c> the</c><00:06:08.160><c> uh</c><00:06:08.319><c> looks</c><00:06:08.479><c> like</c>
+
+00:06:08.550 --> 00:06:08.560 align:start position:0%
+which is building out the uh looks like
+ 
+
+00:06:08.560 --> 00:06:11.110 align:start position:0%
+which is building out the uh looks like
+the<00:06:08.720><c> front</c><00:06:08.880><c> end,</c><00:06:09.120><c> the</c><00:06:09.360><c> HTML</c><00:06:09.840><c> and</c><00:06:10.080><c> CSS.</c><00:06:10.960><c> And</c>
+
+00:06:11.110 --> 00:06:11.120 align:start position:0%
+the front end, the HTML and CSS. And
+ 
+
+00:06:11.120 --> 00:06:12.469 align:start position:0%
+the front end, the HTML and CSS. And
+then<00:06:11.280><c> on</c><00:06:11.440><c> the</c><00:06:11.600><c> bottom</c><00:06:11.840><c> over</c><00:06:12.000><c> here,</c><00:06:12.160><c> we</c><00:06:12.319><c> can</c><00:06:12.400><c> see</c>
+
+00:06:12.469 --> 00:06:12.479 align:start position:0%
+then on the bottom over here, we can see
+ 
+
+00:06:12.479 --> 00:06:14.629 align:start position:0%
+then on the bottom over here, we can see
+that<00:06:12.720><c> there's</c><00:06:12.960><c> two</c><00:06:13.360><c> teammate</c><00:06:13.919><c> agents</c><00:06:14.319><c> already</c>
+
+00:06:14.629 --> 00:06:14.639 align:start position:0%
+that there's two teammate agents already
+ 
+
+00:06:14.639 --> 00:06:16.790 align:start position:0%
+that there's two teammate agents already
+deployed.<00:06:15.120><c> We</c><00:06:15.360><c> have</c><00:06:15.440><c> the</c><00:06:15.600><c> main</c><00:06:15.919><c> agent,</c><00:06:16.560><c> which</c>
+
+00:06:16.790 --> 00:06:16.800 align:start position:0%
+deployed. We have the main agent, which
+ 
+
+00:06:16.800 --> 00:06:18.070 align:start position:0%
+deployed. We have the main agent, which
+is<00:06:16.880><c> the</c><00:06:17.039><c> person</c><00:06:17.280><c> that's</c><00:06:17.520><c> the</c><00:06:17.680><c> actual</c><00:06:17.919><c> team</c>
+
+00:06:18.070 --> 00:06:18.080 align:start position:0%
+is the person that's the actual team
+ 
+
+00:06:18.080 --> 00:06:20.230 align:start position:0%
+is the person that's the actual team
+lead.<00:06:18.319><c> And</c><00:06:18.479><c> then</c><00:06:18.560><c> we</c><00:06:18.720><c> have</c><00:06:18.880><c> the</c><00:06:19.280><c> UI</c><00:06:19.840><c> builder</c>
+
+00:06:20.230 --> 00:06:20.240 align:start position:0%
+lead. And then we have the UI builder
+ 
+
+00:06:20.240 --> 00:06:22.070 align:start position:0%
+lead. And then we have the UI builder
+agent.<00:06:20.720><c> And</c><00:06:20.880><c> if</c><00:06:21.039><c> I</c><00:06:21.120><c> hold</c><00:06:21.280><c> shift</c><00:06:21.520><c> and</c><00:06:21.759><c> I</c><00:06:21.919><c> press</c>
+
+00:06:22.070 --> 00:06:22.080 align:start position:0%
+agent. And if I hold shift and I press
+ 
+
+00:06:22.080 --> 00:06:24.230 align:start position:0%
+agent. And if I hold shift and I press
+up<00:06:22.240><c> and</c><00:06:22.400><c> down</c><00:06:22.639><c> arrows,</c><00:06:23.360><c> I</c><00:06:23.520><c> can</c><00:06:23.680><c> see</c><00:06:23.759><c> that</c><00:06:23.919><c> I</c>
+
+00:06:24.230 --> 00:06:24.240 align:start position:0%
+up and down arrows, I can see that I
+ 
+
+00:06:24.240 --> 00:06:25.909 align:start position:0%
+up and down arrows, I can see that I
+have<00:06:24.479><c> access</c><00:06:24.720><c> to</c><00:06:24.880><c> the</c><00:06:25.120><c> team</c><00:06:25.360><c> lead</c><00:06:25.600><c> to</c><00:06:25.759><c> speak</c>
+
+00:06:25.909 --> 00:06:25.919 align:start position:0%
+have access to the team lead to speak
+ 
+
+00:06:25.919 --> 00:06:27.590 align:start position:0%
+have access to the team lead to speak
+with<00:06:26.080><c> them</c><00:06:26.240><c> directly.</c><00:06:26.560><c> And</c><00:06:26.720><c> if</c><00:06:26.960><c> I</c><00:06:27.120><c> press</c><00:06:27.360><c> shift</c>
+
+00:06:27.590 --> 00:06:27.600 align:start position:0%
+with them directly. And if I press shift
+ 
+
+00:06:27.600 --> 00:06:29.909 align:start position:0%
+with them directly. And if I press shift
+and<00:06:27.840><c> then</c><00:06:28.000><c> down,</c><00:06:28.479><c> I</c><00:06:28.639><c> have</c><00:06:28.800><c> the</c><00:06:29.039><c> UI</c><00:06:29.440><c> builder.</c>
+
+00:06:29.909 --> 00:06:29.919 align:start position:0%
+and then down, I have the UI builder.
+ 
+
+00:06:29.919 --> 00:06:31.430 align:start position:0%
+and then down, I have the UI builder.
+Now,<00:06:30.080><c> in</c><00:06:30.240><c> this</c><00:06:30.400><c> instance,</c><00:06:30.720><c> the</c><00:06:30.880><c> app</c><00:06:31.039><c> is</c><00:06:31.199><c> pretty</c>
+
+00:06:31.430 --> 00:06:31.440 align:start position:0%
+Now, in this instance, the app is pretty
+ 
+
+00:06:31.440 --> 00:06:32.710 align:start position:0%
+Now, in this instance, the app is pretty
+simple,<00:06:31.680><c> but</c><00:06:31.840><c> I've</c><00:06:32.000><c> actually</c><00:06:32.160><c> built</c><00:06:32.400><c> out</c><00:06:32.560><c> a</c>
+
+00:06:32.710 --> 00:06:32.720 align:start position:0%
+simple, but I've actually built out a
+ 
+
+00:06:32.720 --> 00:06:33.990 align:start position:0%
+simple, but I've actually built out a
+couple<00:06:32.800><c> of</c><00:06:32.880><c> apps</c><00:06:33.120><c> where</c><00:06:33.280><c> there's</c><00:06:33.680><c> three</c>
+
+00:06:33.990 --> 00:06:34.000 align:start position:0%
+couple of apps where there's three
+ 
+
+00:06:34.000 --> 00:06:36.309 align:start position:0%
+couple of apps where there's three
+agents<00:06:34.479><c> working</c><00:06:34.720><c> in</c><00:06:34.960><c> parallel.</c><00:06:35.759><c> Let</c><00:06:35.919><c> me</c><00:06:36.160><c> just</c>
+
+00:06:36.309 --> 00:06:36.319 align:start position:0%
+agents working in parallel. Let me just
+ 
+
+00:06:36.319 --> 00:06:38.309 align:start position:0%
+agents working in parallel. Let me just
+click<00:06:36.560><c> yes</c><00:06:36.800><c> for</c><00:06:36.960><c> these</c><00:06:37.199><c> edits.</c><00:06:37.840><c> And</c><00:06:38.000><c> then</c><00:06:38.160><c> I</c>
+
+00:06:38.309 --> 00:06:38.319 align:start position:0%
+click yes for these edits. And then I
+ 
+
+00:06:38.319 --> 00:06:39.749 align:start position:0%
+click yes for these edits. And then I
+actually<00:06:38.479><c> have</c><00:06:38.639><c> options</c><00:06:38.960><c> of</c><00:06:39.360><c> three</c><00:06:39.600><c> different</c>
+
+00:06:39.749 --> 00:06:39.759 align:start position:0%
+actually have options of three different
+ 
+
+00:06:39.759 --> 00:06:41.430 align:start position:0%
+actually have options of three different
+agents<00:06:40.080><c> that</c><00:06:40.240><c> I</c><00:06:40.400><c> can</c><00:06:40.560><c> speak</c><00:06:40.720><c> with</c><00:06:40.960><c> at</c><00:06:41.280><c> one</c>
+
+00:06:41.430 --> 00:06:41.440 align:start position:0%
+agents that I can speak with at one
+ 
+
+00:06:41.440 --> 00:06:43.270 align:start position:0%
+agents that I can speak with at one
+time.<00:06:42.080><c> And</c><00:06:42.240><c> sometimes</c><00:06:42.639><c> during</c><00:06:42.880><c> the</c><00:06:43.039><c> course</c><00:06:43.199><c> of</c>
+
+00:06:43.270 --> 00:06:43.280 align:start position:0%
+time. And sometimes during the course of
+ 
+
+00:06:43.280 --> 00:06:44.870 align:start position:0%
+time. And sometimes during the course of
+the<00:06:43.520><c> project,</c><00:06:43.919><c> you'll</c><00:06:44.240><c> actually</c><00:06:44.479><c> find</c><00:06:44.639><c> that</c>
+
+00:06:44.870 --> 00:06:44.880 align:start position:0%
+the project, you'll actually find that
+ 
+
+00:06:44.880 --> 00:06:46.469 align:start position:0%
+the project, you'll actually find that
+once<00:06:45.199><c> one</c><00:06:45.440><c> specific</c><00:06:45.759><c> component</c><00:06:46.160><c> is</c><00:06:46.319><c> finished</c>
+
+00:06:46.469 --> 00:06:46.479 align:start position:0%
+once one specific component is finished
+ 
+
+00:06:46.479 --> 00:06:48.070 align:start position:0%
+once one specific component is finished
+and<00:06:46.720><c> the</c><00:06:46.880><c> feedback</c><00:06:47.199><c> goes</c><00:06:47.440><c> back</c><00:06:47.520><c> to</c><00:06:47.680><c> the</c><00:06:47.840><c> team</c>
+
+00:06:48.070 --> 00:06:48.080 align:start position:0%
+and the feedback goes back to the team
+ 
+
+00:06:48.080 --> 00:06:50.070 align:start position:0%
+and the feedback goes back to the team
+lead,<00:06:48.479><c> the</c><00:06:48.720><c> team</c><00:06:48.880><c> lead</c><00:06:49.120><c> will</c><00:06:49.440><c> create</c><00:06:49.680><c> some</c><00:06:49.919><c> new</c>
+
+00:06:50.070 --> 00:06:50.080 align:start position:0%
+lead, the team lead will create some new
+ 
+
+00:06:50.080 --> 00:06:51.749 align:start position:0%
+lead, the team lead will create some new
+project<00:06:50.479><c> and</c><00:06:50.639><c> actually</c><00:06:50.800><c> spin</c><00:06:51.039><c> up</c><00:06:51.199><c> new</c><00:06:51.440><c> agents</c>
+
+00:06:51.749 --> 00:06:51.759 align:start position:0%
+project and actually spin up new agents
+ 
+
+00:06:51.759 --> 00:06:53.590 align:start position:0%
+project and actually spin up new agents
+to<00:06:52.000><c> work</c><00:06:52.080><c> on</c><00:06:52.240><c> the</c><00:06:52.400><c> next</c><00:06:52.560><c> part</c><00:06:52.720><c> of</c><00:06:52.880><c> the</c><00:06:53.039><c> build.</c>
+
+00:06:53.590 --> 00:06:53.600 align:start position:0%
+to work on the next part of the build.
+ 
+
+00:06:53.600 --> 00:06:55.110 align:start position:0%
+to work on the next part of the build.
+So,<00:06:53.759><c> it</c><00:06:54.000><c> gets</c><00:06:54.160><c> pretty</c><00:06:54.400><c> advanced</c><00:06:54.720><c> and</c><00:06:54.960><c> it's</c>
+
+00:06:55.110 --> 00:06:55.120 align:start position:0%
+So, it gets pretty advanced and it's
+ 
+
+00:06:55.120 --> 00:06:56.870 align:start position:0%
+So, it gets pretty advanced and it's
+also<00:06:55.280><c> really</c><00:06:55.520><c> fun</c><00:06:55.680><c> to</c><00:06:55.919><c> see.</c><00:06:56.319><c> There</c><00:06:56.479><c> we</c><00:06:56.639><c> go.</c><00:06:56.800><c> So,</c>
+
+00:06:56.870 --> 00:06:56.880 align:start position:0%
+also really fun to see. There we go. So,
+ 
+
+00:06:56.880 --> 00:06:57.990 align:start position:0%
+also really fun to see. There we go. So,
+we're<00:06:57.039><c> actually</c><00:06:57.280><c> spinning</c><00:06:57.520><c> up</c><00:06:57.759><c> different</c>
+
+00:06:57.990 --> 00:06:58.000 align:start position:0%
+we're actually spinning up different
+ 
+
+00:06:58.000 --> 00:07:00.710 align:start position:0%
+we're actually spinning up different
+agents<00:06:58.479><c> now.</c><00:06:59.039><c> So</c><00:06:59.360><c> task</c><00:06:59.680><c> one</c><00:07:00.000><c> assigned</c><00:07:00.400><c> to</c><00:07:00.560><c> the</c>
+
+00:07:00.710 --> 00:07:00.720 align:start position:0%
+agents now. So task one assigned to the
+ 
+
+00:07:00.720 --> 00:07:03.350 align:start position:0%
+agents now. So task one assigned to the
+UI<00:07:01.120><c> builder.</c><00:07:01.599><c> Build</c><00:07:01.840><c> the</c><00:07:02.080><c> HTML</c><00:07:02.639><c> structure</c><00:07:02.960><c> and</c>
+
+00:07:03.350 --> 00:07:03.360 align:start position:0%
+UI builder. Build the HTML structure and
+ 
+
+00:07:03.360 --> 00:07:05.589 align:start position:0%
+UI builder. Build the HTML structure and
+CSS<00:07:04.000><c> theming.</c><00:07:04.560><c> Create</c><00:07:04.800><c> the</c><00:07:04.960><c> foundational</c>
+
+00:07:05.589 --> 00:07:05.599 align:start position:0%
+CSS theming. Create the foundational
+ 
+
+00:07:05.599 --> 00:07:08.070 align:start position:0%
+CSS theming. Create the foundational
+HTML<00:07:06.240><c> structure.</c><00:07:07.039><c> We've</c><00:07:07.280><c> got</c><00:07:07.360><c> a</c><00:07:07.599><c> skeleton</c>
+
+00:07:08.070 --> 00:07:08.080 align:start position:0%
+HTML structure. We've got a skeleton
+ 
+
+00:07:08.080 --> 00:07:10.390 align:start position:0%
+HTML structure. We've got a skeleton
+given<00:07:08.400><c> to</c><00:07:08.479><c> it.</c><00:07:08.720><c> And</c><00:07:08.880><c> actually</c><00:07:09.120><c> a</c><00:07:09.520><c> very</c><00:07:10.080><c> clear</c>
+
+00:07:10.390 --> 00:07:10.400 align:start position:0%
+given to it. And actually a very clear
+ 
+
+00:07:10.400 --> 00:07:12.469 align:start position:0%
+given to it. And actually a very clear
+set<00:07:10.639><c> of</c><00:07:10.880><c> instructions</c><00:07:11.360><c> for</c><00:07:11.599><c> this</c><00:07:11.840><c> builder.</c>
+
+00:07:12.469 --> 00:07:12.479 align:start position:0%
+set of instructions for this builder.
+ 
+
+00:07:12.479 --> 00:07:14.230 align:start position:0%
+set of instructions for this builder.
+And<00:07:12.639><c> now</c><00:07:12.720><c> we</c><00:07:12.880><c> can</c><00:07:12.960><c> see</c><00:07:13.120><c> down</c><00:07:13.360><c> below</c><00:07:13.680><c> if</c><00:07:13.919><c> I</c><00:07:14.080><c> hold</c>
+
+00:07:14.230 --> 00:07:14.240 align:start position:0%
+And now we can see down below if I hold
+ 
+
+00:07:14.240 --> 00:07:15.990 align:start position:0%
+And now we can see down below if I hold
+down<00:07:14.400><c> shift</c><00:07:14.639><c> and</c><00:07:14.880><c> I</c><00:07:15.120><c> toggle</c><00:07:15.440><c> up</c><00:07:15.599><c> and</c><00:07:15.759><c> down,</c>
+
+00:07:15.990 --> 00:07:16.000 align:start position:0%
+down shift and I toggle up and down,
+ 
+
+00:07:16.000 --> 00:07:17.909 align:start position:0%
+down shift and I toggle up and down,
+we've<00:07:16.160><c> got</c><00:07:16.240><c> the</c><00:07:16.400><c> team</c><00:07:16.720><c> lead</c><00:07:16.880><c> just</c><00:07:17.039><c> as</c><00:07:17.280><c> before.</c>
+
+00:07:17.909 --> 00:07:17.919 align:start position:0%
+we've got the team lead just as before.
+ 
+
+00:07:17.919 --> 00:07:19.749 align:start position:0%
+we've got the team lead just as before.
+Then<00:07:18.080><c> we</c><00:07:18.240><c> have</c><00:07:18.319><c> the</c><00:07:18.560><c> JavaScript</c><00:07:19.199><c> dev,</c><00:07:19.520><c> which</c>
+
+00:07:19.749 --> 00:07:19.759 align:start position:0%
+Then we have the JavaScript dev, which
+ 
+
+00:07:19.759 --> 00:07:21.350 align:start position:0%
+Then we have the JavaScript dev, which
+is<00:07:19.840><c> the</c><00:07:20.000><c> new</c><00:07:20.160><c> agent</c><00:07:20.479><c> that</c><00:07:20.639><c> was</c><00:07:20.800><c> just</c><00:07:20.960><c> created.</c>
+
+00:07:21.350 --> 00:07:21.360 align:start position:0%
+is the new agent that was just created.
+ 
+
+00:07:21.360 --> 00:07:23.510 align:start position:0%
+is the new agent that was just created.
+And<00:07:21.520><c> then</c><00:07:21.680><c> we</c><00:07:21.840><c> have</c><00:07:21.919><c> the</c><00:07:22.080><c> UI</c><00:07:22.560><c> builder.</c><00:07:23.199><c> Coming</c>
+
+00:07:23.510 --> 00:07:23.520 align:start position:0%
+And then we have the UI builder. Coming
+ 
+
+00:07:23.520 --> 00:07:25.270 align:start position:0%
+And then we have the UI builder. Coming
+back<00:07:23.680><c> to</c><00:07:23.919><c> our</c><00:07:24.240><c> first</c><00:07:24.479><c> agent,</c><00:07:24.960><c> let's</c><00:07:25.120><c> just</c>
+
+00:07:25.270 --> 00:07:25.280 align:start position:0%
+back to our first agent, let's just
+ 
+
+00:07:25.280 --> 00:07:27.189 align:start position:0%
+back to our first agent, let's just
+click<00:07:25.520><c> accept</c><00:07:25.840><c> on</c><00:07:26.000><c> these</c><00:07:26.240><c> permissions.</c><00:07:26.960><c> Oh,</c>
+
+00:07:27.189 --> 00:07:27.199 align:start position:0%
+click accept on these permissions. Oh,
+ 
+
+00:07:27.199 --> 00:07:28.390 align:start position:0%
+click accept on these permissions. Oh,
+and<00:07:27.360><c> there</c><00:07:27.440><c> we</c><00:07:27.599><c> go.</c><00:07:27.759><c> It's</c><00:07:28.000><c> actually</c><00:07:28.160><c> just</c>
+
+00:07:28.390 --> 00:07:28.400 align:start position:0%
+and there we go. It's actually just
+ 
+
+00:07:28.400 --> 00:07:30.710 align:start position:0%
+and there we go. It's actually just
+finished<00:07:28.960><c> now.</c><00:07:29.199><c> Let's</c><00:07:29.440><c> pull</c><00:07:29.680><c> this</c><00:07:29.919><c> up.</c><00:07:30.479><c> Okay,</c>
+
+00:07:30.710 --> 00:07:30.720 align:start position:0%
+finished now. Let's pull this up. Okay,
+ 
+
+00:07:30.720 --> 00:07:32.710 align:start position:0%
+finished now. Let's pull this up. Okay,
+so<00:07:30.880><c> this</c><00:07:31.039><c> looks</c><00:07:31.280><c> really</c><00:07:31.520><c> cool.</c><00:07:32.000><c> We</c><00:07:32.240><c> have</c><00:07:32.479><c> views</c>
+
+00:07:32.710 --> 00:07:32.720 align:start position:0%
+so this looks really cool. We have views
+ 
+
+00:07:32.720 --> 00:07:34.950 align:start position:0%
+so this looks really cool. We have views
+on<00:07:32.880><c> our</c><00:07:33.039><c> side,</c><00:07:33.360><c> due</c><00:07:33.680><c> date,</c><00:07:34.080><c> priority,</c>
+
+00:07:34.950 --> 00:07:34.960 align:start position:0%
+on our side, due date, priority,
+ 
+
+00:07:34.960 --> 00:07:38.390 align:start position:0%
+on our side, due date, priority,
+projects.<00:07:35.840><c> We</c><00:07:36.080><c> also</c><00:07:36.400><c> have</c><00:07:36.960><c> toggle</c><00:07:37.520><c> for</c><00:07:38.160><c> night</c>
+
+00:07:38.390 --> 00:07:38.400 align:start position:0%
+projects. We also have toggle for night
+ 
+
+00:07:38.400 --> 00:07:40.469 align:start position:0%
+projects. We also have toggle for night
+mode<00:07:38.639><c> and</c><00:07:38.960><c> day</c><00:07:39.199><c> mode.</c><00:07:39.759><c> Let's</c><00:07:40.000><c> create</c><00:07:40.160><c> a</c><00:07:40.319><c> new</c>
+
+00:07:40.469 --> 00:07:40.479 align:start position:0%
+mode and day mode. Let's create a new
+ 
+
+00:07:40.479 --> 00:07:43.830 align:start position:0%
+mode and day mode. Let's create a new
+task.<00:07:41.360><c> So,</c><00:07:41.759><c> cook</c>
+
+00:07:43.830 --> 00:07:43.840 align:start position:0%
+task. So, cook
+ 
+
+00:07:43.840 --> 00:07:46.469 align:start position:0%
+task. So, cook
+dinner.<00:07:44.720><c> Leave</c><00:07:44.880><c> the</c><00:07:45.120><c> description</c><00:07:45.599><c> empty.</c><00:07:46.240><c> We</c>
+
+00:07:46.469 --> 00:07:46.479 align:start position:0%
+dinner. Leave the description empty. We
+ 
+
+00:07:46.479 --> 00:07:48.230 align:start position:0%
+dinner. Leave the description empty. We
+pop<00:07:46.720><c> up</c><00:07:46.800><c> a</c><00:07:47.039><c> little</c><00:07:47.199><c> calendar.</c><00:07:48.000><c> That's</c>
+
+00:07:48.230 --> 00:07:48.240 align:start position:0%
+pop up a little calendar. That's
+ 
+
+00:07:48.240 --> 00:07:51.510 align:start position:0%
+pop up a little calendar. That's
+awesome.<00:07:49.440><c> Subtasks.</c><00:07:50.319><c> Even</c><00:07:50.560><c> subtasks.</c><00:07:51.280><c> That's</c>
+
+00:07:51.510 --> 00:07:51.520 align:start position:0%
+awesome. Subtasks. Even subtasks. That's
+ 
+
+00:07:51.520 --> 00:07:55.990 align:start position:0%
+awesome. Subtasks. Even subtasks. That's
+cool.<00:07:52.160><c> So,</c><00:07:52.400><c> buy</c><00:07:52.960><c> food.</c><00:07:53.759><c> Let's</c><00:07:54.000><c> hit</c><00:07:54.240><c> enter.</c>
+
+00:07:55.990 --> 00:07:56.000 align:start position:0%
+cool. So, buy food. Let's hit enter.
+ 
+
+00:07:56.000 --> 00:07:58.230 align:start position:0%
+cool. So, buy food. Let's hit enter.
+All<00:07:56.080><c> right.</c><00:07:56.319><c> Just</c><00:07:56.479><c> click</c><00:07:56.720><c> new</c><00:07:56.879><c> subtask,</c><00:07:57.759><c> cook</c>
+
+00:07:58.230 --> 00:07:58.240 align:start position:0%
+All right. Just click new subtask, cook
+ 
+
+00:07:58.240 --> 00:08:01.749 align:start position:0%
+All right. Just click new subtask, cook
+food,<00:07:58.960><c> and</c><00:07:59.199><c> then</c><00:07:59.360><c> a</c><00:07:59.520><c> new</c><00:07:59.680><c> one,</c><00:08:00.319><c> eat</c><00:08:00.639><c> food.</c><00:08:01.599><c> So</c>
+
+00:08:01.749 --> 00:08:01.759 align:start position:0%
+food, and then a new one, eat food. So
+ 
+
+00:08:01.759 --> 00:08:03.670 align:start position:0%
+food, and then a new one, eat food. So
+that's<00:08:02.080><c> interesting.</c><00:08:02.560><c> It's</c><00:08:02.800><c> like</c><00:08:02.879><c> a</c><00:08:03.199><c> layered,</c>
+
+00:08:03.670 --> 00:08:03.680 align:start position:0%
+that's interesting. It's like a layered,
+ 
+
+00:08:03.680 --> 00:08:05.510 align:start position:0%
+that's interesting. It's like a layered,
+it's<00:08:03.919><c> like</c><00:08:04.000><c> a</c><00:08:04.160><c> folder.</c><00:08:04.479><c> It's</c><00:08:04.639><c> like</c><00:08:04.720><c> a</c><00:08:04.960><c> layered</c>
+
+00:08:05.510 --> 00:08:05.520 align:start position:0%
+it's like a folder. It's like a layered
+ 
+
+00:08:05.520 --> 00:08:08.230 align:start position:0%
+it's like a folder. It's like a layered
+task.<00:08:06.160><c> Typically,</c><00:08:06.720><c> like</c><00:08:06.960><c> from</c><00:08:07.440><c> demo</c><00:08:07.919><c> task</c>
+
+00:08:08.230 --> 00:08:08.240 align:start position:0%
+task. Typically, like from demo task
+ 
+
+00:08:08.240 --> 00:08:09.909 align:start position:0%
+task. Typically, like from demo task
+managers<00:08:08.560><c> that</c><00:08:08.720><c> I've</c><00:08:08.960><c> built,</c><00:08:09.280><c> it's</c><00:08:09.520><c> usually</c>
+
+00:08:09.909 --> 00:08:09.919 align:start position:0%
+managers that I've built, it's usually
+ 
+
+00:08:09.919 --> 00:08:11.589 align:start position:0%
+managers that I've built, it's usually
+one<00:08:10.160><c> top</c><00:08:10.560><c> layer</c><00:08:10.720><c> and</c><00:08:10.879><c> then</c><00:08:11.039><c> you</c><00:08:11.199><c> just</c><00:08:11.360><c> click</c>
+
+00:08:11.589 --> 00:08:11.599 align:start position:0%
+one top layer and then you just click
+ 
+
+00:08:11.599 --> 00:08:13.189 align:start position:0%
+one top layer and then you just click
+close<00:08:11.919><c> in</c><00:08:12.080><c> a</c><00:08:12.240><c> top</c><00:08:12.479><c> layer.</c><00:08:12.639><c> But</c><00:08:12.800><c> now</c><00:08:12.879><c> you</c><00:08:13.120><c> have</c>
+
+00:08:13.189 --> 00:08:13.199 align:start position:0%
+close in a top layer. But now you have
+ 
+
+00:08:13.199 --> 00:08:15.430 align:start position:0%
+close in a top layer. But now you have
+little<00:08:13.440><c> subtasks,</c><00:08:14.080><c> which</c><00:08:14.240><c> is</c><00:08:14.560><c> what</c><00:08:14.800><c> a</c><00:08:15.039><c> lot</c><00:08:15.120><c> of</c>
+
+00:08:15.430 --> 00:08:15.440 align:start position:0%
+little subtasks, which is what a lot of
+ 
+
+00:08:15.440 --> 00:08:17.670 align:start position:0%
+little subtasks, which is what a lot of
+actual<00:08:16.240><c> like</c><00:08:16.479><c> ClickUp</c><00:08:16.960><c> like</c><00:08:17.120><c> actual</c><00:08:17.360><c> task</c>
+
+00:08:17.670 --> 00:08:17.680 align:start position:0%
+actual like ClickUp like actual task
+ 
+
+00:08:17.680 --> 00:08:19.430 align:start position:0%
+actual like ClickUp like actual task
+managers<00:08:18.080><c> do.</c><00:08:18.400><c> They'll</c><00:08:18.720><c> have</c><00:08:18.879><c> subtasks</c>
+
+00:08:19.430 --> 00:08:19.440 align:start position:0%
+managers do. They'll have subtasks
+ 
+
+00:08:19.440 --> 00:08:21.270 align:start position:0%
+managers do. They'll have subtasks
+within<00:08:19.759><c> a</c><00:08:19.919><c> task.</c><00:08:20.560><c> So</c><00:08:20.800><c> that's</c><00:08:21.039><c> really</c>
+
+00:08:21.270 --> 00:08:21.280 align:start position:0%
+within a task. So that's really
+ 
+
+00:08:21.280 --> 00:08:23.510 align:start position:0%
+within a task. So that's really
+interesting.<00:08:21.759><c> We</c><00:08:22.000><c> have</c><00:08:22.240><c> active</c><00:08:22.639><c> task</c>
+
+00:08:23.510 --> 00:08:23.520 align:start position:0%
+interesting. We have active task
+ 
+
+00:08:23.520 --> 00:08:25.990 align:start position:0%
+interesting. We have active task
+completed.<00:08:24.080><c> So,</c><00:08:24.240><c> if</c><00:08:24.400><c> I</c><00:08:24.560><c> actually</c><00:08:24.800><c> just</c><00:08:25.680><c> click</c>
+
+00:08:25.990 --> 00:08:26.000 align:start position:0%
+completed. So, if I actually just click
+ 
+
+00:08:26.000 --> 00:08:27.909 align:start position:0%
+completed. So, if I actually just click
+one,<00:08:26.240><c> two,</c><00:08:26.639><c> and</c><00:08:26.800><c> if</c><00:08:26.960><c> I</c><00:08:27.120><c> click</c><00:08:27.360><c> this</c><00:08:27.599><c> cook</c>
+
+00:08:27.909 --> 00:08:27.919 align:start position:0%
+one, two, and if I click this cook
+ 
+
+00:08:27.919 --> 00:08:30.070 align:start position:0%
+one, two, and if I click this cook
+dinner,<00:08:28.720><c> and</c><00:08:28.960><c> it</c><00:08:29.120><c> goes</c><00:08:29.280><c> into</c><00:08:29.440><c> the</c><00:08:29.680><c> completed</c>
+
+00:08:30.070 --> 00:08:30.080 align:start position:0%
+dinner, and it goes into the completed
+ 
+
+00:08:30.080 --> 00:08:32.469 align:start position:0%
+dinner, and it goes into the completed
+view.<00:08:30.639><c> That's</c><00:08:30.960><c> nice.</c><00:08:31.680><c> And</c><00:08:31.919><c> let</c><00:08:32.080><c> me</c><00:08:32.159><c> just</c><00:08:32.320><c> see</c>
+
+00:08:32.469 --> 00:08:32.479 align:start position:0%
+view. That's nice. And let me just see
+ 
+
+00:08:32.479 --> 00:08:35.269 align:start position:0%
+view. That's nice. And let me just see
+if<00:08:32.719><c> I</c><00:08:32.959><c> right</c><00:08:33.279><c> click</c><00:08:33.519><c> on</c><00:08:33.760><c> here.</c><00:08:34.399><c> Okay,</c><00:08:34.719><c> we</c><00:08:34.959><c> have</c>
+
+00:08:35.269 --> 00:08:35.279 align:start position:0%
+if I right click on here. Okay, we have
+ 
+
+00:08:35.279 --> 00:08:38.870 align:start position:0%
+if I right click on here. Okay, we have
+edit,<00:08:36.159><c> reopen.</c><00:08:37.599><c> Wow,</c><00:08:37.919><c> this</c><00:08:38.080><c> functionality</c><00:08:38.640><c> is</c>
+
+00:08:38.870 --> 00:08:38.880 align:start position:0%
+edit, reopen. Wow, this functionality is
+ 
+
+00:08:38.880 --> 00:08:40.230 align:start position:0%
+edit, reopen. Wow, this functionality is
+actually<00:08:39.120><c> insane.</c><00:08:39.519><c> I</c><00:08:39.680><c> actually</c><00:08:39.919><c> I</c><00:08:40.159><c> can't</c>
+
+00:08:40.230 --> 00:08:40.240 align:start position:0%
+actually insane. I actually I can't
+ 
+
+00:08:40.240 --> 00:08:42.389 align:start position:0%
+actually insane. I actually I can't
+believe<00:08:40.479><c> that</c><00:08:40.959><c> I</c><00:08:41.120><c> can</c><00:08:41.279><c> change</c><00:08:41.519><c> priority</c><00:08:42.000><c> by</c>
+
+00:08:42.389 --> 00:08:42.399 align:start position:0%
+believe that I can change priority by
+ 
+
+00:08:42.399 --> 00:08:44.470 align:start position:0%
+believe that I can change priority by
+doing<00:08:42.560><c> the</c><00:08:42.800><c> right</c><00:08:43.039><c> click</c><00:08:43.200><c> on</c><00:08:43.440><c> here.</c><00:08:44.080><c> Move</c><00:08:44.320><c> to</c>
+
+00:08:44.470 --> 00:08:44.480 align:start position:0%
+doing the right click on here. Move to
+ 
+
+00:08:44.480 --> 00:08:47.030 align:start position:0%
+doing the right click on here. Move to
+inbox,<00:08:44.959><c> move</c><00:08:45.120><c> to</c><00:08:45.279><c> work,</c><00:08:45.600><c> move</c><00:08:45.760><c> to</c><00:08:46.000><c> personal.</c>
+
+00:08:47.030 --> 00:08:47.040 align:start position:0%
+inbox, move to work, move to personal.
+ 
+
+00:08:47.040 --> 00:08:48.470 align:start position:0%
+inbox, move to work, move to personal.
+Okay,<00:08:47.279><c> so</c><00:08:47.440><c> we</c><00:08:47.600><c> have</c><00:08:47.760><c> different</c><00:08:48.000><c> views</c><00:08:48.320><c> over</c>
+
+00:08:48.470 --> 00:08:48.480 align:start position:0%
+Okay, so we have different views over
+ 
+
+00:08:48.480 --> 00:08:50.310 align:start position:0%
+Okay, so we have different views over
+here.<00:08:48.800><c> So,</c><00:08:49.040><c> personal</c><00:08:49.440><c> view</c><00:08:49.680><c> shows</c><00:08:50.000><c> that</c>
+
+00:08:50.310 --> 00:08:50.320 align:start position:0%
+here. So, personal view shows that
+ 
+
+00:08:50.320 --> 00:08:52.949 align:start position:0%
+here. So, personal view shows that
+project.<00:08:51.360><c> Let's</c><00:08:51.680><c> move</c><00:08:51.760><c> it</c><00:08:51.920><c> across</c><00:08:52.160><c> to</c><00:08:52.399><c> inbox</c>
+
+00:08:52.949 --> 00:08:52.959 align:start position:0%
+project. Let's move it across to inbox
+ 
+
+00:08:52.959 --> 00:08:55.269 align:start position:0%
+project. Let's move it across to inbox
+now.
+
+00:08:55.269 --> 00:08:55.279 align:start position:0%
+now.
+ 
+
+00:08:55.279 --> 00:08:57.350 align:start position:0%
+now.
+and<00:08:55.519><c> it</c><00:08:55.760><c> moves.</c><00:08:56.160><c> This</c><00:08:56.399><c> is</c><00:08:56.560><c> beautiful.</c><00:08:57.040><c> This</c><00:08:57.200><c> is</c>
+
+00:08:57.350 --> 00:08:57.360 align:start position:0%
+and it moves. This is beautiful. This is
+ 
+
+00:08:57.360 --> 00:08:59.509 align:start position:0%
+and it moves. This is beautiful. This is
+really<00:08:57.600><c> nice.</c><00:08:57.839><c> This</c><00:08:58.000><c> is</c><00:08:58.160><c> Opus</c><00:08:58.560><c> 4.6</c><00:08:59.120><c> on</c><00:08:59.360><c> its</c>
+
+00:08:59.509 --> 00:08:59.519 align:start position:0%
+really nice. This is Opus 4.6 on its
+ 
+
+00:08:59.519 --> 00:09:01.670 align:start position:0%
+really nice. This is Opus 4.6 on its
+own.<00:08:59.920><c> And</c><00:09:00.160><c> that</c><00:09:00.320><c> is</c><00:09:00.640><c> very</c><00:09:00.959><c> impressive.</c><00:09:01.360><c> And</c><00:09:01.519><c> if</c>
+
+00:09:01.670 --> 00:09:01.680 align:start position:0%
+own. And that is very impressive. And if
+ 
+
+00:09:01.680 --> 00:09:03.590 align:start position:0%
+own. And that is very impressive. And if
+we<00:09:01.839><c> delete</c><00:09:02.080><c> that</c><00:09:02.640><c> and</c><00:09:02.800><c> let's</c><00:09:02.959><c> go</c><00:09:03.040><c> to</c><00:09:03.279><c> create</c><00:09:03.440><c> a</c>
+
+00:09:03.590 --> 00:09:03.600 align:start position:0%
+we delete that and let's go to create a
+ 
+
+00:09:03.600 --> 00:09:05.110 align:start position:0%
+we delete that and let's go to create a
+new<00:09:03.760><c> project</c><00:09:04.000><c> as</c><00:09:04.240><c> well.</c><00:09:04.560><c> I'm</c><00:09:04.720><c> going</c><00:09:04.880><c> to</c><00:09:04.959><c> call</c>
+
+00:09:05.110 --> 00:09:05.120 align:start position:0%
+new project as well. I'm going to call
+ 
+
+00:09:05.120 --> 00:09:08.550 align:start position:0%
+new project as well. I'm going to call
+this<00:09:06.080><c> dinner.</c><00:09:06.959><c> Let's</c><00:09:07.200><c> click</c><00:09:07.519><c> enter.</c><00:09:08.160><c> There</c><00:09:08.399><c> we</c>
+
+00:09:08.550 --> 00:09:08.560 align:start position:0%
+this dinner. Let's click enter. There we
+ 
+
+00:09:08.560 --> 00:09:10.870 align:start position:0%
+this dinner. Let's click enter. There we
+go.<00:09:08.959><c> So,</c><00:09:09.200><c> as</c><00:09:09.360><c> this</c><00:09:09.600><c> stands,</c><00:09:10.000><c> this</c><00:09:10.160><c> is</c><00:09:10.399><c> actually</c>
+
+00:09:10.870 --> 00:09:10.880 align:start position:0%
+go. So, as this stands, this is actually
+ 
+
+00:09:10.880 --> 00:09:12.949 align:start position:0%
+go. So, as this stands, this is actually
+very<00:09:11.200><c> impressive.</c><00:09:11.920><c> It's</c><00:09:12.240><c> It</c><00:09:12.480><c> looks</c><00:09:12.720><c> really</c>
+
+00:09:12.949 --> 00:09:12.959 align:start position:0%
+very impressive. It's It looks really
+ 
+
+00:09:12.959 --> 00:09:14.230 align:start position:0%
+very impressive. It's It looks really
+good.<00:09:13.279><c> It</c><00:09:13.440><c> doesn't</c><00:09:13.600><c> look</c><00:09:13.760><c> like</c><00:09:13.839><c> it's</c><00:09:14.080><c> been</c>
+
+00:09:14.230 --> 00:09:14.240 align:start position:0%
+good. It doesn't look like it's been
+ 
+
+00:09:14.240 --> 00:09:16.630 align:start position:0%
+good. It doesn't look like it's been
+made<00:09:14.480><c> by</c><00:09:14.720><c> a</c><00:09:14.880><c> botch</c><00:09:15.279><c> AI</c><00:09:15.920><c> like</c><00:09:16.080><c> a</c><00:09:16.240><c> lot</c><00:09:16.320><c> of</c><00:09:16.399><c> the</c>
+
+00:09:16.630 --> 00:09:16.640 align:start position:0%
+made by a botch AI like a lot of the
+ 
+
+00:09:16.640 --> 00:09:17.750 align:start position:0%
+made by a botch AI like a lot of the
+older<00:09:16.880><c> apps</c><00:09:17.120><c> that</c><00:09:17.279><c> we've</c><00:09:17.440><c> been</c><00:09:17.600><c> building</c>
+
+00:09:17.750 --> 00:09:17.760 align:start position:0%
+older apps that we've been building
+ 
+
+00:09:17.760 --> 00:09:19.670 align:start position:0%
+older apps that we've been building
+across<00:09:18.080><c> the</c><00:09:18.320><c> last</c><00:09:18.480><c> few</c><00:09:18.640><c> months.</c><00:09:19.200><c> And</c><00:09:19.440><c> on</c><00:09:19.600><c> top</c>
+
+00:09:19.670 --> 00:09:19.680 align:start position:0%
+across the last few months. And on top
+ 
+
+00:09:19.680 --> 00:09:21.030 align:start position:0%
+across the last few months. And on top
+of<00:09:19.760><c> that,</c><00:09:20.080><c> this</c><00:09:20.240><c> is</c><00:09:20.399><c> usable.</c><00:09:20.800><c> It's</c>
+
+00:09:21.030 --> 00:09:21.040 align:start position:0%
+of that, this is usable. It's
+ 
+
+00:09:21.040 --> 00:09:23.750 align:start position:0%
+of that, this is usable. It's
+immediately<00:09:21.600><c> usable.</c><00:09:22.399><c> The</c><00:09:22.640><c> functionality</c><00:09:23.279><c> is</c>
+
+00:09:23.750 --> 00:09:23.760 align:start position:0%
+immediately usable. The functionality is
+ 
+
+00:09:23.760 --> 00:09:26.389 align:start position:0%
+immediately usable. The functionality is
+very<00:09:24.160><c> easy,</c><00:09:24.640><c> very</c><00:09:24.959><c> smooth</c><00:09:25.200><c> to</c><00:09:25.440><c> use.</c><00:09:26.080><c> And</c><00:09:26.160><c> it</c>
+
+00:09:26.389 --> 00:09:26.399 align:start position:0%
+very easy, very smooth to use. And it
+ 
+
+00:09:26.399 --> 00:09:27.990 align:start position:0%
+very easy, very smooth to use. And it
+gave<00:09:26.560><c> us</c><00:09:26.720><c> a</c><00:09:26.880><c> bunch</c><00:09:27.040><c> of</c><00:09:27.200><c> different</c><00:09:27.440><c> sections,</c>
+
+00:09:27.990 --> 00:09:28.000 align:start position:0%
+gave us a bunch of different sections,
+ 
+
+00:09:28.000 --> 00:09:30.150 align:start position:0%
+gave us a bunch of different sections,
+due<00:09:28.240><c> dates,</c><00:09:28.560><c> priorities,</c><00:09:29.040><c> and</c><00:09:29.360><c> projects</c><00:09:29.760><c> as</c><00:09:29.920><c> a</c>
+
+00:09:30.150 --> 00:09:30.160 align:start position:0%
+due dates, priorities, and projects as a
+ 
+
+00:09:30.160 --> 00:09:32.070 align:start position:0%
+due dates, priorities, and projects as a
+starting<00:09:30.480><c> point.</c><00:09:31.040><c> This</c><00:09:31.200><c> is</c><00:09:31.360><c> fantastic.</c><00:09:31.839><c> You</c>
+
+00:09:32.070 --> 00:09:32.080 align:start position:0%
+starting point. This is fantastic. You
+ 
+
+00:09:32.080 --> 00:09:33.829 align:start position:0%
+starting point. This is fantastic. You
+could<00:09:32.160><c> literally</c><00:09:32.480><c> use</c><00:09:32.640><c> this</c><00:09:32.880><c> to</c><00:09:33.440><c> run</c><00:09:33.680><c> your</c>
+
+00:09:33.829 --> 00:09:33.839 align:start position:0%
+could literally use this to run your
+ 
+
+00:09:33.839 --> 00:09:35.190 align:start position:0%
+could literally use this to run your
+personal<00:09:34.240><c> life</c><00:09:34.399><c> without</c><00:09:34.720><c> buying</c><00:09:34.880><c> another</c>
+
+00:09:35.190 --> 00:09:35.200 align:start position:0%
+personal life without buying another
+ 
+
+00:09:35.200 --> 00:09:37.030 align:start position:0%
+personal life without buying another
+tool.<00:09:35.600><c> So</c><00:09:35.760><c> now</c><00:09:35.920><c> back</c><00:09:36.080><c> in</c><00:09:36.240><c> the</c><00:09:36.399><c> agent</c><00:09:36.720><c> team,</c><00:09:36.880><c> we</c>
+
+00:09:37.030 --> 00:09:37.040 align:start position:0%
+tool. So now back in the agent team, we
+ 
+
+00:09:37.040 --> 00:09:39.030 align:start position:0%
+tool. So now back in the agent team, we
+see<00:09:37.200><c> there</c><00:09:37.360><c> was</c><00:09:37.440><c> a</c><00:09:37.519><c> shutdown</c><00:09:38.000><c> request</c><00:09:38.480><c> because</c>
+
+00:09:39.030 --> 00:09:39.040 align:start position:0%
+see there was a shutdown request because
+ 
+
+00:09:39.040 --> 00:09:41.269 align:start position:0%
+see there was a shutdown request because
+all<00:09:39.200><c> the</c><00:09:39.440><c> tasks</c><00:09:39.760><c> were</c><00:09:40.000><c> completed.</c><00:09:40.720><c> Let's</c><00:09:40.959><c> fire</c>
+
+00:09:41.269 --> 00:09:41.279 align:start position:0%
+all the tasks were completed. Let's fire
+ 
+
+00:09:41.279 --> 00:09:42.870 align:start position:0%
+all the tasks were completed. Let's fire
+this<00:09:41.440><c> off</c><00:09:41.519><c> and</c><00:09:41.760><c> see</c><00:09:41.839><c> how</c><00:09:42.000><c> it</c><00:09:42.160><c> looks.</c><00:09:42.480><c> Okay,</c><00:09:42.720><c> so</c>
+
+00:09:42.870 --> 00:09:42.880 align:start position:0%
+this off and see how it looks. Okay, so
+ 
+
+00:09:42.880 --> 00:09:44.470 align:start position:0%
+this off and see how it looks. Okay, so
+this<00:09:43.120><c> looks</c><00:09:43.279><c> really</c><00:09:43.600><c> interesting.</c><00:09:44.080><c> The</c><00:09:44.320><c> first</c>
+
+00:09:44.470 --> 00:09:44.480 align:start position:0%
+this looks really interesting. The first
+ 
+
+00:09:44.480 --> 00:09:45.750 align:start position:0%
+this looks really interesting. The first
+thing<00:09:44.640><c> I</c><00:09:44.800><c> want</c><00:09:44.880><c> to</c><00:09:44.959><c> note</c><00:09:45.120><c> is</c><00:09:45.279><c> that</c><00:09:45.440><c> the</c><00:09:45.600><c> name</c>
+
+00:09:45.750 --> 00:09:45.760 align:start position:0%
+thing I want to note is that the name
+ 
+
+00:09:45.760 --> 00:09:47.670 align:start position:0%
+thing I want to note is that the name
+was<00:09:46.000><c> the</c><00:09:46.160><c> exact</c><00:09:46.399><c> same</c><00:09:46.560><c> as</c><00:09:46.800><c> that</c><00:09:47.120><c> first</c><00:09:47.360><c> version</c>
+
+00:09:47.670 --> 00:09:47.680 align:start position:0%
+was the exact same as that first version
+ 
+
+00:09:47.680 --> 00:09:49.590 align:start position:0%
+was the exact same as that first version
+from<00:09:47.839><c> the</c><00:09:48.080><c> single</c><00:09:48.320><c> agent</c><00:09:48.720><c> task</c><00:09:49.040><c> flow.</c>
+
+00:09:49.590 --> 00:09:49.600 align:start position:0%
+from the single agent task flow.
+ 
+
+00:09:49.600 --> 00:09:50.870 align:start position:0%
+from the single agent task flow.
+Otherwise,<00:09:50.080><c> this</c><00:09:50.240><c> looks</c><00:09:50.399><c> a</c><00:09:50.560><c> lot</c><00:09:50.720><c> more</c>
+
+00:09:50.870 --> 00:09:50.880 align:start position:0%
+Otherwise, this looks a lot more
+ 
+
+00:09:50.880 --> 00:09:53.750 align:start position:0%
+Otherwise, this looks a lot more
+polished.<00:09:51.760><c> We</c><00:09:52.000><c> have</c><00:09:52.240><c> the</c><00:09:52.720><c> night</c><00:09:53.040><c> mode</c><00:09:53.279><c> and</c><00:09:53.519><c> day</c>
+
+00:09:53.750 --> 00:09:53.760 align:start position:0%
+polished. We have the night mode and day
+ 
+
+00:09:53.760 --> 00:09:55.509 align:start position:0%
+polished. We have the night mode and day
+mode<00:09:54.000><c> with</c><00:09:54.320><c> a</c><00:09:54.480><c> bit</c><00:09:54.640><c> more</c><00:09:54.720><c> of</c><00:09:54.880><c> a</c><00:09:55.040><c> transition</c>
+
+00:09:55.509 --> 00:09:55.519 align:start position:0%
+mode with a bit more of a transition
+ 
+
+00:09:55.519 --> 00:09:57.750 align:start position:0%
+mode with a bit more of a transition
+between<00:09:55.839><c> both.</c><00:09:56.560><c> Let's</c><00:09:56.800><c> add</c><00:09:56.959><c> a</c><00:09:57.120><c> task</c><00:09:57.440><c> here.</c>
+
+00:09:57.750 --> 00:09:57.760 align:start position:0%
+between both. Let's add a task here.
+ 
+
+00:09:57.760 --> 00:10:00.870 align:start position:0%
+between both. Let's add a task here.
+What<00:09:58.000><c> needs</c><00:09:58.240><c> to</c><00:09:58.399><c> be</c><00:09:58.480><c> done?</c><00:09:59.680><c> Cook</c><00:10:00.240><c> dinner.</c>
+
+00:10:00.870 --> 00:10:00.880 align:start position:0%
+What needs to be done? Cook dinner.
+ 
+
+00:10:00.880 --> 00:10:02.949 align:start position:0%
+What needs to be done? Cook dinner.
+Leave<00:10:01.120><c> the</c><00:10:01.279><c> description</c><00:10:01.760><c> for</c><00:10:02.000><c> now.</c><00:10:02.560><c> We</c><00:10:02.800><c> can</c>
+
+00:10:02.949 --> 00:10:02.959 align:start position:0%
+Leave the description for now. We can
+ 
+
+00:10:02.959 --> 00:10:05.269 align:start position:0%
+Leave the description for now. We can
+choose<00:10:03.360><c> the</c><00:10:03.680><c> date.</c><00:10:04.240><c> So,</c><00:10:04.480><c> looks</c><00:10:04.640><c> like</c><00:10:04.800><c> the</c><00:10:04.959><c> date</c>
+
+00:10:05.269 --> 00:10:05.279 align:start position:0%
+choose the date. So, looks like the date
+ 
+
+00:10:05.279 --> 00:10:07.030 align:start position:0%
+choose the date. So, looks like the date
+creation<00:10:05.760><c> function</c><00:10:06.160><c> or</c><00:10:06.320><c> the</c><00:10:06.480><c> task</c><00:10:06.720><c> creation</c>
+
+00:10:07.030 --> 00:10:07.040 align:start position:0%
+creation function or the task creation
+ 
+
+00:10:07.040 --> 00:10:08.870 align:start position:0%
+creation function or the task creation
+functionality<00:10:07.600><c> is</c><00:10:07.920><c> very</c><00:10:08.080><c> similar.</c><00:10:08.560><c> Oh,</c><00:10:08.720><c> we've</c>
+
+00:10:08.870 --> 00:10:08.880 align:start position:0%
+functionality is very similar. Oh, we've
+ 
+
+00:10:08.880 --> 00:10:12.710 align:start position:0%
+functionality is very similar. Oh, we've
+got<00:10:09.040><c> subtasks</c><00:10:09.600><c> here</c><00:10:09.839><c> as</c><00:10:10.000><c> well.</c><00:10:10.240><c> So,</c><00:10:11.519><c> by</c><00:10:11.839><c> food,</c>
+
+00:10:12.710 --> 00:10:12.720 align:start position:0%
+got subtasks here as well. So, by food,
+ 
+
+00:10:12.720 --> 00:10:14.870 align:start position:0%
+got subtasks here as well. So, by food,
+add<00:10:12.959><c> a</c><00:10:13.120><c> new</c><00:10:13.279><c> one.</c><00:10:13.680><c> Cooked</c><00:10:14.000><c> food.</c><00:10:14.240><c> And</c><00:10:14.320><c> if</c><00:10:14.480><c> I</c><00:10:14.640><c> hit</c>
+
+00:10:14.870 --> 00:10:14.880 align:start position:0%
+add a new one. Cooked food. And if I hit
+ 
+
+00:10:14.880 --> 00:10:17.030 align:start position:0%
+add a new one. Cooked food. And if I hit
+enter,<00:10:15.600><c> okay,</c><00:10:16.000><c> just</c><00:10:16.160><c> creates</c><00:10:16.480><c> the</c><00:10:16.640><c> task.</c>
+
+00:10:17.030 --> 00:10:17.040 align:start position:0%
+enter, okay, just creates the task.
+ 
+
+00:10:17.040 --> 00:10:19.269 align:start position:0%
+enter, okay, just creates the task.
+Nice.<00:10:17.839><c> Let's</c><00:10:18.160><c> actually</c><00:10:18.399><c> go</c><00:10:18.560><c> back</c><00:10:18.720><c> to</c><00:10:18.959><c> edit</c>
+
+00:10:19.269 --> 00:10:19.279 align:start position:0%
+Nice. Let's actually go back to edit
+ 
+
+00:10:19.279 --> 00:10:22.230 align:start position:0%
+Nice. Let's actually go back to edit
+this<00:10:20.000><c> and</c><00:10:20.320><c> have</c><00:10:20.560><c> one</c><00:10:20.800><c> more.</c><00:10:21.440><c> Eat</c><00:10:21.760><c> food.</c><00:10:22.079><c> We</c>
+
+00:10:22.230 --> 00:10:22.240 align:start position:0%
+this and have one more. Eat food. We
+ 
+
+00:10:22.240 --> 00:10:24.870 align:start position:0%
+this and have one more. Eat food. We
+can't<00:10:22.640><c> forget</c><00:10:22.959><c> about</c><00:10:23.279><c> eating</c><00:10:23.600><c> the</c><00:10:23.760><c> food.</c><00:10:24.640><c> Save</c>
+
+00:10:24.870 --> 00:10:24.880 align:start position:0%
+can't forget about eating the food. Save
+ 
+
+00:10:24.880 --> 00:10:27.910 align:start position:0%
+can't forget about eating the food. Save
+the<00:10:25.120><c> task.</c><00:10:25.760><c> If</c><00:10:26.000><c> I</c><00:10:26.240><c> click</c><00:10:26.399><c> on</c><00:10:26.720><c> write.</c><00:10:27.519><c> Okay.</c><00:10:27.760><c> So,</c>
+
+00:10:27.910 --> 00:10:27.920 align:start position:0%
+the task. If I click on write. Okay. So,
+ 
+
+00:10:27.920 --> 00:10:29.269 align:start position:0%
+the task. If I click on write. Okay. So,
+our<00:10:28.160><c> options</c><00:10:28.480><c> here</c><00:10:28.640><c> are</c><00:10:28.800><c> a</c><00:10:29.040><c> little</c><00:10:29.120><c> bit</c>
+
+00:10:29.269 --> 00:10:29.279 align:start position:0%
+our options here are a little bit
+ 
+
+00:10:29.279 --> 00:10:30.790 align:start position:0%
+our options here are a little bit
+different.<00:10:29.600><c> We</c><00:10:29.760><c> can</c><00:10:29.920><c> edit</c><00:10:30.160><c> the</c><00:10:30.399><c> task,</c>
+
+00:10:30.790 --> 00:10:30.800 align:start position:0%
+different. We can edit the task,
+ 
+
+00:10:30.800 --> 00:10:32.790 align:start position:0%
+different. We can edit the task,
+duplicate,<00:10:31.600><c> or</c><00:10:31.920><c> move</c><00:10:32.079><c> it</c><00:10:32.240><c> to</c><00:10:32.399><c> a</c><00:10:32.560><c> different</c>
+
+00:10:32.790 --> 00:10:32.800 align:start position:0%
+duplicate, or move it to a different
+ 
+
+00:10:32.800 --> 00:10:34.870 align:start position:0%
+duplicate, or move it to a different
+section.<00:10:33.600><c> And</c><00:10:33.760><c> we</c><00:10:33.920><c> can</c><00:10:34.000><c> just</c><00:10:34.240><c> choose</c><00:10:34.480><c> numbers</c>
+
+00:10:34.870 --> 00:10:34.880 align:start position:0%
+section. And we can just choose numbers
+ 
+
+00:10:34.880 --> 00:10:36.949 align:start position:0%
+section. And we can just choose numbers
+here.<00:10:35.440><c> So,</c><00:10:35.600><c> that</c><00:10:35.920><c> navigation</c><00:10:36.320><c> panel</c><00:10:36.640><c> is</c><00:10:36.800><c> a</c>
+
+00:10:36.949 --> 00:10:36.959 align:start position:0%
+here. So, that navigation panel is a
+ 
+
+00:10:36.959 --> 00:10:38.790 align:start position:0%
+here. So, that navigation panel is a
+little<00:10:37.040><c> bit</c><00:10:37.200><c> different.</c><00:10:38.079><c> If</c><00:10:38.320><c> I</c><00:10:38.480><c> just</c><00:10:38.640><c> come</c>
+
+00:10:38.790 --> 00:10:38.800 align:start position:0%
+little bit different. If I just come
+ 
+
+00:10:38.800 --> 00:10:41.910 align:start position:0%
+little bit different. If I just come
+back<00:10:38.959><c> into</c><00:10:39.200><c> here</c><00:10:39.440><c> and</c><00:10:39.760><c> quickly</c><00:10:40.240><c> create</c><00:10:40.800><c> a</c><00:10:41.600><c> an</c>
+
+00:10:41.910 --> 00:10:41.920 align:start position:0%
+back into here and quickly create a an
+ 
+
+00:10:41.920 --> 00:10:45.190 align:start position:0%
+back into here and quickly create a an
+eat<00:10:42.240><c> food</c><00:10:42.560><c> task</c><00:10:43.440><c> and</c><00:10:43.680><c> I</c><00:10:43.920><c> create</c><00:10:44.240><c> this.</c><00:10:44.720><c> If</c><00:10:44.959><c> I</c><00:10:45.120><c> do</c>
+
+00:10:45.190 --> 00:10:45.200 align:start position:0%
+eat food task and I create this. If I do
+ 
+
+00:10:45.200 --> 00:10:47.110 align:start position:0%
+eat food task and I create this. If I do
+the<00:10:45.360><c> right</c><00:10:45.600><c> click</c><00:10:45.920><c> here,</c><00:10:46.320><c> I've</c><00:10:46.560><c> got</c><00:10:46.720><c> a</c><00:10:46.959><c> lot</c>
+
+00:10:47.110 --> 00:10:47.120 align:start position:0%
+the right click here, I've got a lot
+ 
+
+00:10:47.120 --> 00:10:49.430 align:start position:0%
+the right click here, I've got a lot
+more<00:10:47.200><c> of</c><00:10:47.360><c> a</c><00:10:47.519><c> navigation</c><00:10:48.000><c> panel.</c><00:10:48.480><c> So,</c><00:10:48.640><c> this</c><00:10:48.800><c> is</c>
+
+00:10:49.430 --> 00:10:49.440 align:start position:0%
+more of a navigation panel. So, this is
+ 
+
+00:10:49.440 --> 00:10:51.269 align:start position:0%
+more of a navigation panel. So, this is
+yeah,<00:10:49.680><c> it</c><00:10:49.920><c> looks</c><00:10:50.079><c> a</c><00:10:50.240><c> little</c><00:10:50.320><c> bit</c><00:10:50.560><c> more</c><00:10:50.959><c> like</c>
+
+00:10:51.269 --> 00:10:51.279 align:start position:0%
+yeah, it looks a little bit more like
+ 
+
+00:10:51.279 --> 00:10:53.430 align:start position:0%
+yeah, it looks a little bit more like
+less<00:10:51.600><c> polished,</c><00:10:52.160><c> less</c><00:10:52.399><c> refined,</c><00:10:52.880><c> but</c><00:10:53.040><c> it</c><00:10:53.279><c> is</c>
+
+00:10:53.430 --> 00:10:53.440 align:start position:0%
+less polished, less refined, but it is
+ 
+
+00:10:53.440 --> 00:10:55.430 align:start position:0%
+less polished, less refined, but it is
+in<00:10:53.680><c> my</c><00:10:53.839><c> opinion</c><00:10:54.160><c> for</c><00:10:54.320><c> me</c><00:10:54.480><c> a</c><00:10:54.720><c> bit</c><00:10:54.800><c> more</c><00:10:55.040><c> usable</c>
+
+00:10:55.430 --> 00:10:55.440 align:start position:0%
+in my opinion for me a bit more usable
+ 
+
+00:10:55.440 --> 00:10:57.269 align:start position:0%
+in my opinion for me a bit more usable
+cuz<00:10:55.680><c> I</c><00:10:55.839><c> just</c><00:10:56.000><c> like</c><00:10:56.160><c> having</c><00:10:56.480><c> everything</c><00:10:56.959><c> easy</c>
+
+00:10:57.269 --> 00:10:57.279 align:start position:0%
+cuz I just like having everything easy
+ 
+
+00:10:57.279 --> 00:10:59.590 align:start position:0%
+cuz I just like having everything easy
+access<00:10:57.680><c> here.</c><00:10:58.480><c> But</c><00:10:58.640><c> you</c><00:10:58.800><c> can</c><00:10:58.959><c> definitely</c><00:10:59.360><c> see</c>
+
+00:10:59.590 --> 00:10:59.600 align:start position:0%
+access here. But you can definitely see
+ 
+
+00:10:59.600 --> 00:11:01.670 align:start position:0%
+access here. But you can definitely see
+like<00:10:59.920><c> this</c><00:11:00.160><c> side</c><00:11:00.480><c> panel</c><00:11:00.800><c> over</c><00:11:01.040><c> here,</c><00:11:01.360><c> it</c><00:11:01.519><c> does</c>
+
+00:11:01.670 --> 00:11:01.680 align:start position:0%
+like this side panel over here, it does
+ 
+
+00:11:01.680 --> 00:11:03.430 align:start position:0%
+like this side panel over here, it does
+look<00:11:01.839><c> a</c><00:11:02.079><c> like</c><00:11:02.240><c> a</c><00:11:02.399><c> lot</c><00:11:02.560><c> more</c><00:11:02.720><c> polished.</c><00:11:03.120><c> So,</c><00:11:03.279><c> I'm</c>
+
+00:11:03.430 --> 00:11:03.440 align:start position:0%
+look a like a lot more polished. So, I'm
+ 
+
+00:11:03.440 --> 00:11:04.870 align:start position:0%
+look a like a lot more polished. So, I'm
+just<00:11:03.519><c> going</c><00:11:03.600><c> to</c><00:11:03.760><c> quickly</c><00:11:04.079><c> flip</c><00:11:04.320><c> across</c><00:11:04.640><c> for</c>
+
+00:11:04.870 --> 00:11:04.880 align:start position:0%
+just going to quickly flip across for
+ 
+
+00:11:04.880 --> 00:11:07.110 align:start position:0%
+just going to quickly flip across for
+both.<00:11:05.600><c> This</c><00:11:05.839><c> is</c><00:11:05.920><c> that</c><00:11:06.160><c> single</c><00:11:06.480><c> agent</c><00:11:06.800><c> one.</c>
+
+00:11:07.110 --> 00:11:07.120 align:start position:0%
+both. This is that single agent one.
+ 
+
+00:11:07.120 --> 00:11:08.710 align:start position:0%
+both. This is that single agent one.
+We're<00:11:07.360><c> using</c><00:11:07.519><c> more</c><00:11:07.680><c> of</c><00:11:07.760><c> these</c><00:11:08.000><c> emojis.</c><00:11:08.560><c> We</c>
+
+00:11:08.710 --> 00:11:08.720 align:start position:0%
+We're using more of these emojis. We
+ 
+
+00:11:08.720 --> 00:11:10.230 align:start position:0%
+We're using more of these emojis. We
+could<00:11:08.880><c> definitely</c><00:11:09.200><c> go</c><00:11:09.360><c> back</c><00:11:09.600><c> and</c><00:11:09.760><c> refine</c><00:11:10.079><c> this</c>
+
+00:11:10.230 --> 00:11:10.240 align:start position:0%
+could definitely go back and refine this
+ 
+
+00:11:10.240 --> 00:11:12.550 align:start position:0%
+could definitely go back and refine this
+and<00:11:10.480><c> say</c><00:11:10.720><c> don't</c><00:11:10.959><c> use</c><00:11:11.120><c> the</c><00:11:11.279><c> emojis,</c><00:11:12.079><c> but</c><00:11:12.240><c> I</c><00:11:12.399><c> do</c>
+
+00:11:12.550 --> 00:11:12.560 align:start position:0%
+and say don't use the emojis, but I do
+ 
+
+00:11:12.560 --> 00:11:14.630 align:start position:0%
+and say don't use the emojis, but I do
+like<00:11:12.720><c> how</c><00:11:12.959><c> it's</c><00:11:13.120><c> more</c><00:11:13.360><c> filled</c><00:11:13.600><c> out</c><00:11:13.760><c> over</c><00:11:14.000><c> here.</c>
+
+00:11:14.630 --> 00:11:14.640 align:start position:0%
+like how it's more filled out over here.
+ 
+
+00:11:14.640 --> 00:11:16.710 align:start position:0%
+like how it's more filled out over here.
+But<00:11:14.800><c> then</c><00:11:14.959><c> the</c><00:11:15.200><c> agent</c><00:11:15.600><c> team</c><00:11:15.920><c> one</c><00:11:16.160><c> does</c><00:11:16.399><c> look</c><00:11:16.560><c> a</c>
+
+00:11:16.710 --> 00:11:16.720 align:start position:0%
+But then the agent team one does look a
+ 
+
+00:11:16.720 --> 00:11:18.550 align:start position:0%
+But then the agent team one does look a
+lot<00:11:16.800><c> more</c><00:11:16.959><c> refined.</c><00:11:17.440><c> So</c><00:11:17.680><c> I</c><00:11:17.920><c> actually</c><00:11:18.160><c> like</c><00:11:18.399><c> the</c>
+
+00:11:18.550 --> 00:11:18.560 align:start position:0%
+lot more refined. So I actually like the
+ 
+
+00:11:18.560 --> 00:11:20.389 align:start position:0%
+lot more refined. So I actually like the
+side<00:11:18.800><c> panel</c><00:11:19.120><c> here.</c><00:11:19.360><c> It's</c><00:11:19.519><c> very</c><00:11:19.680><c> nice.</c><00:11:20.240><c> We</c>
+
+00:11:20.389 --> 00:11:20.399 align:start position:0%
+side panel here. It's very nice. We
+ 
+
+00:11:20.399 --> 00:11:22.069 align:start position:0%
+side panel here. It's very nice. We
+didn't<00:11:20.640><c> have</c><00:11:20.720><c> the</c><00:11:20.959><c> settings</c><00:11:21.279><c> panel</c><00:11:21.600><c> in</c><00:11:21.839><c> the</c>
+
+00:11:22.069 --> 00:11:22.079 align:start position:0%
+didn't have the settings panel in the
+ 
+
+00:11:22.079 --> 00:11:23.829 align:start position:0%
+didn't have the settings panel in the
+first<00:11:22.320><c> version.</c><00:11:22.800><c> But</c><00:11:22.880><c> if</c><00:11:23.040><c> I</c><00:11:23.200><c> click</c><00:11:23.360><c> this,</c><00:11:23.600><c> it</c>
+
+00:11:23.829 --> 00:11:23.839 align:start position:0%
+first version. But if I click this, it
+ 
+
+00:11:23.839 --> 00:11:26.230 align:start position:0%
+first version. But if I click this, it
+doesn't<00:11:24.000><c> actually</c><00:11:24.240><c> go</c><00:11:24.399><c> anywhere.</c><00:11:25.680><c> And</c><00:11:25.839><c> if</c><00:11:26.079><c> I</c>
+
+00:11:26.230 --> 00:11:26.240 align:start position:0%
+doesn't actually go anywhere. And if I
+ 
+
+00:11:26.240 --> 00:11:28.470 align:start position:0%
+doesn't actually go anywhere. And if I
+go<00:11:26.320><c> onto</c><00:11:26.800><c> board</c><00:11:27.120><c> view,</c><00:11:27.920><c> it</c><00:11:28.160><c> doesn't</c><00:11:28.320><c> go</c>
+
+00:11:28.470 --> 00:11:28.480 align:start position:0%
+go onto board view, it doesn't go
+ 
+
+00:11:28.480 --> 00:11:30.389 align:start position:0%
+go onto board view, it doesn't go
+anywhere<00:11:28.959><c> as</c><00:11:29.120><c> well.</c><00:11:29.680><c> So</c><00:11:29.839><c> I'm</c><00:11:30.000><c> just</c><00:11:30.160><c> going</c><00:11:30.240><c> to</c>
+
+00:11:30.389 --> 00:11:30.399 align:start position:0%
+anywhere as well. So I'm just going to
+ 
+
+00:11:30.399 --> 00:11:31.990 align:start position:0%
+anywhere as well. So I'm just going to
+come<00:11:30.560><c> back</c><00:11:30.720><c> to</c><00:11:30.880><c> the</c><00:11:31.120><c> agent</c><00:11:31.440><c> team.</c><00:11:31.760><c> I'm</c><00:11:31.920><c> going</c>
+
+00:11:31.990 --> 00:11:32.000 align:start position:0%
+come back to the agent team. I'm going
+ 
+
+00:11:32.000 --> 00:11:34.069 align:start position:0%
+come back to the agent team. I'm going
+to<00:11:32.079><c> click</c><00:11:32.399><c> escape</c><00:11:32.800><c> to</c><00:11:33.120><c> return</c><00:11:33.440><c> to</c><00:11:33.600><c> the</c><00:11:33.839><c> team</c>
+
+00:11:34.069 --> 00:11:34.079 align:start position:0%
+to click escape to return to the team
+ 
+
+00:11:34.079 --> 00:11:35.910 align:start position:0%
+to click escape to return to the team
+lead.<00:11:34.640><c> I'm</c><00:11:34.880><c> just</c><00:11:35.040><c> going</c><00:11:35.120><c> to</c><00:11:35.200><c> say,</c><00:11:35.440><c> can</c><00:11:35.680><c> you</c>
+
+00:11:35.910 --> 00:11:35.920 align:start position:0%
+lead. I'm just going to say, can you
+ 
+
+00:11:35.920 --> 00:11:39.350 align:start position:0%
+lead. I'm just going to say, can you
+confirm<00:11:36.800><c> the</c><00:11:37.120><c> JavaScript</c><00:11:37.839><c> is</c><00:11:38.240><c> working</c>
+
+00:11:39.350 --> 00:11:39.360 align:start position:0%
+confirm the JavaScript is working
+ 
+
+00:11:39.360 --> 00:11:42.630 align:start position:0%
+confirm the JavaScript is working
+because<00:11:40.160><c> some</c><00:11:40.480><c> of</c><00:11:40.720><c> the</c><00:11:41.120><c> buttons</c><00:11:41.839><c> which</c><00:11:42.079><c> was</c>
+
+00:11:42.630 --> 00:11:42.640 align:start position:0%
+because some of the buttons which was
+ 
+
+00:11:42.640 --> 00:11:47.910 align:start position:0%
+because some of the buttons which was
+settings<00:11:43.600><c> or</c><00:11:44.240><c> board</c><00:11:44.560><c> view,</c><00:11:45.920><c> they</c><00:11:46.320><c> don't</c><00:11:46.720><c> work.</c>
+
+00:11:47.910 --> 00:11:47.920 align:start position:0%
+settings or board view, they don't work.
+ 
+
+00:11:47.920 --> 00:11:50.069 align:start position:0%
+settings or board view, they don't work.
+So,<00:11:48.160><c> let's</c><00:11:48.399><c> see</c><00:11:48.480><c> what</c><00:11:48.720><c> happens</c><00:11:49.120><c> when</c><00:11:49.360><c> we</c><00:11:49.920><c> uh</c>
+
+00:11:50.069 --> 00:11:50.079 align:start position:0%
+So, let's see what happens when we uh
+ 
+
+00:11:50.079 --> 00:11:52.150 align:start position:0%
+So, let's see what happens when we uh
+when<00:11:50.320><c> we</c><00:11:50.480><c> try</c><00:11:50.640><c> and</c><00:11:50.880><c> fix</c><00:11:51.120><c> this.</c><00:11:51.760><c> So,</c><00:11:51.920><c> there</c><00:11:52.079><c> we</c>
+
+00:11:52.150 --> 00:11:52.160 align:start position:0%
+when we try and fix this. So, there we
+ 
+
+00:11:52.160 --> 00:11:54.069 align:start position:0%
+when we try and fix this. So, there we
+go.<00:11:52.399><c> Looks</c><00:11:52.560><c> like</c><00:11:52.640><c> we</c><00:11:52.800><c> have</c><00:11:52.880><c> a</c><00:11:53.120><c> fix.</c><00:11:53.600><c> Now,</c><00:11:53.839><c> the</c>
+
+00:11:54.069 --> 00:11:54.079 align:start position:0%
+go. Looks like we have a fix. Now, the
+ 
+
+00:11:54.079 --> 00:11:56.310 align:start position:0%
+go. Looks like we have a fix. Now, the
+board<00:11:54.320><c> view</c><00:11:54.560><c> and</c><00:11:54.800><c> the</c><00:11:54.959><c> settings</c><00:11:55.519><c> buttons</c><00:11:56.240><c> uh</c>
+
+00:11:56.310 --> 00:11:56.320 align:start position:0%
+board view and the settings buttons uh
+ 
+
+00:11:56.320 --> 00:11:58.150 align:start position:0%
+board view and the settings buttons uh
+will<00:11:56.560><c> actually</c><00:11:56.880><c> do</c><00:11:57.040><c> something.</c><00:11:57.680><c> So,</c><00:11:57.920><c> now</c>
+
+00:11:58.150 --> 00:11:58.160 align:start position:0%
+will actually do something. So, now
+ 
+
+00:11:58.160 --> 00:11:59.910 align:start position:0%
+will actually do something. So, now
+coming<00:11:58.399><c> back</c><00:11:58.480><c> to</c><00:11:58.640><c> our</c><00:11:58.800><c> task</c><00:11:59.120><c> manager,</c><00:11:59.600><c> if</c><00:11:59.760><c> I</c>
+
+00:11:59.910 --> 00:11:59.920 align:start position:0%
+coming back to our task manager, if I
+ 
+
+00:11:59.920 --> 00:12:02.150 align:start position:0%
+coming back to our task manager, if I
+click<00:12:00.079><c> on</c><00:12:00.320><c> board</c><00:12:00.640><c> view,</c><00:12:01.519><c> nice.</c><00:12:01.920><c> Actually,</c>
+
+00:12:02.150 --> 00:12:02.160 align:start position:0%
+click on board view, nice. Actually,
+ 
+
+00:12:02.160 --> 00:12:03.670 align:start position:0%
+click on board view, nice. Actually,
+looks<00:12:02.399><c> like</c><00:12:02.480><c> we</c><00:12:02.720><c> can</c><00:12:02.800><c> drag</c><00:12:03.040><c> and</c><00:12:03.200><c> drop</c><00:12:03.440><c> between</c>
+
+00:12:03.670 --> 00:12:03.680 align:start position:0%
+looks like we can drag and drop between
+ 
+
+00:12:03.680 --> 00:12:05.269 align:start position:0%
+looks like we can drag and drop between
+here<00:12:03.839><c> as</c><00:12:04.000><c> well.</c><00:12:04.240><c> So</c><00:12:04.399><c> the</c><00:12:04.480><c> board</c><00:12:04.720><c> view</c><00:12:04.959><c> now</c>
+
+00:12:05.269 --> 00:12:05.279 align:start position:0%
+here as well. So the board view now
+ 
+
+00:12:05.279 --> 00:12:07.350 align:start position:0%
+here as well. So the board view now
+works<00:12:05.839><c> and</c><00:12:06.079><c> it</c><00:12:06.240><c> changes</c><00:12:06.560><c> the</c><00:12:06.800><c> status</c><00:12:07.040><c> as</c><00:12:07.279><c> we</c>
+
+00:12:07.350 --> 00:12:07.360 align:start position:0%
+works and it changes the status as we
+ 
+
+00:12:07.360 --> 00:12:09.269 align:start position:0%
+works and it changes the status as we
+drag<00:12:07.600><c> it</c><00:12:07.760><c> to</c><00:12:07.839><c> a</c><00:12:08.079><c> different</c><00:12:08.480><c> section</c><00:12:08.800><c> of</c><00:12:09.040><c> our</c>
+
+00:12:09.269 --> 00:12:09.279 align:start position:0%
+drag it to a different section of our
+ 
+
+00:12:09.279 --> 00:12:11.350 align:start position:0%
+drag it to a different section of our
+pipeline<00:12:09.760><c> between</c><00:12:10.320><c> urgent</c><00:12:10.639><c> to</c><00:12:10.800><c> high</c><00:12:11.120><c> to</c>
+
+00:12:11.350 --> 00:12:11.360 align:start position:0%
+pipeline between urgent to high to
+ 
+
+00:12:11.360 --> 00:12:13.269 align:start position:0%
+pipeline between urgent to high to
+medium.<00:12:12.000><c> It</c><00:12:12.240><c> actually</c><00:12:12.480><c> applies</c><00:12:12.800><c> that</c><00:12:13.040><c> to</c><00:12:13.120><c> the</c>
+
+00:12:13.269 --> 00:12:13.279 align:start position:0%
+medium. It actually applies that to the
+ 
+
+00:12:13.279 --> 00:12:14.790 align:start position:0%
+medium. It actually applies that to the
+task<00:12:13.600><c> as</c><00:12:13.760><c> well.</c><00:12:14.079><c> And</c><00:12:14.240><c> now</c><00:12:14.399><c> let's</c><00:12:14.560><c> check</c><00:12:14.720><c> out</c>
+
+00:12:14.790 --> 00:12:14.800 align:start position:0%
+task as well. And now let's check out
+ 
+
+00:12:14.800 --> 00:12:17.110 align:start position:0%
+task as well. And now let's check out
+the<00:12:14.959><c> settings</c><00:12:15.360><c> panel.</c><00:12:16.000><c> So</c><00:12:16.240><c> over</c><00:12:16.480><c> here</c><00:12:16.639><c> we</c><00:12:16.880><c> have</c>
+
+00:12:17.110 --> 00:12:17.120 align:start position:0%
+the settings panel. So over here we have
+ 
+
+00:12:17.120 --> 00:12:20.069 align:start position:0%
+the settings panel. So over here we have
+light<00:12:17.360><c> mode</c><00:12:17.680><c> or</c><00:12:18.000><c> dark</c><00:12:18.320><c> mode.</c><00:12:19.040><c> Okay,</c><00:12:19.600><c> default</c>
+
+00:12:20.069 --> 00:12:20.079 align:start position:0%
+light mode or dark mode. Okay, default
+ 
+
+00:12:20.079 --> 00:12:22.389 align:start position:0%
+light mode or dark mode. Okay, default
+view<00:12:20.560><c> and</c><00:12:20.800><c> then</c><00:12:20.959><c> we</c><00:12:21.120><c> have</c><00:12:21.360><c> export</c><00:12:21.839><c> data</c><00:12:22.079><c> as</c>
+
+00:12:22.389 --> 00:12:22.399 align:start position:0%
+view and then we have export data as
+ 
+
+00:12:22.399 --> 00:12:24.870 align:start position:0%
+view and then we have export data as
+JSON<00:12:22.880><c> or</c><00:12:23.279><c> import</c><00:12:23.600><c> and</c><00:12:23.839><c> then</c><00:12:23.920><c> clear</c><00:12:24.160><c> all</c><00:12:24.399><c> data.</c>
+
+00:12:24.870 --> 00:12:24.880 align:start position:0%
+JSON or import and then clear all data.
+ 
+
+00:12:24.880 --> 00:12:27.110 align:start position:0%
+JSON or import and then clear all data.
+So<00:12:25.120><c> now</c><00:12:25.200><c> to</c><00:12:25.440><c> do</c><00:12:25.519><c> a</c><00:12:25.600><c> postmortem</c><00:12:26.480><c> between</c><00:12:26.800><c> both</c>
+
+00:12:27.110 --> 00:12:27.120 align:start position:0%
+So now to do a postmortem between both
+ 
+
+00:12:27.120 --> 00:12:29.030 align:start position:0%
+So now to do a postmortem between both
+builds<00:12:27.519><c> either</c><00:12:27.839><c> using</c><00:12:28.000><c> the</c><00:12:28.240><c> single</c><00:12:28.480><c> agent</c><00:12:28.880><c> or</c>
+
+00:12:29.030 --> 00:12:29.040 align:start position:0%
+builds either using the single agent or
+ 
+
+00:12:29.040 --> 00:12:31.110 align:start position:0%
+builds either using the single agent or
+the<00:12:29.279><c> team</c><00:12:29.519><c> of</c><00:12:29.680><c> agents.</c><00:12:30.399><c> The</c><00:12:30.639><c> single</c><00:12:30.880><c> agent</c>
+
+00:12:31.110 --> 00:12:31.120 align:start position:0%
+the team of agents. The single agent
+ 
+
+00:12:31.120 --> 00:12:33.190 align:start position:0%
+the team of agents. The single agent
+took<00:12:31.440><c> 6</c><00:12:31.680><c> minutes</c><00:12:31.839><c> and</c><00:12:32.079><c> 55</c><00:12:32.480><c> seconds</c><00:12:32.800><c> to</c><00:12:33.040><c> build</c>
+
+00:12:33.190 --> 00:12:33.200 align:start position:0%
+took 6 minutes and 55 seconds to build
+ 
+
+00:12:33.200 --> 00:12:35.190 align:start position:0%
+took 6 minutes and 55 seconds to build
+out<00:12:33.360><c> the</c><00:12:33.680><c> task</c><00:12:34.079><c> manager.</c><00:12:34.639><c> And</c><00:12:34.800><c> I</c><00:12:34.959><c> actually</c>
+
+00:12:35.190 --> 00:12:35.200 align:start position:0%
+out the task manager. And I actually
+ 
+
+00:12:35.200 --> 00:12:37.509 align:start position:0%
+out the task manager. And I actually
+like<00:12:35.440><c> how</c><00:12:35.600><c> this</c><00:12:35.839><c> looks</c><00:12:36.160><c> more</c><00:12:36.480><c> than</c><00:12:36.720><c> the</c><00:12:37.120><c> agent</c>
+
+00:12:37.509 --> 00:12:37.519 align:start position:0%
+like how this looks more than the agent
+ 
+
+00:12:37.519 --> 00:12:39.110 align:start position:0%
+like how this looks more than the agent
+team<00:12:37.839><c> app.</c><00:12:38.240><c> I</c><00:12:38.399><c> like</c><00:12:38.480><c> that</c><00:12:38.639><c> they're</c><00:12:38.880><c> using</c>
+
+00:12:39.110 --> 00:12:39.120 align:start position:0%
+team app. I like that they're using
+ 
+
+00:12:39.120 --> 00:12:41.509 align:start position:0%
+team app. I like that they're using
+emojis<00:12:39.600><c> over</c><00:12:39.839><c> here.</c><00:12:40.240><c> It's</c><00:12:40.399><c> a</c><00:12:40.560><c> bit</c><00:12:40.720><c> more</c><00:12:40.959><c> fun.</c>
+
+00:12:41.509 --> 00:12:41.519 align:start position:0%
+emojis over here. It's a bit more fun.
+ 
+
+00:12:41.519 --> 00:12:43.350 align:start position:0%
+emojis over here. It's a bit more fun.
+It<00:12:41.680><c> makes</c><00:12:41.839><c> me</c><00:12:42.079><c> want</c><00:12:42.240><c> to</c><00:12:42.399><c> create</c><00:12:42.720><c> tasks</c><00:12:43.120><c> and</c>
+
+00:12:43.350 --> 00:12:43.360 align:start position:0%
+It makes me want to create tasks and
+ 
+
+00:12:43.360 --> 00:12:44.790 align:start position:0%
+It makes me want to create tasks and
+follow<00:12:43.600><c> through</c><00:12:43.839><c> with</c><00:12:44.000><c> them.</c><00:12:44.480><c> And</c><00:12:44.639><c> then</c>
+
+00:12:44.790 --> 00:12:44.800 align:start position:0%
+follow through with them. And then
+ 
+
+00:12:44.800 --> 00:12:46.870 align:start position:0%
+follow through with them. And then
+looking<00:12:45.040><c> at</c><00:12:45.200><c> the</c><00:12:45.360><c> agent</c><00:12:45.839><c> team,</c><00:12:46.480><c> the</c><00:12:46.720><c> first</c>
+
+00:12:46.870 --> 00:12:46.880 align:start position:0%
+looking at the agent team, the first
+ 
+
+00:12:46.880 --> 00:12:48.230 align:start position:0%
+looking at the agent team, the first
+part<00:12:47.040><c> of</c><00:12:47.200><c> the</c><00:12:47.360><c> build</c><00:12:47.519><c> was</c><00:12:47.760><c> actually</c><00:12:47.920><c> a</c><00:12:48.160><c> little</c>
+
+00:12:48.230 --> 00:12:48.240 align:start position:0%
+part of the build was actually a little
+ 
+
+00:12:48.240 --> 00:12:50.629 align:start position:0%
+part of the build was actually a little
+bit<00:12:48.399><c> faster.</c><00:12:48.880><c> So</c><00:12:49.040><c> it</c><00:12:49.279><c> was</c><00:12:49.440><c> 4</c><00:12:49.680><c> minutes</c><00:12:50.000><c> and</c><00:12:50.240><c> 50</c>
+
+00:12:50.629 --> 00:12:50.639 align:start position:0%
+bit faster. So it was 4 minutes and 50
+ 
+
+00:12:50.639 --> 00:12:53.430 align:start position:0%
+bit faster. So it was 4 minutes and 50
+seconds<00:12:51.519><c> versus</c><00:12:51.920><c> 6</c><00:12:52.240><c> minutes</c><00:12:52.480><c> and</c><00:12:52.720><c> 50</c><00:12:53.040><c> seconds.</c>
+
+00:12:53.430 --> 00:12:53.440 align:start position:0%
+seconds versus 6 minutes and 50 seconds.
+ 
+
+00:12:53.440 --> 00:12:55.509 align:start position:0%
+seconds versus 6 minutes and 50 seconds.
+So<00:12:53.600><c> 2</c><00:12:53.839><c> minutes</c><00:12:54.079><c> faster.</c><00:12:54.800><c> But</c><00:12:54.959><c> then</c><00:12:55.040><c> we</c><00:12:55.200><c> had</c><00:12:55.360><c> to</c>
+
+00:12:55.509 --> 00:12:55.519 align:start position:0%
+So 2 minutes faster. But then we had to
+ 
+
+00:12:55.519 --> 00:12:57.910 align:start position:0%
+So 2 minutes faster. But then we had to
+come<00:12:55.600><c> back</c><00:12:55.760><c> and</c><00:12:56.000><c> rework</c><00:12:56.560><c> the</c><00:12:57.040><c> canban</c><00:12:57.680><c> board</c>
+
+00:12:57.910 --> 00:12:57.920 align:start position:0%
+come back and rework the canban board
+ 
+
+00:12:57.920 --> 00:12:59.910 align:start position:0%
+come back and rework the canban board
+button<00:12:58.240><c> and</c><00:12:58.399><c> also</c><00:12:58.639><c> the</c><00:12:58.800><c> settings</c><00:12:59.200><c> button.</c><00:12:59.760><c> And</c>
+
+00:12:59.910 --> 00:12:59.920 align:start position:0%
+button and also the settings button. And
+ 
+
+00:12:59.920 --> 00:13:01.509 align:start position:0%
+button and also the settings button. And
+that<00:13:00.079><c> added</c><00:13:00.399><c> an</c><00:13:00.560><c> additional</c><00:13:00.959><c> one</c><00:13:01.120><c> and</c><00:13:01.200><c> a</c><00:13:01.279><c> half</c>
+
+00:13:01.509 --> 00:13:01.519 align:start position:0%
+that added an additional one and a half
+ 
+
+00:13:01.519 --> 00:13:02.949 align:start position:0%
+that added an additional one and a half
+minutes<00:13:01.760><c> to</c><00:13:02.000><c> our</c><00:13:02.160><c> build</c><00:13:02.399><c> time.</c><00:13:02.639><c> So</c><00:13:02.720><c> I</c><00:13:02.880><c> would</c>
+
+00:13:02.949 --> 00:13:02.959 align:start position:0%
+minutes to our build time. So I would
+ 
+
+00:13:02.959 --> 00:13:05.190 align:start position:0%
+minutes to our build time. So I would
+say<00:13:03.120><c> the</c><00:13:03.279><c> build</c><00:13:03.519><c> time</c><00:13:03.680><c> is</c><00:13:03.920><c> like</c><00:13:04.160><c> for</c><00:13:04.320><c> like.</c><00:13:05.040><c> And</c>
+
+00:13:05.190 --> 00:13:05.200 align:start position:0%
+say the build time is like for like. And
+ 
+
+00:13:05.200 --> 00:13:06.629 align:start position:0%
+say the build time is like for like. And
+in<00:13:05.440><c> this</c><00:13:05.600><c> portal,</c><00:13:06.079><c> while</c><00:13:06.320><c> I</c><00:13:06.560><c> don't</c>
+
+00:13:06.629 --> 00:13:06.639 align:start position:0%
+in this portal, while I don't
+ 
+
+00:13:06.639 --> 00:13:08.710 align:start position:0%
+in this portal, while I don't
+necessarily<00:13:07.120><c> like</c><00:13:07.360><c> the</c><00:13:07.600><c> UI</c><00:13:08.000><c> as</c><00:13:08.160><c> much</c><00:13:08.320><c> as</c><00:13:08.480><c> the</c>
+
+00:13:08.710 --> 00:13:08.720 align:start position:0%
+necessarily like the UI as much as the
+ 
+
+00:13:08.720 --> 00:13:10.629 align:start position:0%
+necessarily like the UI as much as the
+first<00:13:08.880><c> one,</c><00:13:09.279><c> I</c><00:13:09.440><c> could</c><00:13:09.600><c> definitely</c><00:13:10.079><c> fix</c><00:13:10.320><c> it</c><00:13:10.480><c> by</c>
+
+00:13:10.629 --> 00:13:10.639 align:start position:0%
+first one, I could definitely fix it by
+ 
+
+00:13:10.639 --> 00:13:12.710 align:start position:0%
+first one, I could definitely fix it by
+prompting<00:13:11.040><c> up.</c><00:13:11.600><c> I</c><00:13:11.839><c> do</c><00:13:11.920><c> like</c><00:13:12.079><c> that</c><00:13:12.240><c> it</c><00:13:12.480><c> went</c><00:13:12.560><c> a</c>
+
+00:13:12.710 --> 00:13:12.720 align:start position:0%
+prompting up. I do like that it went a
+ 
+
+00:13:12.720 --> 00:13:14.710 align:start position:0%
+prompting up. I do like that it went a
+little<00:13:12.800><c> bit</c><00:13:12.959><c> deeper</c><00:13:13.519><c> and</c><00:13:13.760><c> it</c><00:13:14.000><c> had</c><00:13:14.160><c> the</c><00:13:14.399><c> board</c>
+
+00:13:14.710 --> 00:13:14.720 align:start position:0%
+little bit deeper and it had the board
+ 
+
+00:13:14.720 --> 00:13:16.790 align:start position:0%
+little bit deeper and it had the board
+view.<00:13:15.360><c> And</c><00:13:15.440><c> I</c><00:13:15.600><c> do</c><00:13:15.760><c> like</c><00:13:15.920><c> the</c><00:13:16.160><c> settings</c><00:13:16.480><c> panel.</c>
+
+00:13:16.790 --> 00:13:16.800 align:start position:0%
+view. And I do like the settings panel.
+ 
+
+00:13:16.800 --> 00:13:18.230 align:start position:0%
+view. And I do like the settings panel.
+So<00:13:16.959><c> I</c><00:13:17.120><c> didn't</c><00:13:17.200><c> even</c><00:13:17.360><c> prompt</c><00:13:17.680><c> up</c><00:13:17.839><c> that</c><00:13:18.000><c> I</c><00:13:18.079><c> wanted</c>
+
+00:13:18.230 --> 00:13:18.240 align:start position:0%
+So I didn't even prompt up that I wanted
+ 
+
+00:13:18.240 --> 00:13:19.990 align:start position:0%
+So I didn't even prompt up that I wanted
+a<00:13:18.480><c> settings</c><00:13:18.800><c> panel.</c><00:13:19.360><c> And</c><00:13:19.519><c> I</c><00:13:19.680><c> didn't</c><00:13:19.839><c> even</c>
+
+00:13:19.990 --> 00:13:20.000 align:start position:0%
+a settings panel. And I didn't even
+ 
+
+00:13:20.000 --> 00:13:22.069 align:start position:0%
+a settings panel. And I didn't even
+think<00:13:20.160><c> of</c><00:13:20.399><c> having</c><00:13:20.560><c> an</c><00:13:20.880><c> export</c><00:13:21.200><c> or</c><00:13:21.440><c> an</c><00:13:21.680><c> import</c>
+
+00:13:22.069 --> 00:13:22.079 align:start position:0%
+think of having an export or an import
+ 
+
+00:13:22.079 --> 00:13:24.230 align:start position:0%
+think of having an export or an import
+functionality<00:13:22.880><c> to</c><00:13:23.200><c> take</c><00:13:23.440><c> tasks</c><00:13:23.839><c> between</c>
+
+00:13:24.230 --> 00:13:24.240 align:start position:0%
+functionality to take tasks between
+ 
+
+00:13:24.240 --> 00:13:26.389 align:start position:0%
+functionality to take tasks between
+workspaces.<00:13:25.200><c> So</c><00:13:25.360><c> I've</c><00:13:25.600><c> been</c><00:13:25.680><c> testing</c><00:13:26.000><c> the</c><00:13:26.240><c> new</c>
+
+00:13:26.389 --> 00:13:26.399 align:start position:0%
+workspaces. So I've been testing the new
+ 
+
+00:13:26.399 --> 00:13:29.030 align:start position:0%
+workspaces. So I've been testing the new
+Claude<00:13:26.720><c> Opus</c><00:13:27.120><c> 4.6</c><00:13:27.440><c> the</c><00:13:27.600><c> six</c><00:13:27.839><c> model</c><00:13:28.480><c> on</c><00:13:28.800><c> some</c>
+
+00:13:29.030 --> 00:13:29.040 align:start position:0%
+Claude Opus 4.6 the six model on some
+ 
+
+00:13:29.040 --> 00:13:30.470 align:start position:0%
+Claude Opus 4.6 the six model on some
+other<00:13:29.279><c> projects</c><00:13:29.519><c> that</c><00:13:29.760><c> I've</c><00:13:29.920><c> been</c><00:13:30.079><c> building.</c>
+
+00:13:30.470 --> 00:13:30.480 align:start position:0%
+other projects that I've been building.
+ 
+
+00:13:30.480 --> 00:13:32.389 align:start position:0%
+other projects that I've been building.
+I<00:13:30.720><c> ended</c><00:13:30.959><c> up</c><00:13:31.120><c> building</c><00:13:31.360><c> a</c><00:13:31.680><c> like</c><00:13:31.920><c> a</c><00:13:32.160><c> car</c>
+
+00:13:32.389 --> 00:13:32.399 align:start position:0%
+I ended up building a like a car
+ 
+
+00:13:32.399 --> 00:13:35.030 align:start position:0%
+I ended up building a like a car
+dealership<00:13:32.959><c> portal</c><00:13:33.600><c> that</c><00:13:33.920><c> runs</c><00:13:34.240><c> tasks.</c><00:13:34.880><c> It</c>
+
+00:13:35.030 --> 00:13:35.040 align:start position:0%
+dealership portal that runs tasks. It
+ 
+
+00:13:35.040 --> 00:13:36.949 align:start position:0%
+dealership portal that runs tasks. It
+has<00:13:35.200><c> a</c><00:13:35.360><c> database</c><00:13:35.680><c> on</c><00:13:35.920><c> Superbase.</c><00:13:36.480><c> I</c><00:13:36.639><c> installed</c>
+
+00:13:36.949 --> 00:13:36.959 align:start position:0%
+has a database on Superbase. I installed
+ 
+
+00:13:36.959 --> 00:13:40.389 align:start position:0%
+has a database on Superbase. I installed
+the<00:13:37.120><c> Superbase</c><00:13:37.760><c> MCP</c><00:13:38.639><c> into</c><00:13:38.880><c> the</c><00:13:39.120><c> 4.6</c><00:13:39.839><c> model</c><00:13:40.079><c> and</c>
+
+00:13:40.389 --> 00:13:40.399 align:start position:0%
+the Superbase MCP into the 4.6 model and
+ 
+
+00:13:40.399 --> 00:13:41.990 align:start position:0%
+the Superbase MCP into the 4.6 model and
+was<00:13:40.480><c> able</c><00:13:40.720><c> to</c><00:13:40.880><c> integrate</c><00:13:41.200><c> the</c><00:13:41.440><c> database</c><00:13:41.760><c> for</c>
+
+00:13:41.990 --> 00:13:42.000 align:start position:0%
+was able to integrate the database for
+ 
+
+00:13:42.000 --> 00:13:44.230 align:start position:0%
+was able to integrate the database for
+authentication<00:13:42.959><c> and</c><00:13:43.279><c> start</c><00:13:43.519><c> building</c><00:13:43.839><c> a</c><00:13:44.079><c> bit</c>
+
+00:13:44.230 --> 00:13:44.240 align:start position:0%
+authentication and start building a bit
+ 
+
+00:13:44.240 --> 00:13:46.069 align:start position:0%
+authentication and start building a bit
+of<00:13:44.320><c> the</c><00:13:44.480><c> backend</c><00:13:44.880><c> so</c><00:13:45.040><c> it</c><00:13:45.200><c> can</c><00:13:45.360><c> actually</c><00:13:45.760><c> create</c>
+
+00:13:46.069 --> 00:13:46.079 align:start position:0%
+of the backend so it can actually create
+ 
+
+00:13:46.079 --> 00:13:48.069 align:start position:0%
+of the backend so it can actually create
+customers,<00:13:46.639><c> create</c><00:13:46.959><c> tasks</c><00:13:47.279><c> and</c><00:13:47.519><c> jobs</c><00:13:47.760><c> and</c><00:13:47.920><c> all</c>
+
+00:13:48.069 --> 00:13:48.079 align:start position:0%
+customers, create tasks and jobs and all
+ 
+
+00:13:48.079 --> 00:13:49.430 align:start position:0%
+customers, create tasks and jobs and all
+this<00:13:48.320><c> stuff.</c><00:13:48.720><c> So,</c><00:13:48.880><c> that</c><00:13:49.040><c> was</c><00:13:49.200><c> very</c>
+
+00:13:49.430 --> 00:13:49.440 align:start position:0%
+this stuff. So, that was very
+ 
+
+00:13:49.440 --> 00:13:50.710 align:start position:0%
+this stuff. So, that was very
+interesting.<00:13:49.920><c> If</c><00:13:50.160><c> you</c><00:13:50.240><c> guys</c><00:13:50.399><c> want</c><00:13:50.560><c> to</c><00:13:50.639><c> see</c>
+
+00:13:50.710 --> 00:13:50.720 align:start position:0%
+interesting. If you guys want to see
+ 
+
+00:13:50.720 --> 00:13:52.069 align:start position:0%
+interesting. If you guys want to see
+more<00:13:50.880><c> of</c><00:13:50.959><c> an</c><00:13:51.120><c> advanced</c><00:13:51.440><c> build,</c><00:13:51.760><c> please</c><00:13:51.920><c> let</c><00:13:52.000><c> me</c>
+
+00:13:52.069 --> 00:13:52.079 align:start position:0%
+more of an advanced build, please let me
+ 
+
+00:13:52.079 --> 00:13:53.350 align:start position:0%
+more of an advanced build, please let me
+know<00:13:52.160><c> in</c><00:13:52.399><c> the</c><00:13:52.560><c> comments.</c><00:13:52.959><c> Thanks</c><00:13:53.200><c> for</c>
+
+00:13:53.350 --> 00:13:53.360 align:start position:0%
+know in the comments. Thanks for
+ 
+
+00:13:53.360 --> 00:13:56.160 align:start position:0%
+know in the comments. Thanks for
+watching<00:13:53.519><c> and</c><00:13:53.600><c> I'll</c><00:13:53.760><c> see</c><00:13:53.839><c> you</c><00:13:53.839><c> in</c><00:13:53.920><c> the</c><00:13:54.079><c> next</c>
+

@@ -1,0 +1,1784 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.080 --> 00:00:01.910 align:start position:0%
+ 
+Hi<00:00:00.320><c> everyone.</c><00:00:00.800><c> Right</c><00:00:01.040><c> now,</c><00:00:01.280><c> everyone</c><00:00:01.680><c> is</c>
+
+00:00:01.910 --> 00:00:01.920 align:start position:0%
+Hi everyone. Right now, everyone is
+ 
+
+00:00:01.920 --> 00:00:03.909 align:start position:0%
+Hi everyone. Right now, everyone is
+talking<00:00:02.159><c> about</c><00:00:02.480><c> CloudBot</c><00:00:03.120><c> and</c><00:00:03.439><c> people</c><00:00:03.679><c> are</c>
+
+00:00:03.909 --> 00:00:03.919 align:start position:0%
+talking about CloudBot and people are
+ 
+
+00:00:03.919 --> 00:00:06.550 align:start position:0%
+talking about CloudBot and people are
+rushing<00:00:04.240><c> to</c><00:00:04.480><c> buy</c><00:00:04.720><c> new</c><00:00:04.960><c> Mac</c><00:00:05.279><c> Minis</c><00:00:05.920><c> or</c><00:00:06.240><c> new</c>
+
+00:00:06.550 --> 00:00:06.560 align:start position:0%
+rushing to buy new Mac Minis or new
+ 
+
+00:00:06.560 --> 00:00:08.950 align:start position:0%
+rushing to buy new Mac Minis or new
+dedicated<00:00:07.200><c> physical</c><00:00:07.600><c> hardware</c><00:00:08.240><c> just</c><00:00:08.559><c> to</c><00:00:08.720><c> run</c>
+
+00:00:08.950 --> 00:00:08.960 align:start position:0%
+dedicated physical hardware just to run
+ 
+
+00:00:08.960 --> 00:00:11.669 align:start position:0%
+dedicated physical hardware just to run
+CloudBot<00:00:09.679><c> 724.</c><00:00:10.559><c> But</c><00:00:10.639><c> here's</c><00:00:10.880><c> the</c><00:00:11.040><c> truth,</c><00:00:11.440><c> you</c>
+
+00:00:11.669 --> 00:00:11.679 align:start position:0%
+CloudBot 724. But here's the truth, you
+ 
+
+00:00:11.679 --> 00:00:13.270 align:start position:0%
+CloudBot 724. But here's the truth, you
+don't<00:00:11.840><c> need</c><00:00:12.000><c> to</c><00:00:12.080><c> do</c><00:00:12.240><c> that.</c><00:00:12.559><c> You</c><00:00:12.800><c> don't</c><00:00:12.960><c> need</c><00:00:13.120><c> to</c>
+
+00:00:13.270 --> 00:00:13.280 align:start position:0%
+don't need to do that. You don't need to
+ 
+
+00:00:13.280 --> 00:00:16.150 align:start position:0%
+don't need to do that. You don't need to
+spend<00:00:13.679><c> $600</c><00:00:14.480><c> to</c><00:00:14.719><c> buy</c><00:00:14.880><c> a</c><00:00:15.040><c> new</c><00:00:15.200><c> Mac</c><00:00:15.519><c> Mini</c><00:00:15.839><c> or</c>
+
+00:00:16.150 --> 00:00:16.160 align:start position:0%
+spend $600 to buy a new Mac Mini or
+ 
+
+00:00:16.160 --> 00:00:18.550 align:start position:0%
+spend $600 to buy a new Mac Mini or
+leave<00:00:16.400><c> your</c><00:00:16.720><c> gaming</c><00:00:17.119><c> PC</c><00:00:17.600><c> up</c><00:00:17.840><c> and</c><00:00:18.000><c> running</c><00:00:18.320><c> all</c>
+
+00:00:18.550 --> 00:00:18.560 align:start position:0%
+leave your gaming PC up and running all
+ 
+
+00:00:18.560 --> 00:00:20.230 align:start position:0%
+leave your gaming PC up and running all
+night.<00:00:18.880><c> And</c><00:00:19.039><c> the</c><00:00:19.199><c> best</c><00:00:19.359><c> part,</c><00:00:19.760><c> we</c><00:00:19.920><c> are</c><00:00:20.080><c> going</c>
+
+00:00:20.230 --> 00:00:20.240 align:start position:0%
+night. And the best part, we are going
+ 
+
+00:00:20.240 --> 00:00:22.870 align:start position:0%
+night. And the best part, we are going
+to<00:00:20.320><c> host</c><00:00:20.640><c> it</c><00:00:20.800><c> in</c><00:00:21.039><c> AWS</c><00:00:21.680><c> free</c><00:00:21.920><c> tier.</c><00:00:22.320><c> It</c><00:00:22.480><c> lives</c><00:00:22.720><c> in</c>
+
+00:00:22.870 --> 00:00:22.880 align:start position:0%
+to host it in AWS free tier. It lives in
+ 
+
+00:00:22.880 --> 00:00:25.269 align:start position:0%
+to host it in AWS free tier. It lives in
+the<00:00:23.039><c> cloud.</c><00:00:23.439><c> It</c><00:00:23.680><c> will</c><00:00:23.840><c> never</c><00:00:24.160><c> sleep</c><00:00:24.800><c> and</c><00:00:25.039><c> it</c>
+
+00:00:25.269 --> 00:00:25.279 align:start position:0%
+the cloud. It will never sleep and it
+ 
+
+00:00:25.279 --> 00:00:27.269 align:start position:0%
+the cloud. It will never sleep and it
+will<00:00:25.439><c> talk</c><00:00:25.760><c> directly</c><00:00:26.160><c> with</c><00:00:26.320><c> you</c><00:00:26.640><c> with</c><00:00:26.960><c> your</c>
+
+00:00:27.269 --> 00:00:27.279 align:start position:0%
+will talk directly with you with your
+ 
+
+00:00:27.279 --> 00:00:29.750 align:start position:0%
+will talk directly with you with your
+Telegram<00:00:27.840><c> or</c><00:00:28.240><c> WhatsApp</c><00:00:28.720><c> account.</c><00:00:29.119><c> Today</c><00:00:29.439><c> I</c><00:00:29.599><c> am</c>
+
+00:00:29.750 --> 00:00:29.760 align:start position:0%
+Telegram or WhatsApp account. Today I am
+ 
+
+00:00:29.760 --> 00:00:31.429 align:start position:0%
+Telegram or WhatsApp account. Today I am
+going<00:00:29.920><c> to</c><00:00:30.080><c> show</c><00:00:30.240><c> you</c><00:00:30.400><c> how</c><00:00:30.560><c> to</c><00:00:30.800><c> build</c><00:00:31.039><c> your</c>
+
+00:00:31.429 --> 00:00:31.439 align:start position:0%
+going to show you how to build your
+ 
+
+00:00:31.439 --> 00:00:34.229 align:start position:0%
+going to show you how to build your
+personal<00:00:32.000><c> AI</c><00:00:32.399><c> agent</c><00:00:32.960><c> using</c><00:00:33.360><c> Cloudbot.</c><00:00:34.079><c> For</c>
+
+00:00:34.229 --> 00:00:34.239 align:start position:0%
+personal AI agent using Cloudbot. For
+ 
+
+00:00:34.239 --> 00:00:36.389 align:start position:0%
+personal AI agent using Cloudbot. For
+those<00:00:34.399><c> of</c><00:00:34.559><c> you</c><00:00:34.719><c> who</c><00:00:34.960><c> don't</c><00:00:35.200><c> know,</c><00:00:35.520><c> Cloudbot</c><00:00:36.239><c> is</c>
+
+00:00:36.389 --> 00:00:36.399 align:start position:0%
+those of you who don't know, Cloudbot is
+ 
+
+00:00:36.399 --> 00:00:39.270 align:start position:0%
+those of you who don't know, Cloudbot is
+an<00:00:36.559><c> open</c><00:00:36.880><c> source</c><00:00:37.120><c> project</c><00:00:37.520><c> created</c><00:00:37.920><c> by</c><00:00:38.559><c> Peter</c>
+
+00:00:39.270 --> 00:00:39.280 align:start position:0%
+an open source project created by Peter
+ 
+
+00:00:39.280 --> 00:00:41.430 align:start position:0%
+an open source project created by Peter
+Steinberger.<00:00:40.160><c> He</c><00:00:40.320><c> designed</c><00:00:40.640><c> this</c><00:00:40.800><c> app</c><00:00:41.040><c> to</c><00:00:41.280><c> be</c>
+
+00:00:41.430 --> 00:00:41.440 align:start position:0%
+Steinberger. He designed this app to be
+ 
+
+00:00:41.440 --> 00:00:43.670 align:start position:0%
+Steinberger. He designed this app to be
+the<00:00:41.600><c> missing</c><00:00:41.920><c> link</c><00:00:42.320><c> between</c><00:00:42.640><c> the</c><00:00:42.879><c> LLMs</c><00:00:43.440><c> and</c>
+
+00:00:43.670 --> 00:00:43.680 align:start position:0%
+the missing link between the LLMs and
+ 
+
+00:00:43.680 --> 00:00:45.990 align:start position:0%
+the missing link between the LLMs and
+your<00:00:44.000><c> daily</c><00:00:44.320><c> applications.</c><00:00:45.120><c> Before</c><00:00:45.360><c> we</c><00:00:45.680><c> start</c>
+
+00:00:45.990 --> 00:00:46.000 align:start position:0%
+your daily applications. Before we start
+ 
+
+00:00:46.000 --> 00:00:47.990 align:start position:0%
+your daily applications. Before we start
+setting<00:00:46.320><c> up</c><00:00:46.559><c> Cloud</c><00:00:46.960><c> D,</c><00:00:47.280><c> I</c><00:00:47.440><c> need</c><00:00:47.600><c> to</c><00:00:47.760><c> be</c>
+
+00:00:47.990 --> 00:00:48.000 align:start position:0%
+setting up Cloud D, I need to be
+ 
+
+00:00:48.000 --> 00:00:50.150 align:start position:0%
+setting up Cloud D, I need to be
+transparent<00:00:48.559><c> about</c><00:00:48.879><c> you</c><00:00:49.200><c> for</c><00:00:49.360><c> the</c><00:00:49.600><c> costs.</c>
+
+00:00:50.150 --> 00:00:50.160 align:start position:0%
+transparent about you for the costs.
+ 
+
+00:00:50.160 --> 00:00:52.310 align:start position:0%
+transparent about you for the costs.
+First<00:00:50.320><c> of</c><00:00:50.399><c> all,</c><00:00:50.719><c> Cloud</c><00:00:51.039><c> D</c><00:00:51.440><c> is</c><00:00:51.600><c> an</c><00:00:51.760><c> open</c><00:00:52.000><c> source</c>
+
+00:00:52.310 --> 00:00:52.320 align:start position:0%
+First of all, Cloud D is an open source
+ 
+
+00:00:52.320 --> 00:00:53.990 align:start position:0%
+First of all, Cloud D is an open source
+free<00:00:52.559><c> software.</c><00:00:53.039><c> The</c><00:00:53.280><c> server</c><00:00:53.600><c> we</c><00:00:53.760><c> are</c>
+
+00:00:53.990 --> 00:00:54.000 align:start position:0%
+free software. The server we are
+ 
+
+00:00:54.000 --> 00:00:55.990 align:start position:0%
+free software. The server we are
+building<00:00:54.320><c> today</c><00:00:54.719><c> is</c><00:00:55.039><c> essentially</c><00:00:55.520><c> free</c><00:00:55.760><c> if</c>
+
+00:00:55.990 --> 00:00:56.000 align:start position:0%
+building today is essentially free if
+ 
+
+00:00:56.000 --> 00:00:58.310 align:start position:0%
+building today is essentially free if
+you<00:00:56.079><c> are</c><00:00:56.239><c> eligible</c><00:00:56.640><c> for</c><00:00:57.039><c> AWS</c><00:00:57.680><c> free</c><00:00:57.840><c> tier.</c>
+
+00:00:58.310 --> 00:00:58.320 align:start position:0%
+you are eligible for AWS free tier.
+ 
+
+00:00:58.320 --> 00:01:00.709 align:start position:0%
+you are eligible for AWS free tier.
+However,<00:00:58.879><c> the</c><00:00:59.120><c> brain</c><00:00:59.359><c> of</c><00:00:59.600><c> the</c><00:00:59.760><c> bot</c><00:01:00.239><c> requires</c>
+
+00:01:00.709 --> 00:01:00.719 align:start position:0%
+However, the brain of the bot requires
+ 
+
+00:01:00.719 --> 00:01:03.750 align:start position:0%
+However, the brain of the bot requires
+an<00:01:00.960><c> API</c><00:01:01.359><c> key.</c><00:01:01.760><c> So,</c><00:01:02.079><c> Cloudbot</c><00:01:02.719><c> needs</c><00:01:03.039><c> an</c><00:01:03.280><c> LLM</c>
+
+00:01:03.750 --> 00:01:03.760 align:start position:0%
+an API key. So, Cloudbot needs an LLM
+ 
+
+00:01:03.760 --> 00:01:05.830 align:start position:0%
+an API key. So, Cloudbot needs an LLM
+model<00:01:04.239><c> to</c><00:01:04.479><c> run.</c><00:01:04.799><c> This</c><00:01:05.040><c> means</c><00:01:05.280><c> you</c><00:01:05.519><c> will</c><00:01:05.680><c> pay</c>
+
+00:01:05.830 --> 00:01:05.840 align:start position:0%
+model to run. This means you will pay
+ 
+
+00:01:05.840 --> 00:01:08.469 align:start position:0%
+model to run. This means you will pay
+for<00:01:06.080><c> LLM</c><00:01:06.720><c> for</c><00:01:07.040><c> what</c><00:01:07.280><c> you</c><00:01:07.439><c> use</c><00:01:07.760><c> per</c><00:01:08.000><c> message.</c>
+
+00:01:08.469 --> 00:01:08.479 align:start position:0%
+for LLM for what you use per message.
+ 
+
+00:01:08.479 --> 00:01:11.510 align:start position:0%
+for LLM for what you use per message.
+Instead<00:01:08.799><c> of</c><00:01:09.040><c> paying</c><00:01:09.439><c> for</c><00:01:09.760><c> expensive</c><00:01:10.479><c> LLM</c><00:01:11.040><c> API</c>
+
+00:01:11.510 --> 00:01:11.520 align:start position:0%
+Instead of paying for expensive LLM API
+ 
+
+00:01:11.520 --> 00:01:13.510 align:start position:0%
+Instead of paying for expensive LLM API
+credits,<00:01:12.080><c> I'm</c><00:01:12.320><c> going</c><00:01:12.400><c> to</c><00:01:12.560><c> power</c><00:01:12.880><c> this</c><00:01:13.119><c> agent</c>
+
+00:01:13.510 --> 00:01:13.520 align:start position:0%
+credits, I'm going to power this agent
+ 
+
+00:01:13.520 --> 00:01:16.310 align:start position:0%
+credits, I'm going to power this agent
+with<00:01:13.760><c> my</c><00:01:14.080><c> Google</c><00:01:14.640><c> Gemini</c><00:01:15.200><c> API.</c><00:01:15.760><c> But</c><00:01:15.920><c> why?</c>
+
+00:01:16.310 --> 00:01:16.320 align:start position:0%
+with my Google Gemini API. But why?
+ 
+
+00:01:16.320 --> 00:01:18.710 align:start position:0%
+with my Google Gemini API. But why?
+Because<00:01:16.640><c> Google</c><00:01:16.960><c> Cloud</c><00:01:17.520><c> currently</c><00:01:18.080><c> offers</c>
+
+00:01:18.710 --> 00:01:18.720 align:start position:0%
+Because Google Cloud currently offers
+ 
+
+00:01:18.720 --> 00:01:21.830 align:start position:0%
+Because Google Cloud currently offers
+$300<00:01:19.759><c> credits</c><00:01:20.320><c> and</c><00:01:20.479><c> a</c><00:01:20.640><c> free</c><00:01:20.880><c> trial</c><00:01:21.200><c> for</c><00:01:21.520><c> 90</c>
+
+00:01:21.830 --> 00:01:21.840 align:start position:0%
+$300 credits and a free trial for 90
+ 
+
+00:01:21.840 --> 00:01:23.429 align:start position:0%
+$300 credits and a free trial for 90
+days.<00:01:22.320><c> This</c><00:01:22.479><c> means</c><00:01:22.720><c> you</c><00:01:22.880><c> can</c><00:01:23.040><c> run</c><00:01:23.200><c> this</c>
+
+00:01:23.429 --> 00:01:23.439 align:start position:0%
+days. This means you can run this
+ 
+
+00:01:23.439 --> 00:01:25.910 align:start position:0%
+days. This means you can run this
+powerful<00:01:23.920><c> AI</c><00:01:24.240><c> agent</c><00:01:24.720><c> completely</c><00:01:25.200><c> for</c><00:01:25.439><c> free</c><00:01:25.680><c> to</c>
+
+00:01:25.910 --> 00:01:25.920 align:start position:0%
+powerful AI agent completely for free to
+ 
+
+00:01:25.920 --> 00:01:27.590 align:start position:0%
+powerful AI agent completely for free to
+start<00:01:26.080><c> with.</c><00:01:26.479><c> So,</c><00:01:26.640><c> let's</c><00:01:26.880><c> get</c><00:01:27.040><c> started.</c><00:01:27.439><c> All</c>
+
+00:01:27.590 --> 00:01:27.600 align:start position:0%
+start with. So, let's get started. All
+ 
+
+00:01:27.600 --> 00:01:29.510 align:start position:0%
+start with. So, let's get started. All
+right,<00:01:28.000><c> let's</c><00:01:28.320><c> prepare</c><00:01:28.640><c> our</c><00:01:28.960><c> server.</c><00:01:29.360><c> First</c>
+
+00:01:29.510 --> 00:01:29.520 align:start position:0%
+right, let's prepare our server. First
+ 
+
+00:01:29.520 --> 00:01:32.230 align:start position:0%
+right, let's prepare our server. First
+of<00:01:29.680><c> all,</c><00:01:30.000><c> log</c><00:01:30.400><c> to</c><00:01:30.640><c> your</c><00:01:30.880><c> AWS</c><00:01:31.439><c> console.</c><00:01:31.920><c> Then</c><00:01:32.079><c> go</c>
+
+00:01:32.230 --> 00:01:32.240 align:start position:0%
+of all, log to your AWS console. Then go
+ 
+
+00:01:32.240 --> 00:01:34.630 align:start position:0%
+of all, log to your AWS console. Then go
+to<00:01:32.320><c> the</c><00:01:32.479><c> EC2</c><00:01:32.960><c> section.</c><00:01:33.280><c> In</c><00:01:33.439><c> the</c><00:01:33.600><c> EC2</c><00:01:34.159><c> section,</c>
+
+00:01:34.630 --> 00:01:34.640 align:start position:0%
+to the EC2 section. In the EC2 section,
+ 
+
+00:01:34.640 --> 00:01:36.870 align:start position:0%
+to the EC2 section. In the EC2 section,
+click<00:01:34.960><c> launch</c><00:01:35.280><c> instance</c><00:01:35.840><c> to</c><00:01:36.079><c> configure</c><00:01:36.479><c> our</c>
+
+00:01:36.870 --> 00:01:36.880 align:start position:0%
+click launch instance to configure our
+ 
+
+00:01:36.880 --> 00:01:39.190 align:start position:0%
+click launch instance to configure our
+server<00:01:37.280><c> details.</c><00:01:37.920><c> Firstly,</c><00:01:38.400><c> we</c><00:01:38.640><c> need</c><00:01:38.799><c> to</c><00:01:38.960><c> give</c>
+
+00:01:39.190 --> 00:01:39.200 align:start position:0%
+server details. Firstly, we need to give
+ 
+
+00:01:39.200 --> 00:01:41.510 align:start position:0%
+server details. Firstly, we need to give
+a<00:01:39.439><c> name</c><00:01:39.600><c> to</c><00:01:39.840><c> our</c><00:01:40.079><c> virtual</c><00:01:40.400><c> server.</c><00:01:40.880><c> I</c><00:01:41.040><c> named</c>
+
+00:01:41.510 --> 00:01:41.520 align:start position:0%
+a name to our virtual server. I named
+ 
+
+00:01:41.520 --> 00:01:45.990 align:start position:0%
+a name to our virtual server. I named
+this<00:01:41.840><c> virtual</c><00:01:42.240><c> machine</c><00:01:42.640><c> as</c><00:01:43.280><c> my_cloudbot_vm.</c>
+
+00:01:45.990 --> 00:01:46.000 align:start position:0%
+this virtual machine as my_cloudbot_vm.
+ 
+
+00:01:46.000 --> 00:01:47.990 align:start position:0%
+this virtual machine as my_cloudbot_vm.
+I'm<00:01:46.159><c> choosing</c><00:01:46.479><c> Ubuntu</c><00:01:47.119><c> for</c><00:01:47.360><c> the</c><00:01:47.520><c> operating</c>
+
+00:01:47.990 --> 00:01:48.000 align:start position:0%
+I'm choosing Ubuntu for the operating
+ 
+
+00:01:48.000 --> 00:01:49.510 align:start position:0%
+I'm choosing Ubuntu for the operating
+system.<00:01:48.399><c> For</c><00:01:48.560><c> the</c><00:01:48.640><c> instance</c><00:01:48.960><c> type,</c><00:01:49.200><c> you</c><00:01:49.360><c> can</c>
+
+00:01:49.510 --> 00:01:49.520 align:start position:0%
+system. For the instance type, you can
+ 
+
+00:01:49.520 --> 00:01:51.429 align:start position:0%
+system. For the instance type, you can
+search<00:01:49.680><c> for</c><00:01:49.840><c> the</c><00:01:50.000><c> free</c><00:01:50.240><c> tier</c><00:01:50.560><c> eligible</c><00:01:50.960><c> ones.</c>
+
+00:01:51.429 --> 00:01:51.439 align:start position:0%
+search for the free tier eligible ones.
+ 
+
+00:01:51.439 --> 00:01:53.190 align:start position:0%
+search for the free tier eligible ones.
+If<00:01:51.600><c> you</c><00:01:51.759><c> search</c><00:01:52.000><c> for</c><00:01:52.159><c> the</c><00:01:52.399><c> free,</c><00:01:52.720><c> you</c><00:01:52.880><c> can</c><00:01:53.040><c> find</c>
+
+00:01:53.190 --> 00:01:53.200 align:start position:0%
+If you search for the free, you can find
+ 
+
+00:01:53.200 --> 00:01:56.230 align:start position:0%
+If you search for the free, you can find
+the<00:01:53.680><c> free</c><00:01:54.240><c> available</c><00:01:54.960><c> virtual</c><00:01:55.439><c> machines.</c><00:01:56.000><c> I</c>
+
+00:01:56.230 --> 00:01:56.240 align:start position:0%
+the free available virtual machines. I
+ 
+
+00:01:56.240 --> 00:01:58.310 align:start position:0%
+the free available virtual machines. I
+do<00:01:56.399><c> not</c><00:01:56.560><c> recommend</c><00:01:56.960><c> you</c><00:01:57.200><c> to</c><00:01:57.439><c> go</c><00:01:57.600><c> with</c><00:01:57.759><c> the</c>
+
+00:01:58.310 --> 00:01:58.320 align:start position:0%
+do not recommend you to go with the
+ 
+
+00:01:58.320 --> 00:02:00.069 align:start position:0%
+do not recommend you to go with the
+T3.micro.
+
+00:02:00.069 --> 00:02:00.079 align:start position:0%
+T3.micro.
+ 
+
+00:02:00.079 --> 00:02:02.469 align:start position:0%
+T3.micro.
+I<00:02:00.399><c> started</c><00:02:01.280><c> provisioning</c><00:02:01.840><c> this</c><00:02:02.079><c> virtual</c>
+
+00:02:02.469 --> 00:02:02.479 align:start position:0%
+I started provisioning this virtual
+ 
+
+00:02:02.479 --> 00:02:05.030 align:start position:0%
+I started provisioning this virtual
+machine<00:02:02.799><c> but</c><00:02:03.040><c> since</c><00:02:03.280><c> it</c><00:02:03.520><c> is</c><00:02:03.680><c> memory</c><00:02:04.000><c> is</c><00:02:04.159><c> 1</c><00:02:04.399><c> GB,</c>
+
+00:02:05.030 --> 00:02:05.040 align:start position:0%
+machine but since it is memory is 1 GB,
+ 
+
+00:02:05.040 --> 00:02:06.870 align:start position:0%
+machine but since it is memory is 1 GB,
+it<00:02:05.200><c> doesn't</c><00:02:05.439><c> let</c><00:02:05.600><c> me</c><00:02:05.759><c> to</c><00:02:05.920><c> install</c><00:02:06.240><c> the</c><00:02:06.399><c> bot.</c><00:02:06.719><c> So</c>
+
+00:02:06.870 --> 00:02:06.880 align:start position:0%
+it doesn't let me to install the bot. So
+ 
+
+00:02:06.880 --> 00:02:10.229 align:start position:0%
+it doesn't let me to install the bot. So
+I<00:02:07.119><c> advise</c><00:02:07.439><c> you</c><00:02:07.680><c> to</c><00:02:07.920><c> use</c><00:02:08.239><c> a</c><00:02:08.479><c> 4</c><00:02:08.720><c> gig</c><00:02:09.039><c> or</c><00:02:09.440><c> 8</c><00:02:09.759><c> gig</c>
+
+00:02:10.229 --> 00:02:10.239 align:start position:0%
+I advise you to use a 4 gig or 8 gig
+ 
+
+00:02:10.239 --> 00:02:12.150 align:start position:0%
+I advise you to use a 4 gig or 8 gig
+memory<00:02:10.879><c> virtual</c><00:02:11.280><c> machines.</c><00:02:11.680><c> I</c><00:02:11.840><c> will</c><00:02:12.000><c> choose</c>
+
+00:02:12.150 --> 00:02:12.160 align:start position:0%
+memory virtual machines. I will choose
+ 
+
+00:02:12.160 --> 00:02:16.869 align:start position:0%
+memory virtual machines. I will choose
+the<00:02:12.480><c> C7i</c><00:02:13.920><c> with</c><00:02:14.160><c> the</c><00:02:14.560><c> 4</c><00:02:14.800><c> GB</c><00:02:15.520><c> memory</c><00:02:15.920><c> one.</c><00:02:16.480><c> So</c><00:02:16.560><c> I</c>
+
+00:02:16.869 --> 00:02:16.879 align:start position:0%
+the C7i with the 4 GB memory one. So I
+ 
+
+00:02:16.879 --> 00:02:19.190 align:start position:0%
+the C7i with the 4 GB memory one. So I
+just<00:02:17.200><c> selecting</c><00:02:17.680><c> this</c><00:02:17.920><c> virtual</c><00:02:18.319><c> machine.</c>
+
+00:02:19.190 --> 00:02:19.200 align:start position:0%
+just selecting this virtual machine.
+ 
+
+00:02:19.200 --> 00:02:21.750 align:start position:0%
+just selecting this virtual machine.
+Don't<00:02:19.440><c> forget</c><00:02:19.680><c> to</c><00:02:19.920><c> create</c><00:02:20.160><c> a</c><00:02:20.400><c> new</c><00:02:20.720><c> key</c><00:02:20.959><c> pair</c><00:02:21.520><c> to</c>
+
+00:02:21.750 --> 00:02:21.760 align:start position:0%
+Don't forget to create a new key pair to
+ 
+
+00:02:21.760 --> 00:02:23.750 align:start position:0%
+Don't forget to create a new key pair to
+connect<00:02:22.080><c> your</c><00:02:22.400><c> virtual</c><00:02:22.800><c> machine.</c><00:02:23.280><c> Just</c><00:02:23.520><c> click</c>
+
+00:02:23.750 --> 00:02:23.760 align:start position:0%
+connect your virtual machine. Just click
+ 
+
+00:02:23.760 --> 00:02:25.830 align:start position:0%
+connect your virtual machine. Just click
+the<00:02:24.000><c> create</c><00:02:24.319><c> new</c><00:02:24.560><c> key</c><00:02:24.800><c> pair.</c><00:02:25.200><c> Give</c><00:02:25.360><c> a</c><00:02:25.599><c> name</c>
+
+00:02:25.830 --> 00:02:25.840 align:start position:0%
+the create new key pair. Give a name
+ 
+
+00:02:25.840 --> 00:02:29.589 align:start position:0%
+the create new key pair. Give a name
+your<00:02:26.239><c> key</c><00:02:26.480><c> pair</c><00:02:27.280><c> and</c><00:02:27.680><c> create</c><00:02:28.000><c> the</c><00:02:28.400><c> key</c><00:02:28.640><c> pair.</c>
+
+00:02:29.589 --> 00:02:29.599 align:start position:0%
+your key pair and create the key pair.
+ 
+
+00:02:29.599 --> 00:02:33.750 align:start position:0%
+your key pair and create the key pair.
+It<00:02:29.840><c> will</c><00:02:30.000><c> download</c><00:02:30.800><c> a</c><00:02:31.040><c> file</c><00:02:31.440><c> with</c><00:02:31.760><c> the</c><00:02:32.879><c> PAM</c>
+
+00:02:33.750 --> 00:02:33.760 align:start position:0%
+It will download a file with the PAM
+ 
+
+00:02:33.760 --> 00:02:35.509 align:start position:0%
+It will download a file with the PAM
+extension.<00:02:34.319><c> For</c><00:02:34.560><c> the</c><00:02:34.720><c> network</c><00:02:35.040><c> settings,</c>
+
+00:02:35.509 --> 00:02:35.519 align:start position:0%
+extension. For the network settings,
+ 
+
+00:02:35.519 --> 00:02:37.670 align:start position:0%
+extension. For the network settings,
+just<00:02:35.840><c> make</c><00:02:36.000><c> sure</c><00:02:36.160><c> that</c><00:02:36.720><c> SSH</c><00:02:37.200><c> traffic</c><00:02:37.519><c> is</c>
+
+00:02:37.670 --> 00:02:37.680 align:start position:0%
+just make sure that SSH traffic is
+ 
+
+00:02:37.680 --> 00:02:39.509 align:start position:0%
+just make sure that SSH traffic is
+allowed.<00:02:38.080><c> We</c><00:02:38.239><c> do</c><00:02:38.400><c> not</c><00:02:38.560><c> need</c><00:02:38.720><c> to</c><00:02:38.879><c> open</c><00:02:39.200><c> any</c>
+
+00:02:39.509 --> 00:02:39.519 align:start position:0%
+allowed. We do not need to open any
+ 
+
+00:02:39.519 --> 00:02:41.430 align:start position:0%
+allowed. We do not need to open any
+other<00:02:39.760><c> ports.</c><00:02:40.239><c> So,</c><00:02:40.400><c> we</c><00:02:40.640><c> are</c><00:02:40.800><c> ready.</c><00:02:41.200><c> Just</c>
+
+00:02:41.430 --> 00:02:41.440 align:start position:0%
+other ports. So, we are ready. Just
+ 
+
+00:02:41.440 --> 00:02:43.030 align:start position:0%
+other ports. So, we are ready. Just
+click<00:02:41.680><c> the</c><00:02:41.840><c> launch</c><00:02:42.080><c> instance</c><00:02:42.400><c> to</c><00:02:42.640><c> create</c><00:02:42.800><c> our</c>
+
+00:02:43.030 --> 00:02:43.040 align:start position:0%
+click the launch instance to create our
+ 
+
+00:02:43.040 --> 00:02:44.790 align:start position:0%
+click the launch instance to create our
+virtual<00:02:43.360><c> machine.</c><00:02:43.760><c> That's</c><00:02:43.920><c> all.</c><00:02:44.239><c> We</c><00:02:44.480><c> created</c>
+
+00:02:44.790 --> 00:02:44.800 align:start position:0%
+virtual machine. That's all. We created
+ 
+
+00:02:44.800 --> 00:02:46.710 align:start position:0%
+virtual machine. That's all. We created
+our<00:02:45.120><c> virtual</c><00:02:45.440><c> machine</c><00:02:45.760><c> successfully.</c><00:02:46.480><c> Now,</c>
+
+00:02:46.710 --> 00:02:46.720 align:start position:0%
+our virtual machine successfully. Now,
+ 
+
+00:02:46.720 --> 00:02:48.070 align:start position:0%
+our virtual machine successfully. Now,
+let's<00:02:46.879><c> continue</c><00:02:47.200><c> with</c><00:02:47.360><c> the</c><00:02:47.519><c> installation</c><00:02:47.920><c> of</c>
+
+00:02:48.070 --> 00:02:48.080 align:start position:0%
+let's continue with the installation of
+ 
+
+00:02:48.080 --> 00:02:49.830 align:start position:0%
+let's continue with the installation of
+cloud<00:02:48.400><c> debot.</c><00:02:48.959><c> Since</c><00:02:49.200><c> the</c><00:02:49.360><c> instance</c><00:02:49.680><c> is</c>
+
+00:02:49.830 --> 00:02:49.840 align:start position:0%
+cloud debot. Since the instance is
+ 
+
+00:02:49.840 --> 00:02:52.470 align:start position:0%
+cloud debot. Since the instance is
+launched,<00:02:50.319><c> let's</c><00:02:50.879><c> SSH</c><00:02:51.440><c> into</c><00:02:51.840><c> this</c><00:02:52.080><c> virtual</c>
+
+00:02:52.470 --> 00:02:52.480 align:start position:0%
+launched, let's SSH into this virtual
+ 
+
+00:02:52.480 --> 00:02:54.150 align:start position:0%
+launched, let's SSH into this virtual
+machine.<00:02:52.800><c> It's</c><00:02:53.040><c> very</c><00:02:53.280><c> easy</c><00:02:53.440><c> to</c><00:02:53.680><c> connect</c><00:02:53.840><c> to</c><00:02:54.000><c> a</c>
+
+00:02:54.150 --> 00:02:54.160 align:start position:0%
+machine. It's very easy to connect to a
+ 
+
+00:02:54.160 --> 00:02:56.470 align:start position:0%
+machine. It's very easy to connect to a
+virtual<00:02:54.480><c> machine</c><00:02:54.720><c> in</c><00:02:54.959><c> AWS.</c><00:02:55.680><c> Just</c><00:02:56.000><c> click</c><00:02:56.239><c> the</c>
+
+00:02:56.470 --> 00:02:56.480 align:start position:0%
+virtual machine in AWS. Just click the
+ 
+
+00:02:56.480 --> 00:02:58.390 align:start position:0%
+virtual machine in AWS. Just click the
+instance<00:02:56.959><c> ID</c><00:02:57.280><c> and</c><00:02:57.519><c> then</c><00:02:57.760><c> just</c><00:02:58.000><c> click</c><00:02:58.160><c> the</c>
+
+00:02:58.390 --> 00:02:58.400 align:start position:0%
+instance ID and then just click the
+ 
+
+00:02:58.400 --> 00:03:00.630 align:start position:0%
+instance ID and then just click the
+connect<00:02:58.640><c> button.</c><00:02:59.040><c> AWS</c><00:02:59.519><c> has</c><00:02:59.760><c> EC2</c><00:03:00.239><c> instance</c>
+
+00:03:00.630 --> 00:03:00.640 align:start position:0%
+connect button. AWS has EC2 instance
+ 
+
+00:03:00.640 --> 00:03:02.630 align:start position:0%
+connect button. AWS has EC2 instance
+connect<00:03:01.040><c> function</c><00:03:01.680><c> which</c><00:03:01.920><c> you</c><00:03:02.159><c> will</c><00:03:02.319><c> be</c><00:03:02.480><c> able</c>
+
+00:03:02.630 --> 00:03:02.640 align:start position:0%
+connect function which you will be able
+ 
+
+00:03:02.640 --> 00:03:04.470 align:start position:0%
+connect function which you will be able
+to<00:03:02.879><c> connect</c><00:03:03.120><c> to</c><00:03:03.360><c> your</c><00:03:03.680><c> virtual</c><00:03:04.080><c> machine</c>
+
+00:03:04.470 --> 00:03:04.480 align:start position:0%
+to connect to your virtual machine
+ 
+
+00:03:04.480 --> 00:03:06.949 align:start position:0%
+to connect to your virtual machine
+through<00:03:04.800><c> the</c><00:03:05.120><c> browser</c><00:03:05.760><c> through</c><00:03:06.319><c> SSH</c>
+
+00:03:06.949 --> 00:03:06.959 align:start position:0%
+through the browser through SSH
+ 
+
+00:03:06.959 --> 00:03:09.110 align:start position:0%
+through the browser through SSH
+connection.<00:03:07.519><c> So</c><00:03:07.680><c> once</c><00:03:08.080><c> I</c><00:03:08.400><c> click</c><00:03:08.640><c> the</c><00:03:08.800><c> connect</c>
+
+00:03:09.110 --> 00:03:09.120 align:start position:0%
+connection. So once I click the connect
+ 
+
+00:03:09.120 --> 00:03:11.270 align:start position:0%
+connection. So once I click the connect
+button,<00:03:09.599><c> it</c><00:03:09.840><c> will</c><00:03:10.159><c> open</c><00:03:10.400><c> a</c><00:03:10.640><c> new</c><00:03:10.800><c> browser</c>
+
+00:03:11.270 --> 00:03:11.280 align:start position:0%
+button, it will open a new browser
+ 
+
+00:03:11.280 --> 00:03:13.910 align:start position:0%
+button, it will open a new browser
+window<00:03:11.760><c> and</c><00:03:12.080><c> will</c><00:03:12.480><c> SSH</c><00:03:13.040><c> into</c><00:03:13.360><c> my</c><00:03:13.599><c> virtual</c>
+
+00:03:13.910 --> 00:03:13.920 align:start position:0%
+window and will SSH into my virtual
+ 
+
+00:03:13.920 --> 00:03:17.110 align:start position:0%
+window and will SSH into my virtual
+machine.<00:03:14.319><c> Yes,</c><00:03:14.800><c> now</c><00:03:15.120><c> we</c><00:03:15.680><c> login</c><00:03:16.080><c> into</c><00:03:16.400><c> our</c><00:03:16.879><c> new</c>
+
+00:03:17.110 --> 00:03:17.120 align:start position:0%
+machine. Yes, now we login into our new
+ 
+
+00:03:17.120 --> 00:03:18.869 align:start position:0%
+machine. Yes, now we login into our new
+virtual<00:03:17.519><c> machine.</c><00:03:17.920><c> First</c><00:03:18.080><c> thing</c><00:03:18.319><c> first,</c><00:03:18.640><c> we</c>
+
+00:03:18.869 --> 00:03:18.879 align:start position:0%
+virtual machine. First thing first, we
+ 
+
+00:03:18.879 --> 00:03:20.710 align:start position:0%
+virtual machine. First thing first, we
+should<00:03:19.040><c> first</c><00:03:19.360><c> update</c><00:03:19.680><c> the</c><00:03:19.840><c> packages.</c><00:03:20.400><c> I</c><00:03:20.560><c> will</c>
+
+00:03:20.710 --> 00:03:20.720 align:start position:0%
+should first update the packages. I will
+ 
+
+00:03:20.720 --> 00:03:22.309 align:start position:0%
+should first update the packages. I will
+run<00:03:20.959><c> a</c><00:03:21.120><c> couple</c><00:03:21.280><c> of</c><00:03:21.440><c> commands</c><00:03:21.760><c> which</c><00:03:22.000><c> you</c><00:03:22.239><c> can</c>
+
+00:03:22.309 --> 00:03:22.319 align:start position:0%
+run a couple of commands which you can
+ 
+
+00:03:22.319 --> 00:03:24.149 align:start position:0%
+run a couple of commands which you can
+find<00:03:22.560><c> it</c><00:03:22.959><c> details</c><00:03:23.280><c> in</c><00:03:23.440><c> the</c><00:03:23.680><c> description</c>
+
+00:03:24.149 --> 00:03:24.159 align:start position:0%
+find it details in the description
+ 
+
+00:03:24.159 --> 00:03:26.229 align:start position:0%
+find it details in the description
+section<00:03:24.560><c> of</c><00:03:24.800><c> this</c><00:03:25.040><c> video.</c><00:03:25.440><c> These</c><00:03:25.760><c> commands</c>
+
+00:03:26.229 --> 00:03:26.239 align:start position:0%
+section of this video. These commands
+ 
+
+00:03:26.239 --> 00:03:28.229 align:start position:0%
+section of this video. These commands
+will<00:03:26.480><c> install</c><00:03:26.879><c> the</c><00:03:27.120><c> required</c><00:03:27.599><c> packages</c>
+
+00:03:28.229 --> 00:03:28.239 align:start position:0%
+will install the required packages
+ 
+
+00:03:28.239 --> 00:03:30.390 align:start position:0%
+will install the required packages
+before<00:03:28.640><c> we</c><00:03:28.959><c> start</c><00:03:29.280><c> installing</c><00:03:29.840><c> the</c><00:03:30.000><c> cloud</c>
+
+00:03:30.390 --> 00:03:30.400 align:start position:0%
+before we start installing the cloud
+ 
+
+00:03:30.400 --> 00:03:33.430 align:start position:0%
+before we start installing the cloud
+debot<00:03:30.959><c> application.</c><00:03:31.840><c> First</c><00:03:32.080><c> step</c><00:03:32.480><c> AP</c><00:03:32.959><c> update</c>
+
+00:03:33.430 --> 00:03:33.440 align:start position:0%
+debot application. First step AP update
+ 
+
+00:03:33.440 --> 00:03:36.309 align:start position:0%
+debot application. First step AP update
+then<00:03:33.680><c> AP</c><00:03:34.159><c> upgrade.</c><00:03:34.720><c> Just</c><00:03:34.959><c> hit</c><00:03:35.360><c> yes</c><00:03:35.760><c> to</c><00:03:36.000><c> install</c>
+
+00:03:36.309 --> 00:03:36.319 align:start position:0%
+then AP upgrade. Just hit yes to install
+ 
+
+00:03:36.319 --> 00:03:37.910 align:start position:0%
+then AP upgrade. Just hit yes to install
+it.<00:03:36.640><c> Let's</c><00:03:36.879><c> continue</c><00:03:37.200><c> with</c><00:03:37.440><c> MVM</c>
+
+00:03:37.910 --> 00:03:37.920 align:start position:0%
+it. Let's continue with MVM
+ 
+
+00:03:37.920 --> 00:03:39.670 align:start position:0%
+it. Let's continue with MVM
+installation.<00:03:38.480><c> We</c><00:03:38.640><c> will</c><00:03:38.799><c> refresh</c><00:03:39.120><c> our</c><00:03:39.440><c> B</c>
+
+00:03:39.670 --> 00:03:39.680 align:start position:0%
+installation. We will refresh our B
+ 
+
+00:03:39.680 --> 00:03:41.350 align:start position:0%
+installation. We will refresh our B
+shell.<00:03:40.159><c> Let's</c><00:03:40.400><c> complete</c><00:03:40.640><c> our</c><00:03:40.879><c> MVM</c>
+
+00:03:41.350 --> 00:03:41.360 align:start position:0%
+shell. Let's complete our MVM
+ 
+
+00:03:41.360 --> 00:03:43.430 align:start position:0%
+shell. Let's complete our MVM
+installation.<00:03:42.000><c> So</c><00:03:42.159><c> we</c><00:03:42.400><c> are</c><00:03:42.560><c> ready</c><00:03:42.720><c> to</c><00:03:42.959><c> install</c>
+
+00:03:43.430 --> 00:03:43.440 align:start position:0%
+installation. So we are ready to install
+ 
+
+00:03:43.440 --> 00:03:45.830 align:start position:0%
+installation. So we are ready to install
+cloud<00:03:43.760><c> debot.</c><00:03:44.239><c> We</c><00:03:44.480><c> can</c><00:03:44.640><c> install</c><00:03:45.040><c> cloud</c><00:03:45.360><c> debot</c>
+
+00:03:45.830 --> 00:03:45.840 align:start position:0%
+cloud debot. We can install cloud debot
+ 
+
+00:03:45.840 --> 00:03:48.070 align:start position:0%
+cloud debot. We can install cloud debot
+application<00:03:46.480><c> with</c><00:03:46.799><c> just</c><00:03:47.280><c> one</c><00:03:47.519><c> line</c><00:03:47.840><c> of</c>
+
+00:03:48.070 --> 00:03:48.080 align:start position:0%
+application with just one line of
+ 
+
+00:03:48.080 --> 00:03:49.830 align:start position:0%
+application with just one line of
+command.<00:03:48.560><c> You</c><00:03:48.720><c> can</c><00:03:48.879><c> find</c><00:03:49.040><c> this</c><00:03:49.280><c> command</c><00:03:49.599><c> in</c>
+
+00:03:49.830 --> 00:03:49.840 align:start position:0%
+command. You can find this command in
+ 
+
+00:03:49.840 --> 00:03:51.990 align:start position:0%
+command. You can find this command in
+the<00:03:50.000><c> cloud</c><00:03:50.319><c> debot</c><00:03:50.879><c> web</c><00:03:51.120><c> page.</c><00:03:51.519><c> I'm</c><00:03:51.760><c> just</c>
+
+00:03:51.990 --> 00:03:52.000 align:start position:0%
+the cloud debot web page. I'm just
+ 
+
+00:03:52.000 --> 00:03:53.910 align:start position:0%
+the cloud debot web page. I'm just
+copying<00:03:52.400><c> this</c><00:03:52.640><c> command</c><00:03:52.959><c> and</c><00:03:53.280><c> let's</c><00:03:53.519><c> run</c><00:03:53.760><c> this</c>
+
+00:03:53.910 --> 00:03:53.920 align:start position:0%
+copying this command and let's run this
+ 
+
+00:03:53.920 --> 00:03:55.350 align:start position:0%
+copying this command and let's run this
+command.<00:03:54.319><c> It</c><00:03:54.480><c> will</c><00:03:54.640><c> take</c><00:03:54.799><c> a</c><00:03:55.040><c> couple</c><00:03:55.120><c> of</c>
+
+00:03:55.350 --> 00:03:55.360 align:start position:0%
+command. It will take a couple of
+ 
+
+00:03:55.360 --> 00:03:57.509 align:start position:0%
+command. It will take a couple of
+minutes<00:03:55.680><c> for</c><00:03:56.000><c> cloud</c><00:03:56.319><c> debot</c><00:03:56.799><c> installation</c>
+
+00:03:57.509 --> 00:03:57.519 align:start position:0%
+minutes for cloud debot installation
+ 
+
+00:03:57.519 --> 00:03:59.750 align:start position:0%
+minutes for cloud debot installation
+completes.<00:03:58.239><c> Okay,</c><00:03:58.799><c> now</c><00:03:58.959><c> we</c><00:03:59.200><c> are</c><00:03:59.360><c> ready</c><00:03:59.599><c> to</c>
+
+00:03:59.750 --> 00:03:59.760 align:start position:0%
+completes. Okay, now we are ready to
+ 
+
+00:03:59.760 --> 00:04:01.830 align:start position:0%
+completes. Okay, now we are ready to
+onboard<00:04:00.239><c> cloudbot.</c><00:04:00.799><c> First,</c><00:04:01.040><c> select</c><00:04:01.360><c> yes</c><00:04:01.599><c> to</c>
+
+00:04:01.830 --> 00:04:01.840 align:start position:0%
+onboard cloudbot. First, select yes to
+ 
+
+00:04:01.840 --> 00:04:03.990 align:start position:0%
+onboard cloudbot. First, select yes to
+understand<00:04:02.239><c> that</c><00:04:02.560><c> this</c><00:04:02.720><c> is</c><00:04:02.879><c> a</c><00:04:03.040><c> powerful</c><00:04:03.680><c> and</c>
+
+00:04:03.990 --> 00:04:04.000 align:start position:0%
+understand that this is a powerful and
+ 
+
+00:04:04.000 --> 00:04:05.670 align:start position:0%
+understand that this is a powerful and
+risky<00:04:04.480><c> application.</c><00:04:04.959><c> Select</c><00:04:05.200><c> the</c><00:04:05.439><c> quick</c>
+
+00:04:05.670 --> 00:04:05.680 align:start position:0%
+risky application. Select the quick
+ 
+
+00:04:05.680 --> 00:04:07.270 align:start position:0%
+risky application. Select the quick
+start<00:04:05.920><c> mode.</c><00:04:06.239><c> Okay,</c><00:04:06.480><c> now</c><00:04:06.640><c> this</c><00:04:06.799><c> is</c><00:04:06.879><c> the</c><00:04:07.120><c> most</c>
+
+00:04:07.270 --> 00:04:07.280 align:start position:0%
+start mode. Okay, now this is the most
+ 
+
+00:04:07.280 --> 00:04:09.030 align:start position:0%
+start mode. Okay, now this is the most
+important<00:04:07.599><c> part.</c><00:04:08.000><c> You</c><00:04:08.159><c> need</c><00:04:08.319><c> to</c><00:04:08.480><c> select</c><00:04:08.799><c> a</c>
+
+00:04:09.030 --> 00:04:09.040 align:start position:0%
+important part. You need to select a
+ 
+
+00:04:09.040 --> 00:04:11.589 align:start position:0%
+important part. You need to select a
+model<00:04:09.599><c> and</c><00:04:09.920><c> provide</c><00:04:10.239><c> an</c><00:04:10.480><c> API</c><00:04:10.879><c> key</c><00:04:11.120><c> for</c><00:04:11.360><c> that</c>
+
+00:04:11.589 --> 00:04:11.599 align:start position:0%
+model and provide an API key for that
+ 
+
+00:04:11.599 --> 00:04:13.750 align:start position:0%
+model and provide an API key for that
+model.<00:04:12.000><c> As</c><00:04:12.239><c> I</c><00:04:12.400><c> mentioned</c><00:04:12.720><c> before,</c><00:04:13.360><c> you</c><00:04:13.599><c> need</c>
+
+00:04:13.750 --> 00:04:13.760 align:start position:0%
+model. As I mentioned before, you need
+ 
+
+00:04:13.760 --> 00:04:16.229 align:start position:0%
+model. As I mentioned before, you need
+to<00:04:13.920><c> pay</c><00:04:14.239><c> for</c><00:04:14.480><c> the</c><00:04:14.720><c> LLM</c><00:04:15.280><c> that</c><00:04:15.519><c> you</c><00:04:15.760><c> will</c><00:04:15.920><c> use.</c>
+
+00:04:16.229 --> 00:04:16.239 align:start position:0%
+to pay for the LLM that you will use.
+ 
+
+00:04:16.239 --> 00:04:18.229 align:start position:0%
+to pay for the LLM that you will use.
+For<00:04:16.479><c> this</c><00:04:16.639><c> demo,</c><00:04:16.959><c> I</c><00:04:17.199><c> am</c><00:04:17.359><c> going</c><00:04:17.519><c> to</c><00:04:17.680><c> use</c><00:04:17.919><c> my</c>
+
+00:04:18.229 --> 00:04:18.239 align:start position:0%
+For this demo, I am going to use my
+ 
+
+00:04:18.239 --> 00:04:19.990 align:start position:0%
+For this demo, I am going to use my
+Google<00:04:18.639><c> Gemini</c><00:04:19.120><c> account.</c><00:04:19.519><c> So,</c><00:04:19.680><c> I</c><00:04:19.840><c> am</c>
+
+00:04:19.990 --> 00:04:20.000 align:start position:0%
+Google Gemini account. So, I am
+ 
+
+00:04:20.000 --> 00:04:21.830 align:start position:0%
+Google Gemini account. So, I am
+selecting<00:04:20.479><c> Google</c><00:04:20.799><c> and</c><00:04:20.959><c> I</c><00:04:21.120><c> will</c><00:04:21.280><c> provide</c><00:04:21.600><c> my</c>
+
+00:04:21.830 --> 00:04:21.840 align:start position:0%
+selecting Google and I will provide my
+ 
+
+00:04:21.840 --> 00:04:24.230 align:start position:0%
+selecting Google and I will provide my
+Google<00:04:22.160><c> Gemini</c><00:04:22.639><c> API</c><00:04:23.120><c> key.</c><00:04:23.360><c> To</c><00:04:23.520><c> generate</c><00:04:23.919><c> a</c>
+
+00:04:24.230 --> 00:04:24.240 align:start position:0%
+Google Gemini API key. To generate a
+ 
+
+00:04:24.240 --> 00:04:26.469 align:start position:0%
+Google Gemini API key. To generate a
+Google<00:04:24.479><c> Gemini</c><00:04:24.960><c> API</c><00:04:25.360><c> key,</c><00:04:26.000><c> go</c><00:04:26.160><c> to</c><00:04:26.320><c> the</c>
+
+00:04:26.469 --> 00:04:26.479 align:start position:0%
+Google Gemini API key, go to the
+ 
+
+00:04:26.479 --> 00:04:28.230 align:start position:0%
+Google Gemini API key, go to the
+aistudio.google.com.
+
+00:04:28.230 --> 00:04:28.240 align:start position:0%
+aistudio.google.com.
+ 
+
+00:04:28.240 --> 00:04:31.030 align:start position:0%
+aistudio.google.com.
+Click<00:04:28.400><c> the</c><00:04:28.639><c> API</c><00:04:29.040><c> key</c><00:04:29.360><c> section</c><00:04:29.840><c> and</c><00:04:30.240><c> generate</c><00:04:30.800><c> a</c>
+
+00:04:31.030 --> 00:04:31.040 align:start position:0%
+Click the API key section and generate a
+ 
+
+00:04:31.040 --> 00:04:33.270 align:start position:0%
+Click the API key section and generate a
+API<00:04:31.520><c> key</c><00:04:31.759><c> from</c><00:04:32.000><c> here.</c><00:04:32.320><c> Since</c><00:04:32.639><c> I</c><00:04:32.960><c> already</c>
+
+00:04:33.270 --> 00:04:33.280 align:start position:0%
+API key from here. Since I already
+ 
+
+00:04:33.280 --> 00:04:35.270 align:start position:0%
+API key from here. Since I already
+generated<00:04:33.680><c> an</c><00:04:33.840><c> API</c><00:04:34.240><c> key,</c><00:04:34.560><c> I</c><00:04:34.720><c> will</c><00:04:34.880><c> use</c><00:04:35.040><c> that</c>
+
+00:04:35.270 --> 00:04:35.280 align:start position:0%
+generated an API key, I will use that
+ 
+
+00:04:35.280 --> 00:04:37.749 align:start position:0%
+generated an API key, I will use that
+key.<00:04:35.680><c> Provide</c><00:04:35.919><c> your</c><00:04:36.240><c> Gemini</c><00:04:36.720><c> API</c><00:04:37.120><c> key</c><00:04:37.280><c> here</c>
+
+00:04:37.749 --> 00:04:37.759 align:start position:0%
+key. Provide your Gemini API key here
+ 
+
+00:04:37.759 --> 00:04:40.790 align:start position:0%
+key. Provide your Gemini API key here
+and<00:04:38.160><c> click</c><00:04:38.639><c> enter.</c><00:04:39.280><c> After</c><00:04:39.600><c> you</c><00:04:39.919><c> inserted</c><00:04:40.479><c> your</c>
+
+00:04:40.790 --> 00:04:40.800 align:start position:0%
+and click enter. After you inserted your
+ 
+
+00:04:40.800 --> 00:04:42.710 align:start position:0%
+and click enter. After you inserted your
+API<00:04:41.199><c> key,</c><00:04:41.520><c> then</c><00:04:41.759><c> you</c><00:04:41.919><c> need</c><00:04:42.080><c> to</c><00:04:42.160><c> select</c><00:04:42.479><c> the</c>
+
+00:04:42.710 --> 00:04:42.720 align:start position:0%
+API key, then you need to select the
+ 
+
+00:04:42.720 --> 00:04:44.790 align:start position:0%
+API key, then you need to select the
+model.<00:04:43.120><c> To</c><00:04:43.280><c> keep</c><00:04:43.440><c> it</c><00:04:43.680><c> cost</c><00:04:44.000><c> effective,</c><00:04:44.479><c> I</c><00:04:44.639><c> will</c>
+
+00:04:44.790 --> 00:04:44.800 align:start position:0%
+model. To keep it cost effective, I will
+ 
+
+00:04:44.800 --> 00:04:46.790 align:start position:0%
+model. To keep it cost effective, I will
+use<00:04:44.960><c> the</c><00:04:45.199><c> flash</c><00:04:45.520><c> models.</c><00:04:46.080><c> I</c><00:04:46.240><c> tried</c><00:04:46.479><c> to</c><00:04:46.639><c> use</c>
+
+00:04:46.790 --> 00:04:46.800 align:start position:0%
+use the flash models. I tried to use
+ 
+
+00:04:46.800 --> 00:04:49.749 align:start position:0%
+use the flash models. I tried to use
+Gemini<00:04:47.360><c> 1.5</c><00:04:48.320><c> flash</c><00:04:48.639><c> model,</c><00:04:48.960><c> but</c><00:04:49.280><c> it</c><00:04:49.520><c> doesn't</c>
+
+00:04:49.749 --> 00:04:49.759 align:start position:0%
+Gemini 1.5 flash model, but it doesn't
+ 
+
+00:04:49.759 --> 00:04:51.749 align:start position:0%
+Gemini 1.5 flash model, but it doesn't
+working<00:04:50.080><c> with</c><00:04:50.400><c> cloud</c><00:04:50.720><c> debot.</c><00:04:51.199><c> So,</c><00:04:51.280><c> I</c><00:04:51.520><c> will</c><00:04:51.600><c> use</c>
+
+00:04:51.749 --> 00:04:51.759 align:start position:0%
+working with cloud debot. So, I will use
+ 
+
+00:04:51.759 --> 00:04:54.230 align:start position:0%
+working with cloud debot. So, I will use
+the<00:04:51.919><c> Gemini</c><00:04:52.400><c> 2.5</c><00:04:53.199><c> flash</c><00:04:53.520><c> version,</c><00:04:53.919><c> which</c>
+
+00:04:54.230 --> 00:04:54.240 align:start position:0%
+the Gemini 2.5 flash version, which
+ 
+
+00:04:54.240 --> 00:04:56.150 align:start position:0%
+the Gemini 2.5 flash version, which
+looks<00:04:54.639><c> like</c><00:04:54.960><c> the</c><00:04:55.199><c> most</c><00:04:55.440><c> cost</c><00:04:55.759><c> effective</c>
+
+00:04:56.150 --> 00:04:56.160 align:start position:0%
+looks like the most cost effective
+ 
+
+00:04:56.160 --> 00:04:57.909 align:start position:0%
+looks like the most cost effective
+version.<00:04:56.639><c> Okay.</c><00:04:57.120><c> Now,</c><00:04:57.280><c> let's</c><00:04:57.520><c> connect</c><00:04:57.759><c> the</c>
+
+00:04:57.909 --> 00:04:57.919 align:start position:0%
+version. Okay. Now, let's connect the
+ 
+
+00:04:57.919 --> 00:05:00.070 align:start position:0%
+version. Okay. Now, let's connect the
+chat<00:04:58.160><c> application</c><00:04:58.720><c> to</c><00:04:58.960><c> our</c><00:04:59.199><c> bot.</c><00:04:59.600><c> I</c><00:04:59.759><c> will</c><00:04:59.919><c> use</c>
+
+00:05:00.070 --> 00:05:00.080 align:start position:0%
+chat application to our bot. I will use
+ 
+
+00:05:00.080 --> 00:05:01.830 align:start position:0%
+chat application to our bot. I will use
+Telegram<00:05:00.560><c> in</c><00:05:00.800><c> this</c><00:05:00.960><c> demo.</c><00:05:01.360><c> Creating</c><00:05:01.680><c> a</c>
+
+00:05:01.830 --> 00:05:01.840 align:start position:0%
+Telegram in this demo. Creating a
+ 
+
+00:05:01.840 --> 00:05:04.310 align:start position:0%
+Telegram in this demo. Creating a
+Telegram<00:05:02.240><c> bot</c><00:05:02.560><c> and</c><00:05:02.800><c> generating</c><00:05:03.360><c> a</c><00:05:03.600><c> bot</c><00:05:03.840><c> token</c>
+
+00:05:04.310 --> 00:05:04.320 align:start position:0%
+Telegram bot and generating a bot token
+ 
+
+00:05:04.320 --> 00:05:06.150 align:start position:0%
+Telegram bot and generating a bot token
+from<00:05:04.639><c> Telegram</c><00:05:05.040><c> is</c><00:05:05.280><c> very</c><00:05:05.520><c> easy.</c><00:05:05.759><c> We</c><00:05:06.000><c> will</c>
+
+00:05:06.150 --> 00:05:06.160 align:start position:0%
+from Telegram is very easy. We will
+ 
+
+00:05:06.160 --> 00:05:08.390 align:start position:0%
+from Telegram is very easy. We will
+follow<00:05:06.560><c> the</c><00:05:06.800><c> following</c><00:05:07.120><c> steps.</c><00:05:07.680><c> So,</c><00:05:07.919><c> first</c><00:05:08.240><c> go</c>
+
+00:05:08.390 --> 00:05:08.400 align:start position:0%
+follow the following steps. So, first go
+ 
+
+00:05:08.400 --> 00:05:10.550 align:start position:0%
+follow the following steps. So, first go
+to<00:05:08.560><c> Telegram</c><00:05:09.120><c> and</c><00:05:09.360><c> find</c><00:05:09.600><c> bot</c><00:05:10.000><c> father.</c><00:05:10.320><c> Create</c>
+
+00:05:10.550 --> 00:05:10.560 align:start position:0%
+to Telegram and find bot father. Create
+ 
+
+00:05:10.560 --> 00:05:12.550 align:start position:0%
+to Telegram and find bot father. Create
+a<00:05:10.720><c> new</c><00:05:10.880><c> bot.</c><00:05:11.120><c> Give</c><00:05:11.280><c> a</c><00:05:11.440><c> name</c><00:05:11.600><c> to</c><00:05:11.759><c> your</c><00:05:11.840><c> bot</c><00:05:12.320><c> and</c>
+
+00:05:12.550 --> 00:05:12.560 align:start position:0%
+a new bot. Give a name to your bot and
+ 
+
+00:05:12.560 --> 00:05:15.270 align:start position:0%
+a new bot. Give a name to your bot and
+create<00:05:12.800><c> the</c><00:05:12.960><c> bot</c><00:05:13.280><c> and</c><00:05:13.600><c> copy</c><00:05:14.080><c> the</c><00:05:14.320><c> API</c><00:05:14.800><c> token.</c>
+
+00:05:15.270 --> 00:05:15.280 align:start position:0%
+create the bot and copy the API token.
+ 
+
+00:05:15.280 --> 00:05:17.350 align:start position:0%
+create the bot and copy the API token.
+Once<00:05:15.520><c> you</c><00:05:15.680><c> get</c><00:05:15.840><c> the</c><00:05:16.000><c> token,</c><00:05:16.479><c> paste</c><00:05:16.800><c> the</c><00:05:16.960><c> token</c>
+
+00:05:17.350 --> 00:05:17.360 align:start position:0%
+Once you get the token, paste the token
+ 
+
+00:05:17.360 --> 00:05:19.189 align:start position:0%
+Once you get the token, paste the token
+and<00:05:17.840><c> click</c><00:05:18.160><c> enter.</c><00:05:18.560><c> You</c><00:05:18.800><c> can</c><00:05:18.880><c> skip</c>
+
+00:05:19.189 --> 00:05:19.199 align:start position:0%
+and click enter. You can skip
+ 
+
+00:05:19.199 --> 00:05:20.950 align:start position:0%
+and click enter. You can skip
+configuring<00:05:19.680><c> the</c><00:05:19.919><c> skills</c><00:05:20.320><c> part.</c><00:05:20.639><c> You</c><00:05:20.800><c> can</c>
+
+00:05:20.950 --> 00:05:20.960 align:start position:0%
+configuring the skills part. You can
+ 
+
+00:05:20.960 --> 00:05:22.790 align:start position:0%
+configuring the skills part. You can
+also<00:05:21.199><c> skip</c><00:05:21.520><c> configuring</c><00:05:21.919><c> the</c><00:05:22.080><c> hooks</c><00:05:22.400><c> part.</c>
+
+00:05:22.790 --> 00:05:22.800 align:start position:0%
+also skip configuring the hooks part.
+ 
+
+00:05:22.800 --> 00:05:24.790 align:start position:0%
+also skip configuring the hooks part.
+Then<00:05:22.960><c> it</c><00:05:23.199><c> will</c><00:05:23.360><c> install</c><00:05:23.759><c> the</c><00:05:24.000><c> gateway</c><00:05:24.560><c> and</c>
+
+00:05:24.790 --> 00:05:24.800 align:start position:0%
+Then it will install the gateway and
+ 
+
+00:05:24.800 --> 00:05:26.629 align:start position:0%
+Then it will install the gateway and
+start<00:05:25.039><c> it.</c><00:05:25.360><c> You</c><00:05:25.520><c> can</c><00:05:25.600><c> select</c><00:05:25.840><c> the</c><00:05:26.000><c> first</c><00:05:26.240><c> edge</c>
+
+00:05:26.629 --> 00:05:26.639 align:start position:0%
+start it. You can select the first edge
+ 
+
+00:05:26.639 --> 00:05:28.710 align:start position:0%
+start it. You can select the first edge
+to<00:05:26.960><c> configure</c><00:05:27.360><c> your</c><00:05:27.600><c> bot.</c><00:05:28.000><c> The</c><00:05:28.160><c> bot</c><00:05:28.400><c> will</c><00:05:28.560><c> ask</c>
+
+00:05:28.710 --> 00:05:28.720 align:start position:0%
+to configure your bot. The bot will ask
+ 
+
+00:05:28.720 --> 00:05:30.629 align:start position:0%
+to configure your bot. The bot will ask
+you<00:05:28.880><c> a</c><00:05:29.039><c> couple</c><00:05:29.199><c> of</c><00:05:29.440><c> questions</c><00:05:30.000><c> such</c><00:05:30.160><c> as</c><00:05:30.400><c> what</c>
+
+00:05:30.629 --> 00:05:30.639 align:start position:0%
+you a couple of questions such as what
+ 
+
+00:05:30.639 --> 00:05:32.230 align:start position:0%
+you a couple of questions such as what
+will<00:05:30.800><c> be</c><00:05:30.960><c> the</c><00:05:31.120><c> name</c><00:05:31.280><c> of</c><00:05:31.440><c> the</c><00:05:31.600><c> bot,</c><00:05:31.919><c> what</c><00:05:32.080><c> kind</c>
+
+00:05:32.230 --> 00:05:32.240 align:start position:0%
+will be the name of the bot, what kind
+ 
+
+00:05:32.240 --> 00:05:33.990 align:start position:0%
+will be the name of the bot, what kind
+of<00:05:32.400><c> creature</c><00:05:32.720><c> is</c><00:05:32.880><c> the</c><00:05:33.039><c> bot,</c><00:05:33.440><c> what</c><00:05:33.600><c> will</c><00:05:33.759><c> be</c><00:05:33.840><c> the</c>
+
+00:05:33.990 --> 00:05:34.000 align:start position:0%
+of creature is the bot, what will be the
+ 
+
+00:05:34.000 --> 00:05:35.990 align:start position:0%
+of creature is the bot, what will be the
+tone<00:05:34.320><c> of</c><00:05:34.479><c> the</c><00:05:34.720><c> conversation,</c><00:05:35.440><c> and</c><00:05:35.600><c> what</c><00:05:35.840><c> will</c>
+
+00:05:35.990 --> 00:05:36.000 align:start position:0%
+tone of the conversation, and what will
+ 
+
+00:05:36.000 --> 00:05:38.310 align:start position:0%
+tone of the conversation, and what will
+be<00:05:36.160><c> the</c><00:05:36.560><c> bot's</c><00:05:36.960><c> emoji.</c><00:05:37.600><c> And</c><00:05:37.759><c> then</c><00:05:37.919><c> you</c><00:05:38.160><c> can</c>
+
+00:05:38.310 --> 00:05:38.320 align:start position:0%
+be the bot's emoji. And then you can
+ 
+
+00:05:38.320 --> 00:05:40.310 align:start position:0%
+be the bot's emoji. And then you can
+provide<00:05:38.800><c> some</c><00:05:39.120><c> information</c><00:05:39.759><c> related</c><00:05:40.160><c> to</c>
+
+00:05:40.310 --> 00:05:40.320 align:start position:0%
+provide some information related to
+ 
+
+00:05:40.320 --> 00:05:42.469 align:start position:0%
+provide some information related to
+yourself.<00:05:40.880><c> Okay,</c><00:05:41.199><c> I</c><00:05:41.440><c> will</c><00:05:41.600><c> fill</c><00:05:41.840><c> the</c><00:05:42.080><c> details</c>
+
+00:05:42.469 --> 00:05:42.479 align:start position:0%
+yourself. Okay, I will fill the details
+ 
+
+00:05:42.479 --> 00:05:44.469 align:start position:0%
+yourself. Okay, I will fill the details
+now.<00:05:42.800><c> So</c><00:05:42.880><c> I</c><00:05:43.039><c> gave</c><00:05:43.199><c> the</c><00:05:43.520><c> following</c><00:05:43.919><c> prompt.</c>
+
+00:05:44.469 --> 00:05:44.479 align:start position:0%
+now. So I gave the following prompt.
+ 
+
+00:05:44.479 --> 00:05:46.710 align:start position:0%
+now. So I gave the following prompt.
+Your<00:05:44.639><c> name</c><00:05:44.800><c> is</c><00:05:45.039><c> my</c><00:05:45.120><c> arcadesh</c><00:05:45.919><c> and</c><00:05:46.160><c> you</c><00:05:46.320><c> are</c><00:05:46.479><c> my</c>
+
+00:05:46.710 --> 00:05:46.720 align:start position:0%
+Your name is my arcadesh and you are my
+ 
+
+00:05:46.720 --> 00:05:48.870 align:start position:0%
+Your name is my arcadesh and you are my
+best<00:05:46.960><c> friend.</c><00:05:47.600><c> You</c><00:05:47.759><c> can</c><00:05:47.919><c> be</c><00:05:48.080><c> act</c><00:05:48.320><c> like</c><00:05:48.560><c> that</c>
+
+00:05:48.870 --> 00:05:48.880 align:start position:0%
+best friend. You can be act like that
+ 
+
+00:05:48.880 --> 00:05:51.270 align:start position:0%
+best friend. You can be act like that
+and<00:05:49.120><c> my</c><00:05:49.360><c> name</c><00:05:49.440><c> is</c><00:05:49.680><c> John.</c><00:05:50.400><c> You</c><00:05:50.560><c> can</c><00:05:50.720><c> call</c><00:05:50.960><c> me</c>
+
+00:05:51.270 --> 00:05:51.280 align:start position:0%
+and my name is John. You can call me
+ 
+
+00:05:51.280 --> 00:05:52.870 align:start position:0%
+and my name is John. You can call me
+John.<00:05:51.600><c> To</c><00:05:51.759><c> be</c><00:05:51.840><c> able</c><00:05:52.000><c> to</c><00:05:52.160><c> use</c><00:05:52.240><c> the</c><00:05:52.479><c> telegram</c>
+
+00:05:52.870 --> 00:05:52.880 align:start position:0%
+John. To be able to use the telegram
+ 
+
+00:05:52.880 --> 00:05:55.350 align:start position:0%
+John. To be able to use the telegram
+bot,<00:05:53.199><c> you</c><00:05:53.360><c> need</c><00:05:53.520><c> to</c><00:05:53.680><c> pair</c><00:05:54.080><c> the</c><00:05:54.479><c> telegram</c><00:05:55.039><c> bot</c>
+
+00:05:55.350 --> 00:05:55.360 align:start position:0%
+bot, you need to pair the telegram bot
+ 
+
+00:05:55.360 --> 00:05:58.070 align:start position:0%
+bot, you need to pair the telegram bot
+with<00:05:55.680><c> cloud</c><00:05:56.000><c> debot.</c><00:05:56.479><c> So</c><00:05:56.639><c> it</c><00:05:56.960><c> will</c><00:05:57.199><c> give</c><00:05:57.440><c> you</c><00:05:57.840><c> a</c>
+
+00:05:58.070 --> 00:05:58.080 align:start position:0%
+with cloud debot. So it will give you a
+ 
+
+00:05:58.080 --> 00:06:00.390 align:start position:0%
+with cloud debot. So it will give you a
+pairing<00:05:58.479><c> code.</c><00:05:58.960><c> Just</c><00:05:59.280><c> share</c><00:05:59.520><c> it</c><00:05:59.759><c> with</c><00:06:00.080><c> cloud</c>
+
+00:06:00.390 --> 00:06:00.400 align:start position:0%
+pairing code. Just share it with cloud
+ 
+
+00:06:00.400 --> 00:06:02.230 align:start position:0%
+pairing code. Just share it with cloud
+debot.<00:06:00.800><c> Once</c><00:06:01.039><c> you</c><00:06:01.199><c> pair</c><00:06:01.440><c> the</c><00:06:01.600><c> telegram</c><00:06:02.000><c> bot</c>
+
+00:06:02.230 --> 00:06:02.240 align:start position:0%
+debot. Once you pair the telegram bot
+ 
+
+00:06:02.240 --> 00:06:04.469 align:start position:0%
+debot. Once you pair the telegram bot
+with<00:06:02.400><c> the</c><00:06:02.560><c> cloud</c><00:06:02.880><c> debot,</c><00:06:03.440><c> you</c><00:06:03.680><c> can</c><00:06:03.840><c> continue</c>
+
+00:06:04.469 --> 00:06:04.479 align:start position:0%
+with the cloud debot, you can continue
+ 
+
+00:06:04.479 --> 00:06:06.629 align:start position:0%
+with the cloud debot, you can continue
+chatting<00:06:04.880><c> with</c><00:06:05.039><c> the</c><00:06:05.280><c> bot</c><00:06:05.680><c> through</c><00:06:06.080><c> telegram.</c>
+
+00:06:06.629 --> 00:06:06.639 align:start position:0%
+chatting with the bot through telegram.
+ 
+
+00:06:06.639 --> 00:06:09.029 align:start position:0%
+chatting with the bot through telegram.
+So<00:06:06.880><c> from</c><00:06:07.120><c> now</c><00:06:07.280><c> on</c><00:06:07.600><c> I</c><00:06:07.840><c> will</c><00:06:08.000><c> use</c><00:06:08.240><c> telegram</c><00:06:08.720><c> to</c>
+
+00:06:09.029 --> 00:06:09.039 align:start position:0%
+So from now on I will use telegram to
+ 
+
+00:06:09.039 --> 00:06:10.629 align:start position:0%
+So from now on I will use telegram to
+chat<00:06:09.280><c> with</c><00:06:09.440><c> my</c><00:06:09.600><c> bot.</c><00:06:09.919><c> How</c><00:06:10.080><c> is</c><00:06:10.160><c> the</c><00:06:10.319><c> weather</c>
+
+00:06:10.629 --> 00:06:10.639 align:start position:0%
+chat with my bot. How is the weather
+ 
+
+00:06:10.639 --> 00:06:13.110 align:start position:0%
+chat with my bot. How is the weather
+today?<00:06:11.039><c> I'm</c><00:06:11.199><c> in</c><00:06:11.440><c> Ria</c><00:06:12.000><c> and</c><00:06:12.319><c> please</c><00:06:12.639><c> provide</c>
+
+00:06:13.110 --> 00:06:13.120 align:start position:0%
+today? I'm in Ria and please provide
+ 
+
+00:06:13.120 --> 00:06:15.510 align:start position:0%
+today? I'm in Ria and please provide
+Celsius<00:06:13.680><c> degree.</c><00:06:14.160><c> Great.</c><00:06:14.560><c> I</c><00:06:14.720><c> am</c><00:06:14.880><c> able</c><00:06:15.039><c> to</c><00:06:15.199><c> chat</c>
+
+00:06:15.510 --> 00:06:15.520 align:start position:0%
+Celsius degree. Great. I am able to chat
+ 
+
+00:06:15.520 --> 00:06:17.830 align:start position:0%
+Celsius degree. Great. I am able to chat
+with<00:06:15.680><c> the</c><00:06:15.919><c> bot</c><00:06:16.400><c> and</c><00:06:16.560><c> it</c><00:06:16.800><c> give</c><00:06:17.039><c> me</c><00:06:17.199><c> the</c><00:06:17.440><c> weather</c>
+
+00:06:17.830 --> 00:06:17.840 align:start position:0%
+with the bot and it give me the weather
+ 
+
+00:06:17.840 --> 00:06:19.990 align:start position:0%
+with the bot and it give me the weather
+information.<00:06:18.639><c> Okay</c><00:06:18.880><c> let's</c><00:06:19.199><c> make</c><00:06:19.440><c> the</c><00:06:19.680><c> bot</c>
+
+00:06:19.990 --> 00:06:20.000 align:start position:0%
+information. Okay let's make the bot
+ 
+
+00:06:20.000 --> 00:06:22.150 align:start position:0%
+information. Okay let's make the bot
+more<00:06:20.319><c> useful.</c><00:06:20.720><c> I</c><00:06:20.960><c> want</c><00:06:21.039><c> to</c><00:06:21.199><c> use</c><00:06:21.360><c> this</c><00:06:21.600><c> bot</c><00:06:21.840><c> as</c><00:06:22.000><c> a</c>
+
+00:06:22.150 --> 00:06:22.160 align:start position:0%
+more useful. I want to use this bot as a
+ 
+
+00:06:22.160 --> 00:06:24.230 align:start position:0%
+more useful. I want to use this bot as a
+second<00:06:22.479><c> brain.</c><00:06:22.960><c> So</c><00:06:23.199><c> I</c><00:06:23.440><c> want</c><00:06:23.520><c> to</c><00:06:23.759><c> connect</c><00:06:24.000><c> my</c>
+
+00:06:24.230 --> 00:06:24.240 align:start position:0%
+second brain. So I want to connect my
+ 
+
+00:06:24.240 --> 00:06:27.270 align:start position:0%
+second brain. So I want to connect my
+bot<00:06:24.800><c> to</c><00:06:25.039><c> my</c><00:06:25.440><c> notion</c><00:06:25.919><c> workspace.</c><00:06:26.720><c> Then</c><00:06:26.880><c> I</c><00:06:27.120><c> will</c>
+
+00:06:27.270 --> 00:06:27.280 align:start position:0%
+bot to my notion workspace. Then I will
+ 
+
+00:06:27.280 --> 00:06:29.270 align:start position:0%
+bot to my notion workspace. Then I will
+give<00:06:27.520><c> some</c><00:06:27.759><c> instruction</c><00:06:28.160><c> to</c><00:06:28.400><c> the</c><00:06:28.560><c> bot</c><00:06:28.880><c> and</c><00:06:29.120><c> it</c>
+
+00:06:29.270 --> 00:06:29.280 align:start position:0%
+give some instruction to the bot and it
+ 
+
+00:06:29.280 --> 00:06:30.950 align:start position:0%
+give some instruction to the bot and it
+will<00:06:29.440><c> directly</c><00:06:29.919><c> write</c><00:06:30.160><c> into</c><00:06:30.319><c> the</c><00:06:30.560><c> notion</c>
+
+00:06:30.950 --> 00:06:30.960 align:start position:0%
+will directly write into the notion
+ 
+
+00:06:30.960 --> 00:06:32.550 align:start position:0%
+will directly write into the notion
+workspace.<00:06:31.520><c> To</c><00:06:31.759><c> be</c><00:06:31.840><c> able</c><00:06:32.000><c> to</c><00:06:32.160><c> connect</c><00:06:32.319><c> your</c>
+
+00:06:32.550 --> 00:06:32.560 align:start position:0%
+workspace. To be able to connect your
+ 
+
+00:06:32.560 --> 00:06:34.629 align:start position:0%
+workspace. To be able to connect your
+bot<00:06:32.800><c> to</c><00:06:33.039><c> notion,</c><00:06:33.520><c> just</c><00:06:33.840><c> write</c><00:06:34.160><c> I</c><00:06:34.400><c> want</c><00:06:34.479><c> to</c>
+
+00:06:34.629 --> 00:06:34.639 align:start position:0%
+bot to notion, just write I want to
+ 
+
+00:06:34.639 --> 00:06:36.309 align:start position:0%
+bot to notion, just write I want to
+connect<00:06:34.880><c> to</c><00:06:34.960><c> my</c><00:06:35.120><c> notion</c><00:06:35.520><c> workspace</c><00:06:36.000><c> and</c><00:06:36.160><c> the</c>
+
+00:06:36.309 --> 00:06:36.319 align:start position:0%
+connect to my notion workspace and the
+ 
+
+00:06:36.319 --> 00:06:38.550 align:start position:0%
+connect to my notion workspace and the
+bot<00:06:36.560><c> will</c><00:06:36.720><c> give</c><00:06:36.880><c> you</c><00:06:37.039><c> some</c><00:06:37.360><c> guidance</c><00:06:38.160><c> about</c>
+
+00:06:38.550 --> 00:06:38.560 align:start position:0%
+bot will give you some guidance about
+ 
+
+00:06:38.560 --> 00:06:40.629 align:start position:0%
+bot will give you some guidance about
+how<00:06:38.800><c> to</c><00:06:38.960><c> connect.</c><00:06:39.360><c> It's</c><00:06:39.680><c> actually</c><00:06:40.000><c> very</c><00:06:40.319><c> easy.</c>
+
+00:06:40.629 --> 00:06:40.639 align:start position:0%
+how to connect. It's actually very easy.
+ 
+
+00:06:40.639 --> 00:06:42.950 align:start position:0%
+how to connect. It's actually very easy.
+Go<00:06:40.800><c> to</c><00:06:41.039><c> notion's</c><00:06:41.440><c> integrations</c><00:06:42.400><c> and</c><00:06:42.720><c> create</c>
+
+00:06:42.950 --> 00:06:42.960 align:start position:0%
+Go to notion's integrations and create
+ 
+
+00:06:42.960 --> 00:06:45.749 align:start position:0%
+Go to notion's integrations and create
+an<00:06:43.120><c> integration</c><00:06:44.160><c> and</c><00:06:44.479><c> generate</c><00:06:44.880><c> an</c><00:06:45.039><c> API</c><00:06:45.440><c> key</c>
+
+00:06:45.749 --> 00:06:45.759 align:start position:0%
+an integration and generate an API key
+ 
+
+00:06:45.759 --> 00:06:48.070 align:start position:0%
+an integration and generate an API key
+and<00:06:46.080><c> give</c><00:06:46.319><c> that</c><00:06:46.479><c> API</c><00:06:46.960><c> key</c><00:06:47.199><c> to</c><00:06:47.440><c> the</c><00:06:47.600><c> bot.</c><00:06:47.840><c> I</c>
+
+00:06:48.070 --> 00:06:48.080 align:start position:0%
+and give that API key to the bot. I
+ 
+
+00:06:48.080 --> 00:06:50.309 align:start position:0%
+and give that API key to the bot. I
+already<00:06:48.479><c> configured</c><00:06:48.960><c> my</c><00:06:49.199><c> bot</c><00:06:49.520><c> with</c><00:06:49.680><c> the</c><00:06:49.919><c> API</c>
+
+00:06:50.309 --> 00:06:50.319 align:start position:0%
+already configured my bot with the API
+ 
+
+00:06:50.319 --> 00:06:52.870 align:start position:0%
+already configured my bot with the API
+key<00:06:50.560><c> of</c><00:06:50.800><c> notion.</c><00:06:51.360><c> Now</c><00:06:51.520><c> I</c><00:06:51.759><c> will</c><00:06:51.919><c> give</c><00:06:52.319><c> the</c><00:06:52.479><c> bot</c>
+
+00:06:52.870 --> 00:06:52.880 align:start position:0%
+key of notion. Now I will give the bot
+ 
+
+00:06:52.880 --> 00:06:55.430 align:start position:0%
+key of notion. Now I will give the bot
+some<00:06:53.360><c> instructions</c><00:06:54.240><c> and</c><00:06:54.800><c> let's</c><00:06:55.039><c> see</c><00:06:55.199><c> what</c>
+
+00:06:55.430 --> 00:06:55.440 align:start position:0%
+some instructions and let's see what
+ 
+
+00:06:55.440 --> 00:06:57.430 align:start position:0%
+some instructions and let's see what
+will<00:06:55.680><c> happen.</c><00:06:56.000><c> By</c><00:06:56.240><c> the</c><00:06:56.319><c> way,</c><00:06:56.479><c> I</c><00:06:56.720><c> also</c><00:06:57.039><c> added</c>
+
+00:06:57.430 --> 00:06:57.440 align:start position:0%
+will happen. By the way, I also added
+ 
+
+00:06:57.440 --> 00:06:59.430 align:start position:0%
+will happen. By the way, I also added
+the<00:06:57.600><c> Brave</c><00:06:58.000><c> search</c><00:06:58.240><c> API</c><00:06:58.639><c> to</c><00:06:58.800><c> the</c><00:06:58.960><c> bot.</c><00:06:59.199><c> With</c>
+
+00:06:59.430 --> 00:06:59.440 align:start position:0%
+the Brave search API to the bot. With
+ 
+
+00:06:59.440 --> 00:07:01.589 align:start position:0%
+the Brave search API to the bot. With
+this<00:06:59.680><c> API,</c><00:07:00.080><c> the</c><00:07:00.319><c> bot</c><00:07:00.560><c> is</c><00:07:00.720><c> able</c><00:07:00.880><c> to</c><00:07:01.120><c> search</c><00:07:01.360><c> from</c>
+
+00:07:01.589 --> 00:07:01.599 align:start position:0%
+this API, the bot is able to search from
+ 
+
+00:07:01.599 --> 00:07:03.270 align:start position:0%
+this API, the bot is able to search from
+the<00:07:01.840><c> internet.</c><00:07:02.240><c> It</c><00:07:02.400><c> is</c><00:07:02.560><c> very</c><00:07:02.800><c> easy</c><00:07:02.960><c> to</c>
+
+00:07:03.270 --> 00:07:03.280 align:start position:0%
+the internet. It is very easy to
+ 
+
+00:07:03.280 --> 00:07:06.550 align:start position:0%
+the internet. It is very easy to
+connect.<00:07:03.680><c> Go</c><00:07:03.840><c> to</c><00:07:04.080><c> brave</c><00:07:04.639><c> search</c><00:07:05.039><c> API</c><00:07:06.080><c> portal</c>
+
+00:07:06.550 --> 00:07:06.560 align:start position:0%
+connect. Go to brave search API portal
+ 
+
+00:07:06.560 --> 00:07:09.430 align:start position:0%
+connect. Go to brave search API portal
+and<00:07:06.960><c> create</c><00:07:07.199><c> an</c><00:07:07.360><c> API</c><00:07:07.759><c> key</c><00:07:08.319><c> and</c><00:07:08.560><c> give</c><00:07:08.800><c> that</c><00:07:08.960><c> API</c>
+
+00:07:09.430 --> 00:07:09.440 align:start position:0%
+and create an API key and give that API
+ 
+
+00:07:09.440 --> 00:07:12.309 align:start position:0%
+and create an API key and give that API
+key<00:07:09.759><c> to</c><00:07:10.000><c> your</c><00:07:10.240><c> bot</c><00:07:10.800><c> and</c><00:07:11.039><c> then</c><00:07:11.520><c> it</c><00:07:11.759><c> will</c><00:07:11.919><c> be</c><00:07:12.080><c> able</c>
+
+00:07:12.309 --> 00:07:12.319 align:start position:0%
+key to your bot and then it will be able
+ 
+
+00:07:12.319 --> 00:07:14.629 align:start position:0%
+key to your bot and then it will be able
+to<00:07:12.479><c> search</c><00:07:12.800><c> in</c><00:07:13.039><c> the</c><00:07:13.280><c> internet</c><00:07:13.680><c> freely.</c><00:07:14.319><c> So</c>
+
+00:07:14.629 --> 00:07:14.639 align:start position:0%
+to search in the internet freely. So
+ 
+
+00:07:14.639 --> 00:07:17.110 align:start position:0%
+to search in the internet freely. So
+let's<00:07:14.960><c> make</c><00:07:15.120><c> an</c><00:07:15.360><c> example.</c><00:07:15.759><c> Hi</c><00:07:16.000><c> my</c><00:07:16.160><c> Araadesh,</c>
+
+00:07:17.110 --> 00:07:17.120 align:start position:0%
+let's make an example. Hi my Araadesh,
+ 
+
+00:07:17.120 --> 00:07:20.469 align:start position:0%
+let's make an example. Hi my Araadesh,
+tomorrow<00:07:17.680><c> I</c><00:07:18.000><c> will</c><00:07:18.240><c> have</c><00:07:18.400><c> a</c><00:07:19.039><c> job</c><00:07:19.440><c> interview</c><00:07:20.160><c> for</c>
+
+00:07:20.469 --> 00:07:20.479 align:start position:0%
+tomorrow I will have a job interview for
+ 
+
+00:07:20.479 --> 00:07:23.430 align:start position:0%
+tomorrow I will have a job interview for
+a<00:07:21.199><c> data</c><00:07:21.599><c> engineer</c><00:07:22.000><c> role.</c><00:07:22.800><c> Can</c><00:07:22.960><c> you</c><00:07:23.199><c> please</c>
+
+00:07:23.430 --> 00:07:23.440 align:start position:0%
+a data engineer role. Can you please
+ 
+
+00:07:23.440 --> 00:07:25.670 align:start position:0%
+a data engineer role. Can you please
+search<00:07:23.759><c> some</c><00:07:24.080><c> frequent</c><00:07:24.479><c> test</c><00:07:24.800><c> questions</c><00:07:25.360><c> and</c>
+
+00:07:25.670 --> 00:07:25.680 align:start position:0%
+search some frequent test questions and
+ 
+
+00:07:25.680 --> 00:07:27.909 align:start position:0%
+search some frequent test questions and
+some<00:07:25.919><c> and</c><00:07:26.319><c> some</c><00:07:26.560><c> guideline</c><00:07:27.039><c> documents</c><00:07:27.440><c> for</c><00:07:27.680><c> me</c>
+
+00:07:27.909 --> 00:07:27.919 align:start position:0%
+some and some guideline documents for me
+ 
+
+00:07:27.919 --> 00:07:30.230 align:start position:0%
+some and some guideline documents for me
+and<00:07:28.160><c> please</c><00:07:28.479><c> add</c><00:07:28.800><c> those</c><00:07:29.199><c> information</c><00:07:29.759><c> to</c><00:07:30.000><c> my</c>
+
+00:07:30.230 --> 00:07:30.240 align:start position:0%
+and please add those information to my
+ 
+
+00:07:30.240 --> 00:07:33.029 align:start position:0%
+and please add those information to my
+notion<00:07:30.720><c> workspace?</c><00:07:31.520><c> Thanks.</c><00:07:32.160><c> Okay,</c><00:07:32.479><c> the</c><00:07:32.720><c> bot</c>
+
+00:07:33.029 --> 00:07:33.039 align:start position:0%
+notion workspace? Thanks. Okay, the bot
+ 
+
+00:07:33.039 --> 00:07:35.270 align:start position:0%
+notion workspace? Thanks. Okay, the bot
+started<00:07:33.680><c> investigating</c><00:07:34.800><c> for</c><00:07:35.039><c> some</c>
+
+00:07:35.270 --> 00:07:35.280 align:start position:0%
+started investigating for some
+ 
+
+00:07:35.280 --> 00:07:36.790 align:start position:0%
+started investigating for some
+frequently<00:07:35.759><c> asked</c><00:07:36.080><c> information</c><00:07:36.479><c> for</c><00:07:36.639><c> the</c>
+
+00:07:36.790 --> 00:07:36.800 align:start position:0%
+frequently asked information for the
+ 
+
+00:07:36.800 --> 00:07:39.189 align:start position:0%
+frequently asked information for the
+data<00:07:37.120><c> engineer</c><00:07:37.520><c> role.</c><00:07:38.160><c> Let's</c><00:07:38.400><c> wait</c><00:07:38.639><c> a</c><00:07:38.800><c> little.</c>
+
+00:07:39.189 --> 00:07:39.199 align:start position:0%
+data engineer role. Let's wait a little.
+ 
+
+00:07:39.199 --> 00:07:41.909 align:start position:0%
+data engineer role. Let's wait a little.
+Great.<00:07:39.680><c> The</c><00:07:39.919><c> bot</c><00:07:40.319><c> successfully</c><00:07:41.039><c> added</c><00:07:41.599><c> the</c>
+
+00:07:41.909 --> 00:07:41.919 align:start position:0%
+Great. The bot successfully added the
+ 
+
+00:07:41.919 --> 00:07:44.070 align:start position:0%
+Great. The bot successfully added the
+information<00:07:42.560><c> to</c><00:07:42.800><c> my</c><00:07:43.120><c> notion</c><00:07:43.520><c> page.</c><00:07:43.840><c> Let's</c>
+
+00:07:44.070 --> 00:07:44.080 align:start position:0%
+information to my notion page. Let's
+ 
+
+00:07:44.080 --> 00:07:46.150 align:start position:0%
+information to my notion page. Let's
+check<00:07:44.240><c> it.</c><00:07:44.639><c> Excellent.</c><00:07:45.440><c> When</c><00:07:45.599><c> I</c><00:07:45.759><c> check</c><00:07:46.000><c> my</c>
+
+00:07:46.150 --> 00:07:46.160 align:start position:0%
+check it. Excellent. When I check my
+ 
+
+00:07:46.160 --> 00:07:48.710 align:start position:0%
+check it. Excellent. When I check my
+notion<00:07:46.560><c> workspace,</c><00:07:47.520><c> I</c><00:07:47.759><c> can</c><00:07:47.840><c> see</c><00:07:48.000><c> that</c><00:07:48.240><c> the</c><00:07:48.400><c> bot</c>
+
+00:07:48.710 --> 00:07:48.720 align:start position:0%
+notion workspace, I can see that the bot
+ 
+
+00:07:48.720 --> 00:07:50.550 align:start position:0%
+notion workspace, I can see that the bot
+edited<00:07:49.039><c> some</c><00:07:49.360><c> information</c><00:07:49.759><c> for</c><00:07:50.000><c> the</c><00:07:50.240><c> data</c>
+
+00:07:50.550 --> 00:07:50.560 align:start position:0%
+edited some information for the data
+ 
+
+00:07:50.560 --> 00:07:52.469 align:start position:0%
+edited some information for the data
+engineering<00:07:50.960><c> rule</c><00:07:51.280><c> interview</c><00:07:51.759><c> preparation.</c>
+
+00:07:52.469 --> 00:07:52.479 align:start position:0%
+engineering rule interview preparation.
+ 
+
+00:07:52.479 --> 00:07:54.469 align:start position:0%
+engineering rule interview preparation.
+There<00:07:52.639><c> are</c><00:07:52.880><c> some</c><00:07:53.280><c> interview</c><00:07:53.840><c> questions</c><00:07:54.160><c> and</c>
+
+00:07:54.469 --> 00:07:54.479 align:start position:0%
+There are some interview questions and
+ 
+
+00:07:54.479 --> 00:07:57.510 align:start position:0%
+There are some interview questions and
+answers.<00:07:55.199><c> So</c><00:07:55.440><c> I</c><00:07:55.759><c> can</c><00:07:56.000><c> easily</c><00:07:56.639><c> go</c><00:07:56.879><c> to</c><00:07:57.039><c> those</c>
+
+00:07:57.510 --> 00:07:57.520 align:start position:0%
+answers. So I can easily go to those
+ 
+
+00:07:57.520 --> 00:07:59.990 align:start position:0%
+answers. So I can easily go to those
+pages<00:07:58.080><c> and</c><00:07:58.639><c> check</c><00:07:58.879><c> the</c><00:07:59.120><c> details.</c><00:07:59.599><c> Excellent</c>
+
+00:07:59.990 --> 00:08:00.000 align:start position:0%
+pages and check the details. Excellent
+ 
+
+00:08:00.000 --> 00:08:02.790 align:start position:0%
+pages and check the details. Excellent
+job<00:08:00.319><c> my</c><00:08:00.479><c> archadash.</c><00:08:01.120><c> Thanks.</c><00:08:01.599><c> So</c><00:08:02.000><c> finally</c><00:08:02.560><c> you</c>
+
+00:08:02.790 --> 00:08:02.800 align:start position:0%
+job my archadash. Thanks. So finally you
+ 
+
+00:08:02.800 --> 00:08:05.189 align:start position:0%
+job my archadash. Thanks. So finally you
+have<00:08:02.879><c> it.</c><00:08:03.199><c> You</c><00:08:03.440><c> just</c><00:08:03.680><c> built</c><00:08:03.919><c> a</c><00:08:04.240><c> secure</c><00:08:04.720><c> private</c>
+
+00:08:05.189 --> 00:08:05.199 align:start position:0%
+have it. You just built a secure private
+ 
+
+00:08:05.199 --> 00:08:08.710 align:start position:0%
+have it. You just built a secure private
+AI<00:08:05.520><c> agent</c><00:08:05.919><c> on</c><00:08:06.240><c> AWS</c><00:08:06.879><c> that</c><00:08:07.120><c> runs</c><00:08:07.520><c> 724.</c><00:08:08.400><c> I</c><00:08:08.560><c> have</c>
+
+00:08:08.710 --> 00:08:08.720 align:start position:0%
+AI agent on AWS that runs 724. I have
+ 
+
+00:08:08.720 --> 00:08:10.950 align:start position:0%
+AI agent on AWS that runs 724. I have
+left<00:08:08.960><c> all</c><00:08:09.199><c> the</c><00:08:09.360><c> required</c><00:08:09.840><c> comments</c><00:08:10.479><c> in</c><00:08:10.720><c> the</c>
+
+00:08:10.950 --> 00:08:10.960 align:start position:0%
+left all the required comments in the
+ 
+
+00:08:10.960 --> 00:08:12.790 align:start position:0%
+left all the required comments in the
+description<00:08:11.440><c> below.</c><00:08:12.000><c> If</c><00:08:12.160><c> you</c><00:08:12.319><c> want</c><00:08:12.400><c> to</c><00:08:12.560><c> see</c>
+
+00:08:12.790 --> 00:08:12.800 align:start position:0%
+description below. If you want to see
+ 
+
+00:08:12.800 --> 00:08:15.110 align:start position:0%
+description below. If you want to see
+more<00:08:13.039><c> videos</c><00:08:13.440><c> about</c><00:08:13.759><c> building</c><00:08:14.160><c> your</c><00:08:14.400><c> own</c><00:08:14.720><c> AI</c>
+
+00:08:15.110 --> 00:08:15.120 align:start position:0%
+more videos about building your own AI
+ 
+
+00:08:15.120 --> 00:08:17.270 align:start position:0%
+more videos about building your own AI
+tools<00:08:15.680><c> instead</c><00:08:16.000><c> of</c><00:08:16.240><c> just</c><00:08:16.479><c> paying</c><00:08:16.800><c> for</c><00:08:17.039><c> the</c>
+
+00:08:17.270 --> 00:08:17.280 align:start position:0%
+tools instead of just paying for the
+ 
+
+00:08:17.280 --> 00:08:21.120 align:start position:0%
+tools instead of just paying for the
+subscription,<00:08:18.000><c> hit</c><00:08:18.160><c> the</c><00:08:18.400><c> subscribe</c><00:08:18.800><c> button.</c>
+

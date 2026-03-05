@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>OpenClaw 打造一人公司</title>
+</head>
+<body>
+<p># OpenClaw 打造一人公司，1+6个Agents终于协同工作了</p>
+<p><strong>作者：Jeff | 虾仔AI</strong></p>
+<p>---</p>
+<h2>开篇：一个残酷的事实</h2>
+<p>用了半年AI Agent，我终于明白了一个道理：</p>
+<p><strong>不是AI不够聪明，而是我们的架构太混乱。</strong></p>
+<p>每天醒来，Token已经烧掉几十万；Agent之间互相"抢戏"；想让它写代码，它给你聊产品；最崩溃的是——</p>
+<p><strong>我明明只需要一个执行者，结果养了一群"记忆错乱"的演员。</strong></p>
+<p>这是大多数AI一人公司都会遇到的三个核心问题。</p>
+<p>---</p>
+<h2>一、痛点：多Agent管理的三大坑</h2>
+<h3>坑1：Memory混乱—— Agent们在"抢记忆"</h3>
+<p>大多数人的做法是：每个Agent配一个独立Memory。</p>
+<p>结果是：</p>
+<li>Agent A记住的事，Agent B完全不知道</li>
+<li>战略决策分散在各处，无法形成统一视图</li>
+<li>三个月后回头看，连自己当时为什么做某个决定都看不懂</li>
+<p>**本质问题**：记忆碎片化导致战略无法统一。</p>
+<h3>坑2：Token过度消耗—— 每个Agent都在"重复学习"</h3>
+<p>如果你有5个Agent，每个Agent都要：</p>
+<li>加载系统Prompt</li>
+<li>加载项目背景</li>
+<li>加载历史对话</li>
+<p><strong>一个任务下来，Token消耗是单Agent的5-10倍。</strong></p>
+<p>更可怕的是——很多Agent根本没有"上下文"需求，它只需要执行，不需要"记忆"。</p>
+<h3>坑3：上下文污染—— A Agent的工作污染了B Agent</h3>
+<p>"让Coding Agent写代码，它却继承了上一个Product Agent的思维，写起了产品需求文档。"</p>
+<p>这是因为大多数方案让Agent共享同一个"上下文窗口"，导致不同任务之间互相污染。</p>
+<p>---</p>
+<h2>二、方案对比：两种架构，哪个更适合一人公司？</h2>
+<h3>方案A：一个Chatbot + 主Agent + 多个Sub-Agent</h3>
+<p>```</p>
+<p>用户 → Chatbot → Chief Agent → Sub-Agent 1 (Content)</p>
+<p>→ Sub-Agent 2 (Coding)</p>
+<p>→ Sub-Agent 3 (Growth)</p>
+<p>```</p>
+<p>**优点**：</p>
+<li>统一入口，用户体验好</li>
+<li>共享Memory上下文</li>
+<li>易于管理</li>
+<p>**缺点**：</p>
+<li>记忆仍然容易混乱（Sub-Agent可以读写Memory）</li>
+<li>上下文污染风险高</li>
+<li>扩展性有限</li>
+<h3>方案B：多个Chatbots（一个Agent一个Chatbot）</h3>
+<p>```</p>
+<p>用户 → Content Chatbot (Content Agent)</p>
+<p>→ Coding Chatbot (Coding Agent)</p>
+<p>→ Growth Chatbot (Coding Agent)</p>
+<p>```</p>
+<p>**优点**：</p>
+<li>完全隔离，无记忆污染</li>
+<li>每个Agent独立预算</li>
+<p>**缺点**：</p>
+<li>用户需要在多个窗口切换</li>
+<li>无法协作</li>
+<li>管理成本高</li>
+<p>---</p>
+<h2>三、最优解：单入口 + 分层Memory + Chief调度模式</h2>
+<p>我最终选择的方案，是两者的**结合**：</p>
+<p>```</p>
+<p>┌─────────────────────────────────────┐</p>
+<p>│           用户（单一入口）            │</p>
+<p>└─────────────────┬───────────────────┘</p>
+<p>↓</p>
+<p>┌─────────────────────────────────────┐</p>
+<p>│      Chief Agent（唯一决策者）        │</p>
+<p>│  • 任务识别                           │</p>
+<p>│  • Agent调度                          │</p>
+<p>│  • Memory唯一写入权                    │</p>
+<p>└─────────────────┬───────────────────┘</p>
+<p>↓</p>
+<p>┌───────────────────┬───────────┴───────────┬───────────────────┐</p>
+<p>↓                   ↓                       ↓                   ↓</p>
+<p>┌─────────┐      ┌─────────┐            ┌─────────┐          ┌─────────┐</p>
+<p>│Content  │      │ Coding  │            │ Growth  │          │Product  │</p>
+<p>│ Agent   │      │ Agent   │            │ Agent   │          │ Agent   │</p>
+<p>│(执行者) │      │(执行者) │            │(执行者)  │          │(执行者) │</p>
+<p>└─────────┘      └─────────┘            └─────────┘          └─────────┘</p>
+<p>↑                   ↑                       ↑                   ↑</p>
+<p>└───────────────────┴───────────┬───────────┴───────────────────┘</p>
+<p>↓</p>
+<p>┌─────────────────────────────────────┐</p>
+<p>│         Memory 分层管理              │</p>
+<p>│  • Chief: 战略记忆（唯一写入）        │</p>
+<p>│  • Agent: 执行缓存（只读）          │</p>
+<p>└─────────────────────────────────────┘</p>
+<p>```</p>
+<h3>核心设计原则</h3>
+<p><strong>1+6 Agent架构：1个Chief + 6个专业Agent</strong></p>
+<p>```</p>
+<p>1个Chief Agent（调度中心）</p>
+<p>↓</p>
+<p>├── Content Agent（内容创作）</p>
+<p>├── Growth Agent（增长黑客）</p>
+<p>├── Coding Agent（代码开发）</p>
+<p>├── Product Agent（产品经理）</p>
+<p>└── Finance Agent（财务分析）</p>
+<p>```</p>
+<p>**核心设计原则**：</p>
+<p><strong>1. 只有Chief有"记忆权"</strong></p>
+<p>这是最关键的设计：</p>
+<p>```</p>
+<p>memory/</p>
+<p>├── chief/           # 只有我能写</p>
+<p>│   ├── strategic_memory.md   # 战略决策</p>
+<p>│   ├── company_rules.md     # 公司规则</p>
+<p>│   └── vision.md           # 长期愿景</p>
+<p>├── projects/        # 项目状态</p>
+<p>└── agent_cache/     # Agent执行缓存（只读）</p>
+<p>```</p>
+<p>Sub-Agent都是"无状态工人"——它只负责执行，执行完就把结果交给Chief，**不存储长期记忆**。</p>
+<p><strong>2. 任务走廊：同一窗口的Agent隔离</strong></p>
+<p>这是很多人关心的问题：如何在同一个对话窗口里，让不同Agent独立工作？</p>
+<p>答案：**关键词识别 + 任务走廊**</p>
+<p>```</p>
+<p>用户发送："帮我写代码"</p>
+<p>↓</p>
+<p>Chief识别关键词："代码" → Coding Agent</p>
+<p>↓</p>
+<p>加载Coding Agent的Prompt（不加载其他Agent的上下文）</p>
+<p>↓</p>
+<p>执行 → 返回结果 → Chief合成 → 写入Memory</p>
+<p>```</p>
+<p>**关键点**：每次任务只加载对应Agent的Prompt，不加载其他Agent的上下文。</p>
+<p><strong>3. 统一调用入口</strong></p>
+<p>外部请求通过一个统一的API入口：</p>
+<p>```bash</p>
+<p>curl -X POST http://cloud-api:8000/api/task/execute \</p>
+<p>-d '{"task": "写一篇AI日报"}'</p>
+<p>↓</p>
+<p>Chief分析 → 分发给对应Agent → 返回结果</p>
+<p>```</p>
+<p>---</p>
+<h2>四、这套架构的实际效果</h2>
+<h3>1. Token消耗降了70%</h3>
+<p>因为：</p>
+<li>只有Chief加载完整上下文</li>
+<li>Sub-Agent只加载任务相关Prompt</li>
+<li>Memory分层避免了重复学习</li>
+<h3>2. 任务执行更精准</h3>
+<p>通过关键词识别 + Agent配置，每个任务自动路由到最合适的Agent，不会"跑偏"。</p>
+<h3>3. 战略决策可追溯</h3>
+<p>所有长期记忆都集中在Chief的Memory里，随时可以回顾：</p>
+<li>当时的决策是什么？</li>
+<li>为什么做这个决定？</li>
+<li>后来结果如何？</li>
+<p>---</p>
+<h2>五、技术实现细节</h2>
+<h3>架构总览</h3>
+<p>```</p>
+<p>用户 → 飞书 → OpenClaw Gateway → Cloud API (FastAPI)</p>
+<p>↓</p>
+<p>Chief Agent (调度)</p>
+<p>↓</p>
+<p>┌──────────────────┴──────────────────┐</p>
+<p>↓                                     ↓</p>
+<p>Content Agent                         Coding Agent</p>
+<p>(MiniMax M2.5)                       (Qwen Coder)</p>
+<p>↓                                     ↓</p>
+<p>Memory Manager ←── 统一写入 ──→ Memory</p>
+<p>```</p>
+<h3>Agent配置示例</h3>
+<p>```yaml</p>
+<p>agents:</p>
+<p>content:</p>
+<p>keywords: ["日报", "脚本", "文案", "内容"]</p>
+<p>model: "MiniMax-M2.5"</p>
+<p>coding:</p>
+<p>keywords: ["代码", "编程", "Bug", "API"]</p>
+<p>model: "qwen-coder"</p>
+<p>mutex_with: ["product"]  # 互斥：不能和Product同时运行</p>
+<p>```</p>
+<h3>云端部署</h3>
+<p>整个系统部署在腾讯云：</p>
+<li>FastAPI服务：8000端口</li>
+<li>OpenClaw Gateway：18789端口</li>
+<li>外部通过HTTP调用</li>
+<p>---</p>
+<h2>六、总结：一人公司的Agent架构选择</h2>
+<p>回到最初的问题：一人公司应该选择哪种架构？</p>
+<p>我的答案是：**1+6 Agent架构（单入口 + 分层Memory + Chief调度模式）**</p>
+<p>**1+6的含义**：</p>
+<li>**1个Chief Agent**：唯一决策者 + Memory唯一写入权</li>
+<li>**6个Sub Agents**：Content/Growth/Coding/Product/Finance/User</li>
+<p>理由：</p>
+<p>1. **用户体验好**——一个入口，一个窗口</p>
+<p>2. **成本可控**——Token精确使用，不浪费</p>
+<p>3. **战略清晰**——记忆集中，决策可追溯</p>
+<p>4. **扩展性强**——加新Agent只需配置几行</p>
+<p>**核心逻辑**：让AI像真正的公司一样运转——有一个CEO（Chief）做决策，其他人都是执行者。</p>
+<p>---</p>
+<p>*本文由虾仔AI助手撰写*</p>
+</body></html>

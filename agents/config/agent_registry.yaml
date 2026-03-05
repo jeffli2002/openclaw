@@ -1,0 +1,265 @@
+# Agent Registry - Agent注册表
+# 版本: v1.0
+# 用途: 定义所有Agent的配置和能力
+
+---
+# 全局配置
+global:
+  name: "Jeff AI One-Person Company"
+  version: "1.0.0"
+  
+  # 核心原则
+  principles:
+    - "只有1个真正运行的Agent"
+    - "通过system prompt + memory namespace切换角色"
+    - "Chief Agent负责任务调度和角色分配"
+    - "禁止自动多线程"
+    - "Product和Coding Agent禁止并行执行"
+    - "MVP聚焦角色分离和协同"
+
+---
+# Agent注册表
+agents:
+  # ===== Chief Agent =====
+  chief:
+    name: "Chief Agent"
+    role: "AI CEO 助理 + 调度系统"
+    description: "唯一决策者 + Memory所有者"
+    
+    model:
+      primary: "minimax-portal/MiniMax-M2.5"
+      fallbacks:
+        - "kimi-coding/k2p5"
+        - "qwen-portal/qwen3.5-pro"
+      thinking: "high"
+      reasoning: true
+    
+    memory:
+      read:
+        - "chief/*"
+        - "projects/*"
+        - "reports/*"
+      write:
+        - "chief/*"
+        - "projects/*"
+        - "reports/*"
+    
+    keywords:
+      - "调度"
+      - "安排"
+      - "协调"
+  
+  # ===== Content Agent =====
+  content:
+    name: "Content Agent"
+    role: "内容创作专家"
+    description: "负责所有内容创作任务"
+    
+    model:
+      primary: "minimax-portal/MiniMax-M2.5"
+      fallbacks:
+        - "kimi-coding/k2p5"
+      thinking: "medium"
+    
+    memory:
+      read:
+        - "chief/company_rules.md"
+        - "projects/*"
+      write: []  # 不写长期记忆
+    
+    keywords:
+      - "内容"
+      - "日报"
+      - "脚本"
+      - "社交媒体"
+      - "文案"
+      - "文章"
+      - "公众号"
+  
+  # ===== Growth Agent =====
+  growth:
+    name: "Growth Agent"
+    role: "增长黑客"
+    description: "负责增长、SEO、营销任务"
+    
+    model:
+      primary: "minimax-portal/MiniMax-M2.5"
+      fallbacks:
+        - "kimi-coding/k2p5"
+      thinking: "medium"
+    
+    memory:
+      read:
+        - "chief/company_rules.md"
+        - "projects/*"
+      write: []
+    
+    keywords:
+      - "增长"
+      - "SEO"
+      - "关键词"
+      - "转化"
+      - "漏斗"
+      - "获客"
+      - "营销"
+  
+  # ===== Coding Agent =====
+  coding:
+    name: "Coding Agent"
+    role: "全栈工程师"
+    description: "负责代码开发任务"
+    
+    model:
+      primary: "qwen-portal/qwen3.5-pro"
+      fallbacks:
+        - "minimax-portal/MiniMax-M2.5"
+        - "kimi-coding/k2p5"
+      thinking: "high"
+      reasoning: true
+    
+    memory:
+      read:
+        - "chief/company_rules.md"
+        - "projects/*"
+      write: []
+    
+    keywords:
+      - "代码"
+      - "编程"
+      - "API"
+      - "Bug"
+      - "重构"
+      - "架构"
+      - "开发"
+    
+    mutex_with:
+      - "product"
+  
+  # ===== Product Agent =====
+  product:
+    name: "Product Agent"
+    role: "产品经理"
+    description: "负责产品规划和管理"
+    
+    model:
+      primary: "kimi-coding/k2p5"
+      fallbacks:
+        - "minimax-portal/MiniMax-M2.5"
+        - "qwen-portal/qwen3.5-pro"
+      thinking: "high"
+    
+    memory:
+      read:
+        - "chief/company_rules.md"
+        - "chief/vision.md"
+        - "projects/*"
+      write: []
+    
+    keywords:
+      - "产品"
+      - "PRD"
+      - "Roadmap"
+      - "用户"
+      - "功能"
+      - "MVP"
+    
+    mutex_with:
+      - "coding"
+  
+  # ===== Finance Agent =====
+  finance:
+    name: "Finance Agent"
+    role: "财务分析师"
+    description: "负责财务分析和规划"
+    
+    model:
+      primary: "minimax-portal/MiniMax-M2.5"
+      fallbacks:
+        - "kimi-coding/k2p5"
+        - "qwen-portal/qwen3.5-pro"
+      thinking: "medium"
+    
+    memory:
+      read:
+        - "chief/company_rules.md"
+        - "projects/*"
+      write: []
+    
+    keywords:
+      - "财务"
+      - "成本"
+      - "定价"
+      - "收入"
+      - "现金流"
+      - "ROI"
+
+---
+# 调度配置
+scheduler:
+  # 执行模式
+  mode: "single"  # 单Agent模式
+  
+  # 互斥规则
+  mutex_pairs:
+    - ["coding", "product"]
+  
+  # 状态检查
+  state_check:
+    before_switch: true
+    after_completion: true
+
+---
+# Cron任务 (示例)
+cron_tasks:
+  - id: "daily-content-publish"
+    name: "每日内容发布"
+    schedule:
+      kind: "cron"
+      expression: "0 9 * * *"
+      timezone: "Asia/Shanghai"
+    agent: "content"
+    enabled: true
+  
+  - id: "ai-daily-newsletter"
+    name: "AI日报"
+    schedule:
+      kind: "cron"
+      expression: "30 7 * * *"
+      timezone: "Asia/Shanghai"
+    agent: "content"
+    enabled: true
+  
+  - id: "twitter-monitor"
+    name: "Twitter监控"
+    schedule:
+      kind: "every"
+      everyMs: 14400000  # 4小时
+    agent: "growth"
+    enabled: true
+
+---
+# Memory配置
+memory:
+  base_path: "/root/.openclaw/workspace/memory"
+  
+  namespaces:
+    chief: "chief/"
+    content: "content/"
+    growth: "growth/"
+    coding: "coding/"
+    product: "product/"
+    finance: "finance/"
+  
+  # 自动保存策略
+  auto_save:
+    on_completion: true
+    on_error: true
+    interval_minutes: 5
+
+---
+# 版本记录
+changelog:
+  v1.0.0:
+    - "初始版本"
+    - "6个Agent配置"
+    - "分层Memory架构"
