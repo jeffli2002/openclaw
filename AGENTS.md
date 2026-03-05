@@ -267,6 +267,73 @@ You are free to edit `HEARTBEAT.md` with a short checklist or reminders. Keep it
 
 **Tip:** Batch similar periodic checks into `HEARTBEAT.md` instead of creating multiple cron jobs. Use cron for precise schedules and standalone tasks.
 
+---
+
+## 🔧 System Enhancements (系统增强功能)
+
+### 1. Memory Flush Before Compaction
+**功能**: 在 compaction 前自动 flush 内存，防止数据丢失
+
+**触发时机**:
+- 会话压缩 (compaction) 前
+- Session 关闭前
+- Agent 切换前
+
+**使用方法**:
+```bash
+# Compaction 前 flush
+python3 scripts/memory_flusher.py --before-compaction --from-agent chief
+
+# Session 关闭前 flush
+python3 scripts/memory_flusher.py --before-close --from-agent content
+
+# Agent 切换前 flush
+python3 scripts/memory_flusher.py --before-switch --from-agent chief --to-agent coding
+```
+
+**Flush 内容**:
+- ✅ 关键决策
+- ✅ 重要数据
+- ✅ 用户偏好
+- ✅ 待办事项
+- ✅ Agent 状态
+
+---
+
+### 2. Enhanced Memory Search (增强记忆搜索)
+**功能**: 搜索记忆时同时检索 MEMORY.md、memory/* 和 session 历史记录
+
+**搜索源**:
+1. ✅ `MEMORY.md` - 最高优先级
+2. ✅ `memory/global/*` - 全局记忆
+3. ✅ `memory/agents/{agent}/*` - Agent专属记忆
+4. ✅ `memory/daily/*` - 最近7天的日志
+5. ✅ `session_history` (SQLite) - 会话历史
+
+**使用方法**:
+```bash
+# 基本搜索
+python3 scripts/enhanced_memory_search.py "关键词"
+
+# 指定Agent搜索
+python3 scripts/enhanced_memory_search.py "公众号文章" content
+```
+
+**特点**:
+- 自动提取上下文 (前后3行)
+- 按优先级和相关度排序
+- 支持跨源搜索
+- 显示结果来源和时间
+
+---
+
+### 配置文件
+**`config/openclaw_enhancements.yaml`**:
+- Memory Flush 配置
+- Session Memory Search 配置
+- 自动保存规则
+- 会话上下文管理
+
 **Things to check (rotate through these, 2-4 times per day):**
 
 - **Emails** - Any urgent unread messages?
