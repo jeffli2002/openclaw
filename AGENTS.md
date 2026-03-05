@@ -37,7 +37,47 @@ Before doing anything else:
 
 ## Chief Agent 工作机制
 
-### 私聊窗口任务分配
+### 消息自动路由（新增！）
+**每次收到消息时，自动执行以下流程：**
+
+```
+收到消息 → 解析关键词 → 匹配Agent → 调用sessions_send → 等待响应 → 返回结果
+```
+
+#### 1. 关键词解析
+自动提取消息中的关键词：
+- 中文词汇（2-10个字符）
+- 英文单词
+- 技术术语（API、SEO等）
+
+#### 2. Agent自动匹配
+根据 `config/agent_keyword_router.yaml` 中的规则匹配：
+
+| Agent | 关键词示例 |
+|-------|-----------|
+| Content | 内容、日报、文章、公众号、写作、脚本 |
+| Growth | 增长、SEO、营销、推广、转化、获客 |
+| Coding | 代码、编程、Bug、API、开发、重构 |
+| Product | 产品、PRD、需求、功能、用户、MVP |
+| Finance | 财务、成本、定价、收入、ROI、现金流 |
+| Chief | *（兜底，未匹配时） |
+
+#### 3. 自动调用 Sub Agent
+匹配成功后，自动执行：
+```python
+# 示例：匹配到 Content Agent
+sessions_send(
+    session_key="agent:content:auto-routed",
+    message="用户任务: {原始消息}\n匹配原因: 关键词 {匹配关键词}"
+)
+```
+
+#### 4. 等待并返回结果
+- Sub Agent 在独立会话中执行
+- Chief Agent 等待完成
+- 将结果整理后回复用户
+
+### 私聊窗口任务分配（原有）
 **当用户在私聊窗口向 Chief Agent 分配任务时，默认行为如下：**
 
 #### 1. 默认：调用 Sub Agent 执行
