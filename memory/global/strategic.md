@@ -1,121 +1,91 @@
 # 战略记忆 - 虾仔的长期记忆
 
-> 最后更新: 2026-02-26
+> 最后更新: 2026-03-05 20:00
 > 维护者: Chief Agent (虾仔)
 
 ---
 
-## 2026-02-27: 胶囊集成 + Cron自动化
+## 📊 Memory 提炼 | 2026-03-05 20:00
 
-**任务**：从EvoMap拉取高下载量(≥5次)胶囊并集成
+### 今日核心进展
 
-**筛选条件**：
-- confidence >= 0.9 (置信度)
-- success_streak >= 5 (成功次数)
+**邮件系统配置** (2026-03-05 19:50)
+- 成功集成AgentMail服务
+- 创建邮箱: jeffai@agentmail.to
+- 实现功能：发送邮件、接收邮件(收件箱检查)
+- 待处理：安全配置（webhook allowlist防prompt injection）
 
-**安全检查**：已整合到Cron任务
-- 认证凭据：password/passwd/secret/api_key/token/bearer/authorization
-- 代码执行：eval/exec/subprocess/os.system/child_process/__import__
-- 恶意文件：.exe/.sh/rm -rf
-- 编码解码：base64.b64decode
-
-**Cron任务更新**：
-- daily-skill-evolution (22:00) 已加入安全检查逻辑
-- 报告新增"安全检查结果"和"可疑胶囊"章节
-
-**已集成胶囊 (13个)**：见 strategic.md 上一条记录
-
-**问题**：daily-content-publish (9:00) 任务从2月25日9点直接跳到2月27日9点，2月26日被跳过
-
-**原因**：
-- Gateway在2月26日01:09:39被重启
-- 重启后cron调度器恢复时计算下次运行时间出错
-- 应该是02-26 09:00，但计算成了02-27 09:00
-
-**临时修复**：
-- 手动触发任务：`openclaw cron run <job-id>`
-
-**长期方案**：
-- 在heartbeat中增加cron任务检查
-- 检测nextRunAtMs是否在合理时间范围内
-- 如果异常则告警并手动修复
-- 已添加HEARTBEAT.md检查项：检查nextRunAtMs是否在预期时间±1小时内
+**Browser-Use配置** (2026-03-05 19:31)
+- 用户提供API Key成功配置
+- 测试通过：打开example.com截图正常
+- Live URL: https://live.browser-use.com
 
 ---
 
-## 2026-02-26: Twitter监控Cron任务失败
+### 历史核心进展
 
-**问题**：twitter-browser-monitor连续13次执行失败，错误信息"⚠️ ✉️ Message failed"
-
-**原因**：
-1. Delivery配置错误 - cron的`delivery.channel`设为`feishu`但target格式不正确
-2. Isolated模式下cron的announce机制无法正确调用飞书消息发送API
-
-**修复方案**：
-- 将delivery设为`mode: none`（禁用cron自动投递）
-- 在任务指令payload中添加显式的message工具调用，让agent自己发送消息
-
-**经验**：
-1. Cron任务的announce delivery在isolated session模式下有局限性
-2. 对于需要消息推送的任务，最好让agent自己调用message工具
-3. 测试时先用`message`工具测试通道是否可用，再配置cron
+**OpenClaw安全新闻监控** (2026-03-05 16:05)
+- 监控任务执行成功
+- 发现重要安全新闻：
+  1. **OpenClaw高危漏洞已修复** (v2026.2.25+)
+  2. Microsoft发布安全运行指南
+  3. 创始人Peter Steinberger加入OpenAI
+  4. AWS官方支持在Lightsail运行
+- 问题：通知Chief Agent失败（session send权限不足）
+- 建议：手动通知或通过飞书消息
 
 ---
 
-## 2026-02-25: Git仓库覆盖事故
+### 历史核心进展 (摘要)
 
-**事故**：yanglaojin项目被完全覆盖，原有几十个文件丢失
+**1. Agent架构 - 1+6架构完成**
+- Chief + 6个SubAgents (content/growth/coding/product/finance/user)
+- Memory分层设计：chief/projects/agent_cache
+- 解决痛点：Memory混乱、Token浪费、上下文污染
 
-**原因**：
-- 本地新建文件夹后直接force push
-- 没有先clone远程仓库
-- 没有git pull就push
+**2. 小红书MCP配置** (2026-03-05)
+- 安装 mcporter CLI + 3个小红书MCP包
+- 用户扫码登录成功，Cookie保存至3个位置
+- **问题**：所有MCP包都有技术问题无法完全运行
+  - xiaohongshu-mcp-steve: API风控需要动态签名
+  - xiaohongshu-mcp-server: Playwright页面初始化失败
+  - xiaohongshu-mcp: Schema格式错误
+- **结论**：改用原生Playwright脚本实现发布/点赞功能
 
-**教训**：
-1. **永远不要对有内容的远程仓库force push**
-2. 重要操作前先创建本地备份
-3. 先了解项目当前状态，不假设
-4. 对生产级项目操作要谨慎
-5. 重要操作前向用户确认
+**3. 搜索引擎配置**
+- 创建智能搜索脚本 (Tavily优先 + Brave备用)
+- 使用方式：`python3 /root/.openclaw/workspace/scripts/smart_search.py "查询内容"`
 
-**正确流程**：
-```bash
-git clone https://github.com/xxx/xxx.git
-cd xxx
-# 添加修改
-git add .
-git commit -m "feat: ..."
-git push  # 不要-f
-```
+**4. 云端部署就绪**
+- FastAPI服务搭建完成 (ai_company_server)
+- 腾讯云8000端口开放
+- 外网访问：http://43.156.101.197:8000
+
+**5. 公众号发布**
+- 标题：OpenClaw 打造一人公司，1+1个Agents终于协同工作了
+- 反复修改5版后发布
+- 经验：公众号文章要简洁，去掉所有Markdown符号
+
+**6. EvoMap胶囊集成**
+- 拉取96个优质胶囊（call_count≥5）
+- 建立安全检查机制（认证凭据、代码执行、恶意文件、编码解码）
+- Top胶囊：HTTP重试机制(8718次)、Feishu消息fallback(8711次)
 
 ---
 
-## 架构演变 (2026-02-26)
+## 📊 经验总结
 
-### 新Memory分层架构
+1. **公众号文章**：要简洁，去掉所有Markdown符号
+2. **API管理**：OpenClaw API可以统一管理多Provider
+3. **Memory分层**：是解决Agent混乱的关键
+4. **Cron任务delivery**：isolated session下最好让agent自己调用message工具
+5. **Git操作**：永远不要对有内容的远程仓库force push
+6. **MCP集成**：第三方MCP包常有兼容性问题，原生Playwright更可靠
 
-从"每个Agent独立memory"升级为"集中式记忆 + 分布式执行"：
+---
 
-```
-memory/
-├── chief/
-│   ├── strategic_memory.md   # 本文件 - 战略记忆
-│   ├── company_rules.md      # 公司规则
-│   └── vision.md            # 长期愿景
-│
-├── projects/
-│   └── default_project.md   # 项目状态
-│
-├── reports/
-│   └── 20260226_report.md   # 日报存档
-│
-└── agents//              # Sub-Agent执行缓存
-    ├── growth/
-    ├── coding/
-    └── ...
-```
+## 📋 待处理问题
 
-**核心规则**：
-- 只有Chief有写长期记忆权限
-- Sub-Agent只执行任务，不存长期记忆
-- 所有报告append-only，无rewrite
+- 部分Cron任务仍有error（growth-seo-keywords, product-competitor-analysis）
+- Chief日报发送失败问题
+- session send权限限制问题

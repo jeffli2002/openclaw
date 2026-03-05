@@ -51,6 +51,31 @@
 
 ---
 
+## 工具使用规范
+
+### 搜索引擎使用流程（2026-03-05 更新）
+
+**搜索优先级**：
+1. **智能搜索脚本** - `smart_search.py` (Tavily 优先，Brave 备用)
+2. **Tavily 直接搜索** - `tavily_search.py` (仅 Tavily)
+3. **OpenClaw 内置** - `web_search` 工具 (Brave API，备用)
+
+**使用方式**：
+```bash
+# 智能搜索（推荐）
+python3 /root/.openclaw/workspace/scripts/smart_search.py "查询内容"
+
+# Tavily直接搜索
+python3 /root/.openclaw/workspace/scripts/tavily_search.py "查询内容"
+```
+
+**流程**：
+1. 任何需要 web 搜索的任务 → 使用 `smart_search.py`
+2. 如果脚本不可用 → 回退到 `web_search` 工具
+3. 禁止直接调用 Brave API（除非前两者都失败）
+
+---
+
 ## 决策记录
 
 ### 2026-02-28: Memory架构升级
