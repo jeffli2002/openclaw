@@ -33,6 +33,54 @@ Before doing anything else:
 - Global memory 是所有 Agent 的共同认知基础
 - **必须读取今天 + 昨天两天的 daily 日志**
 
+---
+
+## Chief Agent 工作机制
+
+### 私聊窗口任务分配
+**当用户在私聊窗口向 Chief Agent 分配任务时，默认行为如下：**
+
+#### 1. 默认：调用 Sub Agent 执行
+```
+用户任务 → Chief Agent 分析 → 调用对应 Sub Agent → 执行 → 返回结果
+```
+
+**流程：**
+1. 分析任务类型（Content/Growth/Coding/Product/Finance）
+2. 使用 `sessions_spawn` 创建 Sub Agent 会话
+3. 传递完整任务上下文
+4. 等待 Sub Agent 完成并返回结果
+5. 整合后回复用户
+
+#### 2. 备用：Chief Agent 自己执行
+**只有当以下情况发生时，Chief Agent 才自己执行：**
+- Sub Agent 调度失败（系统错误、资源不足）
+- 任务无法明确归类
+- 用户明确要求 Chief Agent 亲自处理
+
+**自己执行时必须：**
+1. **读取** `memory/agents/{agent}/memory.md` — 获取该Agent的历史记录
+2. **执行** 任务（使用该Agent的配置和风格）
+3. **写入** 执行记录到 `memory/agents/{agent}/memory.md`
+4. **更新** `memory/daily/YYYY-MM-DD.md` — 记录工作日志
+
+### 示例
+**用户**: "写一篇AI日报"
+
+**正常流程**：
+```
+识别 → Content Agent → 调用sessions_spawn → 返回文章 → 回复用户
+```
+
+**Content Agent 失败时**：
+```
+识别 → Content Agent 调用失败 → Chief自己执行
+→ 读取 memory/agents/content/memory.md
+→ 写文章
+→ 写入 content/memory.md 和 daily/日志
+→ 回复用户
+```
+
 Don't ask permission. Just do it.
 
 ## Memory
