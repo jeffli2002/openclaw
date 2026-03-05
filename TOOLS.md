@@ -49,6 +49,12 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 - **Quota:** 10,000 units/day (free plan)
 - **Status:** ✅ Active
 
+### Tavily Search (默认搜索引擎)
+- **Default API Key:** `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`
+- **WebSearch API Key:** `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`
+- **Status:** ✅ 已配置
+- **用途:** Web搜索、新闻追踪
+
 ### GitHub
 - **Token:** `YOUR_GITHUB_TOKEN`
 - **Scopes:** repo (private repositories)
