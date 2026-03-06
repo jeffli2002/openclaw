@@ -43,7 +43,7 @@ bash /root/.openclaw/workspace/scripts/check-credentials.sh
 | content-factory | credentials/wechat.json | 从文件读取 |
 | agentmail | credentials/agentmail.json | $AGENTMAIL_API_KEY |
 | youtube | credentials/youtube.json | 从文件读取 |
-| xiaohongshu-skills | skills 目录 | browser_state/ |
+| xiaohongshu-skills | credentials/xiaohongshu.json | 从文件读取 cookies（登录态备份） |
 | notebooklm-skill | skills 目录 | browser_state/ |
 
 ### 规范说明
@@ -84,6 +84,11 @@ bash /root/.openclaw/workspace/scripts/check-credentials.sh
 - **配置位置:** `credentials/youtube.json`
 - **变量:** `$YOUTUBE_API_KEY`
 - **状态:** ⚠️ 需要填入 API Key
+
+### 小红书
+- **配置位置:** `credentials/xiaohongshu.json`
+- **用途:** 保存可复用的小红书 cookies / 登录态备份
+- **说明:** 优先用于 creator 发布页登录恢复与发布测试
 
 ---
 
