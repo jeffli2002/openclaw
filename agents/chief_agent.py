@@ -26,6 +26,11 @@ try:
 except Exception:
     AgentKeywordRouter = None
 
+try:
+    from chief_dispatch import ChiefDispatchPlanner
+except Exception:
+    ChiefDispatchPlanner = None
+
 
 class ChiefAgent:
     """Chief Agent - AI CEO 助理和调度中枢"""
@@ -34,6 +39,7 @@ class ChiefAgent:
         self.active_agent: Optional[str] = None
         self.config_path = config_path
         self.router = AgentKeywordRouter() if AgentKeywordRouter else None
+        self.dispatch_planner = ChiefDispatchPlanner() if ChiefDispatchPlanner else None
         self.config = self._load_config(config_path)
         self.memory_path = "/root/.openclaw/workspace/memory/global"
         os.makedirs(self.memory_path, exist_ok=True)
@@ -147,31 +153,54 @@ class ChiefAgent:
 
         return {"agents": agents}
 
+    def plan_dispatch(self, task: str) -> Dict[str, Any]:
+        """返回 Chief 对当前任务的真实执行计划。"""
+        if self.dispatch_planner:
+            return self.dispatch_planner.plan(task)
+
+        agent_type = self._identify_task_type(task)
+        if agent_type == "chief":
+            return {
+                "action": "chief_direct",
+                "reason": "planner_unavailable",
+                "next_step": "Chief 直接处理。",
+                "route_debug": "route=chief;dispatch=direct",
+            }
+
+        model_config = self._get_model_config(agent_type)
+        return {
+            "action": "delegate_candidate",
+            "reason": "planner_unavailable",
+            "target_agent": agent_type,
+            "next_step": "Planner 不可用；由上层 runtime 决定是否使用 sessions_spawn。",
+            "route_debug": f"route={agent_type};dispatch=candidate;model={model_config['primary']}",
+        }
+
     def dispatch(self, task: str) -> Dict[str, Any]:
         """返回任务分类与调度建议。"""
-        agent_type = self._identify_task_type(task)
+        plan = self.plan_dispatch(task)
+        agent_type = plan.get("target_agent") or self._identify_task_type(task)
         can_execute, reason = self._select_agent(agent_type)
         if not can_execute:
-            return {"success": False, "error": reason, "agent": None, "result": None}
+            return {"success": False, "error": reason, "agent": None, "result": None, "plan": plan}
 
         model_config = self._get_model_config(agent_type)
         result = {
             "agent": agent_type,
-            "agent_name": self.config["agents"][agent_type].get("name", agent_type),
+            "agent_name": self.config["agents"].get(agent_type, {}).get("name", agent_type),
             "model": model_config["primary"],
             "fallbacks": model_config["fallbacks"],
             "task": task,
             "timestamp": datetime.now().isoformat(),
-            "dispatch_mode": "chief_direct" if agent_type == "chief" else "delegate_candidate",
-            "note": "若 runtime 无法直接委派到目标 Agent，则由 Chief 按该领域规则降级执行。"
-            if agent_type != "chief"
-            else "由 Chief 直接处理。",
+            "dispatch_mode": plan.get("action", "chief_direct"),
+            "route_debug": plan.get("route_debug"),
+            "next_step": plan.get("next_step"),
         }
 
         self._save_to_memory(agent_type, task, result)
         self.active_agent = agent_type
 
-        return {"success": True, "agent": agent_type, "config": model_config, "result": result}
+        return {"success": True, "agent": agent_type, "config": model_config, "result": result, "plan": plan}
 
     def _identify_task_type(self, task: str) -> str:
         if self.router:

@@ -14,6 +14,10 @@ runtime:
   persistent_threads_supported: false
   preferred_tool: sessions_spawn
   fallback: chief_degraded_mode
+  result_bridge:
+    enabled: true
+    result_dir: /root/.openclaw/workspace/output/dispatch_results
+    wait_timeout_seconds: 180
 
 workers:
   content:
