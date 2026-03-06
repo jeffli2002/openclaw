@@ -37,21 +37,37 @@ Before doing anything else:
 
 ## Chief Agent 工作机制
 
-### 消息自动路由（新增！）
-**每次收到消息时，自动执行以下流程：**
+### 消息自动路由（当前真实机制）
+**这里要区分两层：runtime 已生效的绑定，和 Chief 私聊中的行为规则。**
+
+#### A. Runtime 已生效的路由
+1. **群聊 → 对应 Agent**
+   - 由 `/root/.openclaw/openclaw.json` 的 `bindings` 决定
+   - Content / Growth / Coding / Product / Finance 各自群聊直接进入对应 Agent
+2. **私聊 → Chief Agent**
+   - 用户私聊默认先进入 Chief（前台接待）
+
+#### B. Chief 私聊中的分类与执行
+Chief 在私聊收到任务后，按以下顺序处理：
 
 ```
-收到消息 → 解析关键词 → 匹配Agent → 调用sessions_send → 等待响应 → 返回结果
+收到消息
+→ 先判断是否为简单前台问题
+→ 若不是，再按 `config/agent_keyword_router.yaml` 做领域分类
+→ 若分类为 Chief：Chief 直接处理
+→ 若分类为领域 Agent：优先尝试委派
+→ 若当前 runtime 不具备委派条件：进入降级模式，由 Chief 按对应领域规则执行
 ```
 
-#### 1. 关键词解析
-自动提取消息中的关键词：
-- 中文词汇（2-10个字符）
-- 英文单词
-- 技术术语（API、SEO等）
+#### 1. 简单前台问题（不路由）
+以下情况由 Chief 直接回复，不进入委派：
+- 简单打招呼（"hi"、"在吗"）
+- 闲聊 / 日常对话
+- 询问状态（"你用什么模型"、"现在在干什么"）
+- 进度追问（"啥进度了"、"现在怎么样"）
 
-#### 2. Agent自动匹配
-根据 `config/agent_keyword_router.yaml` 中的规则匹配：
+#### 2. 领域分类（关键词）
+Chief 私聊的关键词分类以 `config/agent_keyword_router.yaml` 为准：
 
 | Agent | 关键词示例 |
 |-------|-----------|
@@ -62,20 +78,31 @@ Before doing anything else:
 | Finance | 财务、成本、定价、收入、ROI、现金流 |
 | Chief | *（兜底，未匹配时） |
 
-#### 3. 自动调用 Sub Agent
-匹配成功后，自动执行：
-```python
-# 示例：匹配到 Content Agent
-sessions_send(
-    session_key="agent:content:auto-routed",
-    message="用户任务: {原始消息}\n匹配原因: 关键词 {匹配关键词}"
-)
-```
+#### 3. 委派优先级（按真实能力执行）
+当分类结果指向某个领域 Agent 时，按以下顺序尝试：
+1. **当前优先实现**：使用 `sessions_spawn(runtime="subagent", mode="run")` 按需拉起一次性 worker
+   - 当前 Feishu 通道不支持 `thread:true` 的持久 subagent thread
+   - 因此“按任务即时 spawn 一次性 worker”是当前平台下最真实、最稳定的委派方式
+2. **如果未来已有稳定目标 session**：再使用 `sessions_send`
+3. **如果未来通道支持 thread subagent**：再升级为持久 worker thread
+4. **降级**：如果当前 runtime 没有 spawn 权限，或委派失败，则由 Chief 按该领域规则自己执行
 
-#### 4. 等待并返回结果
-- Sub Agent 在独立会话中执行
-- Chief Agent 等待完成
-- 将结果整理后回复用户
+#### 4. 委派决策规则（重要）
+**当检测到以下情况时，Chief 默认应优先委派，而不是自己硬扛：**
+
+| 任务类型 | 关键词示例 | 优先目标 |
+|----------|-----------|---------|
+| 代码/开发 | 代码、编程、Bug、API、开发、重构、修复 | Coding Agent |
+| 内容创作 | 日报、文章、公众号、写作、脚本、内容 | Content Agent |
+| 增长/营销 | 增长、SEO、营销、推广、转化、获客 | Growth Agent |
+| 产品需求 | 产品、PRD、需求、功能、用户、MVP | Product Agent |
+| 财务分析 | 财务、成本、定价、收入、ROI、现金流 | Finance Agent |
+| 深度分析 | 详细分析、完整报告、多步骤、复杂 | 对应领域 Agent |
+
+#### 5. 重要约束
+- `openclaw.json` 是 **runtime 绑定和模型配置** 的真相源
+- `config/agent_keyword_router.yaml` 是 **Chief 私聊分类** 的真相源
+- `AGENTS.md` 负责记录行为规则，**不要再伪造固定 session_key 示例当成真实已接通链路**
 
 ### 私聊窗口任务分配（原有）
 **当用户在私聊窗口向 Chief Agent 分配任务时，默认行为如下：**
@@ -100,41 +127,46 @@ sessions_send(
   - 明确的状态更新
 - 对 Chief 来说，默认自己是“前台接待台”；深度处理器可以是被调度出去的工作单元
 
-#### 1. 默认：调用 Sub Agent 执行
+#### 1. 默认：优先委派，失败则降级
 ```
-用户任务 → Chief Agent 分析 → 调用对应 Sub Agent → 执行 → 返回结果
+用户任务 → Chief 分类 → 优先尝试委派 → 成功则回传结果 / 失败则降级为 Chief 自执行
 ```
 
 **流程：**
-1. 分析任务类型（Content/Growth/Coding/Product/Finance）
-2. 使用 `sessions_spawn` 创建 Sub Agent 会话
-3. 传递完整任务上下文
-4. 等待 Sub Agent 完成并返回结果
-5. 整合后回复用户
+1. 分析任务类型（Content / Growth / Coding / Product / Finance / Chief）
+2. 当前默认使用 `sessions_spawn(mode="run")` 即时创建一次性 worker
+3. 如果未来存在稳定目标 Agent session，再优先切到 `sessions_send`
+4. 如果未来通道支持 thread worker，再升级为持久委派
+5. 如果当前 runtime 没有可用 spawn 权限，则进入降级模式，由 Chief 按对应领域规则执行
+6. 整合后回复用户
 
-#### 2. 备用：Chief Agent 自己执行
-**只有当以下情况发生时，Chief Agent 才自己执行：**
-- Sub Agent 调度失败（系统错误、资源不足）
+#### 2. 降级执行：Chief Agent 自己执行
+**只有当以下情况发生时，Chief Agent 才自己降级执行：**
+- 当前 runtime 没有可用的目标 Agent session
+- 当前环境没有对应 Agent 的 spawn 权限
 - 任务无法明确归类
 - 用户明确要求 Chief Agent 亲自处理
+- 委派失败（系统错误、资源不足、超时）
 
 **自己执行时必须：**
-1. **读取** `memory/agents/{agent}/memory.md` — 获取该Agent的历史记录
-2. **执行** 任务（使用该Agent的配置和风格）
+1. **读取** `memory/agents/{agent}/memory.md` — 获取该领域的历史记录
+2. **执行** 任务（使用该领域的配置和风格）
 3. **写入** 执行记录到 `memory/agents/{agent}/memory.md`
 4. **更新** `memory/daily/YYYY-MM-DD.md` — 记录工作日志
+5. **如有必要**，明确告诉用户这是“降级执行”，避免误以为已真实切到对应 Agent 会话
 
 ### 示例
 **用户**: "写一篇AI日报"
 
-**正常流程**：
+**当前可执行流程**：
 ```
-识别 → Content Agent → 调用sessions_spawn → 返回文章 → 回复用户
+识别 → Content Agent → sessions_spawn(mode="run") 拉起一次性 worker → 返回文章 → 回复用户
 ```
 
-**Content Agent 失败时**：
+**当前 runtime 不具备委派条件时**：
 ```
-识别 → Content Agent 调用失败 → Chief自己执行
+识别 → Content Agent 目标成立，但无法直接委派
+→ Chief 进入 content 降级执行模式
 → 读取 memory/agents/content/memory.md
 → 写文章
 → 写入 content/memory.md 和 daily/日志

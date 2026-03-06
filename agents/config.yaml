@@ -1,6 +1,11 @@
 # AI 一人公司 Agent 配置文件
 # 位置: /root/.openclaw/workspace/agents/config.yaml
 # 版本: v1.1 - 修正版
+#
+# ⚠️ 废弃说明（2026-03-06）：
+# - 当前真实 runtime Agent 模型/绑定以 `/root/.openclaw/openclaw.json` 为准
+# - 当前 Chief 私聊关键词分类以 `/root/.openclaw/workspace/config/agent_keyword_router.yaml` 为准
+# - 本文件历史上出现过过时值与格式损坏，保留仅用于历史参考，不应再作为执行真相源
 
 # ============================================
 # 全局配置

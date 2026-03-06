@@ -1,6 +1,11 @@
 # Group Agent Mapping - 群聊Agent映射配置
 # 版本: v1.1
 # 用途: 将不同群聊映射到不同Agent角色
+#
+# ⚠️ 参考说明：
+# - 当前真实 runtime 群聊绑定以 `/root/.openclaw/openclaw.json` 的 `bindings` 为准
+# - 本文件保留为运营/审计参考，不应再作为唯一执行真相源
+# - 如与 openclaw.json 冲突，优先相信 openclaw.json
 
 # 群聊到Agent的映射
 # 格式: 群聊ID -> Agent角色
