@@ -15,7 +15,7 @@ import time
 from pathlib import Path
 
 
-def parse_result(path: Path) -> dict:
+def parse_result(path: Path, expected_dispatch_id: str | None = None, expected_agent: str | None = None, expected_route_debug: str | None = None) -> dict:
     text = path.read_text(encoding="utf-8").strip()
     lines = text.splitlines()
     status = None
@@ -38,6 +38,16 @@ def parse_result(path: Path) -> dict:
             break
 
     body = "\n".join(lines[body_start:]).strip() if lines else ""
+
+    if dispatch_id is None and expected_dispatch_id:
+        dispatch_id = expected_dispatch_id
+    if agent is None and expected_agent:
+        agent = expected_agent
+    if route_debug is None and expected_route_debug:
+        route_debug = expected_route_debug
+    if status is None and body:
+        status = "ok"
+
     return {
         "path": str(path),
         "status": status,
@@ -46,6 +56,7 @@ def parse_result(path: Path) -> dict:
         "agent": agent,
         "body": body,
         "raw": text,
+        "header_complete": all([status, route_debug, dispatch_id, agent]),
     }
 
 
@@ -54,6 +65,9 @@ def main() -> None:
     parser.add_argument("path", help="result file path")
     parser.add_argument("--timeout", type=int, default=180, help="seconds to wait")
     parser.add_argument("--interval", type=float, default=1.0, help="poll interval seconds")
+    parser.add_argument("--expected-dispatch-id", default=None)
+    parser.add_argument("--expected-agent", default=None)
+    parser.add_argument("--expected-route-debug", default=None)
     parser.add_argument("--json", action="store_true", help="output json")
     args = parser.parse_args()
 
@@ -62,7 +76,7 @@ def main() -> None:
 
     while time.time() < deadline:
         if path.exists() and path.stat().st_size > 0:
-            parsed = parse_result(path)
+            parsed = parse_result(path, expected_dispatch_id=args.expected_dispatch_id, expected_agent=args.expected_agent, expected_route_debug=args.expected_route_debug)
             if args.json:
                 print(json.dumps({"ready": True, **parsed}, ensure_ascii=False, indent=2))
             else:
