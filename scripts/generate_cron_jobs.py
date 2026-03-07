@@ -33,6 +33,7 @@ class CronJobGenerator:
         "daily-content-publish": "写一篇公众号文章",
         "ai-daily-newsletter": "写AI日报",
         "ai-daily-delivery-guard": "检查AI日报是否漏发并立即补发",
+        "daily-content-publish-guard": "检查内容发布是否漏发并立即补跑",
         "ai-kol-daily-newsletter": "KOL动态追踪",
         "openclaw-news-monitor": "搜索OpenClaw安全新闻",
         "product-competitor-analysis": "竞品分析报告",

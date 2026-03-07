@@ -71,6 +71,28 @@ task_agent_mapping:
         description: "发送邮件"
         tools: ["agentmail"]
 
+  daily-content-publish-guard:
+    agent: "chief"
+    agent_name: "Chief Agent (虾仔)"
+    description: "内容发布漏发守卫"
+    schedule: "5 9 * * *"
+    priority: P0
+    session_target: "main"
+    exact: true
+    timeout_seconds: 300
+    message_instructions:
+      - "检查 daily-content-publish 今天是否已经成功执行并完成投递。"
+      - "如果今天 9:00 的内容发布失败、漏发或 delivery 异常，立刻补跑，并明确向老板说明是补发。"
+      - "补跑后继续检查根因，并汇报修复动作。"
+    workflow:
+      - step: "verify_content_publish_delivery"
+        description: "检查内容发布是否已成功执行并投递"
+      - step: "rerun_if_missing"
+        description: "如果未成功投递，立即补跑"
+      - step: "notify_boss"
+        description: "向老板报告漏发与修复情况"
+        tools: ["message"]
+
   ai-daily-delivery-guard:
     agent: "chief"
     agent_name: "Chief Agent (虾仔)"
