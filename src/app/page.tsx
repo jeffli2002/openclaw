@@ -290,14 +290,14 @@ const agentDefinitions = [
   {
     id: "chief",
     name: "Chief Agent",
-    description: "负责日报汇总与系统巡检",
+    description: "负责每晚 Chief Agent 工作总结报告与系统巡检",
     model: "GPT-5.4",
     taskIds: ["task-chief", "task-health"],
   },
   {
     id: "evo",
     name: "Evo Agent",
-    description: "负责自我进化和技能演进",
+    description: "负责每晚 EvoMap 进化报告",
     model: "MiniMax M2.5",
     taskIds: ["task-evolution"],
   },

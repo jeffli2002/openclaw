@@ -11,8 +11,8 @@ const TASK_MAPPINGS = [
   { taskId: 'task-content-publish', jobName: 'daily-content-publish', label: '内容发布' },
   { taskId: 'task-kol', jobName: 'ai-kol-daily-newsletter', label: 'KOL日报' },
   { taskId: 'task-seo', jobName: 'openclaw-news-monitor', label: 'OpenClaw监控' },
-  { taskId: 'task-chief', jobName: 'chief-daily-report', label: 'Chief日报' },
-  { taskId: 'task-evolution', jobName: 'daily-skill-evolution', label: 'Skill进化' },
+  { taskId: 'task-chief', jobName: 'chief-daily-report', label: 'Chief工作总结' },
+  { taskId: 'task-evolution', jobName: 'daily-skill-evolution', label: 'EvoMap进化报告' },
   { taskId: 'task-product', jobName: 'product-competitor-analysis', label: '竞品分析' },
   { taskId: 'task-health', jobName: 'cron-health-check', label: 'Cron巡检' },
 ];
