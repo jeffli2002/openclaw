@@ -4,7 +4,9 @@ import { execFileSync } from 'child_process';
 import { supabaseAdmin as supabase } from './supabase';
 
 const workspace = '/root/.openclaw/workspace';
+const cronDir = '/root/.openclaw/cron';
 const jobsPath = '/root/.openclaw/cron/jobs.json';
+const runsDir = '/root/.openclaw/cron/runs';
 
 const TASK_MAPPINGS = [
   { task_id: 'task-ai-daily', job_name: 'ai-daily-newsletter', schedule: '07:30 每天' },
@@ -45,6 +47,47 @@ function getLatestRun(jobId: string): any | null {
   } catch {
     return null;
   }
+}
+
+function getJobIdsForName(jobName: string): string[] {
+  const ids = new Set<string>();
+  const files = fs.readdirSync(cronDir).filter((f) => f.startsWith('jobs.json'));
+  for (const file of files) {
+    try {
+      const raw = JSON.parse(fs.readFileSync(path.join(cronDir, file), 'utf-8'));
+      for (const job of raw.jobs || []) {
+        if (job.name === jobName && job.id) ids.add(job.id);
+      }
+    } catch {
+      continue;
+    }
+  }
+  return [...ids];
+}
+
+function getLatestHistoricalRun(jobName: string): any | null {
+  let latest: any | null = null;
+  for (const jobId of getJobIdsForName(jobName)) {
+    const runFile = path.join(runsDir, `${jobId}.jsonl`);
+    if (!fs.existsSync(runFile)) continue;
+    try {
+      const lines = fs.readFileSync(runFile, 'utf-8').split('\n').filter(Boolean);
+      for (const line of lines) {
+        const entry = JSON.parse(line);
+        if (entry.action !== 'finished') continue;
+        if (!latest || (entry.runAtMs || 0) > (latest.runAtMs || 0)) latest = entry;
+      }
+    } catch {
+      continue;
+    }
+  }
+  return latest;
+}
+
+function pickLatestRun(...runs: Array<any | null>): any | null {
+  const candidates = runs.filter(Boolean);
+  if (!candidates.length) return null;
+  return candidates.sort((a, b) => ((b.runAtMs || 0) - (a.runAtMs || 0)) || ((b.ts || 0) - (a.ts || 0)))[0];
 }
 
 function msToIso(ms?: number | null): string | null {
@@ -137,17 +180,17 @@ export async function syncSecondBrainData() {
   const tasks = TASK_MAPPINGS.map((mapping) => {
     const job = jobsByName[mapping.job_name];
     const existing = existingTasks[mapping.task_id] || {};
-    const latestRun = job ? getLatestRun(job.id) : null;
+    const latestRun = pickLatestRun(job ? getLatestRun(job.id) : null, getLatestHistoricalRun(mapping.job_name));
     const usage = latestRun?.usage || {};
     return {
       id: mapping.task_id,
       name: mapping.job_name,
       schedule: mapping.schedule,
-      status: latestRun?.status || job?.state?.lastStatus || (job?.enabled === false ? 'disabled' : 'idle'),
-      last_run: msToIso(latestRun?.runAtMs || job?.state?.lastRunAtMs),
-      next_run: msToIso(latestRun?.nextRunAtMs || job?.state?.nextRunAtMs),
-      last_duration: msToDuration(latestRun?.durationMs || job?.state?.lastDurationMs),
-      error_count: job?.state?.consecutiveErrors ?? 0,
+      status: latestRun?.status || job?.state?.lastStatus || (job?.enabled === false ? 'disabled' : existing.status || 'idle'),
+      last_run: msToIso(latestRun?.runAtMs || job?.state?.lastRunAtMs) || existing.last_run || null,
+      next_run: msToIso(job?.state?.nextRunAtMs) || existing.next_run || null,
+      last_duration: msToDuration(latestRun?.durationMs || job?.state?.lastDurationMs) || existing.last_duration || null,
+      error_count: job?.state?.consecutiveErrors ?? existing.error_count ?? 0,
       token_usage: usage.total_tokens ?? existing.token_usage ?? 0,
       updated_at: now,
     };
