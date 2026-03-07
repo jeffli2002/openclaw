@@ -1,6 +1,6 @@
 # Cron 任务调度配置
 # 定义每个 Cron 任务如何调度 Sub Agent
-# 版本: v1.0
+# 版本: v2.0
 
 # ============================================
 # 任务到 Agent 的映射
@@ -15,12 +15,13 @@ task_agent_mapping:
     description: "每日内容发布 - 生成公众号文章"
     schedule: "0 9 * * *"
     priority: P0
-    session_target: "main"
+    dispatch_mode: "direct_agent"
+    session_target: "isolated"
     exact: true
     timeout_seconds: 900
     required_skill: "content-factory"
     message_instructions:
-      - "这是内容任务，必须优先委派给 Content Agent 执行；只有委派失败时才允许 Chief 降级处理。"
+      - "该任务已由 cron 直接分配给 Content Agent，不需要再经 Chief 二次分流。"
       - "必须使用 content-factory skill，不要跳过 skill，也不要直接裸写文章。"
       - "如果流程要求用户确认选题，就先给候选主题并等待确认，不要越过交互步骤。"
     workflow:
@@ -48,13 +49,14 @@ task_agent_mapping:
     description: "AI日报 newsletter"
     schedule: "30 7 * * *"
     priority: P0
-    session_target: "main"
+    dispatch_mode: "direct_agent"
+    session_target: "isolated"
     exact: true
     timeout_seconds: 900
     required_skill: "/root/.openclaw/workspace/skills/ai-daily-newsletter/SKILL.md"
     required_format: "/root/.openclaw/workspace/config/ai-daily-format.md"
     message_instructions:
-      - "这是内容任务，必须优先委派给 Content Agent 执行；只有委派失败时才允许 Chief 降级处理。"
+      - "该任务已由 cron 直接分配给 Content Agent，不需要再经 Chief 二次分流。"
       - "必须先读取 /root/.openclaw/workspace/skills/ai-daily-newsletter/SKILL.md，并严格按该 skill 执行。"
       - "必须严格遵循 /root/.openclaw/workspace/config/ai-daily-format.md 的格式要求。"
       - "不要用 content-factory 或其它 skill 替代 AI Daily Newsletter skill。"
@@ -97,6 +99,8 @@ task_agent_mapping:
     description: "KOL观点每日通讯"
     schedule: "0 11 * * *"
     priority: P1
+    dispatch_mode: "direct_agent"
+    session_target: "isolated"
     workflow:
       - step: "monitor_kol"
         description: "监控KOL动态"
@@ -114,6 +118,8 @@ task_agent_mapping:
     description: "监控OpenClaw安全新闻"
     schedule: "0 */2 * * *"
     priority: P1
+    dispatch_mode: "direct_agent"
+    session_target: "isolated"
     workflow:
       - step: "search_news"
         description: "搜索安全相关新闻"
@@ -132,6 +138,8 @@ task_agent_mapping:
     description: "竞品分析"
     schedule: "0 14 * * *"
     priority: P1
+    dispatch_mode: "direct_agent"
+    session_target: "isolated"
     workflow:
       - step: "collect_competitor_info"
         description: "收集竞品信息"
@@ -151,6 +159,8 @@ task_agent_mapping:
     description: "每日Skill进化检查"
     schedule: "0 22 * * *"
     priority: P2
+    dispatch_mode: "direct_agent"
+    session_target: "isolated"
     workflow:
       - step: "check_updates"
         description: "检查Skill更新"
@@ -211,6 +221,8 @@ task_agent_mapping:
     description: "GitHub同步"
     schedule: "0 */3 * * *"
     priority: P2
+    dispatch_mode: "direct_agent"
+    session_target: "isolated"
     workflow:
       - step: "sync"
         description: "同步代码"
@@ -272,6 +284,10 @@ logging:
 # ============================================
 
 changelog:
+  v2.0.0:
+    - "固定归属的 cron 任务改为 direct_agent 模式"
+    - "内容/增长/产品/代码类固定任务默认走 session_target=isolated + agentTurn 直达 owner agent"
+    - "Chief 只保留监督、兜底、汇总类 cron"
   v1.0.0:
     - "初始版本"
     - 定义任务到Agent的映射
