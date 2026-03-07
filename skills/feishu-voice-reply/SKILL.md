@@ -26,6 +26,7 @@ Create Feishu replies that contain both normal text and a real voice bubble/play
 
 ## Rules
 
+- **语音文件必须存放在 Workspace 下**：使用 `/root/.openclaw/workspace/temp/voice/` 目录，不要用 /tmp。否则飞书只显示文件路径而不是语音播放条。
 - Always show the text reply as well; do not send voice-only unless the user explicitly asks for that.
 - Prefer concise spoken text. If the full answer is long, speak a compact summary and keep the full text visible.
 - Use this skill specifically for Feishu playback UX. If the user only wants downloadable audio, normal attachments are fine.
@@ -40,11 +41,11 @@ Run:
 ```bash
 python3 scripts/build_feishu_voice.py \
   --text "今天上海多云，气温十一度。" \
-  --out-dir /tmp/openclaw/voice-demo
+  --out-dir /root/.openclaw/workspace/temp/voice
 ```
 
 The script prints JSON including:
-- `ogg_path`: send this to Feishu as the voice file
+- `ogg_path`: send this to Feishu as the voice file (必须在 Workspace 下)
 - `mp3_path`: intermediate file
 - `voice`: selected Edge TTS voice
 

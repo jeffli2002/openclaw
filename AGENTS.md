@@ -18,14 +18,16 @@ Before doing anything else:
 
 ### Sub Agent (子代理任务)
 **每次 SUB AGENT 启动时必须读取：**
-1. ✅ `USER.md` — 了解用户信息和工作上下文
-2. ✅ `TOOLS.md` — 了解可用工具和本地配置
-3. ✅ `memory/global/strategic.md` — 全局战略方向
-4. ✅ `memory/global/rules.md` — 工作规则和约束
-5. ✅ `memory/global/vision.md` — 愿景和目标
-6. ✅ `memory/agents/{agent}/memory.md` — 对应Agent专属记忆
-7. ✅ `memory/daily/YYYY-MM-DD.md` (today) — 今日工作上下文
-8. ✅ `memory/daily/YYYY-MM-DD.md` (yesterday) — 昨日工作记录
+1. ✅ `AGENTS.md` — Agent 系统规则和行为机制（必读）
+2. ✅ `USER.md` — 了解用户信息和工作上下文
+3. ✅ `TOOLS.md` — 了解可用工具和本地配置
+4. ✅ `memory/global/strategic.md` — 全局战略方向
+5. ✅ `memory/global/rules.md` — 工作规则和约束
+6. ✅ `memory/global/vision.md` — 愿景和目标
+7. ✅ `memory/agents/{agent}/memory.md` — 对应Agent专属记忆
+8. ✅ `memory/daily/YYYY-MM-DD.md` (today) — 今日工作上下文
+9. ✅ `memory/daily/YYYY-MM-DD.md` (yesterday) — 昨日工作记录
+10. ✅ `skills/feishu-voice-reply/SKILL.md` — 飞书语音回复规则（必读）
 
 **必须遵循的规则：**
 - 不要等待用户确认，直接读取这些文件
@@ -287,6 +289,12 @@ Reactions are lightweight social signals. Humans use them constantly — they sa
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.
 
 **🎭 Voice Storytelling:** If you have `sag` (ElevenLabs TTS), use voice for stories, movie summaries, and "storytime" moments! Way more engaging than walls of text. Surprise people with funny voices.
+
+**🎙️ Feishu Voice Reply (强制规则):** 
+- 飞书场景需要语音回复时，**必须**调用 `feishu-voice-reply` Skill
+- 流程：`python3 scripts/build_feishu_voice.py --text "..."` → Edge TTS 合成 → ffmpeg 转 Ogg/Opus → 用 `message` 工具发送（`asVoice: true`）
+- **禁止**直接用 `tts` 工具生成 mp3
+- 原因：tts 生成的 mp3 在飞书里只是附件，feishu-voice-reply 生成的 Ogg 才能显示原生播放条
 
 **📝 Platform Formatting:**
 

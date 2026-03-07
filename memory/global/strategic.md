@@ -1,6 +1,35 @@
 # 战略记忆 - 虾仔的长期记忆
 
-> 最后更新: 2026-03-07 14:05
+> 最后更新: 2026-03-07 16:05
+
+---
+
+## 📊 Memory 提炼 | 2026-03-07 16:05
+
+### 今日提炼 (2026-03-07)
+
+**1. 微信公众号文章读取 - 镜像+搜索方案**
+- 微信原文章有登录墙，直接抓取会失败
+- 可行方案：搜文章标题 → 找腾讯新闻/其他平台镜像 → web_fetch 抓取镜像站全文
+- 备选方案：Agent-Reach 的 wechat-article-for-ai（需要配置）
+
+**2. 小红书发布 - cookies 注入方案验证通过**
+- 用户提供 cookies（含 a1、web_session、creator token）
+- 通过 CDP Network.setCookies 注入远端 Chrome
+- 验证结果：可直接进入 creator.xiaohongshu.com 发布页
+- 备份位置：`/root/.openclaw/credentials/xiaohongshu.json`
+
+**3. 小红书发布规则已标准化**
+- 标题：≤20 字
+- 正文：≤1000 字（建议 800~1000）
+- 首句不重复标题
+- 开头带 emoji
+- 结尾带 #tag
+- 脚本校验：`content_rules.py`
+
+**4. Cron 健康检查**
+- 22个任务，16个 ok，1个 error（product-competitor-analysis 投递失败）
+- 其他正常运行
 
 ---
 
