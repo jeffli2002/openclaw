@@ -1,0 +1,77 @@
+# Chief Dispatch Workers
+# 2026-03-06
+#
+# 说明：
+# - 当前 Feishu 通道不支持 thread:true 的持久 subagent thread
+# - 因此 Chief 的真实委派方式采用：sessions_spawn(runtime="subagent", mode="run")
+# - 本文件定义每个领域 worker 的模型、标签、职责和默认执行模式
+
+runtime:
+  strategy: on_demand_spawn
+  runtime: subagent
+  mode: run
+  agent_id: main
+  persistent_threads_supported: false
+  preferred_tool: sessions_spawn
+  fallback: chief_degraded_mode
+  result_bridge:
+    enabled: true
+    format: json
+    result_dir: /root/.openclaw/workspace/output/dispatch_results
+    wait_timeout_seconds: 180
+
+workers:
+  content:
+    label: dispatch-content
+    model: minimax-cn/MiniMax-M2.5
+    role: Content Agent
+    scope:
+      - 内容创作
+      - 文章
+      - 日报
+      - 脚本
+      - 发布流程
+
+  growth:
+    label: dispatch-growth
+    model: minimax-cn/MiniMax-M2.5
+    role: Growth Agent
+    scope:
+      - SEO
+      - 增长
+      - 推广
+      - 转化
+      - 获客
+
+  coding:
+    label: dispatch-coding
+    model: openai-code/gpt-5.4
+    role: Coding Agent
+    scope:
+      - 代码
+      - Bug
+      - API
+      - 调试
+      - 重构
+
+  product:
+    label: dispatch-product
+    model: minimax-cn/MiniMax-M2.5
+    role: Product Agent
+    scope:
+      - PRD
+      - 需求分析
+      - 功能设计
+      - 用户问题
+      - 路线图
+
+  finance:
+    label: dispatch-finance
+    model: minimax-cn/MiniMax-M2.5
+    role: Finance Agent
+    scope:
+      - ROI
+      - 定价
+      - 收入
+      - 成本
+      - 预算

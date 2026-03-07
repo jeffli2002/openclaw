@@ -1,0 +1,160 @@
+# OpenClaw 增强功能配置
+# 版本: v1.0
+# 描述: 系统级功能增强配置
+
+---
+# 1. Memory Flush Before Compaction
+# 在会话压缩(compaction)前自动 flush 内存，防止数据丢失
+
+memory_flush:
+  enabled: true
+  description: "在 compaction 前自动 flush 内存，防止数据丢失"
+  
+  # 触发时机
+  triggers:
+    - event: "before_compaction"
+      action: "flush_memory"
+    - event: "before_session_close"
+      action: "flush_memory"
+    - event: "before_agent_switch"
+      action: "flush_memory"
+  
+  # Flush 内容
+  flush_targets:
+    - "memory/daily/YYYY-MM-DD.md"
+    - "memory/agents/{current_agent}/memory.md"
+    - "memory/global/strategic.md"
+  
+  # 自动保存当前会话的上下文到 memory
+  auto_save_context:
+    enabled: true
+    include:
+      - "关键决策"
+      - "重要数据"
+      - "用户偏好"
+      - "待办事项"
+
+---
+# 2. Session Memory Search
+# 搜索记忆时同时检索 MEMORY.md 和 session 历史记录
+
+session_memory_search:
+  enabled: true
+  description: "搜索记忆时同时检索 MEMORY.md 和 session 历史记录"
+  
+  # 搜索源
+  search_sources:
+    - name: "MEMORY.md"
+      path: "/root/.openclaw/workspace/MEMORY.md"
+      priority: 1
+      enabled: true
+    
+    - name: "memory/global/"
+      path: "/root/.openclaw/workspace/memory/global/"
+      priority: 2
+      enabled: true
+    
+    - name: "memory/agents/{agent}/"
+      path: "/root/.openclaw/workspace/memory/agents/{agent}/"
+      priority: 3
+      enabled: true
+    
+    - name: "session_history"
+      path: "sqlite:/root/.openclaw/memory/main.sqlite"
+      priority: 4
+      enabled: true
+      max_results: 10
+    
+    - name: "memory/daily/"
+      path: "/root/.openclaw/workspace/memory/daily/"
+      priority: 5
+      enabled: true
+      lookback_days: 7
+  
+  # 搜索行为
+  behavior:
+    # 是否跨所有源搜索
+    cross_source_search: true
+    
+    # 结果合并策略
+    merge_strategy: "priority_then_relevance"  # priority_then_relevance, relevance_only, chronological
+    
+    # 最大结果数
+    max_total_results: 20
+    
+    # 相似度阈值
+    similarity_threshold: 0.7
+    
+    # 是否包含上下文
+    include_context: true
+    context_lines: 3
+
+---
+# 3. 自动保存配置
+# 自动保存重要信息到 memory
+
+auto_save:
+  enabled: true
+  
+  # 保存触发条件
+  triggers:
+    - condition: "任务完成"
+      target: "memory/agents/{agent}/memory.md"
+    - condition: "重要决策"
+      target: "memory/global/strategic.md"
+    - condition: "每日结束"
+      target: "memory/daily/YYYY-MM-DD.md"
+  
+  # 保存内容模板
+  templates:
+    task_completion: |
+      ## {timestamp} - 任务完成
+      - Agent: {agent}
+      - 任务: {task_summary}
+      - 结果: {result_summary}
+    
+    decision: |
+      ## {timestamp} - 重要决策
+      - 决策: {decision}
+      - 原因: {reason}
+      - 影响: {impact}
+
+---
+# 4. 会话上下文管理
+# 管理会话间的上下文传递
+
+session_context:
+  enabled: true
+  
+  # 上下文传递规则
+  inheritance:
+    # 主会话 → Sub Agent
+    main_to_sub:
+      - "USER.md"
+      - "TOOLS.md"
+      - "memory/global/"
+      - "今日daily日志"
+    
+    # Sub Agent → 主会话
+    sub_to_main:
+      - "执行结果"
+      - "关键发现"
+      - "待跟进事项"
+  
+  # 上下文压缩
+  compression:
+    enabled: true
+    # 保留最近N条消息
+    keep_recent_messages: 20
+    # 压缩超过N条的历史
+    compress_after: 50
+
+---
+# 版本记录
+changelog:
+  v1.0.0:
+    - "初始版本"
+    - "Memory Flush Before Compaction 功能"
+    - "Session Memory Search 功能"
+    - "自动保存配置"
+    - "会话上下文管理"

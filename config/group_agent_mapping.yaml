@@ -1,0 +1,19 @@
+# DEPRECATED: group_agent_mapping.yaml
+#
+# This file is intentionally reduced to a compatibility/reference stub.
+# Historical full copy archived at:
+#   /root/.openclaw/workspace/archive/legacy-routing/group_agent_mapping.deprecated.yaml
+#
+# Truth sources (2026-03-06 cleanup):
+# - Actual runtime chat/group bindings: /root/.openclaw/openclaw.json
+# - Chief private-chat keyword routing: /root/.openclaw/workspace/config/agent_keyword_router.yaml
+#
+# Do NOT maintain a second live group-binding table here.
+
+deprecated:
+  file: config/group_agent_mapping.yaml
+  archived_copy: /root/.openclaw/workspace/archive/legacy-routing/group_agent_mapping.deprecated.yaml
+  status: compatibility_stub
+  runtime_truth:
+    - /root/.openclaw/openclaw.json
+    - /root/.openclaw/workspace/config/agent_keyword_router.yaml

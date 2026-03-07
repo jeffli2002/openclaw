@@ -22,7 +22,7 @@ import {
 
 // Supabase 配置
 const supabaseUrl = "https://njxjuvxosvwvluxefrzg.supabase.co";
-const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5qeGp1dnhvc3Z3dmx1eGVmcnpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4MjkyNTUsImV4cCI6MjA4NzQwNTI1NX0.FqfMyI3uSkiHVepWVccxFU4ie5RU00VVdrF-aOr9LjI";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5qeGp1dnhvc3Z3dmx1eGVmcnpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4MjkyNTUsImV4cCI6MjA4NzQwNTI1NX0.FqfMyI3uSkiHVepVVccxFU4ie5RU00VVdrF-aOr9LjI";
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // 类型定义
@@ -47,18 +47,22 @@ interface Task {
   id: string;
   name: string;
   schedule: string;
-  status: "ok" | "error" | "running";
-  lastRun?: string;
-  lastDuration?: string;
-  nextRun?: string;
-  errorCount?: number;
-  // Supabase 返回的蛇形命名
-  last_run?: string;
-  last_duration?: string;
-  next_run?: string;
-  updated_at?: string;
-  error_count?: number;
-  token_usage?: number;
+  status: "ok" | "error" | "running" | "idle" | "disabled";
+  lastRun: string | null;
+  lastDuration: string | null;
+  nextRun: string | null;
+  errorCount: number;
+  tokenUsage: number;
+}
+
+interface TokenTrendPoint {
+  date: string;
+  totalTokens: number;
+  taskBreakdown: Record<string, number>;
+}
+
+interface TokenTrendRangePoint extends TokenTrendPoint {
+  agentBreakdown: Record<string, number>;
 }
 
 // 认证检查组件
@@ -177,6 +181,7 @@ const mockTasks: Task[] = [
     lastDuration: "159s",
     nextRun: "2026-02-24 07:30",
     errorCount: 0,
+    tokenUsage: 0,
   },
   {
     id: "2",
@@ -187,6 +192,7 @@ const mockTasks: Task[] = [
     lastDuration: "44s",
     nextRun: "2026-02-24 09:00",
     errorCount: 0,
+    tokenUsage: 0,
   },
   {
     id: "3",
@@ -197,6 +203,7 @@ const mockTasks: Task[] = [
     lastDuration: "114s",
     nextRun: "2026-02-24 10:00",
     errorCount: 0,
+    tokenUsage: 0,
   },
   {
     id: "4",
@@ -207,6 +214,7 @@ const mockTasks: Task[] = [
     lastDuration: "122s",
     nextRun: "2026-02-24 11:00",
     errorCount: 0,
+    tokenUsage: 0,
   },
   {
     id: "5",
@@ -217,6 +225,7 @@ const mockTasks: Task[] = [
     lastDuration: "110s",
     nextRun: "2026-02-24 14:00",
     errorCount: 0,
+    tokenUsage: 0,
   },
   {
     id: "6",
@@ -227,6 +236,7 @@ const mockTasks: Task[] = [
     lastDuration: "59s",
     nextRun: "2026-02-23 19:30",
     errorCount: 4,
+    tokenUsage: 0,
   },
   {
     id: "7",
@@ -237,6 +247,7 @@ const mockTasks: Task[] = [
     lastDuration: "50s",
     nextRun: "2026-02-23 22:00",
     errorCount: 0,
+    tokenUsage: 0,
   },
   {
     id: "8",
@@ -247,102 +258,96 @@ const mockTasks: Task[] = [
     lastDuration: "29s",
     nextRun: "2026-02-23 15:55",
     errorCount: 23,
+    tokenUsage: 0,
   },
 ];
 
-// Agent 类型定义 (基于tasks表)
+// Agent 类型定义
 interface Agent {
   id: string;
   name: string;
   description: string;
-  status: "ok" | "error" | "running";
-  schedule?: string;
-  model?: string;
-  tasks?: number;
-  completedTasks?: number;
-  failedTasks?: number;
-  tokenUsage?: number;
-  lastRun?: string;
-  lastDuration?: string;
-  nextRun?: string;
-  errorCount?: number;
+  status: "ok" | "error" | "running" | "idle" | "disabled";
+  model: string;
+  tasks: number;
+  completedTasks: number;
+  failedTasks: number;
+  tokenUsage: number;
+  lastRun: string;
 }
 
 // Agent 模拟数据
-const mockAgents: Agent[] = [
+const agentDefinitions = [
   {
-    id: "1",
+    id: "content",
     name: "Content Agent",
     description: "负责AI日报、内容发布、KOL追踪",
-    status: "ok",
     model: "Kimi K2.5",
-    tasks: 3,
-    completedTasks: 3,
-    failedTasks: 0,
-    tokenUsage: 125000,
-    lastRun: "2026-02-23 11:00",
+    taskIds: ["task-ai-daily", "task-content-publish", "task-kol"],
   },
   {
-    id: "2",
-    name: "Coding Agent",
-    description: "负责代码开发、项目修复、功能实现",
-    status: "ok",
-    model: "MiniMax M2.5",
-    tasks: 5,
-    completedTasks: 4,
-    failedTasks: 1,
-    tokenUsage: 89000,
-    lastRun: "2026-02-23 20:30",
-  },
-  {
-    id: "3",
+    id: "growth",
     name: "Growth Agent",
-    description: "负责SEO和关键词分析",
-    status: "ok",
+    description: "负责OpenClaw动态监控",
     model: "Kimi K2.5",
-    tasks: 1,
-    completedTasks: 1,
-    failedTasks: 0,
-    tokenUsage: 45000,
-    lastRun: "2026-02-23 10:00",
+    taskIds: ["task-seo"],
   },
   {
-    id: "4",
+    id: "product",
     name: "Product Agent",
     description: "负责竞品分析和产品规划",
-    status: "ok",
     model: "Kimi K2.5",
-    tasks: 1,
-    completedTasks: 1,
-    failedTasks: 0,
-    tokenUsage: 38000,
-    lastRun: "2026-02-23 14:00",
+    taskIds: ["task-product"],
   },
   {
-    id: "5",
+    id: "chief",
     name: "Chief Agent",
-    description: "负责生成每日工作报告",
-    status: "error",
-    model: "MiniMax M2.5",
-    tasks: 1,
-    completedTasks: 0,
-    failedTasks: 1,
-    tokenUsage: 15000,
-    lastRun: "2026-02-22 19:30",
+    description: "负责每晚 Chief Agent 工作总结报告与系统巡检",
+    model: "GPT-5.4",
+    taskIds: ["task-chief", "task-health"],
   },
   {
-    id: "6",
+    id: "evo",
     name: "Evo Agent",
-    description: "负责自我进化和技能演进",
-    status: "ok",
+    description: "负责每晚 EvoMap 进化报告",
     model: "MiniMax M2.5",
-    tasks: 1,
-    completedTasks: 1,
-    failedTasks: 0,
-    tokenUsage: 22000,
-    lastRun: "2026-02-22 22:00",
+    taskIds: ["task-evolution"],
   },
 ];
+
+const formatDateTime = (value?: string | null) => {
+  if (!value) return "—";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat("zh-CN", {
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(date);
+};
+
+const normalizeTask = (row: any): Task => ({
+  id: row.id,
+  name: row.name,
+  schedule: row.schedule,
+  status: row.status || "idle",
+  lastRun: row.last_run || null,
+  lastDuration: row.last_duration || null,
+  nextRun: row.next_run || null,
+  errorCount: row.error_count || 0,
+  tokenUsage: row.token_usage || 0,
+});
+
+const agentColorMap: Record<string, string> = {
+  total: "#facc15",
+  content: "#60a5fa",
+  growth: "#34d399",
+  product: "#f97316",
+  chief: "#a78bfa",
+  evo: "#f472b6",
+};
 
 type TabType = "home" | "memories" | "documents" | "tasks" | "agents";
 
@@ -351,51 +356,36 @@ export default function SecondBrain() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedItem, setSelectedItem] = useState<Memory | Document | null>(null);
   const [loading, setLoading] = useState(true);
-  // 默认日期范围：今天
-  const getToday = () => new Date().toISOString().split('T')[0];
   const [dateRange, setDateRange] = useState<{start: string; end: string}>({
-    start: getToday(),
-    end: getToday()
+    start: new Date().toISOString().split('T')[0],
+    end: new Date().toISOString().split('T')[0]
   });
 
   // 真实数据状态
   const [memories, setMemories] = useState<Memory[]>([]);
   const [documents, setDocuments] = useState<Document[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [fetchError, setFetchError] = useState<string | null>(null);
-  const [lastUpdated, setLastUpdated] = useState<string>("");
+  const [tokenTrend, setTokenTrend] = useState<TokenTrendPoint[]>([]);
+  const [trendRange, setTrendRange] = useState<7 | 14 | 30>(14);
 
   // 从Supabase获取数据
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
       try {
-        const [memRes, docRes, taskRes] = await Promise.all([
+        const [memRes, docRes, taskRes, trendRes] = await Promise.all([
           supabase.from("memories").select("*").order("date", { ascending: false }),
           supabase.from("documents").select("*").order("date", { ascending: false }),
           supabase.from("tasks").select("*"),
+          fetch("/api/token-trend").then((res) => res.json()).catch(() => ({ trend: [] })),
         ]);
-        
+
         if (memRes.data) setMemories(memRes.data as Memory[]);
         if (docRes.data) setDocuments(docRes.data as Document[]);
-        if (taskRes.data && taskRes.data.length > 0) {
-          setTasks(taskRes.data as Task[]);
-          // 从最新任务更新时间获取
-          const latestTask = taskRes.data.reduce((latest, task) => {
-            const taskTime = task.updated_at ? new Date(task.updated_at).getTime() : 0;
-            return taskTime > latest ? taskTime : latest;
-          }, 0);
-          if (latestTask > 0) {
-            setLastUpdated(new Date(latestTask).toLocaleString('zh-CN'));
-          }
-        }
-        // 空数据时不设置，使用初始状态
+        if (taskRes.data) setTasks(taskRes.data.map(normalizeTask));
+        if (trendRes?.trend) setTokenTrend(trendRes.trend as TokenTrendPoint[]);
       } catch (error) {
         console.error("Failed to fetch data:", error);
-        setFetchError(error instanceof Error ? error.message : '数据获取失败');
-        setMemories(mockMemories);
-        setDocuments(mockDocuments);
-        setTasks(mockTasks);
       } finally {
         setLoading(false);
       }
@@ -403,6 +393,9 @@ export default function SecondBrain() {
     fetchData();
   }, []);
 
+  // 获取今天的日期
+  const getToday = () => new Date().toISOString().split('T')[0];
+  
   // 获取本周第一天
   const getWeekStart = () => {
     const now = new Date();
@@ -435,23 +428,74 @@ export default function SecondBrain() {
       d.path.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  const filteredTasks = tasks.filter((t) => {
-    // 搜索过滤
-    const matchesSearch = t.name.toLowerCase().includes(searchQuery.toLowerCase());
-    // 日期范围过滤 - 使用 updated_at 或 last_run
-    const taskDate = t.updated_at || t.last_run;
-    const matchesDate = !taskDate || !dateRange.start || !dateRange.end || 
-      (taskDate.split('T')[0] >= dateRange.start && taskDate.split('T')[0] <= dateRange.end);
-    return matchesSearch && matchesDate;
+  const filteredTasks = tasks.filter((t) =>
+    t.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // 统计
+  const stats = {
+    totalMemories: memories.length,
+    totalDocuments: documents.length,
+    activeTasks: tasks.filter((t) => t.status === "ok" || t.status === "running").length,
+    errorTasks: tasks.filter((t) => t.status === "error").length,
+  };
+
+  const agentCards = agentDefinitions.map((agent) => {
+    const agentTasks = tasks.filter((task) => agent.taskIds.includes(task.id));
+    const lastRunTimestamps = agentTasks
+      .map((task) => (task.lastRun ? new Date(task.lastRun).getTime() : 0))
+      .filter((value) => value > 0);
+
+    const status = agentTasks.some((task) => task.status === "running")
+      ? "running"
+      : agentTasks.some((task) => task.status === "error")
+      ? "error"
+      : agentTasks.some((task) => task.status === "ok")
+      ? "ok"
+      : "idle";
+
+    return {
+      ...agent,
+      status,
+      tasks: agentTasks.length,
+      completedTasks: agentTasks.filter((task) => task.status === "ok").length,
+      failedTasks: agentTasks.filter((task) => task.status === "error").length,
+      tokenUsage: agentTasks.reduce((sum, task) => sum + task.tokenUsage, 0),
+      lastRun: lastRunTimestamps.length
+        ? formatDateTime(new Date(Math.max(...lastRunTimestamps)).toISOString())
+        : "—",
+    };
   });
 
-  // 统计（使用筛选后的数据）
-  const stats = {
-    totalMemories: filteredMemories.length,
-    totalDocuments: filteredDocuments.length,
-    activeTasks: filteredTasks.filter((t) => t.status === "ok").length,
-    errorTasks: filteredTasks.filter((t) => t.status === "error").length,
-  };
+  const taskToAgent = Object.fromEntries(
+    agentDefinitions.flatMap((agent) => agent.taskIds.map((taskId) => [taskId, agent.id]))
+  ) as Record<string, string>;
+
+  const trendData: TokenTrendRangePoint[] = tokenTrend.map((point) => {
+    const agentBreakdown: Record<string, number> = {};
+    Object.entries(point.taskBreakdown || {}).forEach(([taskId, value]) => {
+      const agentId = taskToAgent[taskId] || "unknown";
+      agentBreakdown[agentId] = (agentBreakdown[agentId] || 0) + value;
+    });
+    return { ...point, agentBreakdown };
+  });
+
+  const displayTrend = trendData.slice(-trendRange);
+  const tokenTrendMax = Math.max(...displayTrend.map((point) => point.totalTokens), 1);
+  const lineSeries = [
+    {
+      key: "total",
+      label: "总Token",
+      color: agentColorMap.total,
+      values: displayTrend.map((point) => point.totalTokens),
+    },
+    ...agentDefinitions.map((agent) => ({
+      key: agent.id,
+      label: agent.name,
+      color: agentColorMap[agent.id] || "#94a3b8",
+      values: displayTrend.map((point) => point.agentBreakdown[agent.id] || 0),
+    })),
+  ];
 
   // 获取状态图标
   const getStatusIcon = (status: string) => {
@@ -462,6 +506,10 @@ export default function SecondBrain() {
         return <XCircle className="w-4 h-4 text-red-500" />;
       case "running":
         return <Activity className="w-4 h-4 text-blue-500 animate-pulse" />;
+      case "idle":
+        return <Clock className="w-4 h-4 text-yellow-500" />;
+      case "disabled":
+        return <AlertCircle className="w-4 h-4 text-gray-500" />;
       default:
         return <AlertCircle className="w-4 h-4 text-yellow-500" />;
     }
@@ -543,41 +591,25 @@ export default function SecondBrain() {
           <div className="flex gap-1">
             <button
               onClick={() => setDateRange({start: getToday(), end: getToday()})}
-              className={`flex-1 px-2 py-1.5 rounded text-xs transition-all ${
-                dateRange.start === getToday() && dateRange.end === getToday()
-                  ? "bg-blue-500 text-white font-bold shadow-lg shadow-blue-500/30"
-                  : "bg-blue-500/20 text-blue-400 hover:bg-blue-500/30"
-              }`}
+              className="flex-1 bg-blue-500/20 text-blue-400 px-2 py-1.5 rounded text-xs hover:bg-blue-500/30"
             >
               今天
             </button>
             <button
               onClick={() => setDateRange({start: getWeekStart(), end: getToday()})}
-              className={`flex-1 px-2 py-1.5 rounded text-xs transition-all ${
-                dateRange.start === getWeekStart() && dateRange.end === getToday()
-                  ? "bg-purple-500 text-white font-bold shadow-lg shadow-purple-500/30"
-                  : "bg-purple-500/20 text-purple-400 hover:bg-purple-500/30"
-              }`}
+              className="flex-1 bg-purple-500/20 text-purple-400 px-2 py-1.5 rounded text-xs hover:bg-purple-500/30"
             >
               本周
             </button>
             <button
               onClick={() => setDateRange({start: getMonthStart(), end: getToday()})}
-              className={`flex-1 px-2 py-1.5 rounded text-xs transition-all ${
-                dateRange.start === getMonthStart() && dateRange.end === getToday()
-                  ? "bg-green-500 text-white font-bold shadow-lg shadow-green-500/30"
-                  : "bg-green-500/20 text-green-400 hover:bg-green-500/30"
-              }`}
+              className="flex-1 bg-green-500/20 text-green-400 px-2 py-1.5 rounded text-xs hover:bg-green-500/30"
             >
               本月
             </button>
             <button
               onClick={() => setDateRange({start: "", end: ""})}
-              className={`flex-1 px-2 py-1.5 rounded text-xs transition-all ${
-                !dateRange.start && !dateRange.end
-                  ? "bg-gray-500 text-white font-bold shadow-lg"
-                  : "bg-[#27272a] text-[#71717a] hover:bg-[#3f3f46]"
-              }`}
+              className="flex-1 bg-[#27272a] text-[#71717a] px-2 py-1.5 rounded text-xs hover:bg-[#3f3f46]"
             >
               清除
             </button>
@@ -668,16 +700,11 @@ export default function SecondBrain() {
       </nav>
 
       {/* 底部状态 */}
-      <div className="p-4 border-t border-[#27272a] space-y-2">
+      <div className="p-4 border-t border-[#27272a]">
         <div className="flex items-center gap-2 text-xs text-[#a1a1aa]">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
           <span>系统正常运行</span>
         </div>
-        {lastUpdated && (
-          <div className="text-xs text-[#71717a]">
-            更新时间：{lastUpdated}
-          </div>
-        )}
       </div>
     </aside>
   );
@@ -685,17 +712,7 @@ export default function SecondBrain() {
   // 渲染首页
   const renderHome = () => (
     <div className="p-8 animate-fadeIn">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold">仪表盘概览</h2>
-        {lastUpdated && <span className="text-xs text-[#71717a]">更新于 {lastUpdated}</span>}
-      </div>
-
-      {/* 错误提示 */}
-      {fetchError && (
-        <div className="bg-red-500/20 border border-red-500/50 text-red-400 p-4 rounded-lg mb-6">
-          ⚠️ 数据获取失败: {fetchError} (显示模拟数据)
-        </div>
-      )}
+      <h2 className="text-2xl font-bold mb-6">仪表盘概览</h2>
 
       {/* 统计卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -806,7 +823,6 @@ export default function SecondBrain() {
           <Brain className="w-7 h-7 text-purple-400" />
           记忆库
         </h2>
-        {lastUpdated && <span className="text-xs text-[#71717a]">更新于 {lastUpdated}</span>}
       </div>
 
       {/* 搜索 */}
@@ -888,7 +904,6 @@ export default function SecondBrain() {
           <FileText className="w-7 h-7 text-blue-400" />
           文档库
         </h2>
-        {lastUpdated && <span className="text-xs text-[#71717a]">更新于 {lastUpdated}</span>}
       </div>
 
       {/* 搜索 */}
@@ -974,122 +989,129 @@ export default function SecondBrain() {
     </div>
   );
 
-  // Agent定义
-  const agentsConfig = [
-    { id: "content", name: "Content Agent", description: "负责内容发布和KOL追踪", model: "MiniMax M2.5", color: "blue" },
-    { id: "coding", name: "Coding Agent", description: "负责代码开发和项目修复", model: "Kimi K2.5", color: "green" },
-    { id: "growth", name: "Growth Agent", description: "负责SEO和关键词分析", model: "MiniMax M2.5", color: "purple" },
-    { id: "chief", name: "Chief Agent", description: "负责工作报告和自我进化", model: "MiniMax M2.5", color: "orange" },
-    { id: "product", name: "Product Agent", description: "负责竞品分析和产品规划", model: "MiniMax M2.5", color: "red" },
-    { id: "finance", name: "Finance Agent", description: "负责财务分析和融资", model: "MiniMax M2.5", color: "yellow" },
-  ];
-
-  // 任务到Agent的映射
-  const taskToAgent: Record<string, string> = {
-    "task-content-publish": "content",
-    "task-kol": "content",
-    "task-seo": "growth",
-    "task-chief": "chief",
-    "task-evolution": "chief",
-    "task-product": "product",
-    "task-ai-daily": "chief",
-    "task-health": "chief",
-  };
-
-  // 每个任务的预估token消耗（基于模型和平均执行时间）
-  const taskTokenUsage: Record<string, number> = {
-    "task-content-publish": 150000,   // 约2分钟，内容生成
-    "task-kol": 120000,               // 约2分钟，搜索+整理
-    "task-seo": 80000,                // 约1.5分钟，关键词分析
-    "task-chief": 100000,             // 约1.5分钟，日报生成
-    "task-evolution": 200000,         // 约3分钟，进化分析
-    "task-product": 100000,          // 约2分钟，竞品分析
-    "task-ai-daily": 200000,          // 约3分钟，日报生成
-    "task-health": 5000,              // 几秒钟，健康检查
-  };
-
-  // 计算token消耗 - 优先使用Supabase真实值
-  const calculateTokenUsage = (task: Task): number => {
-    // 优先使用 Supabase 中存储的真实 token 使用量
-    if (task.token_usage && task.token_usage > 0) {
-      return task.token_usage;
+  const renderTokenTrendChart = () => {
+    if (!displayTrend.length) {
+      return (
+        <div className="bg-[#141416] rounded-xl border border-[#27272a] p-6 mb-6">
+          <div className="flex items-center gap-2 mb-2">
+            <Zap className="w-5 h-5 text-yellow-400" />
+            <h3 className="font-semibold">Token 日趋势</h3>
+          </div>
+          <p className="text-sm text-[#71717a]">暂无可用的历史 token 数据。</p>
+        </div>
+      );
     }
-    
-    // 如果没有真实值，使用基于执行时间的估算
-    const baseUsage = taskTokenUsage[task.id] || 50000;
-    const duration = task.last_duration;
-    if (!duration) return baseUsage;
-    
-    const seconds = parseInt(duration.replace('s', '').replace('m', ''));
-    if (isNaN(seconds)) return baseUsage;
-    
-    const adjustedUsage = seconds * 2000;
-    return Math.max(adjustedUsage, baseUsage * 0.5);
-  };
 
-  // 合并Agent和任务数据
-  const getAgentWithTasks = (agentId: string) => {
-    const agent = agentsConfig.find(a => a.id === agentId);
-    const agentTasks = tasks.filter(t => taskToAgent[t.id] === agentId);
-    // 使用计算函数获取真实token消耗
-    const totalTokens = agentTasks.reduce((sum, t) => sum + calculateTokenUsage(t), 0);
-    const okTasks = agentTasks.filter(t => t.status === "ok").length;
-    const errorTasks = agentTasks.filter(t => t.status === "error").length;
-    
-    return {
-      ...agent,
-      tasks: agentTasks,
-      totalTasks: agentTasks.length,
-      completedTasks: okTasks,
-      failedTasks: errorTasks,
-      tokenUsage: totalTokens,
-      lastRun: agentTasks.length > 0 ? agentTasks[0].last_run : null,
-    };
-  };
+    const chartWidth = 920;
+    const chartHeight = 280;
+    const paddingX = 28;
+    const paddingY = 20;
+    const innerWidth = chartWidth - paddingX * 2;
+    const innerHeight = chartHeight - paddingY * 2;
+    const totalRangeTokens = displayTrend.reduce((sum, point) => sum + point.totalTokens, 0);
+    const xFor = (index: number) =>
+      displayTrend.length === 1 ? chartWidth / 2 : paddingX + (index / (displayTrend.length - 1)) * innerWidth;
+    const yFor = (value: number) => paddingY + innerHeight - (value / tokenTrendMax) * innerHeight;
+    const buildPolyline = (values: number[]) =>
+      values.map((value, index) => `${xFor(index)},${yFor(value)}`).join(" ");
 
-  const agentsWithTasks = agentsConfig.map(a => getAgentWithTasks(a.id));
+    return (
+      <div className="bg-[#141416] rounded-xl border border-[#27272a] p-6 mb-6">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
+          <div>
+            <h3 className="font-semibold flex items-center gap-2">
+              <Zap className="w-5 h-5 text-yellow-400" />
+              Token 日趋势
+            </h3>
+            <p className="text-xs text-[#71717a] mt-1">
+              按日查看总 Token 折线与各 Agent 消耗拆解（近 {displayTrend.length} 天）
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="text-right">
+              <p className="text-xs text-[#71717a]">近 {displayTrend.length} 天总量</p>
+              <p className="text-xl font-bold text-yellow-400">{(totalRangeTokens / 1000).toFixed(1)}k</p>
+            </div>
+            <div className="flex bg-[#0f0f10] border border-[#27272a] rounded-lg p-1">
+              {[7, 14, 30].map((range) => (
+                <button
+                  key={range}
+                  onClick={() => setTrendRange(range as 7 | 14 | 30)}
+                  className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
+                    trendRange === range ? "bg-yellow-500/20 text-yellow-300" : "text-[#a1a1aa] hover:text-white"
+                  }`}
+                >
+                  {range}天
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[#0f0f10] rounded-xl border border-[#27272a] p-4">
+          <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} className="w-full h-[320px] overflow-visible">
+            {[0, 0.25, 0.5, 0.75, 1].map((ratio) => {
+              const y = paddingY + innerHeight - innerHeight * ratio;
+              return (
+                <g key={ratio}>
+                  <line x1={paddingX} y1={y} x2={chartWidth - paddingX} y2={y} stroke="#27272a" strokeWidth="1" strokeDasharray="4 4" />
+                  <text x={6} y={y + 4} fill="#71717a" fontSize="10">
+                    {Math.round((tokenTrendMax * ratio) / 1000)}k
+                  </text>
+                </g>
+              );
+            })}
+
+            {displayTrend.map((point, index) => (
+              <text key={point.date} x={xFor(index)} y={chartHeight - 4} textAnchor="middle" fill="#a1a1aa" fontSize="10">
+                {point.date.slice(5)}
+              </text>
+            ))}
+
+            {lineSeries.map((series) => (
+              <g key={series.key}>
+                <polyline
+                  fill="none"
+                  stroke={series.color}
+                  strokeWidth={series.key === "total" ? 3 : 2}
+                  points={buildPolyline(series.values)}
+                  opacity={series.key === "total" ? 1 : 0.85}
+                />
+                {series.values.map((value, index) => (
+                  <circle
+                    key={`${series.key}-${index}`}
+                    cx={xFor(index)}
+                    cy={yFor(value)}
+                    r={series.key === "total" ? 4 : 2.5}
+                    fill={series.color}
+                  >
+                    <title>{`${series.label} · ${displayTrend[index].date} · ${value.toLocaleString()} tokens`}</title>
+                  </circle>
+                ))}
+              </g>
+            ))}
+          </svg>
+
+          <div className="mt-4 flex flex-wrap gap-3">
+            {lineSeries.map((series) => (
+              <div key={series.key} className="flex items-center gap-2 text-xs text-[#d4d4d8] bg-[#141416] rounded-lg px-3 py-1.5 border border-[#27272a]">
+                <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: series.color }} />
+                <span>{series.label}</span>
+                <span className="text-[#71717a]">{(series.values.reduce((sum, value) => sum + value, 0) / 1000).toFixed(1)}k</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   // 渲染Agent中心
   const renderAgents = () => {
-    // 按日期范围过滤任务
-    const filteredTasks = tasks.filter((t) => {
-      const taskDate = t.updated_at || t.last_run;
-      return !taskDate || !dateRange.start || !dateRange.end || 
-        (taskDate.split('T')[0] >= dateRange.start && taskDate.split('T')[0] <= dateRange.end);
-    });
-    
-    // 按Agent分组 - 使用过滤后的任务计算Token
-    const agentsData = agentsConfig.map(agent => {
-      const agentTasks = filteredTasks.filter(t => taskToAgent[t.id] === agent.id);
-      const totalTokens = agentTasks.reduce((sum, t) => sum + calculateTokenUsage(t), 0);
-      const okTasks = agentTasks.filter(t => t.status === "ok").length;
-      const errorTasks = agentTasks.filter(t => t.status === "error").length;
-      
-      return {
-        ...agent,
-        tasks: agentTasks,
-        totalTasks: agentTasks.length,
-        completedTasks: okTasks,
-        failedTasks: errorTasks,
-        tokenUsage: totalTokens,
-        lastRun: agentTasks.length > 0 ? agentTasks[0].last_run : null,
-      };
-    });
-
-    const totalTasks = agentsData.reduce((sum, a) => sum + a.tasks.length, 0);
-    const totalCompleted = agentsData.reduce((sum, a) => sum + a.completedTasks, 0);
-    const totalFailed = agentsData.reduce((sum, a) => sum + a.failedTasks, 0);
-    const totalTokens = agentsData.reduce((sum, a) => sum + a.tokenUsage, 0);
-
-    // 按日期维度统计Token消耗
-    const tokenByDate: Record<string, number> = {};
-    filteredTasks.forEach(t => {
-      const taskDate = (t.updated_at || t.last_run || '').split('T')[0];
-      if (taskDate) {
-        tokenByDate[taskDate] = (tokenByDate[taskDate] || 0) + calculateTokenUsage(t);
-      }
-    });
-    const tokenDates = Object.keys(tokenByDate).sort().slice(-7); // 最近7天
+    const totalTasks = agentCards.reduce((sum, a) => sum + a.tasks, 0);
+    const totalCompleted = agentCards.reduce((sum, a) => sum + a.completedTasks, 0);
+    const totalFailed = agentCards.reduce((sum, a) => sum + a.failedTasks, 0);
+    const totalTokens = agentCards.reduce((sum, a) => sum + a.tokenUsage, 0);
 
     return (
       <div className="p-8 animate-fadeIn">
@@ -1098,24 +1120,25 @@ export default function SecondBrain() {
             <Activity className="w-7 h-7 text-purple-400" />
             Agent中心
           </h2>
-          {lastUpdated && <span className="text-xs text-[#71717a]">更新于 {lastUpdated}</span>}
         </div>
+
+        {renderTokenTrendChart()}
 
         {/* 统计卡片 */}
         <div className="grid grid-cols-4 gap-4 mb-8">
           <div className="bg-[#141416] p-4 rounded-xl border border-[#27272a]">
             <div className="flex items-center gap-3 mb-2">
               <CheckSquare className="w-5 h-5 text-blue-400" />
-              <span className="text-[#a1a1aa] text-sm">总Agent</span>
+              <span className="text-[#a1a1aa] text-sm">总任务</span>
             </div>
-            <p className="text-2xl font-bold text-white">{agentsData.length}</p>
+            <p className="text-2xl font-bold text-white">{totalTasks}</p>
           </div>
           <div className="bg-[#141416] p-4 rounded-xl border border-[#27272a]">
             <div className="flex items-center gap-3 mb-2">
               <CheckCircle className="w-5 h-5 text-green-400" />
-              <span className="text-[#a1a1aa] text-sm">总任务</span>
+              <span className="text-[#a1a1aa] text-sm">已完成</span>
             </div>
-            <p className="text-2xl font-bold text-green-400">{totalTasks}</p>
+            <p className="text-2xl font-bold text-green-400">{totalCompleted}</p>
           </div>
           <div className="bg-[#141416] p-4 rounded-xl border border-[#27272a]">
             <div className="flex items-center gap-3 mb-2">
@@ -1133,33 +1156,9 @@ export default function SecondBrain() {
           </div>
         </div>
 
-        {/* Token按日期维度拆解 */}
-        {tokenDates.length > 0 && (
-          <div className="bg-[#141416] p-4 rounded-xl border border-[#27272a] mb-6">
-            <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">Token消耗（按日期）</h3>
-            <div className="flex items-end gap-2 h-24">
-              {tokenDates.map(date => {
-                const tokens = tokenByDate[date] || 0;
-                const maxToken = Math.max(...Object.values(tokenByDate));
-                const height = maxToken > 0 ? (tokens / maxToken) * 100 : 0;
-                return (
-                  <div key={date} className="flex-1 flex flex-col items-center gap-1">
-                    <span className="text-xs text-yellow-400">{(tokens/1000).toFixed(1)}k</span>
-                    <div 
-                      className="w-full bg-gradient-to-t from-yellow-600 to-yellow-400 rounded-t" 
-                      style={{ height: `${height}%`, minHeight: tokens > 0 ? '4px' : '0' }}
-                    />
-                    <span className="text-xs text-[#71717a]">{date.slice(5)}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
         {/* Agent列表 */}
         <div className="space-y-4">
-          {agentsData.map((agent) => (
+          {agentCards.map((agent) => (
             <div
               key={agent.id}
               className="bg-[#141416] p-5 rounded-xl border border-[#27272a] hover:border-purple-500/50 transition-colors"
@@ -1167,13 +1166,9 @@ export default function SecondBrain() {
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <h3 className="font-semibold text-white">{agent.name}</h3>
-                  {agent.tasks.length > 0 ? (
-                    <CheckCircle className="w-4 h-4 text-green-400" />
-                  ) : (
-                    <XCircle className="w-4 h-4 text-red-400" />
-                  )}
+                  {getStatusIcon(agent.status)}
                 </div>
-                <span className="text-xs text-[#71717a]">{agent.lastRun ? new Date(agent.lastRun).toLocaleString('zh-CN') : '-'}</span>
+                <span className="text-xs text-[#71717a]">{agent.lastRun}</span>
               </div>
               <p className="text-sm text-[#a1a1aa] mb-4">{agent.description}</p>
               <div className="grid grid-cols-5 gap-4 text-sm">
@@ -1183,7 +1178,7 @@ export default function SecondBrain() {
                 </div>
                 <div>
                   <p className="text-[#71717a] text-xs">任务数</p>
-                  <p className="text-white">{agent.tasks.length}</p>
+                  <p className="text-white">{agent.tasks}</p>
                 </div>
                 <div>
                   <p className="text-[#71717a] text-xs">完成</p>
@@ -1198,19 +1193,6 @@ export default function SecondBrain() {
                   <p className="text-yellow-400">{(agent.tokenUsage / 1000).toFixed(1)}k</p>
                 </div>
               </div>
-              {/* 展开显示该Agent下的任务 */}
-              {agent.tasks.length > 0 && (
-                <div className="mt-4 pt-4 border-t border-[#27272a]">
-                  <p className="text-xs text-[#71717a] mb-2">所属任务：</p>
-                  <div className="flex flex-wrap gap-2">
-                    {agent.tasks.map((t: Task) => (
-                      <span key={t.id} className="text-xs bg-[#27272a] px-2 py-1 rounded text-[#a1a1aa]">
-                        {t.name}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           ))}
         </div>
@@ -1226,7 +1208,6 @@ export default function SecondBrain() {
           <CheckSquare className="w-7 h-7 text-green-400" />
           任务中心
         </h2>
-        {lastUpdated && <span className="text-xs text-[#71717a]">更新于 {lastUpdated}</span>}
       </div>
 
       {/* 搜索 */}
@@ -1281,7 +1262,7 @@ export default function SecondBrain() {
               <div className="flex items-center gap-3">
                 {getStatusIcon(task.status)}
                 <h3 className="font-semibold">{task.name}</h3>
-                {(task.errorCount || 0) > 0 && (
+                {task.errorCount > 0 && (
                   <span className="bg-red-500/20 text-red-400 px-2 py-1 rounded text-xs">
                     {task.errorCount}次错误
                   </span>
@@ -1291,18 +1272,22 @@ export default function SecondBrain() {
                 {task.schedule}
               </span>
             </div>
-            <div className="grid grid-cols-3 gap-4 text-sm">
+            <div className="grid grid-cols-4 gap-4 text-sm">
               <div>
                 <p className="text-[#a1a1aa] text-xs">上次运行</p>
-                <p className="text-white">{task.lastRun}</p>
+                <p className="text-white">{formatDateTime(task.lastRun)}</p>
               </div>
               <div>
                 <p className="text-[#a1a1aa] text-xs">运行时长</p>
-                <p className="text-white">{task.lastDuration}</p>
+                <p className="text-white">{task.lastDuration || "—"}</p>
               </div>
               <div>
                 <p className="text-[#a1a1aa] text-xs">下次运行</p>
-                <p className="text-white">{task.nextRun}</p>
+                <p className="text-white">{formatDateTime(task.nextRun)}</p>
+              </div>
+              <div>
+                <p className="text-[#a1a1aa] text-xs">Token</p>
+                <p className="text-yellow-400">{task.tokenUsage.toLocaleString()}</p>
               </div>
             </div>
           </div>

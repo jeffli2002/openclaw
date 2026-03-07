@@ -1,0 +1,23 @@
+# DEPRECATED: agents/config.yaml
+#
+# This file is intentionally reduced to a compatibility stub.
+# Historical full copy archived at:
+#   /root/.openclaw/workspace/archive/legacy-routing/agents-config.deprecated.yaml
+#
+# Truth sources (2026-03-06 cleanup):
+# - Runtime agent model/binding truth: /root/.openclaw/openclaw.json
+# - Chief private-chat routing truth: /root/.openclaw/workspace/config/agent_keyword_router.yaml
+# - Worker runtime truth: /root/.openclaw/workspace/config/chief_dispatch_workers.yaml
+# - Chief execution planner: /root/.openclaw/workspace/scripts/chief_dispatch.py
+#
+# Do NOT add executable routing/model logic here again.
+
+deprecated:
+  file: agents/config.yaml
+  archived_copy: /root/.openclaw/workspace/archive/legacy-routing/agents-config.deprecated.yaml
+  status: compatibility_stub
+  runtime_truth:
+    - /root/.openclaw/openclaw.json
+    - /root/.openclaw/workspace/config/agent_keyword_router.yaml
+    - /root/.openclaw/workspace/config/chief_dispatch_workers.yaml
+    - /root/.openclaw/workspace/scripts/chief_dispatch.py

@@ -1,17 +1,48 @@
-.next/
+# Dependencies
 node_modules/
-.git/
-chrome-profile/
-tmp/
-.trash/
-.xiaohongshu_cookie.txt
-xhs_auth.json
-xhs_cookie.txt
-xiaohongshu-data/
-skills/xiaohongshu-skills/
-tools/wechat-article-for-ai/
+package-lock.json
+
+# Build outputs
 dist/
+build/
 *.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
-credentials/
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Chrome user data (for browser automation)
+*data/
+*_data/
+xiaohongshu-data/
+
+# Credentials/Auth
+*.json
+!package.json
+xhs_*.json
+xhs_*.txt
+*_auth*.json
+*_cookie*.txt
+.env
 *.env
+
+# Test/Debug
+test_*.js
+debug_*.js
+*.html
+
+# Temp
+tmp/
+temp/
+*.tmp
+.trash/

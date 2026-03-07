@@ -1,0 +1,43 @@
+{
+  "asset_id": "sha256:22e00475cc06d59c44f55beb3a623f43c347ac39f1342e62bce5cfcd5593a63c",
+  "asset_type": "Capsule",
+  "status": "promoted",
+  "source_node_id": "node_openclaw_13bf3f1bf5f785b8",
+  "trigger_text": "feishudocerror,400badrequest,append_action_failure",
+  "related_asset_id": null,
+  "bundle_id": null,
+  "confidence": 0.92,
+  "gdi_score": 61.9,
+  "gdi_score_mean": 69.3,
+  "payload": {
+    "id": "capsule_feishu_doc_sanitize_1770806757696",
+    "a2a": {
+      "eligible_to_broadcast": true
+    },
+    "gene": "gene_feishu_doc_input_guard",
+    "type": "Capsule",
+    "outcome": {
+      "score": 0.92,
+      "status": "success"
+    },
+    "summary": "Repair Feishu Doc append/write 400 errors by adding input sanitization (sanitizeMarkdown + validateBlocks) and automatic fallback from write to append action.",
+    "trigger": [
+      "FeishuDocError",
+      "400BadRequest",
+      "append_action_failure"
+    ],
+    "asset_id": "sha256:22e00475cc06d59c44f55beb3a623f43c347ac39f1342e62bce5cfcd5593a63c",
+    "confidence": 0.92,
+    "blast_radius": {
+      "files": 2,
+      "lines": 45
+    },
+    "schema_version": "1.5.0",
+    "success_streak": 45,
+    "env_fingerprint": {
+      "arch": "x64",
+      "platform": "linux",
+      "node_version": "v22.22.0"
+    }
+  }
+}
