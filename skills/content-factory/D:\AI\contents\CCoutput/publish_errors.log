@@ -1,0 +1,60 @@
+2026-03-06 10:07:38,535 - INFO - Starting publication for: /root/.openclaw/workspace/reports/2026-03-06-gpt-5-4-release.md
+2026-03-06 10:07:39,058 - INFO - Access token obtained successfully
+2026-03-06 10:07:39,060 - INFO - Found 0 images in HTML
+2026-03-06 10:07:39,060 - INFO - Extracted and converted content from HTML: Untitled Article
+2026-03-06 10:07:39,060 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-06 10:07:41,765 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQweOeEy5PAb1EuB9mBQ8wPLA-MmoAjQlhPp7fAHmVLFl-
+2026-03-06 10:07:41,965 - WARNING - Preview submission: api unauthorized rid: 69aa36ed-6f24550a-04dd38c3
+2026-03-06 10:07:41,965 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQweOeEy5PAb1EuB9mBQ8wPLA-MmoAjQlhPp7fAHmVLFl-
+2026-03-06 10:07:41,965 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-06 10:07:41,965 - INFO - https://mp.weixin.qq.com/
+2026-03-06 11:09:45,122 - INFO - Starting publication for: /root/.openclaw/workspace/output/2026-03-06-gpt-5-4-openclaw-best-choice-v2.html
+2026-03-06 11:09:45,633 - INFO - Access token obtained successfully
+2026-03-06 11:09:45,638 - INFO - Found 0 images in HTML
+2026-03-06 11:09:45,641 - INFO - Extracted and converted content from HTML: GPT-5.4发布：目前最强AI模型，OpenClaw才是最佳选择
+2026-03-06 11:09:45,641 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-06 11:09:48,209 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwfY37VcatZJrwHdRU2iyJc_Lxs1IWq1c5et50aFWM2k-
+2026-03-06 11:09:48,407 - WARNING - Preview submission: api unauthorized rid: 69aa457c-1668009b-19d17636
+2026-03-06 11:09:48,407 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwfY37VcatZJrwHdRU2iyJc_Lxs1IWq1c5et50aFWM2k-
+2026-03-06 11:09:48,407 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-06 11:09:48,407 - INFO - https://mp.weixin.qq.com/
+2026-03-06 11:11:59,099 - INFO - Starting publication for: /root/.openclaw/workspace/output/2026-03-06-gpt-5-4-openclaw-best-choice-v2.html
+2026-03-06 11:11:59,509 - INFO - Access token obtained successfully
+2026-03-06 11:11:59,514 - INFO - Found 0 images in HTML
+2026-03-06 11:11:59,517 - INFO - Extracted and converted content from HTML: GPT-5.4发布：目前最强AI模型，OpenClaw才是最佳选择
+2026-03-06 11:11:59,517 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-06 11:12:02,034 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwfDoK3dYvoo8uaGGblf0M8qlqL7T2x5ffHnMfACbX0Vm
+2026-03-06 11:12:02,261 - WARNING - Preview submission: api unauthorized rid: 69aa4602-4fa6937e-7b3397e3
+2026-03-06 11:12:02,261 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwfDoK3dYvoo8uaGGblf0M8qlqL7T2x5ffHnMfACbX0Vm
+2026-03-06 11:12:02,261 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-06 11:12:02,261 - INFO - https://mp.weixin.qq.com/
+2026-03-06 11:18:18,055 - INFO - Starting publication for: /root/.openclaw/workspace/output/2026-03-06-gpt-5-4-openclaw-best-choice-v2.html
+2026-03-06 11:18:18,430 - INFO - Access token obtained successfully
+2026-03-06 11:18:18,435 - INFO - Found 0 images in HTML
+2026-03-06 11:18:18,438 - INFO - Extracted and converted content from HTML: GPT-5.4发布：最强AI大脑来了，OpenClaw配它才更香
+2026-03-06 11:18:18,438 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-06 11:18:21,018 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwfQNemtYsyL_aVsz0AdkGbeXSH-a8x3oGHWN_kyLfrQU
+2026-03-06 11:18:21,243 - WARNING - Preview submission: api unauthorized rid: 69aa477d-0c5531a5-36129779
+2026-03-06 11:18:21,243 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwfQNemtYsyL_aVsz0AdkGbeXSH-a8x3oGHWN_kyLfrQU
+2026-03-06 11:18:21,243 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-06 11:18:21,243 - INFO - https://mp.weixin.qq.com/
+2026-03-06 11:25:07,931 - INFO - Starting publication for: /root/.openclaw/workspace/output/2026-03-06-gpt-5-4-openclaw-best-choice-v2.html
+2026-03-06 11:25:08,404 - INFO - Access token obtained successfully
+2026-03-06 11:25:08,410 - INFO - Found 0 images in HTML
+2026-03-06 11:25:08,413 - INFO - Extracted and converted content from HTML: GPT-5.4发布：最强AI大脑来了，OpenClaw配它才更香
+2026-03-06 11:25:08,413 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-06 11:25:11,085 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwUGldeqal9hbkFtAzsAuQXCtMX_TLyOUDXUzfdtyGGC3
+2026-03-06 11:25:11,304 - WARNING - Preview submission: api unauthorized rid: 69aa4917-5bac471a-58e6dcf3
+2026-03-06 11:25:11,304 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwUGldeqal9hbkFtAzsAuQXCtMX_TLyOUDXUzfdtyGGC3
+2026-03-06 11:25:11,304 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-06 11:25:11,304 - INFO - https://mp.weixin.qq.com/
+2026-03-06 11:44:00,768 - INFO - Starting publication for: /root/.openclaw/workspace/output/2026-03-06-gpt-5-4-openclaw-best-choice-v2.html
+2026-03-06 11:44:01,251 - INFO - Access token obtained successfully
+2026-03-06 11:44:01,256 - INFO - Found 0 images in HTML
+2026-03-06 11:44:01,259 - INFO - Extracted and converted content from HTML: GPT-5.4发布：最强AI大脑来了，OpenClaw配它才更香
+2026-03-06 11:44:01,260 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-06 11:44:04,138 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwTQfW2kP-MfFX3ZeYjtHQ_vewTW25xNyIyeXqCYA5H3Y
+2026-03-06 11:44:04,363 - WARNING - Preview submission: api unauthorized rid: 69aa4d84-35587e6c-3ea828a5
+2026-03-06 11:44:04,363 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwTQfW2kP-MfFX3ZeYjtHQ_vewTW25xNyIyeXqCYA5H3Y
+2026-03-06 11:44:04,364 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-06 11:44:04,364 - INFO - https://mp.weixin.qq.com/
