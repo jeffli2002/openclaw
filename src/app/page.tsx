@@ -47,11 +47,18 @@ interface Task {
   id: string;
   name: string;
   schedule: string;
-  status: "ok" | "error" | "running";
-  lastRun: string;
-  lastDuration: string;
-  nextRun: string;
+  status: "ok" | "error" | "running" | "idle" | "disabled";
+  lastRun: string | null;
+  lastDuration: string | null;
+  nextRun: string | null;
   errorCount: number;
+  tokenUsage: number;
+}
+
+interface TokenTrendPoint {
+  date: string;
+  totalTokens: number;
+  taskBreakdown: Record<string, number>;
 }
 
 // 认证检查组件
@@ -258,80 +265,68 @@ interface Agent {
 }
 
 // Agent 模拟数据
-const mockAgents: Agent[] = [
+const agentDefinitions = [
   {
-    id: "1",
+    id: "content",
     name: "Content Agent",
     description: "负责AI日报、内容发布、KOL追踪",
-    status: "ok",
     model: "Kimi K2.5",
-    tasks: 3,
-    completedTasks: 3,
-    failedTasks: 0,
-    tokenUsage: 125000,
-    lastRun: "2026-02-23 11:00",
+    taskIds: ["task-ai-daily", "task-content-publish", "task-kol"],
   },
   {
-    id: "2",
-    name: "Coding Agent",
-    description: "负责代码开发、项目修复、功能实现",
-    status: "ok",
-    model: "MiniMax M2.5",
-    tasks: 5,
-    completedTasks: 4,
-    failedTasks: 1,
-    tokenUsage: 89000,
-    lastRun: "2026-02-23 20:30",
-  },
-  {
-    id: "3",
+    id: "growth",
     name: "Growth Agent",
-    description: "负责SEO和关键词分析",
-    status: "ok",
+    description: "负责OpenClaw动态监控",
     model: "Kimi K2.5",
-    tasks: 1,
-    completedTasks: 1,
-    failedTasks: 0,
-    tokenUsage: 45000,
-    lastRun: "2026-02-23 10:00",
+    taskIds: ["task-seo"],
   },
   {
-    id: "4",
+    id: "product",
     name: "Product Agent",
     description: "负责竞品分析和产品规划",
-    status: "ok",
     model: "Kimi K2.5",
-    tasks: 1,
-    completedTasks: 1,
-    failedTasks: 0,
-    tokenUsage: 38000,
-    lastRun: "2026-02-23 14:00",
+    taskIds: ["task-product"],
   },
   {
-    id: "5",
+    id: "chief",
     name: "Chief Agent",
-    description: "负责生成每日工作报告",
-    status: "error",
-    model: "MiniMax M2.5",
-    tasks: 1,
-    completedTasks: 0,
-    failedTasks: 1,
-    tokenUsage: 15000,
-    lastRun: "2026-02-22 19:30",
+    description: "负责日报汇总与系统巡检",
+    model: "GPT-5.4",
+    taskIds: ["task-chief", "task-health"],
   },
   {
-    id: "6",
+    id: "evo",
     name: "Evo Agent",
     description: "负责自我进化和技能演进",
-    status: "ok",
     model: "MiniMax M2.5",
-    tasks: 1,
-    completedTasks: 1,
-    failedTasks: 0,
-    tokenUsage: 22000,
-    lastRun: "2026-02-22 22:00",
+    taskIds: ["task-evolution"],
   },
 ];
+
+const formatDateTime = (value?: string | null) => {
+  if (!value) return "—";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat("zh-CN", {
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(date);
+};
+
+const normalizeTask = (row: any): Task => ({
+  id: row.id,
+  name: row.name,
+  schedule: row.schedule,
+  status: row.status || "idle",
+  lastRun: row.last_run || null,
+  lastDuration: row.last_duration || null,
+  nextRun: row.next_run || null,
+  errorCount: row.error_count || 0,
+  tokenUsage: row.token_usage || 0,
+});
 
 type TabType = "home" | "memories" | "documents" | "tasks" | "agents";
 
@@ -349,21 +344,24 @@ export default function SecondBrain() {
   const [memories, setMemories] = useState<Memory[]>([]);
   const [documents, setDocuments] = useState<Document[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [tokenTrend, setTokenTrend] = useState<TokenTrendPoint[]>([]);
 
   // 从Supabase获取数据
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
       try {
-        const [memRes, docRes, taskRes] = await Promise.all([
+        const [memRes, docRes, taskRes, trendRes] = await Promise.all([
           supabase.from("memories").select("*").order("date", { ascending: false }),
           supabase.from("documents").select("*").order("date", { ascending: false }),
           supabase.from("tasks").select("*"),
+          fetch("/api/token-trend").then((res) => res.json()).catch(() => ({ trend: [] })),
         ]);
-        
+
         if (memRes.data) setMemories(memRes.data as Memory[]);
         if (docRes.data) setDocuments(docRes.data as Document[]);
-        if (taskRes.data) setTasks(taskRes.data as Task[]);
+        if (taskRes.data) setTasks(taskRes.data.map(normalizeTask));
+        if (trendRes?.trend) setTokenTrend(trendRes.trend as TokenTrendPoint[]);
       } catch (error) {
         console.error("Failed to fetch data:", error);
       } finally {
@@ -416,9 +414,39 @@ export default function SecondBrain() {
   const stats = {
     totalMemories: memories.length,
     totalDocuments: documents.length,
-    activeTasks: tasks.filter((t) => t.status === "ok").length,
+    activeTasks: tasks.filter((t) => t.status === "ok" || t.status === "running").length,
     errorTasks: tasks.filter((t) => t.status === "error").length,
   };
+
+  const agentCards = agentDefinitions.map((agent) => {
+    const agentTasks = tasks.filter((task) => agent.taskIds.includes(task.id));
+    const lastRunTimestamps = agentTasks
+      .map((task) => (task.lastRun ? new Date(task.lastRun).getTime() : 0))
+      .filter((value) => value > 0);
+
+    const status = agentTasks.some((task) => task.status === "running")
+      ? "running"
+      : agentTasks.some((task) => task.status === "error")
+      ? "error"
+      : agentTasks.some((task) => task.status === "ok")
+      ? "ok"
+      : "idle";
+
+    return {
+      ...agent,
+      status,
+      tasks: agentTasks.length,
+      completedTasks: agentTasks.filter((task) => task.status === "ok").length,
+      failedTasks: agentTasks.filter((task) => task.status === "error").length,
+      tokenUsage: agentTasks.reduce((sum, task) => sum + task.tokenUsage, 0),
+      lastRun: lastRunTimestamps.length
+        ? formatDateTime(new Date(Math.max(...lastRunTimestamps)).toISOString())
+        : "—",
+    };
+  });
+
+  const tokenTrend14 = tokenTrend.slice(-14);
+  const tokenTrendMax = Math.max(...tokenTrend14.map((point) => point.totalTokens), 1);
 
   // 获取状态图标
   const getStatusIcon = (status: string) => {
@@ -429,6 +457,10 @@ export default function SecondBrain() {
         return <XCircle className="w-4 h-4 text-red-500" />;
       case "running":
         return <Activity className="w-4 h-4 text-blue-500 animate-pulse" />;
+      case "idle":
+        return <Clock className="w-4 h-4 text-yellow-500" />;
+      case "disabled":
+        return <AlertCircle className="w-4 h-4 text-gray-500" />;
       default:
         return <AlertCircle className="w-4 h-4 text-yellow-500" />;
     }
@@ -908,12 +940,64 @@ export default function SecondBrain() {
     </div>
   );
 
+  const renderTokenTrendChart = () => {
+    if (!tokenTrend14.length) {
+      return (
+        <div className="bg-[#141416] rounded-xl border border-[#27272a] p-6 mb-6">
+          <div className="flex items-center gap-2 mb-2">
+            <Zap className="w-5 h-5 text-yellow-400" />
+            <h3 className="font-semibold">Token 日趋势</h3>
+          </div>
+          <p className="text-sm text-[#71717a]">暂无可用的历史 token 数据。</p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="bg-[#141416] rounded-xl border border-[#27272a] p-6 mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h3 className="font-semibold flex items-center gap-2">
+              <Zap className="w-5 h-5 text-yellow-400" />
+              Token 日趋势
+            </h3>
+            <p className="text-xs text-[#71717a] mt-1">按天累计各任务真实 token 消耗（近 {tokenTrend14.length} 天）</p>
+          </div>
+          <div className="text-right">
+            <p className="text-xs text-[#71717a]">近 {tokenTrend14.length} 天总量</p>
+            <p className="text-xl font-bold text-yellow-400">
+              {(tokenTrend14.reduce((sum, point) => sum + point.totalTokens, 0) / 1000).toFixed(1)}k
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-14 gap-2 items-end h-48">
+          {tokenTrend14.map((point) => (
+            <div key={point.date} className="flex flex-col items-center justify-end h-full gap-2">
+              <div className="text-[10px] text-[#71717a] whitespace-nowrap rotate-[-45deg] translate-y-3 origin-left">
+                {(point.totalTokens / 1000).toFixed(1)}k
+              </div>
+              <div className="w-full flex-1 flex items-end">
+                <div
+                  className="w-full rounded-t bg-gradient-to-t from-yellow-500/80 to-orange-400/80 hover:from-yellow-400 hover:to-orange-300 transition-colors"
+                  style={{ height: `${Math.max((point.totalTokens / tokenTrendMax) * 100, 6)}%` }}
+                  title={`${point.date} · ${point.totalTokens.toLocaleString()} tokens`}
+                />
+              </div>
+              <div className="text-[10px] text-[#a1a1aa]">{point.date.slice(5)}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   // 渲染Agent中心
   const renderAgents = () => {
-    const totalTasks = mockAgents.reduce((sum, a) => sum + a.tasks, 0);
-    const totalCompleted = mockAgents.reduce((sum, a) => sum + a.completedTasks, 0);
-    const totalFailed = mockAgents.reduce((sum, a) => sum + a.failedTasks, 0);
-    const totalTokens = mockAgents.reduce((sum, a) => sum + a.tokenUsage, 0);
+    const totalTasks = agentCards.reduce((sum, a) => sum + a.tasks, 0);
+    const totalCompleted = agentCards.reduce((sum, a) => sum + a.completedTasks, 0);
+    const totalFailed = agentCards.reduce((sum, a) => sum + a.failedTasks, 0);
+    const totalTokens = agentCards.reduce((sum, a) => sum + a.tokenUsage, 0);
 
     return (
       <div className="p-8 animate-fadeIn">
@@ -923,6 +1007,8 @@ export default function SecondBrain() {
             Agent中心
           </h2>
         </div>
+
+        {renderTokenTrendChart()}
 
         {/* 统计卡片 */}
         <div className="grid grid-cols-4 gap-4 mb-8">
@@ -958,7 +1044,7 @@ export default function SecondBrain() {
 
         {/* Agent列表 */}
         <div className="space-y-4">
-          {mockAgents.map((agent) => (
+          {agentCards.map((agent) => (
             <div
               key={agent.id}
               className="bg-[#141416] p-5 rounded-xl border border-[#27272a] hover:border-purple-500/50 transition-colors"
@@ -966,13 +1052,7 @@ export default function SecondBrain() {
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <h3 className="font-semibold text-white">{agent.name}</h3>
-                  {agent.status === "ok" ? (
-                    <CheckCircle className="w-4 h-4 text-green-400" />
-                  ) : agent.status === "running" ? (
-                    <Activity className="w-4 h-4 text-blue-400 animate-pulse" />
-                  ) : (
-                    <XCircle className="w-4 h-4 text-red-400" />
-                  )}
+                  {getStatusIcon(agent.status)}
                 </div>
                 <span className="text-xs text-[#71717a]">{agent.lastRun}</span>
               </div>
@@ -1078,18 +1158,22 @@ export default function SecondBrain() {
                 {task.schedule}
               </span>
             </div>
-            <div className="grid grid-cols-3 gap-4 text-sm">
+            <div className="grid grid-cols-4 gap-4 text-sm">
               <div>
                 <p className="text-[#a1a1aa] text-xs">上次运行</p>
-                <p className="text-white">{task.lastRun}</p>
+                <p className="text-white">{formatDateTime(task.lastRun)}</p>
               </div>
               <div>
                 <p className="text-[#a1a1aa] text-xs">运行时长</p>
-                <p className="text-white">{task.lastDuration}</p>
+                <p className="text-white">{task.lastDuration || "—"}</p>
               </div>
               <div>
                 <p className="text-[#a1a1aa] text-xs">下次运行</p>
-                <p className="text-white">{task.nextRun}</p>
+                <p className="text-white">{formatDateTime(task.nextRun)}</p>
+              </div>
+              <div>
+                <p className="text-[#a1a1aa] text-xs">Token</p>
+                <p className="text-yellow-400">{task.tokenUsage.toLocaleString()}</p>
               </div>
             </div>
           </div>
