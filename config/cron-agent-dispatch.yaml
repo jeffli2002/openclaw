@@ -128,10 +128,10 @@ task_agent_mapping:
     priority: P1
     dispatch_mode: "direct_agent"
     session_target: "isolated"
-    notify_policy: "summary_only"
+    notify_policy: "deliver_and_alert"
     message_instructions:
       - "该任务已由 cron 直接分配给 Content Agent，不需要再经 Chief 二次分流。"
-      - "默认不要逐次向老板发送常规运行消息；将摘要汇总到 Chief 每日汇报。"
+      - "KOL 日报属于每日应直达老板的内容任务，常规运行也必须正常发送，不要只放进 Chief 每日汇报。"
       - "如果发现重大机会、异常风险，或需要老板确认方向，必须立刻通知老板。"
     workflow:
       - step: "monitor_kol"
