@@ -1,12 +1,29 @@
 # 战略记忆 - 虾仔的长期记忆
 
-> 最后更新: 2026-03-07 07:51
+> 最后更新: 2026-03-07 14:05
 
 ---
 
-## 📊 Memory 提炼 | 2026-03-07 07:51
+## 📊 Memory 提炼 | 2026-03-07 14:05
 
-### 近2日战略级进展（2026-03-06 ~ 2026-03-07）
+### 今日新沉淀 (2026-03-07 下午)
+
+**1. Fallback 机制已修复**
+- 问题根因：原 fallback 链只有 `kimi-coding/k2p5`，没有 MiniMax；当 gpt-5.4 失败时无法切换到稳定模型
+- 已修复：添加 `minimax-cn/MiniMax-M2.5` 到 fallback 链
+- 当前 fallback 顺序：`gpt-5.4 (primary) → kimi-coding/k2p5 → minimax-cn/MiniMax-M2.5`
+- 后续影响：Cron 任务失败时应该会正确切换到 MiniMax，不再卡在 gpt-5.4 额度耗尽
+
+**2. Content Factory 的 GLM-Image API 未配置**
+- 微信公众号封面图生成依赖 GLM-Image API (`https://open.bigmodel.cn/api/paas/v4/images/generations`)
+- 当前 `.env` 只配置了微信公众号 AppID/AppSecret
+- GLM API Key 需要从 https://open.bigmodel.cn 获取
+- 影响：封面图生成会失败，需配置 API Key 或使用备用方案
+
+**3. Cron 任务失败监控**
+- `sync-github-12-00` 失败原因：gpt-5.4 API 额度用完 (400 limit exceeded)
+- `product-competitor-analysis` 失败原因：消息投递失败 (⚠️ ✉️ Message failed)
+- 大部分 Cron 任务正常，但需要持续监控失败率和 fallback 是否生效
 
 **1. Chief 私聊委派链路已从“概念路由”升级为“真实闭环”**
 - 已完成真相源收敛：Chief 读取 `openclaw.json` bindings + `config/agent_keyword_router.yaml` 做分类与执行规划，不再依赖伪 session_key / 旧路由配置。
