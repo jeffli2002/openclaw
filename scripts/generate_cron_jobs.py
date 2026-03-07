@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Cron Job 配置生成器 v3
+Cron Job 配置生成器 v4
 
 目标：
 - 固定归属的 cron 任务：直接打到 owner agent（session=isolated + agentTurn）
-- 调度 / 汇总 / 兜底类 cron：继续走 Chief 主会话（session=main + systemEvent）
+- 调度 / 监督类 cron：按配置走 main/systemEvent 或 isolated/agentTurn
+- 通知策略显式配置：deliver_and_alert / summary_only / failure_only
 
 用法:
     python3 generate_cron_jobs.py            # 列出所有任务
@@ -19,7 +20,7 @@ import fnmatch
 import shlex
 import sys
 from pathlib import Path
-from typing import Dict, Iterable, Optional
+from typing import Iterable, Optional
 
 import yaml
 
@@ -47,6 +48,7 @@ class CronJobGenerator:
         self.config_path = config_path
         self.config = self._load_config()
         self.task_map = self.config.get("task_agent_mapping", {})
+        self.delivery_defaults = self.config.get("message_delivery", {}) or {}
 
     def _load_config(self) -> dict:
         with self.config_path.open("r", encoding="utf-8") as f:
@@ -79,6 +81,21 @@ class CronJobGenerator:
 
     def _resolve_payload_kind(self, session_target: str) -> str:
         return "agentTurn" if session_target == "isolated" else "systemEvent"
+
+    def _resolve_notify_policy(self, task_config: dict, session_target: str) -> str:
+        policy = str(task_config.get("notify_policy", "")).strip()
+        if policy:
+            return policy
+        return "deliver_and_alert" if session_target == "isolated" else "failure_only"
+
+    def _default_channel(self) -> str:
+        return str(self.delivery_defaults.get("default_channel", "feishu")).strip() or "feishu"
+
+    def _default_target(self) -> str:
+        return str(self.delivery_defaults.get("default_target", "")).strip()
+
+    def _default_alert_after(self) -> int:
+        return int(self.delivery_defaults.get("default_failure_alert_after", 1))
 
     def _build_direct_agent_message(self, task_name: str, task_config: dict) -> str:
         description = task_config.get("description", task_name)
@@ -146,6 +163,23 @@ class CronJobGenerator:
             return self._build_direct_agent_message(task_name, task_config)
         return self._build_main_session_event(task_name, task_config)
 
+    def _append_failure_alert_flags(self, cmd_lines: list[str], task_config: dict, policy: str) -> None:
+        enabled = task_config.get("failure_alert_enabled")
+        if enabled is None:
+            enabled = policy in {"deliver_and_alert", "summary_only", "failure_only"}
+        if not enabled:
+            return
+
+        channel = str(task_config.get("failure_alert_channel", self._default_channel())).strip()
+        target = str(task_config.get("failure_alert_to", self._default_target())).strip()
+        after = int(task_config.get("failure_alert_after", self._default_alert_after()))
+        if not channel or not target:
+            return
+        cmd_lines.append("  --failure-alert \\")
+        cmd_lines.append(f"  --failure-alert-channel {shlex.quote(channel)} \\")
+        cmd_lines.append(f"  --failure-alert-to {shlex.quote(target)} \\")
+        cmd_lines.append(f"  --failure-alert-after {after} \\")
+
     def generate_cron_command(self, task_name: str) -> Optional[str]:
         task_config = self._find_task_config(task_name)
         if not task_config:
@@ -166,7 +200,7 @@ class CronJobGenerator:
         payload_text = self.build_payload_text(task_name, task_config, session_target)
         model = str(task_config.get("model", "")).strip()
         thinking = str(task_config.get("thinking", "")).strip()
-        announce_result = bool(task_config.get("announce_result", session_target == "isolated"))
+        notify_policy = self._resolve_notify_policy(task_config, session_target)
 
         cmd_lines = [
             f"# {task_name} - {description}",
@@ -187,21 +221,27 @@ class CronJobGenerator:
         if payload_kind == "agentTurn":
             cmd_lines.append(f"  --message {shlex.quote(payload_text)} \\")
             cmd_lines.append("  --expect-final \\")
-            if announce_result:
+            if notify_policy == "deliver_and_alert":
+                channel = str(task_config.get("delivery_channel", self._default_channel())).strip()
+                target = str(task_config.get("delivery_to", self._default_target())).strip()
                 cmd_lines.append("  --announce \\")
+                if channel:
+                    cmd_lines.append(f"  --channel {shlex.quote(channel)} \\")
+                if target:
+                    cmd_lines.append(f"  --to {shlex.quote(target)} \\")
             else:
                 cmd_lines.append("  --no-deliver \\")
         else:
             cmd_lines.append(f"  --system-event {shlex.quote(payload_text)} \\")
+
+        self._append_failure_alert_flags(cmd_lines, task_config, notify_policy)
 
         if model:
             cmd_lines.append(f"  --model {shlex.quote(model)} \\")
         if thinking:
             cmd_lines.append(f"  --thinking {shlex.quote(thinking)} \\")
 
-        cmd_lines.append(
-            f"  --description {shlex.quote(f'[{priority}] {description}')}"
-        )
+        cmd_lines.append(f"  --description {shlex.quote(f'[{priority}] {description}')}")
         return "\n".join(cmd_lines)
 
     def setup_all_crons(self) -> list[dict]:
@@ -231,9 +271,9 @@ def main() -> int:
 
     arg = sys.argv[1]
     if arg == "setup":
-        print("# 按当前 direct-agent / via-chief 架构生成的 Cron 任务")
-        print("# fixed owner task => isolated + agentTurn")
-        print("# supervisor / fallback task => main + systemEvent\n")
+        print("# 按当前 direct-agent / via-chief + notify_policy 架构生成的 Cron 任务")
+        print("# deliver_and_alert => 显式直达 Feishu")
+        print("# summary_only / failure_only => 不常规打扰，仅 failure alert 或日报汇总\n")
         for item in generator.setup_all_crons():
             print(f"\n# {item['task']}")
             print(item["command"])

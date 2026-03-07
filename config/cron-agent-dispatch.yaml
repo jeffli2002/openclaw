@@ -1,6 +1,6 @@
 # Cron 任务调度配置
 # 定义每个 Cron 任务如何调度 Sub Agent
-# 版本: v2.0
+# 版本: v3.0
 
 # ============================================
 # 任务到 Agent 的映射
@@ -17,6 +17,7 @@ task_agent_mapping:
     priority: P0
     dispatch_mode: "direct_agent"
     session_target: "isolated"
+    notify_policy: "deliver_and_alert"
     exact: true
     timeout_seconds: 900
     required_skill: "content-factory"
@@ -24,6 +25,7 @@ task_agent_mapping:
       - "该任务已由 cron 直接分配给 Content Agent，不需要再经 Chief 二次分流。"
       - "必须使用 content-factory skill，不要跳过 skill，也不要直接裸写文章。"
       - "如果流程要求用户确认选题，就先给候选主题并等待确认，不要越过交互步骤。"
+      - "只要出现需要老板确认选题、补充信息或人工决策的情况，必须立刻通知老板，不要默默等待。"
     workflow:
       - step: "research"
         description: "研究热门AI资讯"
@@ -51,6 +53,7 @@ task_agent_mapping:
     priority: P0
     dispatch_mode: "direct_agent"
     session_target: "isolated"
+    notify_policy: "deliver_and_alert"
     exact: true
     timeout_seconds: 900
     required_skill: "/root/.openclaw/workspace/skills/ai-daily-newsletter/SKILL.md"
@@ -78,6 +81,7 @@ task_agent_mapping:
     schedule: "5 9 * * *"
     priority: P0
     session_target: "main"
+    notify_policy: "failure_only"
     exact: true
     timeout_seconds: 300
     message_instructions:
@@ -100,6 +104,7 @@ task_agent_mapping:
     schedule: "35 7 * * *"
     priority: P0
     session_target: "main"
+    notify_policy: "failure_only"
     exact: true
     timeout_seconds: 300
     message_instructions:
@@ -123,6 +128,11 @@ task_agent_mapping:
     priority: P1
     dispatch_mode: "direct_agent"
     session_target: "isolated"
+    notify_policy: "summary_only"
+    message_instructions:
+      - "该任务已由 cron 直接分配给 Content Agent，不需要再经 Chief 二次分流。"
+      - "默认不要逐次向老板发送常规运行消息；将摘要汇总到 Chief 每日汇报。"
+      - "如果发现重大机会、异常风险，或需要老板确认方向，必须立刻通知老板。"
     workflow:
       - step: "monitor_kol"
         description: "监控KOL动态"
@@ -142,10 +152,12 @@ task_agent_mapping:
     priority: P1
     dispatch_mode: "direct_agent"
     session_target: "isolated"
+    notify_policy: "summary_only"
     message_instructions:
       - "该任务已由 cron 直接分配给 Growth Agent，不需要再经 Chief 二次分流。"
       - "重点关注 OpenClaw 官方 release、文档、博客和社区动态，不要只盯安全漏洞。"
-      - "如果发现需要升级、修复或值得同步给老板的重要更新，明确汇总结论。"
+      - "默认不要逐次向老板发送常规轮询结果；将摘要汇总到 Chief 每日汇报。"
+      - "如果发现需要升级、修复或值得同步给老板的重要更新，或需要老板确认动作，必须立刻通知老板。"
     workflow:
       - step: "search_news"
         description: "搜索安全相关新闻"
@@ -166,9 +178,12 @@ task_agent_mapping:
     priority: P1
     dispatch_mode: "direct_agent"
     session_target: "isolated"
+    notify_policy: "summary_only"
     message_instructions:
       - "该任务已由 cron 直接分配给 Product Agent，不需要再经 Chief 二次分流。"
       - "输出应聚焦竞品功能、定位、差异点与产品决策启发。"
+      - "默认不要逐次向老板发送常规运行消息；将摘要汇总到 Chief 每日汇报。"
+      - "如果分析结果需要老板做产品方向确认，必须立刻通知老板。"
     workflow:
       - step: "collect_competitor_info"
         description: "收集竞品信息"
@@ -190,9 +205,12 @@ task_agent_mapping:
     priority: P2
     dispatch_mode: "direct_agent"
     session_target: "isolated"
+    notify_policy: "summary_only"
     message_instructions:
       - "该任务已由 cron 直接分配给 Coding Agent，不需要再经 Chief 二次分流。"
       - "重点关注 skill 演进、依赖更新、自动化机会与技术债。"
+      - "默认不要逐次向老板发送常规运行消息；将摘要汇总到 Chief 每日汇报。"
+      - "如果需要老板确认技术方向或资源取舍，必须立刻通知老板。"
     workflow:
       - step: "check_updates"
         description: "检查Skill更新"
@@ -209,6 +227,7 @@ task_agent_mapping:
     schedule: "0 */2 * * *"
     priority: P2
     session_target: "main"
+    notify_policy: "failure_only"
     message_instructions:
       - "该任务归 Chief 直接负责，不需要再分配给其他 Agent。"
       - "读取最近两天的 daily memory，提炼长期有效的信息后再写入 global memory。"
@@ -222,11 +241,22 @@ task_agent_mapping:
   # ===== 调度类任务 =====
 
   chief-daily-report:
-    agent: "chief"
+    agent: "main"
     agent_name: "Chief Agent (虾仔)"
     description: "Chief每日汇报"
     schedule: "30 19 * * *"
     priority: P0
+    dispatch_mode: "direct_agent"
+    session_target: "isolated"
+    notify_policy: "deliver_and_alert"
+    exact: true
+    timeout_seconds: 600
+    message_instructions:
+      - "这是每天必须直达老板的总汇报任务。"
+      - "必须汇总今日各 Agent 的关键进展、失败告警、修复动作与待办。"
+      - "必须单独包含 GitHub 同步/备份摘要（成功次数、失败次数、最后一次结果、是否需要老板关注）。"
+      - "必须单独包含 Supabase 同步摘要、OpenClaw 动态监控摘要，以及所有需要老板确认的事项。"
+      - "如果当天已经发生需要老板确认但仍未确认的事项，在汇报里单独置顶提醒。"
     workflow:
       - step: "collect_agent_reports"
         description: "收集各Agent工作汇总"
@@ -243,10 +273,11 @@ task_agent_mapping:
     schedule: "0 */2 * * *"
     priority: P0
     session_target: "main"
+    notify_policy: "failure_only"
     message_instructions:
       - "该任务归 Chief 直接负责，不需要再分配给其他 Agent。"
-      - "检查所有 cron job 的 lastStatus、nextRunAtMs 和 delivery 情况。"
-      - "如果发现失败、漏发、时间异常或重复任务，优先修复并汇报。"
+      - "检查所有 cron job 的 lastStatus、nextRunAtMs 和 delivery / failureAlert 配置情况。"
+      - "如果发现失败、漏发、时间异常、重复任务或缺少明确投递目标，优先修复并汇报。"
     workflow:
       - step: "check_all_jobs"
         description: "检查所有任务状态"
@@ -265,9 +296,12 @@ task_agent_mapping:
     priority: P1
     dispatch_mode: "direct_agent"
     session_target: "isolated"
+    notify_policy: "summary_only"
     message_instructions:
       - "该任务已由 cron 直接分配给 Coding Agent，不需要再经 Chief 二次分流。"
       - "执行备份前先检查 git 状态；备份完成后明确记录是否 push 成功。"
+      - "默认不要逐次向老板发送常规成功消息；将摘要汇总到 Chief 每日汇报。"
+      - "如果备份失败、发现异常变更或需要老板确认，必须立刻通知老板。"
     workflow:
       - step: "backup"
         description: "备份核心文件到 GitHub"
@@ -281,9 +315,12 @@ task_agent_mapping:
     priority: P2
     dispatch_mode: "direct_agent"
     session_target: "isolated"
+    notify_policy: "failure_only"
     message_instructions:
       - "该任务已由 cron 直接分配给 Coding Agent，不需要再经 Chief 二次分流。"
       - "同步前先检查是否有需要提交的变更，再执行 GitHub 同步。"
+      - "默认不要逐次向老板发送常规同步消息；成功/失败摘要由 Chief 每日汇报统一汇总。"
+      - "如果同步失败、连续异常或需要老板确认，必须立刻通知老板。"
     workflow:
       - step: "sync"
         description: "同步代码"
@@ -297,9 +334,12 @@ task_agent_mapping:
     priority: P2
     dispatch_mode: "direct_agent"
     session_target: "isolated"
+    notify_policy: "failure_only"
     message_instructions:
       - "该任务已由 cron 直接分配给 Coding Agent，不需要再经 Chief 二次分流。"
       - "确认 Supabase 同步结果，并在失败时输出可定位的错误信息。"
+      - "默认不要逐次向老板发送常规同步消息；成功/失败摘要由 Chief 每日汇报统一汇总。"
+      - "如果同步失败、连续异常或需要老板确认，必须立刻通知老板。"
     workflow:
       - step: "sync"
         description: "同步数据到 Supabase"
@@ -333,6 +373,11 @@ message_delivery:
   # 模式: "message" | "session_send"
   default_mode: "message"
   
+  # 默认显式通知目标（避免依赖 channel:last）
+  default_channel: "feishu"
+  default_target: "user:ou_aeb3984fc66ae7c78e396255f7c7a11b"
+  default_failure_alert_after: 1
+  
   # 如果 message 失败，是否尝试 session_send
   fallback_to_session_send: true
   
@@ -361,6 +406,11 @@ logging:
 # ============================================
 
 changelog:
+  v3.0.0:
+    - "新增 notify_policy，明确区分 deliver_and_alert / summary_only / failure_only"
+    - "高频 GitHub / Supabase 任务默认不逐次打扰老板，仅在失败时 alert，并在 Chief 每日汇报中汇总"
+    - "Chief 每日汇报改为显式直达老板，并要求包含 GitHub / Supabase / OpenClaw / 待确认事项摘要"
+    - "默认显式 Feishu delivery / failure alert 目标写入配置，避免依赖 channel:last"
   v2.0.0:
     - "固定归属的 cron 任务改为 direct_agent 模式"
     - "内容/增长/产品/代码类固定任务默认走 session_target=isolated + agentTurn 直达 owner agent"
