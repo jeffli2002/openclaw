@@ -20,4 +20,5 @@
 - **用途:** 读写GitHub私有仓库
 
 ## 重要笔记
+- GitHub 定时同步标准流程：先在 `/root/.openclaw/workspace` 检查 `git status --short --branch`，确认是否有未提交改动；再执行 `git fetch origin --prune` 判断远端差异；仅在工作区干净且确认无冲突后执行 `git push origin HEAD:main`。
 - [待添加]
