@@ -1166,10 +1166,10 @@ export default function SecondBrain() {
 
   // 状态映射
   const statusMap: Record<AgentStatus, { label: string; color: string; bgColor: string; icon: string }> = {
-    running: { label: 'running', color: 'text-orange-400', bgColor: 'bg-orange-500', icon: '🟠' },
-    ok: { label: 'ok', color: 'text-green-400', bgColor: 'bg-green-500', icon: '🟢' },
+    running: { label: 'working', color: 'text-green-300', bgColor: 'bg-green-500', icon: '🟢' },
+    ok: { label: 'ready', color: 'text-emerald-300', bgColor: 'bg-emerald-500', icon: '🟢' },
     error: { label: 'error', color: 'text-red-400', bgColor: 'bg-red-500', icon: '🔴' },
-    idle: { label: 'idle', color: 'text-yellow-400', bgColor: 'bg-yellow-500', icon: '🟡' },
+    idle: { label: 'idle', color: 'text-yellow-300', bgColor: 'bg-yellow-500', icon: '🟡' },
     loading: { label: '同步中', color: 'text-purple-400', bgColor: 'bg-purple-500', icon: '🟣' },
     external: { label: 'external', color: 'text-slate-400', bgColor: 'bg-slate-500', icon: '⚪️' },
   };
@@ -1373,20 +1373,295 @@ export default function SecondBrain() {
 
   // 渲染 Office 页面
   const renderOffice = () => {
-    const officeDeskLayout = [
-      { agentId: 'chief', label: 'Chief 指挥台', position: 'left-[3%] top-[8%] w-[220px] h-[170px]', accent: 'border-purple-500/30 bg-purple-500/10', furniture: ['🖥️', '🖥️', '🪴'] },
-      { agentId: 'content', label: 'Content 工位', position: 'left-[30%] top-[10%] w-[185px] h-[150px]', accent: 'border-sky-500/25 bg-sky-500/10', furniture: ['💡', '📝', '📚'] },
-      { agentId: 'growth', label: 'Growth 工位', position: 'left-[50%] top-[10%] w-[185px] h-[150px]', accent: 'border-emerald-500/25 bg-emerald-500/10', furniture: ['📈', '💡', '🪴'] },
-      { agentId: 'coding', label: 'Coding 工位', position: 'left-[7%] bottom-[16%] w-[185px] h-[150px]', accent: 'border-cyan-500/25 bg-cyan-500/10', furniture: ['💻', '🖥️', '⌨️'] },
-      { agentId: 'product', label: 'Product 工位', position: 'left-[28%] bottom-[17%] w-[185px] h-[150px]', accent: 'border-amber-500/25 bg-amber-500/10', furniture: ['🎯', '🗂️', '💡'] },
-      { agentId: 'finance', label: 'Finance 工位', position: 'left-[49%] bottom-[17%] w-[185px] h-[150px]', accent: 'border-lime-500/25 bg-lime-500/10', furniture: ['💰', '📊', '🧮'] },
-      { agentId: 'abby', label: 'Abby 工位', position: 'left-[52%] bottom-[39%] w-[170px] h-[135px]', accent: 'border-fuchsia-500/25 bg-fuchsia-500/10', furniture: ['🤝', '📮', '🌸'] },
-    ] as const;
+    const workspaceAgentIds = ['chief', 'content', 'growth', 'coding', 'product', 'finance'] as const;
+    const locationMap: Record<string, string> = {
+      chief: 'Open Workspace · Desk 1',
+      content: 'Open Workspace · Desk 2',
+      growth: 'Open Workspace · Desk 3',
+      coding: 'Open Workspace · Desk 4',
+      product: 'Open Workspace · Desk 5',
+      finance: 'Open Workspace · Desk 6',
+      abby: 'Reception · Front Desk',
+    };
+
+    const officeAgentThemes: Record<
+      string,
+      {
+        surface: string;
+        border: string;
+        text: string;
+        hair: string;
+        body: string;
+        accessory: string;
+      }
+    > = {
+      chief: {
+        surface: 'bg-violet-500/10',
+        border: 'border-violet-400/30',
+        text: 'text-violet-200',
+        hair: 'bg-violet-950',
+        body: 'bg-violet-500/85',
+        accessory: '👔',
+      },
+      content: {
+        surface: 'bg-sky-500/10',
+        border: 'border-sky-400/30',
+        text: 'text-sky-200',
+        hair: 'bg-sky-950',
+        body: 'bg-sky-500/85',
+        accessory: '📝',
+      },
+      growth: {
+        surface: 'bg-emerald-500/10',
+        border: 'border-emerald-400/30',
+        text: 'text-emerald-200',
+        hair: 'bg-emerald-950',
+        body: 'bg-emerald-500/85',
+        accessory: '📈',
+      },
+      coding: {
+        surface: 'bg-cyan-500/10',
+        border: 'border-cyan-400/30',
+        text: 'text-cyan-200',
+        hair: 'bg-cyan-950',
+        body: 'bg-cyan-500/85',
+        accessory: '💻',
+      },
+      product: {
+        surface: 'bg-amber-500/10',
+        border: 'border-amber-400/30',
+        text: 'text-amber-200',
+        hair: 'bg-amber-950',
+        body: 'bg-amber-500/85',
+        accessory: '🎯',
+      },
+      finance: {
+        surface: 'bg-lime-500/10',
+        border: 'border-lime-400/30',
+        text: 'text-lime-200',
+        hair: 'bg-lime-950',
+        body: 'bg-lime-500/85',
+        accessory: '💰',
+      },
+      abby: {
+        surface: 'bg-rose-500/10',
+        border: 'border-rose-400/30',
+        text: 'text-rose-200',
+        hair: 'bg-rose-950',
+        body: 'bg-rose-500/85',
+        accessory: '👩‍💼',
+      },
+    };
+
+    const findOfficeAgent = (agentId: string) => teamAgents.find((agent) => agent.id === agentId);
+
+    const getOfficeIndicatorClasses = (status: AgentStatus) => {
+      switch (status) {
+        case 'running':
+          return 'bg-green-400 shadow-[0_0_18px_rgba(74,222,128,0.75)]';
+        case 'ok':
+          return 'bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.55)]';
+        case 'error':
+          return 'bg-red-400 shadow-[0_0_16px_rgba(248,113,113,0.65)]';
+        case 'idle':
+          return 'bg-yellow-300 shadow-[0_0_14px_rgba(253,224,71,0.55)]';
+        case 'external':
+          return 'bg-slate-300 shadow-[0_0_14px_rgba(203,213,225,0.35)]';
+        default:
+          return 'bg-purple-400 shadow-[0_0_14px_rgba(192,132,252,0.45)]';
+      }
+    };
+
+    const renderChairTopView = (orientation: 'top' | 'right' | 'bottom' | 'left', compact = false) => {
+      const frame = compact ? 'h-8 w-8' : 'h-10 w-10';
+      const seat = compact ? 'h-4 w-4 rounded-[9px]' : 'h-5 w-5 rounded-[11px]';
+      const backH = compact ? 'h-1.5 w-4 rounded-full' : 'h-2 w-5 rounded-full';
+      const backV = compact ? 'h-4 w-1.5 rounded-full' : 'h-5 w-2 rounded-full';
+      const baseSeat = `absolute border border-white/20 bg-white/12 ${seat}`;
+      const baseBackH = `absolute border border-white/20 bg-white/18 ${backH}`;
+      const baseBackV = `absolute border border-white/20 bg-white/18 ${backV}`;
+
+      switch (orientation) {
+        case 'top':
+          return (
+            <div className={`relative ${frame}`}>
+              <div className={`${baseBackH} left-1/2 top-0 -translate-x-1/2`} />
+              <div className={`${baseSeat} left-1/2 top-2.5 -translate-x-1/2`} />
+            </div>
+          );
+        case 'right':
+          return (
+            <div className={`relative ${frame}`}>
+              <div className={`${baseBackV} right-0 top-1/2 -translate-y-1/2`} />
+              <div className={`${baseSeat} right-2.5 top-1/2 -translate-y-1/2`} />
+            </div>
+          );
+        case 'left':
+          return (
+            <div className={`relative ${frame}`}>
+              <div className={`${baseBackV} left-0 top-1/2 -translate-y-1/2`} />
+              <div className={`${baseSeat} left-2.5 top-1/2 -translate-y-1/2`} />
+            </div>
+          );
+        default:
+          return (
+            <div className={`relative ${frame}`}>
+              <div className={`${baseSeat} left-1/2 top-0 -translate-x-1/2`} />
+              <div className={`${baseBackH} left-1/2 bottom-0 -translate-x-1/2`} />
+            </div>
+          );
+      }
+    };
+
+    const renderCartoonAgent = (agent: TeamAgent | undefined, size: 'sm' | 'md' = 'sm') => {
+      const resolvedAgent = agent ?? findOfficeAgent('chief');
+      const theme = officeAgentThemes[resolvedAgent?.id || 'chief'] || officeAgentThemes.chief;
+      const status = resolvedAgent?.status || 'loading';
+      const frameClass = size === 'md' ? 'h-28 w-20' : 'h-20 w-16';
+      const headClass = size === 'md' ? 'h-10 w-10' : 'h-8 w-8';
+      const hairClass = size === 'md' ? 'h-5 w-10' : 'h-4 w-8';
+      const bodyClass = size === 'md' ? 'h-12 w-12' : 'h-9 w-10';
+      const accessoryClass = size === 'md' ? 'text-base' : 'text-sm';
+      const labelClass = size === 'md' ? 'text-xs' : 'text-[10px]';
+      const headTop = size === 'md' ? 4 : 3;
+      const bodyTop = size === 'md' ? 42 : 30;
+      const accessoryTop = size === 'md' ? 55 : 39;
+      const armTop = size === 'md' ? 52 : 38;
+      const legTop = size === 'md' ? 90 : 66;
+
+      return (
+        <div className={`relative ${frameClass} shrink-0`}>
+          <div className="absolute inset-x-3 bottom-1 h-3 rounded-full bg-black/30 blur-sm" />
+          <div
+            className={`absolute left-1/2 -translate-x-1/2 rounded-full border border-white/40 bg-[radial-gradient(circle_at_35%_35%,#fff7ed_0%,#fde68a_60%,#f59e0b_100%)] ${headClass}`}
+            style={{ top: headTop }}
+          />
+          <div
+            className={`absolute left-1/2 -translate-x-1/2 rounded-t-full border border-white/10 ${theme.hair} ${hairClass}`}
+            style={{ top: headTop }}
+          />
+          <div
+            className={`absolute left-[18%] h-6 w-2.5 rounded-full border border-white/10 bg-white/12`}
+            style={{ top: armTop }}
+          />
+          <div
+            className={`absolute right-[18%] h-6 w-2.5 rounded-full border border-white/10 bg-white/12`}
+            style={{ top: armTop }}
+          />
+          <div
+            className={`absolute left-1/2 -translate-x-1/2 rounded-[18px_18px_14px_14px] border border-white/20 ${theme.body} ${bodyClass}`}
+            style={{ top: bodyTop }}
+          />
+          <div className={`absolute left-1/2 -translate-x-1/2 ${accessoryClass}`} style={{ top: accessoryTop }}>
+            {theme.accessory}
+          </div>
+          <div className="absolute left-[36%] h-6 w-2.5 rounded-full bg-slate-900/80" style={{ top: legTop }} />
+          <div className="absolute right-[36%] h-6 w-2.5 rounded-full bg-slate-900/80" style={{ top: legTop }} />
+          <div className={`absolute right-0 top-0 h-3.5 w-3.5 rounded-full border border-white/30 ${getOfficeIndicatorClasses(status)}`} />
+          <div className={`absolute inset-x-1 bottom-0 rounded-full bg-black/35 px-2 py-1 text-center font-medium text-white/90 ${labelClass}`}>
+            {resolvedAgent?.name?.split(' ')[0] || 'Agent'}
+          </div>
+        </div>
+      );
+    };
+
+    const renderDeskScene = (agent: TeamAgent | undefined) => {
+      const theme = officeAgentThemes[agent?.id || 'chief'] || officeAgentThemes.chief;
+      return (
+        <div className="relative h-32 rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))]">
+          <div className="absolute left-3 top-5 h-[62px] w-[74px] rounded-[22px_22px_18px_18px] border border-white/20 bg-[#dbeafe]/12 shadow-[inset_0_-10px_0_rgba(0,0,0,0.18)]">
+            <div className="absolute left-1/2 top-3 h-4 w-9 -translate-x-1/2 rounded-md border border-slate-500/30 bg-slate-900/70" />
+            <div className="absolute left-1/2 top-[30px] h-1.5 w-6 -translate-x-1/2 rounded-full bg-white/25" />
+            <div className="absolute left-3 bottom-0 h-5 w-1.5 rounded-full bg-white/18" />
+            <div className="absolute right-3 bottom-0 h-5 w-1.5 rounded-full bg-white/18" />
+          </div>
+          <div className="absolute left-[28px] bottom-3">{renderChairTopView('bottom')}</div>
+          <div className="absolute right-3 top-2">{renderCartoonAgent(agent, 'sm')}</div>
+          <div className={`absolute right-4 bottom-3 rounded-full border px-2 py-1 text-[10px] font-medium ${theme.border} ${theme.surface} ${theme.text}`}>
+            60×50 desk
+          </div>
+        </div>
+      );
+    };
+
+    const renderMeetingRoomScene = (room: 'A' | 'B') => {
+      const isLargeRoom = room === 'A';
+      return (
+        <div className="relative mt-4 min-h-[190px] rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))]">
+          <div
+            className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[999px] border border-white/20 bg-[#dbeafe]/12 shadow-[inset_0_-12px_0_rgba(0,0,0,0.16)] ${
+              isLargeRoom ? 'h-[84px] w-[58%]' : 'h-[74px] w-[62%]'
+            }`}
+          >
+            <div className="absolute left-1/2 top-4 h-4 w-20 -translate-x-1/2 rounded-full bg-white/10" />
+            <div className="absolute left-1/2 bottom-4 h-2 w-16 -translate-x-1/2 rounded-full bg-white/10" />
+          </div>
+          <div className="absolute left-1/2 top-3 -translate-x-1/2">{renderChairTopView('top')}</div>
+          <div className="absolute left-1/2 bottom-3 -translate-x-1/2">{renderChairTopView('bottom')}</div>
+          <div className="absolute left-5 top-1/2 -translate-y-1/2">{renderChairTopView('left')}</div>
+          <div className="absolute right-5 top-1/2 -translate-y-1/2">{renderChairTopView('right')}</div>
+          {isLargeRoom && (
+            <>
+              <div className="absolute left-[22%] top-[22%]">{renderChairTopView('left', true)}</div>
+              <div className="absolute right-[22%] bottom-[22%]">{renderChairTopView('right', true)}</div>
+            </>
+          )}
+          <div className="absolute right-5 top-5 rounded-full border border-white/10 bg-white/8 px-3 py-1 text-[11px] text-[#d4d4d8]">
+            {isLargeRoom ? '6 seats' : '4 seats'}
+          </div>
+          <div className="absolute left-5 bottom-5 text-xs text-[#94a3b8]">大型会议桌 + 环绕椅</div>
+        </div>
+      );
+    };
+
+    const renderWorkstation = (agentId: (typeof workspaceAgentIds)[number], index: number) => {
+      const agent = findOfficeAgent(agentId);
+      const theme = officeAgentThemes[agentId] || officeAgentThemes.chief;
+      const statusStyle = agent ? getStatusStyle(agent.status) : statusMap.loading;
+      const isSelected = selectedOfficeAgentId === agentId;
+
+      return (
+        <button
+          key={agentId}
+          type="button"
+          onClick={() => setSelectedOfficeAgentId(agentId)}
+          className={`rounded-[26px] border p-4 text-left transition-all hover:-translate-y-0.5 hover:border-white/20 ${theme.border} ${theme.surface} ${
+            isSelected ? 'ring-2 ring-white/20 shadow-[0_24px_60px_rgba(0,0,0,0.38)]' : 'shadow-[0_16px_40px_rgba(0,0,0,0.28)]'
+          }`}
+        >
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="rounded-full border border-white/10 bg-black/20 px-2 py-0.5 text-[10px] uppercase tracking-[0.18em] text-[#cbd5e1]">
+                  Desk {index + 1}
+                </span>
+                <span className={`h-2.5 w-2.5 rounded-full ${getOfficeIndicatorClasses(agent?.status || 'loading')}`} />
+              </div>
+              <h4 className="mt-2 text-base font-semibold text-white">{agent?.name || agentId}</h4>
+              <p className="text-xs text-[#a1a1aa] mt-1">{agent?.role || 'Agent'} · {statusStyle.label}</p>
+            </div>
+            <div className={`rounded-full border px-2.5 py-1 text-[11px] ${theme.border} ${theme.surface} ${theme.text}`}>
+              {agent?.icon || '🤖'}
+            </div>
+          </div>
+
+          <div className="mt-4">{renderDeskScene(agent)}</div>
+
+          <div className="mt-4 flex items-center justify-between gap-3 text-xs">
+            <span className="text-[#94a3b8] truncate">{agent?.currentTask || '状态同步中'}</span>
+            <span className="shrink-0 text-[#e4e4e7]">{agent?.lastActive || '同步中'}</span>
+          </div>
+        </button>
+      );
+    };
 
     const selectedOfficeAgent = teamAgents.find((agent) => agent.id === selectedOfficeAgentId) ?? teamAgents[0];
     const selectedOfficeStatusStyle = selectedOfficeAgent ? getStatusStyle(selectedOfficeAgent.status) : statusMap.loading;
-    const runningCount = teamAgents.filter((agent) => agent.status === 'running').length;
-    const errorCount = teamAgents.filter((agent) => agent.status === 'error').length;
+    const selectedTheme = officeAgentThemes[selectedOfficeAgent?.id || 'chief'] || officeAgentThemes.chief;
+    const receptionAgent = findOfficeAgent('abby');
+    const runningCount = teamAgents.filter((agent) => !agent.isExternal && agent.status === 'running').length;
+    const errorCount = teamAgents.filter((agent) => !agent.isExternal && agent.status === 'error').length;
+    const idleCount = teamAgents.filter((agent) => !agent.isExternal && agent.status === 'idle').length;
 
     return (
       <div className="p-8 pb-28 animate-fadeIn">
@@ -1404,24 +1679,28 @@ export default function SecondBrain() {
               </svg>
               Second Brain Office
             </h2>
-            <p className="text-sm text-[#71717a] mt-2">2D 办公室平面图，状态实时取自 /api/agent-status，每 10 秒刷新一次。</p>
+            <p className="text-sm text-[#71717a] mt-2">
+              按真实办公室平面图重新布局：6 个开放工位、2 间会议室、前台接待、打印储藏、休息区、入口与 WC。状态实时取自 /api/agent-status，并每 10 秒刷新一次。
+            </p>
           </div>
 
           <div className="flex flex-wrap gap-3 text-sm">
-            <div className="px-3 py-2 rounded-xl border border-[#27272a] bg-[#141416] text-[#a1a1aa]">7 个工位</div>
-            <div className="px-3 py-2 rounded-xl border border-[#27272a] bg-[#141416] text-[#a1a1aa]">1 个会议室</div>
-            <div className="px-3 py-2 rounded-xl border border-[#27272a] bg-[#141416] text-[#a1a1aa]">1 个休闲区</div>
-            <div className="px-3 py-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-300">{runningCount} 个 Agent 活跃中</div>
+            <div className="px-3 py-2 rounded-xl border border-[#27272a] bg-[#141416] text-[#a1a1aa]">6 个工位</div>
+            <div className="px-3 py-2 rounded-xl border border-[#27272a] bg-[#141416] text-[#a1a1aa]">2 个会议室</div>
+            <div className="px-3 py-2 rounded-xl border border-[#27272a] bg-[#141416] text-[#a1a1aa]">Abby 在前台</div>
+            <div className="px-3 py-2 rounded-xl border border-green-500/20 bg-green-500/10 text-green-200">{runningCount} 个 Agent 工作中</div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_360px] gap-6 items-start">
           <div className="space-y-6 min-w-0">
-            <div className="rounded-3xl border border-[#27272a] bg-[#101012] p-4">
+            <div className="rounded-3xl border border-[#27272a] bg-[#101012] p-4 shadow-[0_24px_60px_rgba(0,0,0,0.32)]">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                 <div>
-                  <h3 className="font-semibold text-white">办公室平面图</h3>
-                  <p className="text-xs text-[#71717a] mt-1">点击任意工位可在右侧查看详情，家具与人物均使用 CSS/HTML + emoji 构建。</p>
+                  <h3 className="font-semibold text-white">Flat 2D Office Plan</h3>
+                  <p className="text-xs text-[#71717a] mt-1">
+                    家具按真实比例做了桌椅与会议桌轮廓；每个 Agent 以扁平卡通人物呈现。点击工位或前台人物可在右侧查看详情。
+                  </p>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-[#71717a]">
                   <span className={`w-2 h-2 rounded-full ${isLoadingAgents ? 'bg-purple-500' : 'bg-green-500'} ${isLoadingAgents ? '' : 'animate-pulse'}`}></span>
@@ -1430,137 +1709,251 @@ export default function SecondBrain() {
               </div>
 
               <div className="overflow-auto rounded-[28px] border border-[#1f1f22] bg-[#0b0b0d]">
-                <div className="relative min-w-[980px] min-h-[760px]">
-                  <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px]" />
-                  <div className="absolute inset-[18px] rounded-[26px] border border-white/10" />
-                  <div className="absolute left-[63%] top-[6%] w-[31%] h-[29%] rounded-[28px] border border-blue-500/25 bg-blue-500/10 p-5">
-                    <div className="flex items-center justify-between mb-4">
-                      <div>
-                        <p className="text-sm font-semibold text-blue-300">会议室</p>
-                        <p className="text-xs text-[#94a3b8] mt-1">白板、会议桌、协作讨论</p>
-                      </div>
-                      <span className="text-2xl">🪟</span>
-                    </div>
-                    <div className="relative h-[135px] rounded-2xl border border-white/10 bg-[#0f172a]/40">
-                      <div className="absolute left-1/2 top-1/2 h-16 w-36 -translate-x-1/2 -translate-y-1/2 rounded-[999px] border border-white/10 bg-[#1e293b]" />
-                      <div className="absolute left-[18%] top-1/2 -translate-y-1/2 text-2xl">🪑</div>
-                      <div className="absolute right-[18%] top-1/2 -translate-y-1/2 text-2xl">🪑</div>
-                      <div className="absolute left-1/2 top-[18%] -translate-x-1/2 text-2xl">📺</div>
-                      <div className="absolute left-1/2 bottom-[14%] -translate-x-1/2 text-xl">📝</div>
-                    </div>
-                  </div>
-
-                  <div className="absolute right-[6%] bottom-[6%] w-[29%] h-[28%] rounded-[28px] border border-emerald-500/25 bg-emerald-500/10 p-5">
-                    <div className="flex items-center justify-between mb-4">
-                      <div>
-                        <p className="text-sm font-semibold text-emerald-300">休闲区</p>
-                        <p className="text-xs text-[#94a3b8] mt-1">沙发、茶几、植物、茶饮角</p>
-                      </div>
-                      <span className="text-2xl">☕</span>
-                    </div>
-                    <div className="relative h-[130px] rounded-2xl border border-white/10 bg-[#052e2b]/30">
-                      <div className="absolute left-[12%] top-[28%] text-4xl">🛋️</div>
-                      <div className="absolute right-[16%] top-[30%] text-3xl">🪴</div>
-                      <div className="absolute left-1/2 top-[53%] -translate-x-1/2 text-3xl">🫖</div>
-                      <div className="absolute left-1/2 bottom-[18%] -translate-x-1/2 h-10 w-16 rounded-full border border-white/10 bg-white/5" />
-                      <div className="absolute left-1/2 bottom-[20%] -translate-x-1/2 text-lg">☕</div>
-                    </div>
-                  </div>
-
-                  <div className="absolute left-[3%] bottom-[6%] w-[56%] h-[8%] rounded-2xl border border-white/5 bg-white/[0.03] flex items-center justify-center text-xs tracking-[0.24em] text-[#71717a] uppercase">
-                    Main Corridor
-                  </div>
-
-                  {officeDeskLayout.map((desk) => {
-                    const agent = teamAgents.find((item) => item.id === desk.agentId);
-                    const statusStyle = agent ? getStatusStyle(agent.status) : statusMap.loading;
-                    const isSelected = selectedOfficeAgent?.id === desk.agentId;
-
-                    return (
-                      <button
-                        key={desk.agentId}
-                        type="button"
-                        onClick={() => setSelectedOfficeAgentId(desk.agentId)}
-                        className={`absolute ${desk.position} rounded-[24px] border p-4 text-left transition-all hover:-translate-y-1 hover:shadow-2xl ${desk.accent} ${isSelected ? 'ring-2 ring-white/20 shadow-2xl' : ''}`}
-                      >
-                        <div className="flex items-start justify-between gap-3">
-                          <div>
-                            <p className="text-[11px] uppercase tracking-[0.18em] text-[#71717a]">{desk.label}</p>
-                            <h4 className="text-base font-semibold text-white mt-1">{agent?.name || desk.agentId}</h4>
-                            <p className="text-xs text-[#a1a1aa] mt-1">{agent?.role || 'Agent'}</p>
-                          </div>
-                          <span className="text-3xl drop-shadow-sm">{agent?.icon || '🤖'}</span>
+                <div className="min-w-[1100px] rounded-[30px] bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.08),transparent_28%),linear-gradient(180deg,#0b0b0d_0%,#111216_100%)] p-4">
+                  <div
+                    className="grid min-h-[820px] gap-4"
+                    style={{
+                      gridTemplateColumns: '1.15fr 1.4fr 1.4fr 0.72fr',
+                      gridTemplateRows: '1.04fr 1.34fr 0.74fr',
+                      gridTemplateAreas: `
+                        "storage meetingB meetingA meetingA"
+                        "break workspace workspace wc"
+                        "entrance reception reception wc"
+                      `,
+                    }}
+                  >
+                    <section
+                      style={{ gridArea: 'storage' }}
+                      className="relative overflow-hidden rounded-[30px] border border-slate-400/15 bg-[linear-gradient(180deg,rgba(148,163,184,0.12),rgba(15,23,42,0.12))] p-5"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-xs uppercase tracking-[0.22em] text-[#94a3b8]">PRINT / STORAGE</p>
+                          <h3 className="text-lg font-semibold text-white mt-2">打印 / 储藏室</h3>
+                          <p className="text-xs text-[#a1a1aa] mt-1">打印机、文件柜、纸箱和耗材</p>
                         </div>
+                        <span className="text-2xl">🖨️</span>
+                      </div>
 
-                        <div className="mt-4 flex items-end justify-between gap-3">
-                          <div className="relative h-14 w-24 rounded-2xl border border-white/10 bg-[#111214] shadow-inner">
-                            <div className="absolute inset-x-3 top-2 h-4 rounded-full bg-white/5" />
-                            <div className="absolute left-2 bottom-2 text-sm">{desk.furniture[0]}</div>
-                            <div className="absolute left-1/2 bottom-2 -translate-x-1/2 text-sm">{desk.furniture[1]}</div>
-                            <div className="absolute right-2 bottom-2 text-sm">{desk.furniture[2]}</div>
-                          </div>
-
-                          <div className="min-w-0 text-right">
-                            <div className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] ${statusStyle.color} bg-black/20`}>
-                              <span>{statusStyle.icon}</span>
-                              <span>{statusStyle.label}</span>
-                            </div>
-                            <p className="text-[11px] text-[#cbd5e1] mt-2 line-clamp-2 max-w-[84px]">{agent?.currentTask || '状态同步中'}</p>
-                          </div>
+                      <div className="relative mt-4 min-h-[210px] rounded-[24px] border border-white/10 bg-white/[0.04]">
+                        <div className="absolute left-6 top-6 h-[88px] w-[110px] rounded-[22px] border border-white/20 bg-white/10 shadow-[inset_0_-10px_0_rgba(0,0,0,0.16)]">
+                          <div className="absolute left-4 top-4 h-6 w-16 rounded-md bg-slate-900/75" />
+                          <div className="absolute left-4 top-12 h-8 w-16 rounded-[14px] border border-white/15 bg-white/8" />
+                          <div className="absolute right-4 top-5 h-12 w-3 rounded-full bg-white/12" />
                         </div>
-                      </button>
-                    );
-                  })}
+                        <div className="absolute right-6 top-6 h-[130px] w-[92px] rounded-[20px] border border-white/15 bg-white/7 p-3">
+                          <div className="h-7 rounded-[12px] border border-white/12 bg-white/10" />
+                          <div className="mt-3 h-7 rounded-[12px] border border-white/12 bg-amber-400/10" />
+                          <div className="mt-3 h-7 rounded-[12px] border border-white/12 bg-sky-400/10" />
+                        </div>
+                        <div className="absolute left-1/2 bottom-6 flex -translate-x-1/2 items-end gap-3">
+                          <div className="h-10 w-10 rounded-[12px] border border-white/15 bg-amber-500/10" />
+                          <div className="h-14 w-12 rounded-[14px] border border-white/15 bg-emerald-500/10" />
+                          <div className="h-9 w-11 rounded-[12px] border border-white/15 bg-violet-500/10" />
+                        </div>
+                      </div>
+                    </section>
+
+                    <section
+                      style={{ gridArea: 'meetingB' }}
+                      className="relative overflow-hidden rounded-[30px] border border-cyan-400/15 bg-[linear-gradient(180deg,rgba(34,211,238,0.11),rgba(15,23,42,0.12))] p-5"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-xs uppercase tracking-[0.22em] text-cyan-200">MEETING ROOM B</p>
+                          <h3 className="text-lg font-semibold text-white mt-2">会议室 B</h3>
+                          <p className="text-xs text-[#a1a1aa] mt-1">中型会议室，适合 1:1 与小组讨论</p>
+                        </div>
+                        <span className="text-2xl">🗂️</span>
+                      </div>
+                      {renderMeetingRoomScene('B')}
+                    </section>
+
+                    <section
+                      style={{ gridArea: 'meetingA' }}
+                      className="relative overflow-hidden rounded-[30px] border border-blue-400/15 bg-[linear-gradient(180deg,rgba(59,130,246,0.11),rgba(15,23,42,0.12))] p-5"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-xs uppercase tracking-[0.22em] text-blue-200">MEETING ROOM A</p>
+                          <h3 className="text-lg font-semibold text-white mt-2">会议室 A</h3>
+                          <p className="text-xs text-[#a1a1aa] mt-1">大型会议室，容纳团队评审与战略讨论</p>
+                        </div>
+                        <span className="text-2xl">📺</span>
+                      </div>
+                      {renderMeetingRoomScene('A')}
+                    </section>
+
+                    <section
+                      style={{ gridArea: 'break' }}
+                      className="relative overflow-hidden rounded-[30px] border border-emerald-400/15 bg-[linear-gradient(180deg,rgba(16,185,129,0.11),rgba(6,78,59,0.12))] p-5"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-xs uppercase tracking-[0.22em] text-emerald-200">BREAK AREA</p>
+                          <h3 className="text-lg font-semibold text-white mt-2">休息区</h3>
+                          <p className="text-xs text-[#a1a1aa] mt-1">沙发、茶几、绿植与咖啡角</p>
+                        </div>
+                        <span className="text-2xl">☕</span>
+                      </div>
+
+                      <div className="relative mt-4 min-h-[250px] rounded-[24px] border border-white/10 bg-white/[0.04]">
+                        <div className="absolute left-8 top-16 h-[72px] w-[128px] rounded-[28px] border border-white/18 bg-white/11 shadow-[inset_0_-10px_0_rgba(0,0,0,0.16)]">
+                          <div className="absolute inset-x-2 top-2 h-6 rounded-[18px] bg-white/10" />
+                          <div className="absolute left-0 top-5 h-9 w-4 rounded-l-[12px] bg-white/18" />
+                          <div className="absolute right-0 top-5 h-9 w-4 rounded-r-[12px] bg-white/18" />
+                          <div className="absolute left-[22px] bottom-3 h-6 w-[38px] rounded-[14px] border border-white/12 bg-white/8" />
+                          <div className="absolute right-[22px] bottom-3 h-6 w-[38px] rounded-[14px] border border-white/12 bg-white/8" />
+                        </div>
+                        <div className="absolute left-[46%] top-[38%] h-[64px] w-[92px] -translate-x-1/2 rounded-[999px] border border-white/18 bg-amber-200/10 shadow-[inset_0_-8px_0_rgba(0,0,0,0.16)]">
+                          <div className="absolute left-1/2 top-3 h-5 w-5 -translate-x-1/2 rounded-full bg-white/12" />
+                          <div className="absolute left-[28%] bottom-3 h-2 w-2 rounded-full bg-white/15" />
+                          <div className="absolute right-[28%] bottom-3 h-2 w-2 rounded-full bg-white/15" />
+                        </div>
+                        <div className="absolute right-8 bottom-6 text-4xl">🪴</div>
+                        <div className="absolute right-10 top-8 text-3xl">🫖</div>
+                        <div className="absolute left-8 bottom-6 rounded-full border border-white/12 bg-black/20 px-3 py-1 text-[11px] text-[#d4d4d8]">Soft seating zone</div>
+                      </div>
+                    </section>
+
+                    <section
+                      style={{ gridArea: 'workspace' }}
+                      className="relative overflow-hidden rounded-[32px] border border-violet-400/15 bg-[linear-gradient(180deg,rgba(99,102,241,0.1),rgba(17,24,39,0.16))] p-5"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-xs uppercase tracking-[0.24em] text-violet-200">OPEN WORKSPACE</p>
+                          <h3 className="text-xl font-semibold text-white mt-2">开放工位区</h3>
+                          <p className="text-xs text-[#a1a1aa] mt-1">6 个工位按 3 × 2 排列，对应 Chief / Content / Growth / Coding / Product / Finance</p>
+                        </div>
+                        <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-[#d4d4d8]">[1] [2] [3] [4] [5] [6]</div>
+                      </div>
+
+                      <div className="mt-5 grid grid-cols-3 gap-4">
+                        {workspaceAgentIds.map((agentId, index) => renderWorkstation(agentId, index))}
+                      </div>
+                    </section>
+
+                    <section
+                      style={{ gridArea: 'wc' }}
+                      className="relative overflow-hidden rounded-[30px] border border-slate-300/12 bg-[linear-gradient(180deg,rgba(148,163,184,0.08),rgba(15,23,42,0.14))] p-5"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-xs uppercase tracking-[0.22em] text-slate-300">WC</p>
+                          <h3 className="text-lg font-semibold text-white mt-2">洗手间</h3>
+                          <p className="text-xs text-[#a1a1aa] mt-1">洗手台 + 坐便器</p>
+                        </div>
+                        <span className="text-2xl">🚻</span>
+                      </div>
+
+                      <div className="relative mt-4 min-h-[360px] rounded-[24px] border border-white/10 bg-white/[0.04]">
+                        <div className="absolute left-1/2 top-8 h-16 w-16 -translate-x-1/2 rounded-[22px_22px_18px_18px] border border-white/18 bg-white/10">
+                          <div className="absolute left-1/2 top-3 h-6 w-10 -translate-x-1/2 rounded-full border border-white/12 bg-[#0b0b0d]" />
+                          <div className="absolute left-1/2 bottom-3 h-5 w-5 -translate-x-1/2 rounded-full bg-white/15" />
+                        </div>
+                        <div className="absolute left-1/2 bottom-8 h-14 w-20 -translate-x-1/2 rounded-[24px] border border-white/18 bg-white/9">
+                          <div className="absolute inset-x-3 top-3 h-4 rounded-full bg-white/10" />
+                          <div className="absolute left-1/2 bottom-3 h-4 w-10 -translate-x-1/2 rounded-full bg-sky-300/15" />
+                        </div>
+                      </div>
+                    </section>
+
+                    <section
+                      style={{ gridArea: 'entrance' }}
+                      className="relative overflow-hidden rounded-[30px] border border-amber-400/15 bg-[linear-gradient(180deg,rgba(245,158,11,0.12),rgba(120,53,15,0.12))] p-5"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-xs uppercase tracking-[0.22em] text-amber-200">ENTRANCE</p>
+                          <h3 className="text-lg font-semibold text-white mt-2">入口</h3>
+                          <p className="text-xs text-[#a1a1aa] mt-1">访客从左下进入前台</p>
+                        </div>
+                        <span className="text-2xl">🚪</span>
+                      </div>
+
+                      <div className="relative mt-4 min-h-[120px] rounded-[24px] border border-white/10 bg-white/[0.04]">
+                        <div className="absolute left-5 top-1/2 h-16 w-10 -translate-y-1/2 rounded-[16px] border border-white/18 bg-white/10" />
+                        <div className="absolute left-[86px] top-1/2 flex -translate-y-1/2 items-center gap-2 text-amber-200">
+                          <span className="text-2xl">➡️</span>
+                          <span className="text-sm font-medium">Walk to Reception</span>
+                        </div>
+                      </div>
+                    </section>
+
+                    <button
+                      type="button"
+                      style={{ gridArea: 'reception' }}
+                      onClick={() => setSelectedOfficeAgentId('abby')}
+                      className={`relative overflow-hidden rounded-[30px] border bg-[linear-gradient(180deg,rgba(244,114,182,0.11),rgba(76,5,25,0.12))] p-5 text-left transition-all hover:-translate-y-0.5 ${
+                        selectedOfficeAgentId === 'abby' ? 'ring-2 ring-white/20 border-rose-300/35' : 'border-rose-300/18'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-xs uppercase tracking-[0.22em] text-rose-200">RECEPTION</p>
+                          <h3 className="text-lg font-semibold text-white mt-2">前台接待区</h3>
+                          <p className="text-xs text-[#a1a1aa] mt-1">Abby 驻守前台，负责访客接待与外部事务</p>
+                        </div>
+                        <span className="text-2xl">🛎️</span>
+                      </div>
+
+                      <div className="relative mt-4 min-h-[150px] rounded-[24px] border border-white/10 bg-white/[0.04]">
+                        <div className="absolute left-[14%] bottom-6 h-[74px] w-[60%] rounded-[36px_36px_20px_20px] border border-white/18 bg-white/10 shadow-[inset_0_-10px_0_rgba(0,0,0,0.16)]">
+                          <div className="absolute left-4 top-3 h-4 w-16 rounded-full bg-white/10" />
+                          <div className="absolute left-4 top-10 h-2 w-12 rounded-full bg-white/10" />
+                          <div className="absolute right-4 bottom-3 h-6 w-10 rounded-[12px] border border-white/12 bg-white/8" />
+                        </div>
+                        <div className="absolute left-[32%] bottom-[74px] -translate-x-1/2">{renderCartoonAgent(receptionAgent, 'md')}</div>
+                        <div className="absolute right-8 bottom-6">{renderChairTopView('top')}</div>
+                        <div className="absolute right-7 top-5 rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[11px] text-[#fbcfe8]">
+                          Visitor seat
+                        </div>
+                      </div>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="rounded-2xl border border-[#27272a] bg-[#141416] p-4">
-                <p className="text-xs text-[#71717a] mb-2">办公家具</p>
-                <div className="flex flex-wrap gap-2 text-2xl">
-                  <span>🖥️</span>
-                  <span>🪑</span>
-                  <span>🛋️</span>
-                  <span>☕</span>
-                  <span>🪴</span>
-                  <span>📺</span>
-                </div>
-                <p className="text-xs text-[#71717a] mt-3">工位、会议桌、沙发、茶几、植物已经全部落位。</p>
+                <p className="text-xs text-[#71717a] mb-2">比例化家具</p>
+                <p className="text-sm text-[#d4d4d8] leading-6">工位桌面按 60×50 比例绘制，会议室采用长椭圆会议桌，休息区为沙发 + 茶几组合。</p>
               </div>
-
               <div className="rounded-2xl border border-[#27272a] bg-[#141416] p-4">
-                <p className="text-xs text-[#71717a] mb-2">活动概览</p>
+                <p className="text-xs text-[#71717a] mb-2">工作状态</p>
                 <div className="space-y-2 text-sm">
-                  <div className="flex items-center justify-between"><span className="text-[#a1a1aa]">Running</span><span className="text-orange-300">{runningCount}</span></div>
+                  <div className="flex items-center justify-between"><span className="text-[#a1a1aa]">Working</span><span className="text-green-300">{runningCount}</span></div>
+                  <div className="flex items-center justify-between"><span className="text-[#a1a1aa]">Idle</span><span className="text-yellow-300">{idleCount}</span></div>
                   <div className="flex items-center justify-between"><span className="text-[#a1a1aa]">Error</span><span className="text-red-300">{errorCount}</span></div>
-                  <div className="flex items-center justify-between"><span className="text-[#a1a1aa]">轮询频率</span><span className="text-[#e4e4e7]">10 秒</span></div>
                 </div>
               </div>
-
+              <div className="rounded-2xl border border-[#27272a] bg-[#141416] p-4">
+                <p className="text-xs text-[#71717a] mb-2">视觉风格</p>
+                <p className="text-sm text-[#d4d4d8] leading-6">整体采用简洁的 2D 扁平办公室插画风格，人物用 CSS + emoji 做成轻量卡通形象。</p>
+              </div>
               <div className="rounded-2xl border border-[#27272a] bg-[#141416] p-4">
                 <p className="text-xs text-[#71717a] mb-2">图例</p>
-                <div className="flex flex-wrap gap-3 text-sm">
-                  {Object.entries(statusMap).map(([status, style]) => (
-                    <div key={status} className="flex items-center gap-2 text-[#a1a1aa]">
-                      <span>{style.icon}</span>
-                      <span>{style.label}</span>
-                    </div>
-                  ))}
+                <div className="space-y-2 text-xs text-[#d4d4d8]">
+                  <div className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-green-400"></span><span>绿色 = 工作中 / 正常</span></div>
+                  <div className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-yellow-300"></span><span>黄色 = 闲置</span></div>
+                  <div className="flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-red-400"></span><span>红色 = 错误</span></div>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="xl:sticky xl:top-6 space-y-6">
-            <div className="rounded-3xl border border-[#27272a] bg-[#141416] overflow-hidden">
+            <div className={`rounded-3xl border overflow-hidden ${selectedTheme.border} bg-[#141416] shadow-[0_24px_60px_rgba(0,0,0,0.32)]`}>
               <div className="p-5 border-b border-[#27272a]">
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <p className="text-xs uppercase tracking-[0.2em] text-[#71717a]">Selected Agent</p>
                     <h3 className="text-lg font-semibold text-white mt-2">{selectedOfficeAgent?.name || 'Agent'}</h3>
+                    <p className="text-xs text-[#a1a1aa] mt-1">{locationMap[selectedOfficeAgent?.id || 'chief'] || 'Office'}</p>
                   </div>
-                  <span className="text-4xl">{selectedOfficeAgent?.icon || '🤖'}</span>
+                  <div className="shrink-0">{renderCartoonAgent(selectedOfficeAgent, 'md')}</div>
                 </div>
               </div>
 
@@ -1590,7 +1983,7 @@ export default function SecondBrain() {
                     <div className="text-[11px] text-[#71717a] mt-1">任务数</div>
                   </div>
                   <div className="rounded-2xl border border-[#27272a] bg-[#101012] p-3">
-                    <div className="text-lg font-semibold text-orange-300">{selectedOfficeAgent?.runningTasks || 0}</div>
+                    <div className="text-lg font-semibold text-green-300">{selectedOfficeAgent?.runningTasks || 0}</div>
                     <div className="text-[11px] text-[#71717a] mt-1">运行中</div>
                   </div>
                   <div className="rounded-2xl border border-[#27272a] bg-[#101012] p-3">
@@ -1601,11 +1994,11 @@ export default function SecondBrain() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-[#27272a] bg-[#141416] overflow-hidden">
+            <div className="rounded-3xl border border-[#27272a] bg-[#141416] overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.28)]">
               <div className="p-5 border-b border-[#27272a] flex items-center justify-between gap-3">
                 <div>
                   <h3 className="text-lg font-semibold text-white">Live Activities</h3>
-                  <p className="text-xs text-[#71717a] mt-1">由实时状态变化自动生成，保持最近 18 条。</p>
+                  <p className="text-xs text-[#71717a] mt-1">根据状态变化自动生成，保留最近 18 条。</p>
                 </div>
                 <div className="text-right text-xs text-[#71717a]">
                   <div>{isLoadingAgents ? '同步中' : 'Auto Refresh'}</div>
@@ -1616,10 +2009,11 @@ export default function SecondBrain() {
               <div className="max-h-[560px] overflow-auto divide-y divide-[#27272a]">
                 {officeActivities.map((activity) => {
                   const activityStatusStyle = getStatusStyle(activity.status);
+                  const activityTheme = officeAgentThemes[activity.agentId] || officeAgentThemes.chief;
                   return (
                     <div key={activity.id} className="p-4 hover:bg-white/[0.02] transition-colors">
                       <div className="flex items-start gap-3">
-                        <div className="h-10 w-10 shrink-0 rounded-2xl bg-[#101012] border border-[#27272a] flex items-center justify-center text-xl">
+                        <div className={`h-10 w-10 shrink-0 rounded-2xl border flex items-center justify-center text-xl ${activityTheme.border} ${activityTheme.surface}`}>
                           {activity.agentIcon}
                         </div>
                         <div className="min-w-0 flex-1">
@@ -1645,11 +2039,12 @@ export default function SecondBrain() {
         <div className="sticky bottom-0 z-20 mt-6 rounded-3xl border border-[#27272a] bg-[#101012]/95 backdrop-blur-xl px-4 py-4 shadow-2xl">
           <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-[#71717a]">Agent 状态栏</p>
-              <p className="text-sm text-[#a1a1aa] mt-1">点击下方 Agent 可快速定位到右侧详情。</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-[#71717a]">Agent Presence Bar</p>
+              <p className="text-sm text-[#a1a1aa] mt-1">快速定位每个工位与前台人物。</p>
             </div>
             <div className="flex items-center gap-4 text-xs text-[#71717a]">
-              <span>Running {runningCount}</span>
+              <span>Working {runningCount}</span>
+              <span>Idle {idleCount}</span>
               <span>Error {errorCount}</span>
               <span>Total {teamAgents.length}</span>
             </div>
@@ -1659,20 +2054,23 @@ export default function SecondBrain() {
             {teamAgents.map((agent) => {
               const statusStyle = getStatusStyle(agent.status);
               const isSelected = selectedOfficeAgent?.id === agent.id;
+              const theme = officeAgentThemes[agent.id] || officeAgentThemes.chief;
 
               return (
                 <button
                   key={agent.id}
                   type="button"
                   onClick={() => setSelectedOfficeAgentId(agent.id)}
-                  className={`min-w-[180px] rounded-2xl border px-3 py-3 text-left transition-all ${isSelected ? 'border-white/20 bg-white/[0.05]' : 'border-[#27272a] bg-[#141416] hover:bg-white/[0.04]'}`}
+                  className={`min-w-[200px] rounded-2xl border px-3 py-3 text-left transition-all ${theme.border} ${
+                    isSelected ? `${theme.surface} ring-2 ring-white/15` : 'border-[#27272a] bg-[#141416] hover:bg-white/[0.04]'
+                  }`}
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
                       <span className="text-2xl">{agent.icon}</span>
                       <div className="min-w-0">
                         <p className="text-sm font-medium text-white truncate">{agent.name}</p>
-                        <p className="text-[11px] text-[#71717a] truncate">{agent.role}</p>
+                        <p className="text-[11px] text-[#71717a] truncate">{locationMap[agent.id] || agent.role}</p>
                       </div>
                     </div>
                     <span className={`text-[11px] ${statusStyle.color}`}>{statusStyle.icon}</span>
@@ -1686,6 +2084,7 @@ export default function SecondBrain() {
       </div>
     );
   };
+
 
   // 渲染首页
   const renderHome = () => (
