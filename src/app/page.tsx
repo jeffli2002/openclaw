@@ -2111,11 +2111,6 @@ export default function SecondBrain() {
         {activeTab === "agents" && renderAgents()}
         {activeTab === "team" && renderTeam()}
         {activeTab === "office" && renderOffice()}
-          </>
-        )}
-
-        {activeTab === "team" && !searchQuery && renderTeam()}
-        {activeTab === "office" && !searchQuery && renderOffice()}
       </main>
     </div>
     </AuthCheck>
