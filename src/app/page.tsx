@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 import {
@@ -888,6 +888,16 @@ export default function SecondBrain() {
     lastRun: string | null;
   }
 
+  interface OfficeActivity {
+    id: string;
+    agentId: string;
+    agentName: string;
+    agentIcon: string;
+    status: AgentStatus;
+    message: string;
+    timestamp: string;
+  }
+
   const TEAM_AGENT_DEFINITIONS: TeamAgentDefinition[] = [
     { id: 'chief', name: 'Chief Agent', role: '主 Agent', icon: '👑' },
     { id: 'content', name: 'Content Agent', role: '内容创作', icon: '📝' },
@@ -925,6 +935,42 @@ export default function SecondBrain() {
     return `${agent.idleTasks || 0} 个 cron 等待执行`;
   }
 
+  function buildOfficeActivityMessage(agent: TeamAgent) {
+    if (agent.isExternal) {
+      return '外部通道在线，负责个人生活与外部协作事项';
+    }
+
+    if (agent.status === 'running') {
+      return `正在执行：${agent.currentTask}`;
+    }
+
+    if (agent.status === 'error') {
+      return `需要处理：${agent.currentTask}`;
+    }
+
+    if (agent.status === 'ok') {
+      return `执行正常：${agent.currentTask}`;
+    }
+
+    if (agent.status === 'idle') {
+      return `待命中：${agent.currentTask}`;
+    }
+
+    return agent.currentTask;
+  }
+
+  function createOfficeActivity(agent: TeamAgent): OfficeActivity {
+    return {
+      id: `${agent.id}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      agentId: agent.id,
+      agentName: agent.name,
+      agentIcon: agent.icon,
+      status: agent.status,
+      message: buildOfficeActivityMessage(agent),
+      timestamp: new Date().toISOString(),
+    };
+  }
+
   function createInitialTeamAgents(): TeamAgent[] {
     return TEAM_AGENT_DEFINITIONS.map((agent) => {
       if (agent.isExternal) {
@@ -957,6 +1003,9 @@ export default function SecondBrain() {
 
   const [teamAgents, setTeamAgents] = useState<TeamAgent[]>(createInitialTeamAgents);
   const [isLoadingAgents, setIsLoadingAgents] = useState(true);
+  const [selectedOfficeAgentId, setSelectedOfficeAgentId] = useState('chief');
+  const [officeActivities, setOfficeActivities] = useState<OfficeActivity[]>([]);
+  const officeActivitySnapshotRef = useRef<Map<string, string>>(new Map());
 
   useEffect(() => {
     let cancelled = false;
@@ -1067,6 +1116,53 @@ export default function SecondBrain() {
       window.clearInterval(intervalId);
     };
   }, []);
+
+  useEffect(() => {
+    if (isLoadingAgents || teamAgents.length === 0) {
+      return;
+    }
+
+    const nextSnapshot = new Map<string, string>();
+    const changedActivities: OfficeActivity[] = [];
+
+    teamAgents.forEach((agent) => {
+      const signature = [
+        agent.status,
+        agent.currentTask,
+        agent.runningTasks,
+        agent.errorTasks,
+        agent.okTasks,
+        agent.totalTasks,
+      ].join('|');
+
+      nextSnapshot.set(agent.id, signature);
+
+      const previousSignature = officeActivitySnapshotRef.current.get(agent.id);
+      if (previousSignature && previousSignature !== signature) {
+        changedActivities.push(createOfficeActivity(agent));
+      }
+    });
+
+    officeActivitySnapshotRef.current = nextSnapshot;
+
+    setOfficeActivities((previous) => {
+      if (previous.length === 0) {
+        return [...teamAgents]
+          .sort((a, b) => {
+            const priority = { running: 0, error: 1, ok: 2, idle: 3, loading: 4, external: 5 } as const;
+            return priority[a.status] - priority[b.status];
+          })
+          .map((agent) => createOfficeActivity(agent))
+          .slice(0, 12);
+      }
+
+      if (changedActivities.length === 0) {
+        return previous;
+      }
+
+      return [...changedActivities.reverse(), ...previous].slice(0, 18);
+    });
+  }, [teamAgents, isLoadingAgents]);
 
   // 状态映射
   const statusMap: Record<AgentStatus, { label: string; color: string; bgColor: string; icon: string }> = {
@@ -1277,165 +1373,317 @@ export default function SecondBrain() {
 
   // 渲染 Office 页面
   const renderOffice = () => {
-    const chiefOfficeAgent = teamAgents.find(a => a.id === 'chief');
-    const chiefOfficeStatusStyle = chiefOfficeAgent ? getStatusStyle(chiefOfficeAgent.status) : statusMap.loading;
+    const officeDeskLayout = [
+      { agentId: 'chief', label: 'Chief 指挥台', position: 'left-[3%] top-[8%] w-[220px] h-[170px]', accent: 'border-purple-500/30 bg-purple-500/10', furniture: ['🖥️', '🖥️', '🪴'] },
+      { agentId: 'content', label: 'Content 工位', position: 'left-[30%] top-[10%] w-[185px] h-[150px]', accent: 'border-sky-500/25 bg-sky-500/10', furniture: ['💡', '📝', '📚'] },
+      { agentId: 'growth', label: 'Growth 工位', position: 'left-[50%] top-[10%] w-[185px] h-[150px]', accent: 'border-emerald-500/25 bg-emerald-500/10', furniture: ['📈', '💡', '🪴'] },
+      { agentId: 'coding', label: 'Coding 工位', position: 'left-[7%] bottom-[16%] w-[185px] h-[150px]', accent: 'border-cyan-500/25 bg-cyan-500/10', furniture: ['💻', '🖥️', '⌨️'] },
+      { agentId: 'product', label: 'Product 工位', position: 'left-[28%] bottom-[17%] w-[185px] h-[150px]', accent: 'border-amber-500/25 bg-amber-500/10', furniture: ['🎯', '🗂️', '💡'] },
+      { agentId: 'finance', label: 'Finance 工位', position: 'left-[49%] bottom-[17%] w-[185px] h-[150px]', accent: 'border-lime-500/25 bg-lime-500/10', furniture: ['💰', '📊', '🧮'] },
+      { agentId: 'abby', label: 'Abby 工位', position: 'left-[52%] bottom-[39%] w-[170px] h-[135px]', accent: 'border-fuchsia-500/25 bg-fuchsia-500/10', furniture: ['🤝', '📮', '🌸'] },
+    ] as const;
+
+    const selectedOfficeAgent = teamAgents.find((agent) => agent.id === selectedOfficeAgentId) ?? teamAgents[0];
+    const selectedOfficeStatusStyle = selectedOfficeAgent ? getStatusStyle(selectedOfficeAgent.status) : statusMap.loading;
+    const runningCount = teamAgents.filter((agent) => agent.status === 'running').length;
+    const errorCount = teamAgents.filter((agent) => agent.status === 'error').length;
 
     return (
-    <div className="p-8 animate-fadeIn">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold flex items-center gap-2">
-          <svg className="w-7 h-7 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M3 21h18" />
-            <path d="M5 21V7l8-4v18" />
-            <path d="M19 21V11l-6-4" />
-            <path d="M9 9v.01" />
-            <path d="M9 12v.01" />
-            <path d="M9 15v.01" />
-            <path d="M9 18v.01" />
-          </svg>
-          Second Brain Office
-        </h2>
-      </div>
-
-      {/* 办公空间布局 */}
-      <div className="bg-[#0a0a0c] rounded-2xl border border-[#27272a] p-6 overflow-auto">
-        {/* 顶部：休闲区 */}
-        <div className="bg-[#141416] rounded-xl border border-[#27272a] p-4 mb-6">
-          <h3 className="text-sm font-semibold text-[#a1a1aa] mb-3 flex items-center gap-2">
-            ☕ 公共休闲区
-          </h3>
-          <div className="flex justify-around items-center py-4">
-            <div className="text-center">
-              <div className="text-2xl mb-1">🛋️</div>
-              <p className="text-xs text-[#71717a]">沙发</p>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl mb-1">🍵</div>
-              <p className="text-xs text-[#71717a]">喝茶</p>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl mb-1">☕</div>
-              <p className="text-xs text-[#71717a]">咖啡</p>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl mb-1">📰</div>
-              <p className="text-xs text-[#71717a]">阅读</p>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl mb-1">🌵</div>
-              <p className="text-xs text-[#71717a]">盆栽</p>
-            </div>
+      <div className="p-8 pb-28 animate-fadeIn">
+        <div className="flex flex-col gap-4 mb-6 xl:flex-row xl:items-end xl:justify-between">
+          <div>
+            <h2 className="text-2xl font-bold flex items-center gap-2">
+              <svg className="w-7 h-7 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 21h18" />
+                <path d="M5 21V7l8-4v18" />
+                <path d="M19 21V11l-6-4" />
+                <path d="M9 9v.01" />
+                <path d="M9 12v.01" />
+                <path d="M9 15v.01" />
+                <path d="M9 18v.01" />
+              </svg>
+              Second Brain Office
+            </h2>
+            <p className="text-sm text-[#71717a] mt-2">2D 办公室平面图，状态实时取自 /api/agent-status，每 10 秒刷新一次。</p>
           </div>
-          <p className="text-xs text-center text-[#71717a]">🚶 Agent 闲置时随机出现</p>
+
+          <div className="flex flex-wrap gap-3 text-sm">
+            <div className="px-3 py-2 rounded-xl border border-[#27272a] bg-[#141416] text-[#a1a1aa]">7 个工位</div>
+            <div className="px-3 py-2 rounded-xl border border-[#27272a] bg-[#141416] text-[#a1a1aa]">1 个会议室</div>
+            <div className="px-3 py-2 rounded-xl border border-[#27272a] bg-[#141416] text-[#a1a1aa]">1 个休闲区</div>
+            <div className="px-3 py-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-300">{runningCount} 个 Agent 活跃中</div>
+          </div>
         </div>
 
-        {/* 中间：主要办公区 */}
-        <div className="flex gap-4 mb-6">
-          {/* 左侧：Chief 工位 + 储物间 */}
-          <div className="flex flex-col gap-4">
-            {/* Chief 工位 */}
-            <div className="bg-[#141416] rounded-xl border border-purple-500/30 p-4 w-72">
-              <h3 className="text-sm font-semibold text-purple-400 mb-3 flex items-center gap-2">
-                👑 Chief Agent 工位
-              </h3>
-              <div className="flex items-center gap-4">
-                <div className="text-4xl">🖥️</div>
-                <div className="flex-1">
-                  <p className="text-sm text-white">大型工作台</p>
-                  <p className="text-xs text-[#71717a]">双屏显示器 + 绿植</p>
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className={`w-2 h-2 rounded-full ${chiefOfficeStatusStyle.bgColor}`}></span>
-                    <span className={`text-xs ${chiefOfficeStatusStyle.color}`}>{chiefOfficeStatusStyle.label}</span>
+        <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_360px] gap-6 items-start">
+          <div className="space-y-6 min-w-0">
+            <div className="rounded-3xl border border-[#27272a] bg-[#101012] p-4">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <div>
+                  <h3 className="font-semibold text-white">办公室平面图</h3>
+                  <p className="text-xs text-[#71717a] mt-1">点击任意工位可在右侧查看详情，家具与人物均使用 CSS/HTML + emoji 构建。</p>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-[#71717a]">
+                  <span className={`w-2 h-2 rounded-full ${isLoadingAgents ? 'bg-purple-500' : 'bg-green-500'} ${isLoadingAgents ? '' : 'animate-pulse'}`}></span>
+                  <span>{isLoadingAgents ? '同步中' : '10 秒轮询更新'}</span>
+                </div>
+              </div>
+
+              <div className="overflow-auto rounded-[28px] border border-[#1f1f22] bg-[#0b0b0d]">
+                <div className="relative min-w-[980px] min-h-[760px]">
+                  <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px]" />
+                  <div className="absolute inset-[18px] rounded-[26px] border border-white/10" />
+                  <div className="absolute left-[63%] top-[6%] w-[31%] h-[29%] rounded-[28px] border border-blue-500/25 bg-blue-500/10 p-5">
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <p className="text-sm font-semibold text-blue-300">会议室</p>
+                        <p className="text-xs text-[#94a3b8] mt-1">白板、会议桌、协作讨论</p>
+                      </div>
+                      <span className="text-2xl">🪟</span>
+                    </div>
+                    <div className="relative h-[135px] rounded-2xl border border-white/10 bg-[#0f172a]/40">
+                      <div className="absolute left-1/2 top-1/2 h-16 w-36 -translate-x-1/2 -translate-y-1/2 rounded-[999px] border border-white/10 bg-[#1e293b]" />
+                      <div className="absolute left-[18%] top-1/2 -translate-y-1/2 text-2xl">🪑</div>
+                      <div className="absolute right-[18%] top-1/2 -translate-y-1/2 text-2xl">🪑</div>
+                      <div className="absolute left-1/2 top-[18%] -translate-x-1/2 text-2xl">📺</div>
+                      <div className="absolute left-1/2 bottom-[14%] -translate-x-1/2 text-xl">📝</div>
+                    </div>
+                  </div>
+
+                  <div className="absolute right-[6%] bottom-[6%] w-[29%] h-[28%] rounded-[28px] border border-emerald-500/25 bg-emerald-500/10 p-5">
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <p className="text-sm font-semibold text-emerald-300">休闲区</p>
+                        <p className="text-xs text-[#94a3b8] mt-1">沙发、茶几、植物、茶饮角</p>
+                      </div>
+                      <span className="text-2xl">☕</span>
+                    </div>
+                    <div className="relative h-[130px] rounded-2xl border border-white/10 bg-[#052e2b]/30">
+                      <div className="absolute left-[12%] top-[28%] text-4xl">🛋️</div>
+                      <div className="absolute right-[16%] top-[30%] text-3xl">🪴</div>
+                      <div className="absolute left-1/2 top-[53%] -translate-x-1/2 text-3xl">🫖</div>
+                      <div className="absolute left-1/2 bottom-[18%] -translate-x-1/2 h-10 w-16 rounded-full border border-white/10 bg-white/5" />
+                      <div className="absolute left-1/2 bottom-[20%] -translate-x-1/2 text-lg">☕</div>
+                    </div>
+                  </div>
+
+                  <div className="absolute left-[3%] bottom-[6%] w-[56%] h-[8%] rounded-2xl border border-white/5 bg-white/[0.03] flex items-center justify-center text-xs tracking-[0.24em] text-[#71717a] uppercase">
+                    Main Corridor
+                  </div>
+
+                  {officeDeskLayout.map((desk) => {
+                    const agent = teamAgents.find((item) => item.id === desk.agentId);
+                    const statusStyle = agent ? getStatusStyle(agent.status) : statusMap.loading;
+                    const isSelected = selectedOfficeAgent?.id === desk.agentId;
+
+                    return (
+                      <button
+                        key={desk.agentId}
+                        type="button"
+                        onClick={() => setSelectedOfficeAgentId(desk.agentId)}
+                        className={`absolute ${desk.position} rounded-[24px] border p-4 text-left transition-all hover:-translate-y-1 hover:shadow-2xl ${desk.accent} ${isSelected ? 'ring-2 ring-white/20 shadow-2xl' : ''}`}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <p className="text-[11px] uppercase tracking-[0.18em] text-[#71717a]">{desk.label}</p>
+                            <h4 className="text-base font-semibold text-white mt-1">{agent?.name || desk.agentId}</h4>
+                            <p className="text-xs text-[#a1a1aa] mt-1">{agent?.role || 'Agent'}</p>
+                          </div>
+                          <span className="text-3xl drop-shadow-sm">{agent?.icon || '🤖'}</span>
+                        </div>
+
+                        <div className="mt-4 flex items-end justify-between gap-3">
+                          <div className="relative h-14 w-24 rounded-2xl border border-white/10 bg-[#111214] shadow-inner">
+                            <div className="absolute inset-x-3 top-2 h-4 rounded-full bg-white/5" />
+                            <div className="absolute left-2 bottom-2 text-sm">{desk.furniture[0]}</div>
+                            <div className="absolute left-1/2 bottom-2 -translate-x-1/2 text-sm">{desk.furniture[1]}</div>
+                            <div className="absolute right-2 bottom-2 text-sm">{desk.furniture[2]}</div>
+                          </div>
+
+                          <div className="min-w-0 text-right">
+                            <div className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] ${statusStyle.color} bg-black/20`}>
+                              <span>{statusStyle.icon}</span>
+                              <span>{statusStyle.label}</span>
+                            </div>
+                            <p className="text-[11px] text-[#cbd5e1] mt-2 line-clamp-2 max-w-[84px]">{agent?.currentTask || '状态同步中'}</p>
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="rounded-2xl border border-[#27272a] bg-[#141416] p-4">
+                <p className="text-xs text-[#71717a] mb-2">办公家具</p>
+                <div className="flex flex-wrap gap-2 text-2xl">
+                  <span>🖥️</span>
+                  <span>🪑</span>
+                  <span>🛋️</span>
+                  <span>☕</span>
+                  <span>🪴</span>
+                  <span>📺</span>
+                </div>
+                <p className="text-xs text-[#71717a] mt-3">工位、会议桌、沙发、茶几、植物已经全部落位。</p>
+              </div>
+
+              <div className="rounded-2xl border border-[#27272a] bg-[#141416] p-4">
+                <p className="text-xs text-[#71717a] mb-2">活动概览</p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center justify-between"><span className="text-[#a1a1aa]">Running</span><span className="text-orange-300">{runningCount}</span></div>
+                  <div className="flex items-center justify-between"><span className="text-[#a1a1aa]">Error</span><span className="text-red-300">{errorCount}</span></div>
+                  <div className="flex items-center justify-between"><span className="text-[#a1a1aa]">轮询频率</span><span className="text-[#e4e4e7]">10 秒</span></div>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-[#27272a] bg-[#141416] p-4">
+                <p className="text-xs text-[#71717a] mb-2">图例</p>
+                <div className="flex flex-wrap gap-3 text-sm">
+                  {Object.entries(statusMap).map(([status, style]) => (
+                    <div key={status} className="flex items-center gap-2 text-[#a1a1aa]">
+                      <span>{style.icon}</span>
+                      <span>{style.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="xl:sticky xl:top-6 space-y-6">
+            <div className="rounded-3xl border border-[#27272a] bg-[#141416] overflow-hidden">
+              <div className="p-5 border-b border-[#27272a]">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-[#71717a]">Selected Agent</p>
+                    <h3 className="text-lg font-semibold text-white mt-2">{selectedOfficeAgent?.name || 'Agent'}</h3>
+                  </div>
+                  <span className="text-4xl">{selectedOfficeAgent?.icon || '🤖'}</span>
+                </div>
+              </div>
+
+              <div className="p-5 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-[#71717a] text-sm">实时状态</span>
+                  <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs ${selectedOfficeStatusStyle.color} bg-black/20`}>
+                    <span>{selectedOfficeStatusStyle.icon}</span>
+                    <span>{selectedOfficeStatusStyle.label}</span>
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-[#71717a]">角色</span>
+                  <span className="text-[#e4e4e7]">{selectedOfficeAgent?.role || '-'}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-[#71717a]">最后活跃</span>
+                  <span className="text-[#e4e4e7]">{selectedOfficeAgent?.lastActive || '-'}</span>
+                </div>
+                <div className="rounded-2xl border border-[#27272a] bg-[#101012] p-4">
+                  <p className="text-xs uppercase tracking-[0.18em] text-[#71717a] mb-2">Current Task</p>
+                  <p className="text-sm text-[#e4e4e7] leading-6">{selectedOfficeAgent?.currentTask || '暂无任务信息'}</p>
+                </div>
+                <div className="grid grid-cols-3 gap-3 text-center">
+                  <div className="rounded-2xl border border-[#27272a] bg-[#101012] p-3">
+                    <div className="text-lg font-semibold text-white">{selectedOfficeAgent?.totalTasks || 0}</div>
+                    <div className="text-[11px] text-[#71717a] mt-1">任务数</div>
+                  </div>
+                  <div className="rounded-2xl border border-[#27272a] bg-[#101012] p-3">
+                    <div className="text-lg font-semibold text-orange-300">{selectedOfficeAgent?.runningTasks || 0}</div>
+                    <div className="text-[11px] text-[#71717a] mt-1">运行中</div>
+                  </div>
+                  <div className="rounded-2xl border border-[#27272a] bg-[#101012] p-3">
+                    <div className="text-lg font-semibold text-red-300">{selectedOfficeAgent?.errorTasks || 0}</div>
+                    <div className="text-[11px] text-[#71717a] mt-1">异常</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* 储物间 */}
-            <div className="bg-[#141416] rounded-xl border border-[#27272a] p-4 w-72">
-              <h3 className="text-sm font-semibold text-[#71717a] mb-2 flex items-center gap-2">
-                📦 储物间
-              </h3>
-              <p className="text-xs text-[#71717a]">收纳柜、备用物品</p>
-            </div>
-          </div>
-
-          {/* 中间：Sub Agent 工位区 */}
-          <div className="flex-1 bg-[#141416] rounded-xl border border-[#27272a] p-4">
-            <h3 className="text-sm font-semibold text-[#a1a1aa] mb-4 flex items-center gap-2">
-              Sub Agent 工作区
-            </h3>
-            <div className="grid grid-cols-4 gap-4">
-              {['Content', 'Growth', 'Coding', 'Product', 'Finance'].map((agent, idx) => {
-                const agentData = teamAgents.find(a => a.name.includes(agent));
-                const statusStyle = agentData ? getStatusStyle(agentData.status) : statusMap.loading;
-                
-                return (
-                  <div key={agent} className="bg-[#1a1a1c] rounded-lg p-3 text-center border border-[#27272a]">
-                    <div className="text-2xl mb-1">
-                      {agent === 'Content' ? '📝' : 
-                       agent === 'Growth' ? '📈' : 
-                       agent === 'Coding' ? '💻' : 
-                       agent === 'Product' ? '🎯' : '💰'}
-                    </div>
-                    <p className="text-xs text-white font-medium">{agent}</p>
-                    <div className="flex items-center justify-center gap-1 mt-1">
-                      <span className={`w-2 h-2 rounded-full ${statusStyle.bgColor}`}></span>
-                      <span className={`text-[10px] ${statusStyle.color}`}>{statusStyle.label}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <p className="text-xs text-center text-[#71717a] mt-4">小工位 + 收纳盒 + 台灯</p>
-          </div>
-
-          {/* 右侧：会议室 */}
-          <div className="bg-[#141416] rounded-xl border border-[#27272a] p-4 w-56">
-            <h3 className="text-sm font-semibold text-[#a1a1aa] mb-3 flex items-center gap-2">
-              🚪 会议室
-            </h3>
-            <div className="bg-[#1a1a1c] rounded-lg p-4 mb-3">
-              <div className="flex justify-center gap-2 mb-2">
-                <span>🤝</span>
-                <span>💬</span>
-                <span>💬</span>
+            <div className="rounded-3xl border border-[#27272a] bg-[#141416] overflow-hidden">
+              <div className="p-5 border-b border-[#27272a] flex items-center justify-between gap-3">
+                <div>
+                  <h3 className="text-lg font-semibold text-white">Live Activities</h3>
+                  <p className="text-xs text-[#71717a] mt-1">由实时状态变化自动生成，保持最近 18 条。</p>
+                </div>
+                <div className="text-right text-xs text-[#71717a]">
+                  <div>{isLoadingAgents ? '同步中' : 'Auto Refresh'}</div>
+                  <div className="mt-1">10 sec</div>
+                </div>
               </div>
-              <p className="text-xs text-center text-[#71717a]">Agent A ↔ B</p>
-              <p className="text-xs text-center text-[#71717a]">📄 文档传输</p>
-            </div>
-            <div className="flex items-center justify-between text-xs text-[#71717a]">
-              <span>📺 白板</span>
-              <span>⏱️ 计时器</span>
+
+              <div className="max-h-[560px] overflow-auto divide-y divide-[#27272a]">
+                {officeActivities.map((activity) => {
+                  const activityStatusStyle = getStatusStyle(activity.status);
+                  return (
+                    <div key={activity.id} className="p-4 hover:bg-white/[0.02] transition-colors">
+                      <div className="flex items-start gap-3">
+                        <div className="h-10 w-10 shrink-0 rounded-2xl bg-[#101012] border border-[#27272a] flex items-center justify-center text-xl">
+                          {activity.agentIcon}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-3">
+                            <p className="text-sm font-medium text-white truncate">{activity.agentName}</p>
+                            <span className={`text-[11px] ${activityStatusStyle.color}`}>{formatRelativeTime(activity.timestamp)}</span>
+                          </div>
+                          <p className="text-sm text-[#cbd5e1] leading-6 mt-1">{activity.message}</p>
+                          <div className="mt-2 flex items-center gap-2 text-[11px] text-[#71717a]">
+                            <span>{activityStatusStyle.icon}</span>
+                            <span>{activityStatusStyle.label}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Agent 状态图例 */}
-      <div className="mt-6 flex flex-wrap justify-center gap-4">
-        <div className="flex items-center gap-2 text-sm">
-          <span className="text-xl">🟠</span>
-          <span className="text-[#a1a1aa]">running</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <span className="text-xl">🟢</span>
-          <span className="text-[#a1a1aa]">ok</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <span className="text-xl">🟡</span>
-          <span className="text-[#a1a1aa]">idle</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <span className="text-xl">🔴</span>
-          <span className="text-[#a1a1aa]">error</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <span className="text-xl">⚪️</span>
-          <span className="text-[#a1a1aa]">external</span>
+        <div className="sticky bottom-0 z-20 mt-6 rounded-3xl border border-[#27272a] bg-[#101012]/95 backdrop-blur-xl px-4 py-4 shadow-2xl">
+          <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-[#71717a]">Agent 状态栏</p>
+              <p className="text-sm text-[#a1a1aa] mt-1">点击下方 Agent 可快速定位到右侧详情。</p>
+            </div>
+            <div className="flex items-center gap-4 text-xs text-[#71717a]">
+              <span>Running {runningCount}</span>
+              <span>Error {errorCount}</span>
+              <span>Total {teamAgents.length}</span>
+            </div>
+          </div>
+
+          <div className="flex gap-3 overflow-x-auto pt-4 pb-1">
+            {teamAgents.map((agent) => {
+              const statusStyle = getStatusStyle(agent.status);
+              const isSelected = selectedOfficeAgent?.id === agent.id;
+
+              return (
+                <button
+                  key={agent.id}
+                  type="button"
+                  onClick={() => setSelectedOfficeAgentId(agent.id)}
+                  className={`min-w-[180px] rounded-2xl border px-3 py-3 text-left transition-all ${isSelected ? 'border-white/20 bg-white/[0.05]' : 'border-[#27272a] bg-[#141416] hover:bg-white/[0.04]'}`}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="text-2xl">{agent.icon}</span>
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-white truncate">{agent.name}</p>
+                        <p className="text-[11px] text-[#71717a] truncate">{agent.role}</p>
+                      </div>
+                    </div>
+                    <span className={`text-[11px] ${statusStyle.color}`}>{statusStyle.icon}</span>
+                  </div>
+                  <p className="text-[11px] text-[#a1a1aa] mt-3 truncate">{agent.currentTask}</p>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
     );
   };
 
