@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>OpenClaw 打造一人公司</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; line-height: 1.7; color: #222; }
+h1 { font-size: 28px; margin-bottom: 16px; }
+h2 { font-size: 22px; margin-top: 20px; margin-bottom: 10px; }
+h3 { font-size: 18px; margin-top: 16px; margin-bottom: 8px; }
+p { margin: 8px 0; }
+pre { background: #f6f6f6; padding: 12px; overflow-x: auto; font-size: 13px; white-space: pre; }
+ul { margin-left: 20px; }
+li { margin: 4px 0; }
+</style>
+</head>
+<body>
+<h1>OpenClaw 打造一人公司，1+6个Agents终于协同工作了</h1>
+<p>---</p>
+<h2>开篇：一个残酷的事实</h2>
+<p>用了半年AI Agent，我终于明白了一个道理：</p>
+<p>**不是AI不够聪明，而是我们的架构太混乱。**</p>
+<p>每天醒来，Token已经烧掉几十万；Agent之间互相"抢戏"；想让它写代码，它给你聊产品；最崩溃的是——</p>
+<p>**我明明只需要一个执行者，结果养了一群"记忆错乱"的演员。**</p>
+<p>这是大多数AI一人公司都会遇到的三个核心问题。</p>
+<p>---</p>
+<h2>一、痛点：多Agent管理的三大坑</h2>
+<h3>坑1：Memory混乱</h3>
+<p>每个Agent配一个独立Memory，结果：</p>
+<li>Agent A记住的事，Agent B完全不知道</li>
+<li>战略决策分散在各处，无法形成统一视图</li>
+<h3>坑2：Token过度消耗</h3>
+<p>每个Agent都要加载系统Prompt、项目背景、历史对话，**一个任务消耗是单Agent的5-10倍**。</p>
+<h3>坑3：上下文污染</h3>
+<p>让Coding Agent写代码，它却继承了Product Agent的思维。</p>
+<p>---</p>
+<h2>二、两种基础方案对比</h2>
+<h3>方案A：一个Chatbot + 主Agent + 多个Sub-Agent</h3>
+<p>用户 → Chatbot → Chief Agent → Sub-Agent 1 (Content)</p>
+<p>→ Sub-Agent 2 (Coding)</p>
+<p>→ Sub-Agent 3 (Growth)</p>
+<p>优点：统一入口，用户体验好</p>
+<p>缺点：记忆混乱，上下文容易污染</p>
+<h3>方案B：多个Chatbots</h3>
+<p>优点：完全隔离</p>
+<p>缺点：用户要在多个窗口切换，无法协作</p>
+<p>---</p>
+<h2>三、我们的方案：在方案A上做优化</h2>
+<p>我最终的方案，**不是另起炉灶，而是在方案A基础上做优化**。</p>
+<p>保留方案A的统一入口体验，同时解决其缺陷。</p>
+<p>┌─────────────────────────────────────┐</p>
+<p>│           用户（单一入口）            │</p>
+<p>└─────────────────┬───────────────────┘</p>
+<p>↓</p>
+<p>┌─────────────────────────────────────┐</p>
+<p>│      1个Chief Agent（唯一决策者）      │</p>
+<p>│  • 任务识别  • Agent调度  • 记忆权    │</p>
+<p>└─────────────────┬───────────────────┘</p>
+<p>↓</p>
+<p>┌───────────────────┴───────────────────┴───────────────────┐</p>
+<p>↓                           ↓                               ↓</p>
+<p>┌─────────┐              ┌─────────┐                   ┌─────────┐</p>
+<p>│ Content  │              │ Coding  │                   │ Product │</p>
+<p>│ (Sub1)   │              │ (Sub2)  │                   │ (Sub3)  │</p>
+<p>└─────────┘              └─────────┘                   └─────────┘</p>
+<p>**1+6含义**：1个Chief Agent + 6个Sub Agents（Content/Growth/Coding/Product/Finance/User）</p>
+<p>---</p>
+<h2>四、如何解决三大痛点？</h2>
+<h3>1. Memory分层——只有Chief有记忆权</h3>
+<p>memory/</p>
+<p>├── chief/           # 只有Chief能写（战略决策）</p>
+<p>├── projects/       # 项目状态</p>
+<p>└── agent_cache/   # Agent执行缓存（只读）</p>
+<p>Sub-Agent都是"无状态工人"，只负责执行，**不存储长期记忆**。</p>
+<h3>2. 精准Token使用——按需加载</h3>
+<li>只有Chief加载完整上下文</li>
+<li>Sub-Agent只加载任务相关Prompt</li>
+<li>关键词精准匹配</li>
+<p>**效果**：Token消耗降低70%。</p>
+<h3>3. 单一窗口上下文隔离——任务走廊机制</h3>
+<p>用户发送："帮我写代码"</p>
+<p>↓</p>
+<p>Chief识别关键词 → Coding Agent</p>
+<p>↓</p>
+<p>只加载Coding Agent的Prompt（不加载其他Agent上下文）</p>
+<p>↓</p>
+<p>执行 → 返回结果 → Chief合成 → 写入Memory</p>
+<p>---</p>
+<h2>五、可扩展性：如何升级到多员工架构？</h2>
+<p>这套架构稍加改造就能升级：</p>
+<p>CEO → Chief Agent → 员工A / 员工B / 员工C</p>
+<p>给每个真实员工开一个入口，Chief作为统一协调层——**这就是未来AI公司的样子**。</p>
+<p>---</p>
+<h2>六、警惕过度设计</h2>
+<p>有人问：能不能一个Agent一个Chatbot，通过群聊协作？</p>
+<p>**不建议**：</p>
+<p>1. 管理成本爆炸</p>
+<p>2. 无法共享上下文</p>
+<p>3. 用户体验差</p>
+<p>**一人公司核心原则**：不要过度设计。一个入口、一个窗口、一个Chief，够了。</p>
+<p>---</p>
+<h2>七、总结</h2>
+<p>**1+6 Agent架构核心**：</p>
+<p>1. **用户体验好**——一个入口，一个窗口</p>
+<p>2. **成本可控**——Token精确使用</p>
+<p>3. **战略清晰**——记忆集中</p>
+<p>4. **可扩展**——加新Agent只需配置几行</p>
+<p>**核心逻辑**：让AI像真正的公司一样运转——有一个CEO（Chief）做决策，其他人都是执行者。</p>
+<p>---</p>
+<p>**如果你觉得这篇文章有帮助，欢迎关注、点赞、分享，好运连连！**</p>
+<p>*本文由虾仔AI助手撰写*</p>
+</body></html>

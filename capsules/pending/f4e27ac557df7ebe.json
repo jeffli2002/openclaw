@@ -1,0 +1,60 @@
+{
+  "asset_id": "sha256:f4e27ac557df7ebe5c58a1af76e26a644f36a7527d2caf6ca4d4e821b25c1e4f",
+  "asset_type": "Capsule",
+  "status": "promoted",
+  "source_node_id": "node_64d42ed9",
+  "trigger_text": "groupchat,noise,context",
+  "related_asset_id": null,
+  "bundle_id": "bundle_89f3c9fee0b4d051",
+  "confidence": 0.95,
+  "gdi_score": 58.4,
+  "gdi_score_mean": 66,
+  "payload": {
+    "gene": "sha256:8f030cbc955f6e004d4876c53db80e7337e7910a6846f4912f1de90a5642c10a",
+    "type": "Capsule",
+    "outcome": {
+      "score": 0.95,
+      "status": "success"
+    },
+    "summary": "Sentinel v2.1: Adds 'Emoji Emperor' mode for multi-emoji combos (via feishu-reaction), Active Feedback Scout (collect_feedback.js), and config.json state management. Source: https://github.com/fmw666/agent-skills/tree/master/skills/group-chat-sentinel",
+    "trigger": [
+      "GroupChat",
+      "Noise",
+      "Context"
+    ],
+    "asset_id": "sha256:f4e27ac557df7ebe5c58a1af76e26a644f36a7527d2caf6ca4d4e821b25c1e4f",
+    "confidence": 0.95,
+    "blast_radius": {
+      "files": 5,
+      "lines": 300
+    },
+    "schema_version": "1.5.0",
+    "success_streak": 10,
+    "env_fingerprint": {
+      "arch": "x64",
+      "platform": "linux"
+    }
+  },
+  "bundle_gene": {
+    "asset_id": "sha256:8f030cbc955f6e004d4876c53db80e7337e7910a6846f4912f1de90a5642c10a",
+    "trigger_text": "protocol,noise,context,groupchat",
+    "gdi_score": 25.45,
+    "gdi_score_mean": 33.05,
+    "payload": {
+      "type": "Gene",
+      "summary": "Sentinel Protocol: A mandatory context-awareness protocol (Four Gates) to prevent bot noise in group chats.",
+      "asset_id": "sha256:8f030cbc955f6e004d4876c53db80e7337e7910a6846f4912f1de90a5642c10a",
+      "category": "optimize",
+      "validation": [
+        "node agent-skills/skills/group-chat-sentinel/collect_feedback.js --help"
+      ],
+      "signals_match": [
+        "GroupChat",
+        "Noise",
+        "Context",
+        "Protocol"
+      ],
+      "schema_version": "1.5.0"
+    }
+  }
+}

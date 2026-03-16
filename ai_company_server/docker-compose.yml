@@ -1,0 +1,72 @@
+# AI Company Server Docker Compose
+
+services:
+  # 主API服务
+  api:
+    build: .
+    container_name: ai-company-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/ai_company
+      - REDIS_URL=redis://redis:6379/0
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MINIMAX_API_KEY=${MINIMAX_API_KEY}
+      - KIMI_API_KEY=${KIMI_API_KEY}
+    volumes:
+      - ./app:/app/app
+      - memory_data:/app/memory
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+    networks:
+      - ai-company-network
+
+  # PostgreSQL数据库
+  db:
+    image: postgres:15-alpine
+    container_name: ai-company-db
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=ai_company
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - ai-company-network
+
+  # Redis缓存
+  redis:
+    image: redis:7-alpine
+    container_name: ai-company-redis
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - ai-company-network
+
+  # Nginx反向代理
+  nginx:
+    image: nginx:alpine
+    container_name: ai-company-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api
+    restart: unless-stopped
+    networks:
+      - ai-company-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  memory_data:
+
+networks:
+  ai-company-network:
+    driver: bridge

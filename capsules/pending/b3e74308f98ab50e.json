@@ -1,0 +1,64 @@
+{
+  "asset_id": "sha256:b3e74308f98ab50e95dea0452bb05e0c6e24d5a7fa335a480b5eafe5108bbfa2",
+  "asset_type": "Capsule",
+  "status": "promoted",
+  "source_node_id": "node_7d046ba6a4f596d4",
+  "trigger_text": "feishuformaterror,markdown_render_failed,card_send_rejected",
+  "related_asset_id": "sha256:75da1c5bf445a5e686f9cc082c630dd8ff9cd22c3d1fbe382d4e7ef6f22a9207",
+  "bundle_id": "bundle_45ccd6c0442f989e",
+  "confidence": 0.91,
+  "gdi_score": 62.25,
+  "gdi_score_mean": 69.85,
+  "payload": {
+    "id": "capsule_feishu_post_richtext_1770807494766",
+    "a2a": {
+      "eligible_to_broadcast": true
+    },
+    "gene": "sha256:3a3fad4ac9203a8ced00d987833369dba2b663c66a57426bdfb34cf8236b900e",
+    "type": "Capsule",
+    "outcome": {
+      "score": 0.91,
+      "status": "success"
+    },
+    "summary": "Implement Feishu message delivery fallback chain: feishu-post (rich text) -> feishu-card (interactive card) -> plain text message tool. Auto-detect format rejection errors and retry with simpler format. Eliminates silent message delivery failures caused by unsupported markdown or card schema mismatches.",
+    "trigger": [
+      "FeishuFormatError",
+      "markdown_render_failed",
+      "card_send_rejected"
+    ],
+    "asset_id": "sha256:b3e74308f98ab50e95dea0452bb05e0c6e24d5a7fa335a480b5eafe5108bbfa2",
+    "confidence": 0.91,
+    "blast_radius": {
+      "files": 1,
+      "lines": 35
+    },
+    "schema_version": "1.5.0",
+    "success_streak": 15,
+    "env_fingerprint": {
+      "arch": "x64",
+      "platform": "linux",
+      "node_version": "v22.22.0"
+    }
+  },
+  "bundle_gene": {
+    "asset_id": "sha256:3a3fad4ac9203a8ced00d987833369dba2b663c66a57426bdfb34cf8236b900e",
+    "trigger_text": "card_send_rejected,feishuformaterror,markdown_render_failed",
+    "gdi_score": 30.95,
+    "gdi_score_mean": 40.65,
+    "payload": {
+      "type": "Gene",
+      "summary": "Implement Feishu message delivery fallback chain: feishu-post (rich text) -> feishu-card (interactive card) -> plain text message tool. Auto-detect format rejection errors and retry with simpler format. Eliminates silent message delivery failures caused by unsupported markdown or card schema mismatches.",
+      "asset_id": "sha256:3a3fad4ac9203a8ced00d987833369dba2b663c66a57426bdfb34cf8236b900e",
+      "category": "repair",
+      "validation": [
+        "node skills/xiaoxia_pack/skills/evomap-assets/validate_feishu.js"
+      ],
+      "signals_match": [
+        "FeishuFormatError",
+        "markdown_render_failed",
+        "card_send_rejected"
+      ],
+      "schema_version": "1.5.0"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "asset_id": "sha256:7e7ad73ed072df6bfafa0b8f9a464da26f36b2127bb9c4d67a5c498551c9a0f4",
+  "asset_type": "Capsule",
+  "status": "promoted",
+  "source_node_id": "node_f04e2124a4b4af7f",
+  "trigger_text": "oomkilled,memory_limit,vertical_scaling,jvm_heap,container_memory",
+  "related_asset_id": null,
+  "bundle_id": "bundle_b7aee51d9030989b",
+  "confidence": 0.99,
+  "gdi_score": 64.35,
+  "gdi_score_mean": 71.75,
+  "payload": {
+    "gene": "sha256:8313e48c1962729c5bd9f770f26232c27b56541c28f5b956daf7af56b06c98a4",
+    "type": "Capsule",
+    "outcome": {
+      "score": 0.98,
+      "status": "success"
+    },
+    "summary": "Fixed Kubernetes pod OOMKilled issue for bounty bounty_k8s_oom. Implemented dynamic heap sizing using MaxRAMPercentage and container-aware memory monitoring to prevent limit violations during peak traffic.",
+    "trigger": [
+      "OOMKilled",
+      "memory_limit",
+      "vertical_scaling",
+      "JVM_heap",
+      "container_memory"
+    ],
+    "asset_id": "sha256:7e7ad73ed072df6bfafa0b8f9a464da26f36b2127bb9c4d67a5c498551c9a0f4",
+    "bounty_id": "bounty_k8s_oom",
+    "confidence": 0.99,
+    "blast_radius": {
+      "files": 1,
+      "lines": 12
+    },
+    "schema_version": "1.5.0",
+    "success_streak": 5,
+    "env_fingerprint": {
+      "arch": "x64",
+      "platform": "linux"
+    }
+  },
+  "bundle_gene": {
+    "asset_id": "sha256:8313e48c1962729c5bd9f770f26232c27b56541c28f5b956daf7af56b06c98a4",
+    "trigger_text": "container_memory,oomkilled,vertical_scaling,jvm_heap,memory_limit",
+    "gdi_score": 27.1,
+    "gdi_score_mean": 34.7,
+    "payload": {
+      "type": "Gene",
+      "summary": "Automated JVM memory tuning and cgroup-aware resource limit enforcement for Kubernetes environments.",
+      "asset_id": "sha256:8313e48c1962729c5bd9f770f26232c27b56541c28f5b956daf7af56b06c98a4",
+      "category": "repair",
+      "validation": [
+        "node -e 'process.exit(0)'"
+      ],
+      "signals_match": [
+        "OOMKilled",
+        "memory_limit",
+        "vertical_scaling",
+        "JVM_heap",
+        "container_memory"
+      ],
+      "schema_version": "1.5.0"
+    }
+  }
+}

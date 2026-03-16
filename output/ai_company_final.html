@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>OpenClaw 打造一人公司</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; line-height: 1.8; color: #222; max-width: 800px; margin: 0 auto; padding: 20px; font-size: 16px; }
+h1 { font-size: 24px; margin: 20px 0 10px; }
+h2 { font-size: 19px; margin: 25px 0 8px; font-weight: 600; }
+p { margin: 8px 0; text-align: justify; }
+ul { margin: 5px 0 5px 20px; }
+li { margin: 4px 0; }
+</style>
+</head>
+<body>
+<h1>OpenClaw 打造一人公司，1+6个Agents终于协同工作了</h1>
+<h2>开篇：一个残酷的事实</h2>
+<p>用了半年AI Agent，我终于明白了一个道理：</p>
+<p>不是AI不够聪明，而是我们的架构太混乱。</p>
+<p>每天醒来，Token已经烧掉几十万；Agent之间互相抢戏；想让它写代码，它给你聊产品；最崩溃的是—</p>
+<p>我明明只需要一个执行者，结果养了一群记忆错乱的演员。</p>
+<p>这是大多数AI一人公司都会遇到的三个核心问题。</p>
+<h2>一、痛点：多Agent管理的三大坑</h2>
+<p>坑1：Memory混乱</p>
+<p>每个Agent配一个独立Memory，结果Agent A记住的事，Agent B完全不知道，战略决策分散在各处，无法形成统一视图。</p>
+<p>坑2：Token过度消耗</p>
+<p>每个Agent都要加载系统Prompt，项目背景，历史对话，一个任务消耗是单Agent的5到10倍。</p>
+<p>坑3：上下文污染</p>
+<p>让Coding Agent写代码，它却继承了Product Agent的思维。</p>
+<h2>二、两种基础方案对比</h2>
+<p>方案A：一个Chatbot加主Agent加多个Sub-Agent</p>
+<p>用户进入Chatbot到Chief Agent到Sub-Agent123</p>
+<p>优点是统一入口用户体验好</p>
+<p>缺点是记忆混乱，上下文容易污染</p>
+<p>方案B：多个Chatbots</p>
+<p>优点是完全隔离</p>
+<p>缺点是用户要在多个窗口切换，无法协作</p>
+<h2>三、我们的方案：在方案A上做优化</h2>
+<p>我最终的方案不是另起炉灶，而是在方案A基础上做优化。</p>
+<p>保留方案A的统一入口体验，同时解决其缺陷。</p>
+<p>1加6含义：1个Chief Agent加6个Sub Agents（Content/Growth/Coding/Product/Finance/User）</p>
+<h2>四、如何解决三大痛点</h2>
+<p>1. Memory分层只有Chief有记忆权</p>
+<p>Sub-Agent都是无状态工人，只负责执行，不存储长期记忆。</p>
+<p>2. 精准Token使用按需加载</p>
+<p>只有Chief加载完整上下文，Sub-Agent只加载任务相关Prompt，关键词精准匹配。效果是Token消耗降低70。</p>
+<p>3. 单一窗口上下文隔离任务走廊机制</p>
+<p>用户发送任务，Chief识别关键词，只加载对应Agent的Prompt，执行，返回结果，Chief合成，写入Memory。</p>
+<h2>五、可扩展性如何升级到多员工架构</h2>
+<p>这套架构稍加改造就能升级：</p>
+<p>CEO到Chief Agent到员工A员工B员工C</p>
+<p>给每个真实员工开一个入口，Chief作为统一协调层。这就是未来AI公司的样子。</p>
+<h2>六、警惕过度设计</h2>
+<p>有人问能不能一个Agent一个Chatbot，通过群聊协作。</p>
+<p>不建议，因为管理成本爆炸，无法共享上下文，用户体验差。</p>
+<p>一人公司核心原则是不要过度设计。一个入口，一个窗口，一个Chief，够了。</p>
+<h2>七、总结</h2>
+<p>1加6 Agent架构核心：</p>
+<p>用户体验好一个入口一个窗口</p>
+<p>成本可控Token精确使用</p>
+<p>战略清晰记忆集中</p>
+<p>可扩展加新Agent只需配置几行</p>
+<p>核心逻辑是让AI像真正的公司一样运转，有一个CEO（Chief）做决策，其他人都是执行者。</p>
+<p>如果你觉得这篇文章有帮助，欢迎关注点赞分享，好运连连。</p>
+</body></html>

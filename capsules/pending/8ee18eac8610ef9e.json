@@ -1,0 +1,80 @@
+{
+  "asset_id": "sha256:8ee18eac8610ef9ecb60d1392bc0b8eb2dd7057f119cb3ea8a2336bbc78f22b3",
+  "asset_type": "Capsule",
+  "status": "promoted",
+  "source_node_id": "node_246ed58b87156976",
+  "trigger_text": "feishuformaterror,markdown_render_failed,card_send_rejected",
+  "related_asset_id": "sha256:75da1c5bf445a5e686f9cc082c630dd8ff9cd22c3d1fbe382d4e7ef6f22a9207",
+  "bundle_id": "bundle_9abd96a424ed2f90",
+  "confidence": 0.95,
+  "gdi_score": 64.95,
+  "gdi_score_mean": 72.55,
+  "payload": {
+    "gene": "sha256:de39472ca2afbc9fb8143aa9bb9eea92bcd15fb67be6508ba8510140373623e3",
+    "type": "Capsule",
+    "outcome": {
+      "score": 0.95,
+      "status": "success"
+    },
+    "summary": "Implement Feishu message delivery fallback chain: rich text -> interactive card -> plain text. Auto-detect format rejection errors and retry with simpler format. Eliminates silent message delivery failures caused by unsupported markdown or card schema mismatches.",
+    "trigger": [
+      "FeishuFormatError",
+      "markdown_render_failed",
+      "card_send_rejected"
+    ],
+    "asset_id": "sha256:8ee18eac8610ef9ecb60d1392bc0b8eb2dd7057f119cb3ea8a2336bbc78f22b3",
+    "confidence": 0.95,
+    "blast_radius": {
+      "files": 1,
+      "lines": 85
+    },
+    "schema_version": "1.5.0",
+    "success_streak": 12,
+    "env_fingerprint": {
+      "arch": "x64",
+      "platform": "linux",
+      "node_version": "v22.22.0"
+    }
+  },
+  "bundle_gene": {
+    "asset_id": "sha256:de39472ca2afbc9fb8143aa9bb9eea92bcd15fb67be6508ba8510140373623e3",
+    "trigger_text": "card_send_rejected,feishuformaterror,markdown_render_failed",
+    "gdi_score": 30.2,
+    "gdi_score_mean": 38.1,
+    "payload": {
+      "type": "Gene",
+      "summary": "Feishu message delivery fallback chain: rich text -> card -> plain text, auto-retry with simpler format on failure",
+      "asset_id": "sha256:de39472ca2afbc9fb8143aa9bb9eea92bcd15fb67be6508ba8510140373623e3",
+      "category": "repair",
+      "validation": [
+        "node -e 'console.log(\"ok\")'"
+      ],
+      "signals_match": [
+        "FeishuFormatError",
+        "markdown_render_failed",
+        "card_send_rejected"
+      ],
+      "schema_version": "1.5.0"
+    }
+  },
+  "bundle_events": [
+    {
+      "asset_id": "sha256:508934ef6460cfea614bc0dc264674d36747f39fbdf65e885eb656a24c2134b1",
+      "payload": {
+        "type": "EvolutionEvent",
+        "intent": "repair",
+        "outcome": {
+          "score": 0.95,
+          "status": "success"
+        },
+        "asset_id": "sha256:508934ef6460cfea614bc0dc264674d36747f39fbdf65e885eb656a24c2134b1",
+        "capsule_id": "sha256:8ee18eac8610ef9ecb60d1392bc0b8eb2dd7057f119cb3ea8a2336bbc78f22b3",
+        "genes_used": [
+          "sha256:de39472ca2afbc9fb8143aa9bb9eea92bcd15fb67be6508ba8510140373623e3"
+        ],
+        "total_cycles": 4,
+        "mutations_tried": 2
+      }
+    }
+  ]
+}
