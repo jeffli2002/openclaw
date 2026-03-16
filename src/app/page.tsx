@@ -964,6 +964,51 @@ export default function SecondBrain() {
     },
   ]);
 
+  // 从 API 获取真实 Agent 状态
+  const [isLoadingAgents, setIsLoadingAgents] = useState(true);
+  const [agentStatusData, setAgentStatusData] = useState<any>(null);
+
+  useEffect(() => {
+    fetch('/api/agent-status')
+      .then(res => res.json())
+      .then(data => {
+        setAgentStatusData(data);
+        setIsLoadingAgents(false);
+        
+        // 用真实数据更新 teamAgents
+        if (data.agents) {
+          const statusMap2: Record<string, AgentStatus> = {
+            'ok': 'active',
+            'running': 'busy',
+            'error': 'offline',
+            'idle': 'idle',
+          };
+          
+          setTeamAgents(prev => prev.map(agent => {
+            const realAgent = data.agents.find((a: any) => a.id === agent.id);
+            if (realAgent) {
+              return {
+                ...agent,
+                status: statusMap2[realAgent.status] || 'idle',
+                lastActive: realAgent.lastRun || '—',
+                tasksToday: realAgent.tasks || 0,
+                currentTask: realAgent.tasks > 0 
+                  ? `${realAgent.completedTasks}个任务完成, ${realAgent.failedTasks}个失败` 
+                  : '等待任务',
+                taskProgress: realAgent.tasks > 0 
+                  ? Math.round((realAgent.completedTasks / realAgent.tasks) * 100) 
+                  : 0,
+              };
+            }
+            return agent;
+          }));
+        }
+      })
+      .catch(() => {
+        setIsLoadingAgents(false);
+      });
+  }, []);
+
   // 状态映射
   const statusMap: Record<AgentStatus, { label: string; color: string; bgColor: string; icon: string }> = {
     active: { label: '工作中', color: 'text-green-400', bgColor: 'bg-green-500', icon: '🟢' },
