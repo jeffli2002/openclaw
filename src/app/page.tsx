@@ -850,9 +850,9 @@ export default function SecondBrain() {
     </aside>
   );
 
-  // Agent 状态类型
-  type AgentStatus = 'active' | 'idle' | 'offline' | 'communicating' | 'busy';
-  
+  // Agent 状态类型（真实来源：OpenClaw cron）
+  type AgentStatus = 'running' | 'ok' | 'error' | 'idle' | 'loading' | 'external';
+
   interface TeamAgent {
     id: string;
     name: string;
@@ -862,170 +862,220 @@ export default function SecondBrain() {
     lastActive: string;
     currentTask: string;
     taskProgress: number;
-    tasksToday: number;
-    conversationsToday: number;
-    collaborationsToday: number;
+    totalTasks: number;
+    okTasks: number;
+    errorTasks: number;
+    runningTasks: number;
     isExternal?: boolean;
   }
 
-  // 模拟 Agent 数据（实际应该从 API 获取）
-  const [teamAgents, setTeamAgents] = useState<TeamAgent[]>([
-    {
-      id: 'chief',
-      name: 'Chief Agent',
-      role: '主 Agent',
-      icon: '👑',
-      status: 'active',
-      lastActive: '刚刚',
-      currentTask: '协调各 Agent 工作',
-      taskProgress: 75,
-      tasksToday: 12,
-      conversationsToday: 28,
-      collaborationsToday: 5,
-    },
-    {
-      id: 'content',
-      name: 'Content Agent',
-      role: '内容创作',
-      icon: '📝',
-      status: 'active',
-      lastActive: '1分钟前',
-      currentTask: '撰写 AI 日报',
-      taskProgress: 60,
-      tasksToday: 8,
-      conversationsToday: 15,
-      collaborationsToday: 3,
-    },
-    {
-      id: 'growth',
-      name: 'Growth Agent',
-      role: '增长营销',
-      icon: '📈',
-      status: 'idle',
-      lastActive: '5分钟前',
-      currentTask: '等待任务',
-      taskProgress: 0,
-      tasksToday: 5,
-      conversationsToday: 10,
-      collaborationsToday: 2,
-    },
-    {
-      id: 'coding',
-      name: 'Coding Agent',
-      role: '技术开发',
-      icon: '💻',
-      status: 'active',
-      lastActive: '刚刚',
-      currentTask: '开发 Team 页面',
-      taskProgress: 45,
-      tasksToday: 10,
-      conversationsToday: 20,
-      collaborationsToday: 4,
-    },
-    {
-      id: 'product',
-      name: 'Product Agent',
-      role: '产品经理',
-      icon: '🎯',
-      status: 'busy',
-      lastActive: '2分钟前',
-      currentTask: 'PRD 撰写',
-      taskProgress: 80,
-      tasksToday: 6,
-      conversationsToday: 12,
-      collaborationsToday: 3,
-    },
-    {
-      id: 'finance',
-      name: 'Finance Agent',
-      role: '财务管理',
-      icon: '💰',
-      status: 'idle',
-      lastActive: '10分钟前',
-      currentTask: '等待任务',
-      taskProgress: 0,
-      tasksToday: 3,
-      conversationsToday: 5,
-      collaborationsToday: 1,
-    },
-    {
-      id: 'abby',
-      name: '阿比',
-      role: '个人生活助理',
-      icon: '🤖',
-      status: 'active',
-      lastActive: '刚刚',
-      currentTask: '日常助理服务',
-      taskProgress: 100,
-      tasksToday: 20,
-      conversationsToday: 30,
-      collaborationsToday: 0,
-      isExternal: true,
-    },
-  ]);
+  interface TeamAgentDefinition {
+    id: string;
+    name: string;
+    role: string;
+    icon: string;
+    isExternal?: boolean;
+  }
 
-  // 从 API 获取真实 Agent 状态
+  interface AgentStatusApiAgent {
+    id: string;
+    status: 'running' | 'ok' | 'error' | 'idle';
+    tasks: number;
+    completedTasks: number;
+    failedTasks: number;
+    runningTasks: number;
+    idleTasks: number;
+    lastRun: string | null;
+  }
+
+  const TEAM_AGENT_DEFINITIONS: TeamAgentDefinition[] = [
+    { id: 'chief', name: 'Chief Agent', role: '主 Agent', icon: '👑' },
+    { id: 'content', name: 'Content Agent', role: '内容创作', icon: '📝' },
+    { id: 'growth', name: 'Growth Agent', role: '增长营销', icon: '📈' },
+    { id: 'coding', name: 'Coding Agent', role: '技术开发', icon: '💻' },
+    { id: 'product', name: 'Product Agent', role: '产品经理', icon: '🎯' },
+    { id: 'finance', name: 'Finance Agent', role: '财务管理', icon: '💰' },
+    { id: 'abby', name: '阿比', role: '个人生活助理', icon: '🤖', isExternal: true },
+  ];
+
+  function formatRelativeTime(value?: string | null) {
+    if (!value) return '从未运行';
+
+    const timestamp = new Date(value).getTime();
+    if (Number.isNaN(timestamp)) return '时间未知';
+
+    const diffMs = Date.now() - timestamp;
+    if (diffMs < 60 * 1000) return '刚刚';
+
+    const diffMinutes = Math.floor(diffMs / (60 * 1000));
+    if (diffMinutes < 60) return `${diffMinutes}分钟前`;
+
+    const diffHours = Math.floor(diffMinutes / 60);
+    if (diffHours < 24) return `${diffHours}小时前`;
+
+    const diffDays = Math.floor(diffHours / 24);
+    return `${diffDays}天前`;
+  }
+
+  function buildCurrentTaskSummary(agent?: AgentStatusApiAgent) {
+    if (!agent || agent.tasks === 0) return '暂无绑定 cron 任务';
+    if (agent.status === 'running') return `${agent.runningTasks} 个 cron 正在运行`;
+    if (agent.status === 'error') return `${agent.failedTasks} 个 cron 异常`;
+    if (agent.status === 'ok') return `${agent.completedTasks}/${agent.tasks} 个 cron 正常`;
+    return `${agent.idleTasks || 0} 个 cron 等待执行`;
+  }
+
+  function createInitialTeamAgents(): TeamAgent[] {
+    return TEAM_AGENT_DEFINITIONS.map((agent) => {
+      if (agent.isExternal) {
+        return {
+          ...agent,
+          status: 'external' as AgentStatus,
+          lastActive: '外部系统',
+          currentTask: '不受 OpenClaw cron 管理',
+          taskProgress: 0,
+          totalTasks: 0,
+          okTasks: 0,
+          errorTasks: 0,
+          runningTasks: 0,
+        };
+      }
+
+      return {
+        ...agent,
+        status: 'loading' as AgentStatus,
+        lastActive: '同步中',
+        currentTask: '正在读取 OpenClaw 实时状态',
+        taskProgress: 0,
+        totalTasks: 0,
+        okTasks: 0,
+        errorTasks: 0,
+        runningTasks: 0,
+      };
+    });
+  }
+
+  const [teamAgents, setTeamAgents] = useState<TeamAgent[]>(createInitialTeamAgents);
   const [isLoadingAgents, setIsLoadingAgents] = useState(true);
-  const [agentStatusData, setAgentStatusData] = useState<any>(null);
 
   useEffect(() => {
-    fetch('/api/agent-status')
-      .then(res => res.json())
-      .then(data => {
-        setAgentStatusData(data);
-        setIsLoadingAgents(false);
-        
-        // 用真实数据更新 teamAgents
-        if (data.agents) {
-          const statusMap2: Record<string, AgentStatus> = {
-            'ok': 'active',
-            'running': 'busy',
-            'error': 'offline',
-            'idle': 'idle',
-          };
-          
-          setTeamAgents(prev => prev.map(agent => {
-            const realAgent = data.agents.find((a: any) => a.id === agent.id);
-            if (realAgent) {
+    let cancelled = false;
+
+    const refreshAgentStatus = async () => {
+      try {
+        const response = await fetch('/api/agent-status', { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`status api failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const apiAgents = ((data.agents || []) as AgentStatusApiAgent[]);
+        const agentsById = new Map<string, AgentStatusApiAgent>(apiAgents.map((agent) => [agent.id, agent]));
+
+        if (cancelled) return;
+
+        setTeamAgents(
+          TEAM_AGENT_DEFINITIONS.map((agent) => {
+            if (agent.isExternal) {
               return {
                 ...agent,
-                status: statusMap2[realAgent.status] || 'idle',
-                lastActive: realAgent.lastRun || '—',
-                tasksToday: realAgent.tasks || 0,
-                currentTask: realAgent.tasks > 0 
-                  ? `${realAgent.completedTasks}个任务完成, ${realAgent.failedTasks}个失败` 
-                  : '等待任务',
-                taskProgress: realAgent.tasks > 0 
-                  ? Math.round((realAgent.completedTasks / realAgent.tasks) * 100) 
-                  : 0,
+                status: 'external' as AgentStatus,
+                lastActive: '外部系统',
+                currentTask: '不受 OpenClaw cron 管理',
+                taskProgress: 0,
+                totalTasks: 0,
+                okTasks: 0,
+                errorTasks: 0,
+                runningTasks: 0,
               };
             }
-            return agent;
-          }));
+
+            const realAgent = agentsById.get(agent.id);
+            const totalTasks = realAgent?.tasks || 0;
+            const okTasks = realAgent?.completedTasks || 0;
+            const errorTasks = realAgent?.failedTasks || 0;
+            const runningTasks = realAgent?.runningTasks || 0;
+
+            return {
+              ...agent,
+              status: (realAgent?.status || 'idle') as AgentStatus,
+              lastActive: formatRelativeTime(realAgent?.lastRun),
+              currentTask: buildCurrentTaskSummary(realAgent),
+              taskProgress: totalTasks > 0 ? Math.round((okTasks / totalTasks) * 100) : 0,
+              totalTasks,
+              okTasks,
+              errorTasks,
+              runningTasks,
+            };
+          })
+        );
+      } catch (error) {
+        console.error('Failed to refresh agent status:', error);
+        if (cancelled) return;
+
+        setTeamAgents(
+          TEAM_AGENT_DEFINITIONS.map((agent) => {
+            if (agent.isExternal) {
+              return {
+                ...agent,
+                status: 'external' as AgentStatus,
+                lastActive: '外部系统',
+                currentTask: '不受 OpenClaw cron 管理',
+                taskProgress: 0,
+                totalTasks: 0,
+                okTasks: 0,
+                errorTasks: 0,
+                runningTasks: 0,
+              };
+            }
+
+            return {
+              ...agent,
+              status: 'loading' as AgentStatus,
+              lastActive: '状态获取失败',
+              currentTask: '无法连接 /api/agent-status',
+              taskProgress: 0,
+              totalTasks: 0,
+              okTasks: 0,
+              errorTasks: 0,
+              runningTasks: 0,
+            };
+          })
+        );
+      } finally {
+        if (!cancelled) {
+          setIsLoadingAgents(false);
         }
-      })
-      .catch(() => {
-        setIsLoadingAgents(false);
-      });
+      }
+    };
+
+    refreshAgentStatus();
+    const intervalId = window.setInterval(refreshAgentStatus, 10_000);
+
+    return () => {
+      cancelled = true;
+      window.clearInterval(intervalId);
+    };
   }, []);
 
   // 状态映射
   const statusMap: Record<AgentStatus, { label: string; color: string; bgColor: string; icon: string }> = {
-    active: { label: '工作中', color: 'text-green-400', bgColor: 'bg-green-500', icon: '🟢' },
-    idle: { label: '闲置', color: 'text-yellow-400', bgColor: 'bg-yellow-500', icon: '🟡' },
-    offline: { label: '离线', color: 'text-red-400', bgColor: 'bg-red-500', icon: '🔴' },
-    communicating: { label: '沟通中', color: 'text-blue-400', bgColor: 'bg-blue-500', icon: '🔵' },
-    busy: { label: '忙碌', color: 'text-orange-400', bgColor: 'bg-orange-500', icon: '🟠' },
+    running: { label: 'running', color: 'text-orange-400', bgColor: 'bg-orange-500', icon: '🟠' },
+    ok: { label: 'ok', color: 'text-green-400', bgColor: 'bg-green-500', icon: '🟢' },
+    error: { label: 'error', color: 'text-red-400', bgColor: 'bg-red-500', icon: '🔴' },
+    idle: { label: 'idle', color: 'text-yellow-400', bgColor: 'bg-yellow-500', icon: '🟡' },
+    loading: { label: '同步中', color: 'text-purple-400', bgColor: 'bg-purple-500', icon: '🟣' },
+    external: { label: 'external', color: 'text-slate-400', bgColor: 'bg-slate-500', icon: '⚪️' },
   };
 
   // 获取状态样式
-  const getStatusStyle = (status: AgentStatus) => statusMap[status] || statusMap.idle;
+  const getStatusStyle = (status: AgentStatus) => statusMap[status] || statusMap.loading;
 
   // 渲染 Agent 卡片
   const renderAgentCard = (agent: TeamAgent, size: 'large' | 'medium' | 'small' = 'medium') => {
     const statusStyle = getStatusStyle(agent.status);
     const cardWidth = size === 'large' ? 'w-72' : size === 'medium' ? 'w-56' : 'w-48';
-    
+
     return (
       <div
         key={agent.id}
@@ -1038,7 +1088,7 @@ export default function SecondBrain() {
           <span>{statusStyle.icon}</span>
           <span className="text-white text-xs">{statusStyle.label}</span>
         </div>
-        
+
         <div className="p-4">
           {/* Agent 图标和名称 */}
           <div className="flex items-center gap-3 mb-3">
@@ -1048,10 +1098,10 @@ export default function SecondBrain() {
               <p className="text-xs text-[#71717a]">{agent.role}</p>
             </div>
           </div>
-          
+
           {/* 分隔线 */}
           <div className="border-t border-[#27272a] my-3"></div>
-          
+
           {/* 状态信息 */}
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
@@ -1062,31 +1112,31 @@ export default function SecondBrain() {
               <span className="text-[#71717a]">最后活跃</span>
               <span className="text-[#a1a1aa]">{agent.lastActive}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-[#71717a]">当前任务</span>
-              <span className="text-[#a1a1aa] truncate max-w-[120px]">{agent.currentTask}</span>
+            <div className="flex justify-between gap-2">
+              <span className="text-[#71717a] shrink-0">状态摘要</span>
+              <span className="text-[#a1a1aa] truncate max-w-[120px] text-right">{agent.currentTask}</span>
             </div>
           </div>
-          
+
           {/* 悬停显示任务详情 */}
           <div className="absolute left-full top-0 ml-2 w-64 bg-[#1a1a1c] rounded-xl border border-[#27272a] p-4 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-xl">
             <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
-              📋 正在执行的任务
+              {agent.isExternal ? '📋 外部 Agent' : '📋 OpenClaw 实时状态'}
             </h4>
             <div className="border-t border-[#27272a] my-2"></div>
-            
+
             <div className="space-y-3">
               <div>
-                <p className="text-xs text-[#71717a]">任务名称</p>
+                <p className="text-xs text-[#71717a]">状态摘要</p>
                 <p className="text-sm text-white">{agent.currentTask}</p>
               </div>
-              
-              {agent.taskProgress > 0 && (
+
+              {!agent.isExternal && agent.totalTasks > 0 && (
                 <div>
-                  <p className="text-xs text-[#71717a] mb-1">进度</p>
+                  <p className="text-xs text-[#71717a] mb-1">正常率</p>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 h-2 bg-[#27272a] rounded-full overflow-hidden">
-                      <div 
+                      <div
                         className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all"
                         style={{ width: `${agent.taskProgress}%` }}
                       ></div>
@@ -1095,36 +1145,33 @@ export default function SecondBrain() {
                   </div>
                 </div>
               )}
-              
+
               <div>
-                <p className="text-xs text-[#71717a]">预计剩余</p>
-                <p className="text-sm text-white">
-                  {agent.status === 'idle' ? '等待中' : 
-                   agent.taskProgress > 0 ? `${Math.round((100 - agent.taskProgress) * 2)}分钟` : '-'}
-                </p>
+                <p className="text-xs text-[#71717a]">运行中 cron</p>
+                <p className="text-sm text-white">{agent.isExternal ? '不适用' : `${agent.runningTasks} 个`}</p>
               </div>
-              
+
               <div className="border-t border-[#27272a] my-2"></div>
-              
+
               <div>
-                <p className="text-xs text-[#71717a] mb-1">📊 今日统计</p>
+                <p className="text-xs text-[#71717a] mb-1">📊 当前统计</p>
                 <div className="grid grid-cols-3 gap-2 text-center">
                   <div className="bg-[#27272a] rounded py-1">
-                    <p className="text-lg font-bold text-white">{agent.tasksToday}</p>
-                    <p className="text-[10px] text-[#71717a]">处理任务</p>
+                    <p className="text-lg font-bold text-white">{agent.totalTasks}</p>
+                    <p className="text-[10px] text-[#71717a]">绑定 cron</p>
                   </div>
                   <div className="bg-[#27272a] rounded py-1">
-                    <p className="text-lg font-bold text-white">{agent.conversationsToday}</p>
-                    <p className="text-[10px] text-[#71717a]">对话交互</p>
+                    <p className="text-lg font-bold text-white">{agent.okTasks}</p>
+                    <p className="text-[10px] text-[#71717a]">正常</p>
                   </div>
                   <div className="bg-[#27272a] rounded py-1">
-                    <p className="text-lg font-bold text-white">{agent.collaborationsToday}</p>
-                    <p className="text-[10px] text-[#71717a]">协作请求</p>
+                    <p className="text-lg font-bold text-white">{agent.errorTasks}</p>
+                    <p className="text-[10px] text-[#71717a]">异常</p>
                   </div>
                 </div>
               </div>
             </div>
-            
+
             {/* 指向箭头 */}
             <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#1a1a1c] border-l-0 border-b-0 border-[#27272a] rotate-45"></div>
           </div>
@@ -1134,7 +1181,8 @@ export default function SecondBrain() {
   };
 
   // 渲染 Team 页面
-  const renderTeam = () => (
+  const renderTeam = () => {
+    return (
     <div className="p-8 animate-fadeIn">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold flex items-center gap-2">
@@ -1147,8 +1195,8 @@ export default function SecondBrain() {
           Team 架构
         </h2>
         <div className="flex items-center gap-2 text-sm text-[#71717a]">
-          <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-          <span>10秒轮询更新</span>
+          <span className={`w-2 h-2 rounded-full ${isLoadingAgents ? 'bg-purple-500' : 'bg-green-500'} ${isLoadingAgents ? '' : 'animate-pulse'}`}></span>
+          <span>{isLoadingAgents ? '正在同步实时状态' : '10秒轮询更新'}</span>
         </div>
       </div>
 
@@ -1200,7 +1248,7 @@ export default function SecondBrain() {
           <span className="font-semibold">注意</span>
         </div>
         <p className="text-sm text-[#a1a1aa] mt-2">
-          阿比（外部 Agent）部署在外部服务器，状态可能不可达。此处显示的状态为默认状态或缓存数据。
+          阿比（外部 Agent）不受 OpenClaw cron 管理，因此这里只显示 external 标记，不参与真实 cron 状态聚合。
         </p>
       </div>
 
@@ -1214,10 +1262,15 @@ export default function SecondBrain() {
         ))}
       </div>
     </div>
-  );
+    );
+  };
 
   // 渲染 Office 页面
-  const renderOffice = () => (
+  const renderOffice = () => {
+    const chiefOfficeAgent = teamAgents.find(a => a.id === 'chief');
+    const chiefOfficeStatusStyle = chiefOfficeAgent ? getStatusStyle(chiefOfficeAgent.status) : statusMap.loading;
+
+    return (
     <div className="p-8 animate-fadeIn">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold flex items-center gap-2">
@@ -1281,8 +1334,8 @@ export default function SecondBrain() {
                   <p className="text-sm text-white">大型工作台</p>
                   <p className="text-xs text-[#71717a]">双屏显示器 + 绿植</p>
                   <div className="mt-2 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span className="text-xs text-green-400">工作中</span>
+                    <span className={`w-2 h-2 rounded-full ${chiefOfficeStatusStyle.bgColor}`}></span>
+                    <span className={`text-xs ${chiefOfficeStatusStyle.color}`}>{chiefOfficeStatusStyle.label}</span>
                   </div>
                 </div>
               </div>
@@ -1305,7 +1358,7 @@ export default function SecondBrain() {
             <div className="grid grid-cols-4 gap-4">
               {['Content', 'Growth', 'Coding', 'Product', 'Finance'].map((agent, idx) => {
                 const agentData = teamAgents.find(a => a.name.includes(agent));
-                const statusStyle = agentData ? getStatusStyle(agentData.status) : statusMap.offline;
+                const statusStyle = agentData ? getStatusStyle(agentData.status) : statusMap.loading;
                 
                 return (
                   <div key={agent} className="bg-[#1a1a1c] rounded-lg p-3 text-center border border-[#27272a]">
@@ -1352,28 +1405,29 @@ export default function SecondBrain() {
       {/* Agent 状态图例 */}
       <div className="mt-6 flex flex-wrap justify-center gap-4">
         <div className="flex items-center gap-2 text-sm">
-          <span className="text-xl">💻</span>
-          <span className="text-[#a1a1aa]">工作中</span>
+          <span className="text-xl">🟠</span>
+          <span className="text-[#a1a1aa]">running</span>
         </div>
         <div className="flex items-center gap-2 text-sm">
-          <span className="text-xl">🤝</span>
-          <span className="text-[#a1a1aa]">沟通协作</span>
+          <span className="text-xl">🟢</span>
+          <span className="text-[#a1a1aa]">ok</span>
         </div>
         <div className="flex items-center gap-2 text-sm">
-          <span className="text-xl">🚶</span>
-          <span className="text-[#a1a1aa]">闲置</span>
+          <span className="text-xl">🟡</span>
+          <span className="text-[#a1a1aa]">idle</span>
         </div>
         <div className="flex items-center gap-2 text-sm">
-          <span className="text-xl">⌨️</span>
-          <span className="text-[#a1a1aa]">忙碌</span>
+          <span className="text-xl">🔴</span>
+          <span className="text-[#a1a1aa]">error</span>
         </div>
         <div className="flex items-center gap-2 text-sm">
-          <span className="text-xl">🏠</span>
-          <span className="text-[#a1a1aa]">离线</span>
+          <span className="text-xl">⚪️</span>
+          <span className="text-[#a1a1aa]">external</span>
         </div>
       </div>
     </div>
-  );
+    );
+  };
 
   // 渲染首页
   const renderHome = () => (
@@ -2104,13 +2158,15 @@ export default function SecondBrain() {
 
         {!searchQuery && (
           <>
-        {activeTab === "home" && renderHome()}
-        {activeTab === "memories" && renderMemories()}
-        {activeTab === "documents" && renderDocuments()}
-        {activeTab === "tasks" && renderTasks()}
-        {activeTab === "agents" && renderAgents()}
-        {activeTab === "team" && renderTeam()}
-        {activeTab === "office" && renderOffice()}
+            {activeTab === "home" && renderHome()}
+            {activeTab === "memories" && renderMemories()}
+            {activeTab === "documents" && renderDocuments()}
+            {activeTab === "tasks" && renderTasks()}
+            {activeTab === "agents" && renderAgents()}
+            {activeTab === "team" && renderTeam()}
+            {activeTab === "office" && renderOffice()}
+          </>
+        )}
       </main>
     </div>
     </AuthCheck>
