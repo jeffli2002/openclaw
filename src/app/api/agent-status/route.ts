@@ -87,6 +87,41 @@ function readCronJobs() {
   }
 }
 
+function readActiveSessions() {
+  try {
+    const output = execFileSync('openclaw', ['sessions', '--active', '30', '--json'], {
+      encoding: 'utf8',
+      timeout: 10000,
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+
+    const sessions = JSON.parse(output);
+    // 过滤出 subagent 会话
+    const subAgents = sessions
+      .filter((s: any) => s.key && s.key.includes('subagent'))
+      .map((s: any) => ({
+        key: s.key,
+        kind: s.kind,
+        updatedAt: s.updatedAt,
+        model: s.model,
+        agentId: extractAgentId(s.key),
+      }));
+    
+    return { sessions: subAgents, source: 'openclaw sessions --active 30 --json' };
+  } catch (error) {
+    return { sessions: [], source: 'error' };
+  }
+}
+
+function extractAgentId(sessionKey: string): string {
+  // 从 session key 提取 agent id，如 "agent:main:subagent:xxx" -> "coding"
+  const match = sessionKey.match(/subagent:([^:]+)/);
+  if (match) {
+    return match[1];
+  }
+  return 'unknown';
+}
+
 function getCronStatus(job: RawCronJob): CronStatus {
   if (job.state?.runningAtMs) {
     return 'running';
@@ -116,7 +151,8 @@ function toIsoOrNull(value?: number) {
 
 export async function GET() {
   try {
-    const { jobs, source } = readCronJobs();
+    const { jobs, source: cronSource } = readCronJobs();
+    const { sessions, source: sessionSource } = readActiveSessions();
     const enabledJobs = jobs.filter((job) => job.enabled !== false);
 
     const jobsByAgent = Object.fromEntries(
@@ -184,10 +220,12 @@ export async function GET() {
 
     return NextResponse.json({
       timestamp: new Date().toISOString(),
-      source,
+      cronSource,
+      sessionSource,
       totalEnabledJobs: enabledJobs.length,
       agents,
       unassignedJobs,
+      activeSessions: sessions, // 新增：活跃的 subagent 会话
     });
   } catch (error) {
     console.error('Error fetching cron agent status:', error);
@@ -196,6 +234,9 @@ export async function GET() {
       {
         timestamp: new Date().toISOString(),
         source: 'error',
+        cronSource: 'error',
+        sessionSource: 'error',
+        activeSessions: [],
         agents: CANONICAL_AGENT_IDS.map((agentId) => ({
           id: agentId,
           name: AGENT_LABELS[agentId],

@@ -971,6 +971,10 @@ export default function SecondBrain() {
         const data = await response.json();
         const apiAgents = ((data.agents || []) as AgentStatusApiAgent[]);
         const agentsById = new Map<string, AgentStatusApiAgent>(apiAgents.map((agent) => [agent.id, agent]));
+        
+        // 获取活跃的 subagent 会话
+        const activeSessions = data.activeSessions || [];
+        const activeAgentIds = new Set(activeSessions.map((s: any) => s.agentId));
 
         if (cancelled) return;
 
@@ -995,17 +999,23 @@ export default function SecondBrain() {
             const okTasks = realAgent?.completedTasks || 0;
             const errorTasks = realAgent?.failedTasks || 0;
             const runningTasks = realAgent?.runningTasks || 0;
+            
+            // 如果有活跃的 subagent 会话，状态为 running
+            const isSubAgentRunning = activeAgentIds.has(agent.id);
+            const status = isSubAgentRunning ? 'running' : (realAgent?.status || 'idle');
 
             return {
               ...agent,
-              status: (realAgent?.status || 'idle') as AgentStatus,
+              status: status as AgentStatus,
               lastActive: formatRelativeTime(realAgent?.lastRun),
-              currentTask: buildCurrentTaskSummary(realAgent),
+              currentTask: isSubAgentRunning 
+                ? `活跃会话: ${activeSessions.find((s: any) => s.agentId === agent.id)?.key?.split(':').pop() || '工作中'}`
+                : buildCurrentTaskSummary(realAgent),
               taskProgress: totalTasks > 0 ? Math.round((okTasks / totalTasks) * 100) : 0,
               totalTasks,
               okTasks,
               errorTasks,
-              runningTasks,
+              runningTasks: isSubAgentRunning ? runningTasks + 1 : runningTasks,
             };
           })
         );
