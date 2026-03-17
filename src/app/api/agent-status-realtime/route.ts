@@ -20,6 +20,21 @@ const EXCLUDED_JOB_NAMES = new Set([
   'sync-agent-status',
 ]);
 
+const USER_CHANNEL_SEGMENTS = new Set([
+  'discord',
+  'feishu',
+  'googlechat',
+  'imessage',
+  'irc',
+  'line',
+  'signal',
+  'slack',
+  'telegram',
+  'whatsapp',
+]);
+
+const ACTIVE_SESSION_WINDOW_MINUTES = 20;
+
 type CanonicalAgentId = (typeof CANONICAL_AGENTS)[number]['id'];
 type AggregatedAgentStatus = 'running' | 'ok' | 'error' | 'idle';
 
@@ -48,6 +63,27 @@ type OpenClawCronListResponse = {
   jobs?: OpenClawCronJob[];
 };
 
+type OpenClawSession = {
+  key: string;
+  agentId?: string;
+  kind?: string;
+  updatedAt?: number;
+  ageMs?: number;
+  sessionId?: string;
+};
+
+type OpenClawSessionsResponse = {
+  sessions?: OpenClawSession[];
+};
+
+type LiveSessionSummary = {
+  key: string;
+  agentId: CanonicalAgentId;
+  updatedAt?: number;
+  ageMs?: number;
+  isSubagent: boolean;
+};
+
 function normalizeAgentId(value?: string | null): CanonicalAgentId | null {
   const normalized = value?.trim().toLowerCase();
   if (!normalized) return null;
@@ -61,13 +97,14 @@ function normalizeAgentId(value?: string | null): CanonicalAgentId | null {
   return null;
 }
 
-function extractJsonPayload(raw: string): OpenClawCronListResponse {
+function extractJsonPayload<T>(raw: string): T {
   const jsonStart = raw.indexOf('{');
-  if (jsonStart === -1) {
+  const jsonEnd = raw.lastIndexOf('}');
+  if (jsonStart === -1 || jsonEnd === -1 || jsonEnd < jsonStart) {
     throw new Error('OpenClaw CLI did not return JSON payload');
   }
 
-  return JSON.parse(raw.slice(jsonStart)) as OpenClawCronListResponse;
+  return JSON.parse(raw.slice(jsonStart, jsonEnd + 1)) as T;
 }
 
 function inferAgentId(job: OpenClawCronJob): CanonicalAgentId | null {
@@ -125,21 +162,125 @@ function normalizeJobStatus(job: OpenClawCronJob): AggregatedAgentStatus {
   return 'idle';
 }
 
+function isCronSession(session: OpenClawSession) {
+  return session.key.includes(':cron:');
+}
+
+function isUserFacingSession(session: OpenClawSession) {
+  if (session.kind === 'group') return true;
+
+  return session.key
+    .split(':')
+    .some((segment) => USER_CHANNEL_SEGMENTS.has(segment));
+}
+
+function isRootSelfSession(session: OpenClawSession) {
+  const parts = session.key.split(':');
+  return parts.length === 3 && parts[0] === 'agent' && parts[1] === parts[2];
+}
+
+function isLikelySubagentSession(session: OpenClawSession) {
+  return session.key.includes('subagent') || session.key.includes(':worker:') || session.key.includes(':delegate:');
+}
+
+function toLiveSessionSummary(session: OpenClawSession): LiveSessionSummary | null {
+  const agentId = normalizeAgentId(session.agentId);
+  if (!agentId) return null;
+  if (isCronSession(session)) return null;
+  if (isUserFacingSession(session)) return null;
+  if (isRootSelfSession(session)) return null;
+
+  return {
+    key: session.key,
+    agentId,
+    updatedAt: session.updatedAt,
+    ageMs: session.ageMs,
+    isSubagent: isLikelySubagentSession(session),
+  };
+}
+
+function dedupeLiveSessionsByAgent(sessions: LiveSessionSummary[]) {
+  const byAgent = new Map<CanonicalAgentId, LiveSessionSummary>();
+
+  sessions
+    .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0))
+    .forEach((session) => {
+      if (!byAgent.has(session.agentId)) {
+        byAgent.set(session.agentId, session);
+      }
+    });
+
+  return [...byAgent.values()];
+}
+
+function buildActiveCollaborations(activeSessions: LiveSessionSummary[]) {
+  const uniqueAgentIds = [...new Set(activeSessions.map((session) => session.agentId))];
+  if (uniqueAgentIds.length < 2) return [];
+
+  const room = uniqueAgentIds.length >= 3 ? 'meeting-b' : 'meeting-a';
+  const roomName = room === 'meeting-a' ? 'Office A · 小会议室' : 'Office B · 大会议室';
+  const agentNames = uniqueAgentIds.map((agentId) => {
+    const agent = CANONICAL_AGENTS.find((candidate) => candidate.id === agentId);
+    return agent?.name.replace(/ Agent$/, '') || agentId;
+  });
+  const latestUpdatedAt = activeSessions.reduce((latest, session) => {
+    const current = session.updatedAt || 0;
+    return current > latest ? current : latest;
+  }, 0);
+
+  return [
+    {
+      id: `live-collab-${uniqueAgentIds.join('-')}`,
+      room,
+      roomName,
+      agentIds: uniqueAgentIds,
+      label: uniqueAgentIds.length >= 3
+        ? `${agentNames.join(' / ')} 正在多人协作`
+        : `${agentNames.join(' / ')} 正在协作`,
+      lastUpdatedAt: new Date(latestUpdatedAt || Date.now()).toISOString(),
+      sessionKeys: activeSessions.map((session) => session.key),
+      detectedFrom: 'openclaw-sessions-realtime',
+    },
+  ];
+}
+
 async function loadOpenClawCronJobs(): Promise<OpenClawCronJob[]> {
-  // 认证由服务端本机 OpenClaw CLI 处理；浏览器只访问本地 API，不暴露 Gateway token。
   const { stdout } = await execFileAsync('openclaw', ['cron', 'list', '--json', '--all'], {
     timeout: 30_000,
     maxBuffer: 8 * 1024 * 1024,
     env: process.env,
   });
 
-  const payload = extractJsonPayload(stdout);
+  const payload = extractJsonPayload<OpenClawCronListResponse>(stdout);
   return (payload.jobs || []).filter((job) => !EXCLUDED_JOB_NAMES.has(job.name || ''));
+}
+
+async function loadOpenClawActiveSessions(): Promise<LiveSessionSummary[]> {
+  const { stdout } = await execFileAsync(
+    'openclaw',
+    ['sessions', '--json', '--all-agents', '--active', String(ACTIVE_SESSION_WINDOW_MINUTES)],
+    {
+      timeout: 30_000,
+      maxBuffer: 8 * 1024 * 1024,
+      env: process.env,
+    }
+  );
+
+  const payload = extractJsonPayload<OpenClawSessionsResponse>(stdout);
+  const liveSessions = (payload.sessions || [])
+    .map((session) => toLiveSessionSummary(session))
+    .filter((session): session is LiveSessionSummary => Boolean(session));
+
+  return dedupeLiveSessionsByAgent(liveSessions);
 }
 
 export async function GET() {
   try {
-    const jobs = await loadOpenClawCronJobs();
+    const [jobs, activeSessions] = await Promise.all([
+      loadOpenClawCronJobs(),
+      loadOpenClawActiveSessions(),
+    ]);
+    const activeCollaborations = buildActiveCollaborations(activeSessions);
 
     const agents = CANONICAL_AGENTS.map((agent) => {
       const agentJobs = jobs.filter((job) => inferAgentId(job) === agent.id);
@@ -174,10 +315,10 @@ export async function GET() {
 
     return NextResponse.json({
       timestamp: new Date().toISOString(),
-      source: 'openclaw-cron-realtime',
+      source: 'openclaw-cron+sessions-realtime',
       agents,
-      activeSessions: [],
-      activeCollaborations: [],
+      activeSessions,
+      activeCollaborations,
     });
   } catch (error) {
     console.error('Error fetching real-time agent status from OpenClaw cron:', error);

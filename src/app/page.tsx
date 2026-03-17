@@ -1008,7 +1008,7 @@ export default function SecondBrain() {
         {
           id: 'mock-meeting-a-chief-content',
           room: 'meeting-a',
-          roomName: 'Meeting A',
+          roomName: 'Office A · 小会议室',
           agentIds: ['chief', 'content'],
           label: 'Chief 与 Content 正在对齐写作任务',
           lastUpdatedAt: now,
@@ -1022,7 +1022,7 @@ export default function SecondBrain() {
       {
         id: 'mock-meeting-b-chief-content-coding-product',
         room: 'meeting-b',
-        roomName: 'Meeting B',
+        roomName: 'Office B · 大会议室',
         agentIds: ['chief', 'content', 'coding', 'product'],
         label: 'Chief / Content / Coding / Product 正在多人评审',
         lastUpdatedAt: now,
@@ -1754,7 +1754,7 @@ export default function SecondBrain() {
 
     const collaborationRooms: Record<CollaborationRoom, { zone: string; x: number; y: number; spots: Array<{ x: number; y: number }> }> = {
       'meeting-a': {
-        zone: 'Meeting A · 小会议室',
+        zone: 'Office A · 小会议室',
         x: 654,
         y: 214,
         spots: [
@@ -1765,7 +1765,7 @@ export default function SecondBrain() {
         ],
       },
       'meeting-b': {
-        zone: 'Meeting B · 大会议室',
+        zone: 'Office B · 大会议室',
         x: 1078,
         y: 214,
         spots: [
@@ -2306,8 +2306,8 @@ export default function SecondBrain() {
                 <path d="M 844 92 H 1352 V 320 H 844 Z" fill="rgba(255,255,255,0.018)" stroke="rgba(255,255,255,0.05)" />
 
                 {renderZoneLabel(92, 76, 'PRINT / STORAGE', '打印与储物')}
-                {renderZoneLabel(554, 76, 'MEETING B', '小型讨论')}
-                {renderZoneLabel(998, 76, 'MEETING A', '评审与会议')}
+                {renderZoneLabel(554, 76, 'OFFICE A', '小会议室')}
+                {renderZoneLabel(998, 76, 'OFFICE B', '大会议室')}
                 {renderZoneLabel(126, 392, 'BREAK AREA', '沙发与咖啡')}
                 {renderZoneLabel(612, 768, 'CENTRAL AISLE', '走动留白')}
                 {renderZoneLabel(936, 334, 'OPEN WORKSPACE', '工作工位')}
@@ -3229,6 +3229,6 @@ export default function SecondBrain() {
         )}
       </main>
     </div>
-    </AuthCheck>
+  </AuthCheck>
   );
 }
