@@ -28,6 +28,11 @@
 ### 3. 任务执行规则
 - 可并行执行多Agent
 - 任务粒度控制，避免过度拆解
+
+### 4. 版本信息核实规则
+- **OpenClaw 版本**：必须以 GitHub 官方 releases (https://github.com/openclaw/openclaw/releases) 为准
+- 禁止基于非官方渠道（视频标题、公众号文章等）编写版本信息
+- 如有疑问，查询: `curl -s https://api.github.com/repos/openclaw/openclaw/releases | jq '.[0].tag_name'`
 - 执行前传递必要上下文
 - 完成后记录状态到对应Memory
 - **Chief 私聊硬规则（2026-03-10）**：非前台任务必须先过 dispatch planner；若目标不是 Chief，则优先真实委派，不能由 Chief 直接越过分发链路硬做

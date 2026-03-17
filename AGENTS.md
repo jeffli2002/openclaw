@@ -49,6 +49,7 @@ Before doing anything else:
 | skill-creator | `skills/skill-creator/SKILL.md` | 创建、评估、优化和打磨 Agent Skill |
 | notebooklm | `skills/notebooklm-skill/SKILL.md` | NotebookLM 查询 |
 | skill-vetter | `skills/skill-vetter/SKILL.md` | Skill 安全审查 |
+| supadata | `skills/supadata/SKILL.md` | YouTube/Twitter Transcript 抓取 |
 | smart-search | `skills/smart-search/SKILL.md` | 智能搜索 |
 | coding-agent | `skills/coding-agent/SKILL.md` | 代码任务委派 |
 | agent-orchestrator | `skills/agent-orchestrator/SKILL.md` | Agent 调度中心 |

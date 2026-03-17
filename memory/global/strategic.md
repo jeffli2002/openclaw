@@ -301,9 +301,82 @@
 
 ---
 
-> 最后更新: 2026-03-16 10:04
+> 最后更新: 2026-03-17 22:06
 
-## 📊 Memory 提炼 | 2026-03-16 10:04
+## 📊 每日记忆提取 | 2026-03-17 22:06
+
+### Playwright MCP Bridge Chrome扩展安装
+- 用户已在本地Chrome手动安装扩展
+- 下一步：配置MCP服务器连接CDP端口
+
+### 运营更新
+- Second Brain UI 修改完成（SVG办公室场景 + Agent动画）
+- 飞书文档写入验证：写入后必须读取验证
+- 实时状态方案：5分钟Supabase同步（Vercel无法运行openclaw CLI）
+- Office协作功能 PRD已审批
+
+## 📊 每日记忆提取 | 2026-03-17 18:08
+
+### info-card-designer Skill 测试完成
+- 已安装 GitHub joeseesun/info-card-designer
+- 工作流：AI生成HTML → Chrome截图 → PNG输出
+- 测试验证：Chrome浏览器截图功能正常
+- 无需KIE生图API，使用本地Chrome截图
+
+### Cron健康检查
+- 22个任务正常运行
+- 2个失败任务：
+  - github-daily-backup: 超时 (90s limit)
+  - sync-github-15-00: 路径错误 (workspace-coding不存在)
+
+## 📊 每日记忆提取 | 2026-03-17 10:07
+
+### 飞书文档写入验证问题
+- 问题：feishu_doc write 后文档内容为空
+- 根因：API 调用成功但内容未正确写入
+- 解决：写入后必须用 feishu_doc read 验证内容
+- 以后所有飞书文档操作都要验证后再通知用户
+
+### Vercel 与 OpenClaw CLI 兼容性
+- 问题：实时状态 API 在 Vercel 无法运行 openclaw CLI
+- 原因：Vercel 是无服务器环境，无法执行本地 CLI
+- 解决：使用 Supabase 5分钟同步方案
+
+### Second Brain Office 协作功能
+- PRD 已审批
+- 2个 Agent → 小会议室
+- ≥3个 Agent → 大会议室
+
+## 📊 每日记忆提取 | 2026-03-17 04:04
+
+### 检查结果
+- 2026-03-15 和 2026-03-16 两天的 daily memory 已复核
+- 核心信息均已沉淀到 strategic.md，无新增系统性知识需要写入
+- 飞书文档写入问题已记录，SupaData API 经验已记录，产品方向已确认
+
+## 📊 产品方向 | 2026-03-16
+
+### 核心业务
+1. **AI教育培训** - 主要业务方向
+2. **OpenClaw 相关** - 技术服务方向
+
+### AI培训定价（Finance Agent产出）
+- 线下培训：保底分成 50%，保底 ¥5,000/天
+- 线上课程：课程制作分成 30%
+
+---
+
+## 📊 飞书文档写入问题 | 2026-03-16
+
+### 问题描述
+- 使用 feishu_doc write 后文档内容为空
+- 影响：Chief 每日汇报飞书文档空白
+
+### 解决方案
+- 写入后增加验证
+- 失败则用 append 补写
+
+---
 
 ### SupaData API 调用已验证可用
 
@@ -420,7 +493,7 @@ git push
 
 ### OpenClaw 2026.3.12 / 3.14 版本新特性
 
-**版本号**：2026.3.14 (最新)
+**版本号**：2026.3.13-1 (最新)
 **发布时间**：2026-03-14
 
 **新功能**：
@@ -1304,3 +1377,64 @@ openclaw gateway restart
 ### 稳定结论
 - Supabase同步链路正常 (30分钟一次)
 - TrustMRR分析产出稳定，方向: 高意向获客Agent、Agentic Social Ops、垂直ROI Copilot、Agent Delivery
+
+---
+
+## 📊 Memory 提炼 | 2026-03-16 12:06
+
+### Second Brain 项目 Agent 状态监控方案
+
+**问题**：Vercel serverless 无法执行 openclaw CLI
+
+**解决方案**：
+1. 本地定时同步脚本 `sync-agent-status.js` 每30分钟执行
+2. 写入 Supabase tasks 表
+3. Vercel API 从 Supabase 读取状态
+4. 前端每10秒轮询更新
+
+**关键配置**：
+- Supabase: njxjuvxosvwvluxefrzg
+- 同步脚本: `/root/.openclaw/workspace/scripts/sync-agent-status.js`
+- Agent 状态 ID 格式: `agent-{chief|content|growth|coding|product|finance}`
+
+**状态定义**：
+- running: 有活跃 subagent 会话
+- ok: cron 任务正常运行
+- error: 任务失败
+- idle: 无分配任务
+
+### Supadata API 正确调用方式
+- 域名: `api.supadata.ai` (不是 .io)
+- 端点: `/transcript`
+- 参数: `url` (完整 YouTube URL)
+
+### 经验总结
+- Vercel 部署问题优先检查 token 有效性
+- GitHub 推送失败可能是文件超过 100MB
+
+---
+
+## 📊 每日记忆提取 | 2026-03-17 14:08
+
+### OpenClaw培训课程大纲已生成
+- 1天通用版：原理与部署 + 应用实操
+- 1天主题版：办公效率/一人公司/自媒体内容
+- 2天企业版：第一天原理+部署基础，第二天进阶+实践分享
+- 定价参考：线下保底分成50%保底¥5000/天，线上课程分成30%
+
+### Second Brain Office协作功能
+- PRD已审批，开发中
+- 2个Agent → 小会议室
+- ≥3个Agent → 大会议室
+
+### 飞书文档写入验证
+- 问题：feishu_doc write后内容可能为空
+- 解决：写入后必须用read验证
+
+### 实时状态同步方案
+- Vercel无法运行openclaw CLI（无服务器环境）
+- 使用5分钟Supabase同步方案
+
+---
+
+> 最后更新: 2026-03-17 14:08

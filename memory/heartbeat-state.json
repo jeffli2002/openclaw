@@ -1,13 +1,21 @@
 {
   "lastChecks": {
-    "openclaw_news": 1773269426,
-    "github_releases": 1773269426,
-    "docs": 1773269426
+    "openclaw_news": 1773270487,
+    "github_releases": 1773270487,
+    "docs": 1773270487
   },
   "notes": {
-    "latestRelease": "v2026.3.8",
+    "latestRelease": "v2026.3.14",
     "installedVersion": "2026.3.8",
-    "upgradeAvailable": false,
-    "checkedAt": "2026-03-12 06:50 CST"
+    "upgradeAvailable": true,
+    "checkedAt": "2026-03-17 04:01 CST",
+    "releaseType": "recovery release (Immutable)",
+    "keyUpdates": [
+      "默认模型更新为 gpt-5.4",
+      "Docker 添加 OPENCLAW_TZ 时区支持",
+      "Android 聊天设置 UI 重新设计",
+      "iOS 添加欢迎页面",
+      "多个 bug 修复"
+    ]
   }
 }

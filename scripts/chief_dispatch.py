@@ -29,6 +29,7 @@ from agent_keyword_router import AgentKeywordRouter
 
 WORKSPACE = Path("/root/.openclaw/workspace")
 WORKERS_CONFIG = WORKSPACE / "config" / "chief_dispatch_workers.yaml"
+COLLAB_TRACKER_SCRIPT = WORKSPACE / "scripts" / "collaboration_tracker.py"
 
 SIMPLE_FRONTDESK_PATTERNS = [
     r"^hi$",
@@ -75,6 +76,26 @@ class ChiefDispatchPlanner:
             "result_file": str(result_file),
             "allowed_dir": str(result_dir),
             "wait_timeout_seconds": int(bridge_cfg.get("wait_timeout_seconds", 180)),
+        }
+
+    def _build_collaboration_tracker(self, agent: str, bridge: Dict[str, Any]) -> Dict[str, Any]:
+        label = f"Chief / {agent.title()} 正在协作"
+        start_cmd = (
+            f'python3 {COLLAB_TRACKER_SCRIPT} start '
+            f'--dispatch-id "{bridge["dispatch_id"]}" '
+            f'--participant-agent chief '
+            f'--participant-agent {agent} '
+            f'--ttl-seconds {int(bridge.get("wait_timeout_seconds", 180))} '
+            f'--label "{label}"'
+        )
+        finish_cmd = f'python3 {COLLAB_TRACKER_SCRIPT} finish --dispatch-id "{bridge["dispatch_id"]}"'
+        return {
+            "enabled": True,
+            "dispatch_id": bridge["dispatch_id"],
+            "label": label,
+            "participants": ["chief", agent],
+            "start_cmd": start_cmd,
+            "finish_cmd": finish_cmd,
         }
 
     def _bridge_instruction_json(self, agent: str, model: str, bridge: Dict[str, Any]) -> str:
