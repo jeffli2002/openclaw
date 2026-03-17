@@ -47,7 +47,7 @@ interface Task {
   id: string;
   name: string;
   schedule: string;
-  status: "ok" | "error" | "running" | "idle" | "disabled";
+  status: "error" | "running" | "idle" | "disabled";
   lastRun: string | null;
   lastDuration: string | null;
   nextRun: string | null;
@@ -210,7 +210,7 @@ const mockTasks: Task[] = [
     id: "1",
     name: "ai-daily-newsletter",
     schedule: "7:30 每天",
-    status: "ok",
+    status: "idle",
     lastRun: "2026-02-23 07:30",
     lastDuration: "159s",
     nextRun: "2026-02-24 07:30",
@@ -221,7 +221,7 @@ const mockTasks: Task[] = [
     id: "2",
     name: "daily-content-publish",
     schedule: "9:00 每天",
-    status: "ok",
+    status: "idle",
     lastRun: "2026-02-23 09:00",
     lastDuration: "44s",
     nextRun: "2026-02-24 09:00",
@@ -232,7 +232,7 @@ const mockTasks: Task[] = [
     id: "3",
     name: "growth-seo-keywords",
     schedule: "10:00 每天",
-    status: "ok",
+    status: "idle",
     lastRun: "2026-02-23 10:00",
     lastDuration: "114s",
     nextRun: "2026-02-24 10:00",
@@ -243,7 +243,7 @@ const mockTasks: Task[] = [
     id: "4",
     name: "ai-kol-daily-newsletter",
     schedule: "11:00 每天",
-    status: "ok",
+    status: "idle",
     lastRun: "2026-02-23 11:00",
     lastDuration: "122s",
     nextRun: "2026-02-24 11:00",
@@ -254,7 +254,7 @@ const mockTasks: Task[] = [
     id: "5",
     name: "product-competitor-analysis",
     schedule: "14:00 每天",
-    status: "ok",
+    status: "idle",
     lastRun: "2026-02-23 14:00",
     lastDuration: "110s",
     nextRun: "2026-02-24 14:00",
@@ -276,7 +276,7 @@ const mockTasks: Task[] = [
     id: "7",
     name: "daily-skill-evolution",
     schedule: "22:00 每天",
-    status: "ok",
+    status: "idle",
     lastRun: "2026-02-22 22:00",
     lastDuration: "50s",
     nextRun: "2026-02-23 22:00",
@@ -301,7 +301,7 @@ interface Agent {
   id: string;
   name: string;
   description: string;
-  status: "ok" | "error" | "running" | "idle" | "disabled";
+  status: "error" | "running" | "idle" | "disabled";
   model: string;
   tasks: number;
   completedTasks: number;
@@ -384,11 +384,36 @@ const matchesQuery = (query: string, ...fields: unknown[]) => {
   return fields.some((field) => safeText(field).toLowerCase().includes(normalizedQuery));
 };
 
+const normalizeTaskStatus = (status?: string): Task["status"] => {
+  const normalized = status?.toLowerCase();
+
+  if (normalized === "running" || normalized === "busy" || normalized === "working") {
+    return "running";
+  }
+
+  if (normalized === "error" || normalized === "failed") {
+    return "error";
+  }
+
+  if (normalized === "disabled") {
+    return "disabled";
+  }
+
+  return "idle";
+};
+
+const isIdleOverOneHour = (value?: string | null) => {
+  if (!value) return false;
+  const timestamp = new Date(value).getTime();
+  if (Number.isNaN(timestamp)) return false;
+  return Date.now() - timestamp > 60 * 60 * 1000;
+};
+
 const normalizeTask = (row: any): Task => ({
   id: row.id,
   name: row.name,
   schedule: row.schedule,
-  status: row.status || "idle",
+  status: normalizeTaskStatus(row.status),
   lastRun: row.last_run || null,
   lastDuration: row.last_duration || null,
   nextRun: row.next_run || null,
@@ -494,7 +519,7 @@ export default function SecondBrain() {
   const stats = {
     totalMemories: memories.length,
     totalDocuments: documents.length,
-    activeTasks: tasks.filter((t) => t.status === "ok" || t.status === "running").length,
+    activeTasks: tasks.filter((t) => t.status === "running").length,
     errorTasks: tasks.filter((t) => t.status === "error").length,
   };
 
@@ -508,15 +533,13 @@ export default function SecondBrain() {
       ? "running"
       : agentTasks.some((task) => task.status === "error")
       ? "error"
-      : agentTasks.some((task) => task.status === "ok")
-      ? "ok"
       : "idle";
 
     return {
       ...agent,
       status,
       tasks: agentTasks.length,
-      completedTasks: agentTasks.filter((task) => task.status === "ok").length,
+      completedTasks: agentTasks.filter((task) => task.status !== "error" && task.status !== "disabled").length,
       failedTasks: agentTasks.filter((task) => task.status === "error").length,
       tokenUsage: agentTasks.reduce((sum, task) => sum + task.tokenUsage, 0),
       lastRun: lastRunTimestamps.length
@@ -602,8 +625,6 @@ export default function SecondBrain() {
   // 获取状态图标
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "ok":
-        return <CheckCircle className="w-4 h-4 text-green-500" />;
       case "error":
         return <XCircle className="w-4 h-4 text-red-500" />;
       case "running":
@@ -1842,12 +1863,31 @@ export default function SecondBrain() {
       const selected = selectedOfficeAgentId === agent.id;
       const seated = placement.pose === 'sit' || placement.pose === 'desk';
       const walking = placement.pose === 'walk';
-      const bodyY = seated ? -14 : -20;
-      const headY = seated ? -44 : -52;
       const motionValues = placement.motionValues || (walking ? '0 0; 80 -18; 160 24; 72 62; 0 0' : '0 0; 0 4; 0 0');
       const motionDuration = placement.motionDuration || (walking ? '12s' : '3.2s');
       const shouldAnimate = placement.pose === 'walk' || placement.pose === 'sit' || placement.pose === 'reception';
       const chestLetter = (profile.label || agent.name).slice(0, 1).toUpperCase();
+
+      const headRadius = 14;
+      const torsoTop = seated ? -24 : -28;
+      const torsoHeight = seated ? 34 : 38;
+      const torsoBottom = torsoTop + torsoHeight;
+      const headY = torsoTop - 16;
+      const neckY = headY + headRadius - 2;
+      const neckHeight = 10;
+      const shoulderY = torsoTop + 7;
+      const hipY = torsoBottom - 7;
+      const torsoPath = `M -17 ${torsoTop + 8}
+        Q -17 ${torsoTop - 1} -7 ${torsoTop - 6}
+        L -4 ${torsoTop - 8}
+        Q 0 ${torsoTop - 10} 4 ${torsoTop - 8}
+        L 7 ${torsoTop - 6}
+        Q 17 ${torsoTop - 1} 17 ${torsoTop + 8}
+        L 17 ${torsoBottom - 8}
+        Q 17 ${torsoBottom} 9 ${torsoBottom}
+        L -9 ${torsoBottom}
+        Q -17 ${torsoBottom} -17 ${torsoBottom - 8}
+        Z`;
 
       return (
         <g
@@ -1865,44 +1905,52 @@ export default function SecondBrain() {
                 repeatCount="indefinite"
               />
             )}
+
             {selected && <circle cx="0" cy="-18" r="38" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="2.5" strokeDasharray="6 5" />}
             <ellipse cx="0" cy="16" rx="22" ry="7" fill="rgba(0,0,0,0.22)" />
 
-            {renderHair(profile, headY)}
-            <circle cx="0" cy={headY} r="14" fill="#fde7d3" />
-            <circle cx="-5" cy={headY - 2} r="1.2" fill="#1f2937" />
-            <circle cx="5" cy={headY - 2} r="1.2" fill="#1f2937" />
-            <path d={`M -4 ${headY + 6} Q 0 ${headY + 9} 4 ${headY + 6}`} stroke="#b45309" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+            <g>
+              <rect x="-4.5" y={neckY} width="9" height={neckHeight} rx="4.5" fill="#f4d5bc" />
+              <path d={torsoPath} fill={profile.outfit} />
+              <rect x="-17" y={torsoTop + 18} width="34" height="10" rx="5" fill={profile.secondary} opacity="0.5" />
+              <path d={`M -15 ${torsoTop + 9} Q 0 ${torsoTop + 1} 15 ${torsoTop + 9}`} fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="2.5" strokeLinecap="round" />
 
-            <rect x="-17" y={bodyY} width="34" height="36" rx="13" fill={profile.outfit} />
-            <rect x="-17" y={bodyY + 18} width="34" height="10" rx="5" fill={profile.secondary} opacity="0.5" />
-            {renderAccessory(profile, bodyY)}
-            <text x="0" y={bodyY + 23} textAnchor="middle" fill="rgba(255,255,255,0.92)" fontSize="11" fontWeight="700">
-              {chestLetter}
-            </text>
+              {renderHair(profile, headY)}
+              <circle cx="0" cy={headY} r={headRadius} fill="#fde7d3" />
+              <circle cx="-5" cy={headY - 2} r="1.2" fill="#1f2937" />
+              <circle cx="5" cy={headY - 2} r="1.2" fill="#1f2937" />
+              <path d={`M -4 ${headY + 6} Q 0 ${headY + 9} 4 ${headY + 6}`} stroke="#b45309" strokeWidth="1.5" fill="none" strokeLinecap="round" />
 
-            {seated ? (
-              <g stroke="#1f2937" strokeWidth="4.5" strokeLinecap="round">
-                <line x1="-8" y1={bodyY + 28} x2="-20" y2={bodyY + 18} />
-                <line x1="8" y1={bodyY + 28} x2="20" y2={bodyY + 18} />
-                <line x1="-20" y1={bodyY + 18} x2="-18" y2={bodyY + 34} />
-                <line x1="20" y1={bodyY + 18} x2="18" y2={bodyY + 34} />
-              </g>
-            ) : walking ? (
-              <g stroke="#1f2937" strokeWidth="4.5" strokeLinecap="round">
-                <line x1="-12" y1={bodyY + 8} x2="-22" y2={bodyY + 20} />
-                <line x1="12" y1={bodyY + 8} x2="24" y2={bodyY + 16} />
-                <line x1="-6" y1={bodyY + 30} x2="-20" y2={bodyY + 48} />
-                <line x1="6" y1={bodyY + 30} x2="18" y2={bodyY + 38} />
-              </g>
-            ) : (
-              <g stroke="#1f2937" strokeWidth="4.5" strokeLinecap="round">
-                <line x1="-14" y1={bodyY + 10} x2="-24" y2={bodyY + 22} />
-                <line x1="14" y1={bodyY + 10} x2="24" y2={bodyY + 22} />
-                <line x1="-6" y1={bodyY + 30} x2="-8" y2={bodyY + 48} />
-                <line x1="6" y1={bodyY + 30} x2="8" y2={bodyY + 48} />
-              </g>
-            )}
+              {renderAccessory(profile, torsoTop)}
+              <text x="0" y={torsoTop + 23} textAnchor="middle" fill="rgba(255,255,255,0.92)" fontSize="11" fontWeight="700">
+                {chestLetter}
+              </text>
+
+              {seated ? (
+                <g stroke="#1f2937" strokeWidth="4.5" strokeLinecap="round">
+                  <line x1="-11" y1={shoulderY} x2="-22" y2={torsoTop + 18} />
+                  <line x1="11" y1={shoulderY} x2="22" y2={torsoTop + 18} />
+                  <line x1="-6" y1={hipY} x2="-18" y2={torsoTop + 22} />
+                  <line x1="6" y1={hipY} x2="18" y2={torsoTop + 22} />
+                  <line x1="-18" y1={torsoTop + 22} x2="-16" y2={torsoBottom + 8} />
+                  <line x1="18" y1={torsoTop + 22} x2="16" y2={torsoBottom + 8} />
+                </g>
+              ) : walking ? (
+                <g stroke="#1f2937" strokeWidth="4.5" strokeLinecap="round">
+                  <line x1="-11" y1={shoulderY} x2="-23" y2={torsoTop + 21} />
+                  <line x1="11" y1={shoulderY} x2="23" y2={torsoTop + 13} />
+                  <line x1="-6" y1={hipY} x2="-22" y2={torsoBottom + 18} />
+                  <line x1="6" y1={hipY} x2="19" y2={torsoBottom + 8} />
+                </g>
+              ) : (
+                <g stroke="#1f2937" strokeWidth="4.5" strokeLinecap="round">
+                  <line x1="-12" y1={shoulderY} x2="-24" y2={torsoTop + 18} />
+                  <line x1="12" y1={shoulderY} x2="24" y2={torsoTop + 18} />
+                  <line x1="-6" y1={hipY} x2="-8" y2={torsoBottom + 18} />
+                  <line x1="6" y1={hipY} x2="8" y2={torsoBottom + 18} />
+                </g>
+              )}
+            </g>
 
             <circle cx="24" cy={headY - 8} r="5" fill={statusColor} stroke="rgba(255,255,255,0.9)" strokeWidth="2" />
             <g transform="translate(0 40)">
