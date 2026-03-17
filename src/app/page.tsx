@@ -881,12 +881,16 @@ export default function SecondBrain() {
     icon: string;
     status: AgentStatus;
     lastActive: string;
+    lastActiveAt?: string | null;
     currentTask: string;
     taskProgress: number;
     totalTasks: number;
     okTasks: number;
     errorTasks: number;
     runningTasks: number;
+    collaborationId?: string | null;
+    collaborationLabel?: string | null;
+    collaborationRoom?: string | null;
     isExternal?: boolean;
   }
 
@@ -917,6 +921,28 @@ export default function SecondBrain() {
     status: AgentStatus;
     message: string;
     timestamp: string;
+  }
+
+  interface AgentStatusApiSession {
+    key: string;
+    agentId: string;
+    updatedAt?: number;
+    ageMs?: number;
+    isSubagent?: boolean;
+  }
+
+  type CollaborationRoom = 'meeting-a' | 'meeting-b';
+  type CollaborationPreviewMode = 'live' | CollaborationRoom;
+
+  interface AgentStatusApiCollaboration {
+    id: string;
+    room: CollaborationRoom;
+    roomName: string;
+    agentIds: string[];
+    label: string;
+    lastUpdatedAt: string;
+    sessionKeys: string[];
+    detectedFrom?: string;
   }
 
   const AGENT_STATUS_REALTIME_ENDPOINT = '/api/agent-status';
@@ -956,6 +982,54 @@ export default function SecondBrain() {
     if (agent.status === 'error') return `${agent.failedTasks} 个 cron 异常`;
     if (agent.status === 'ok') return `${agent.completedTasks}/${agent.tasks} 个 cron 正常`;
     return `${agent.idleTasks || 0} 个 cron 等待执行`;
+  }
+
+  function isIdleOverOneHour(value?: string | null) {
+    if (!value) return false;
+    const timestamp = new Date(value).getTime();
+    if (Number.isNaN(timestamp)) return false;
+    return Date.now() - timestamp >= 60 * 60 * 1000;
+  }
+
+  function getAgentDisplayName(agentId: string) {
+    return TEAM_AGENT_DEFINITIONS.find((agent) => agent.id === agentId)?.name || agentId;
+  }
+
+  function buildCollaborationTaskLabel(collaboration: AgentStatusApiCollaboration, selfAgentId: string) {
+    const teammates = collaboration.agentIds.filter((agentId) => agentId !== selfAgentId).map(getAgentDisplayName);
+    return `沟通中 · ${collaboration.roomName} · 与 ${teammates.join('、')}`;
+  }
+
+  function createMockCollaborations(mode: CollaborationRoom): AgentStatusApiCollaboration[] {
+    const now = new Date().toISOString();
+
+    if (mode === 'meeting-a') {
+      return [
+        {
+          id: 'mock-meeting-a-chief-content',
+          room: 'meeting-a',
+          roomName: 'Meeting A',
+          agentIds: ['chief', 'content'],
+          label: 'Chief 与 Content 正在对齐写作任务',
+          lastUpdatedAt: now,
+          sessionKeys: ['mock:chief-content'],
+          detectedFrom: 'mock',
+        },
+      ];
+    }
+
+    return [
+      {
+        id: 'mock-meeting-b-chief-content-coding-product',
+        room: 'meeting-b',
+        roomName: 'Meeting B',
+        agentIds: ['chief', 'content', 'coding', 'product'],
+        label: 'Chief / Content / Coding / Product 正在多人评审',
+        lastUpdatedAt: now,
+        sessionKeys: ['mock:chief-content-coding-product'],
+        detectedFrom: 'mock',
+      },
+    ];
   }
 
   function buildOfficeActivityMessage(agent: TeamAgent) {
@@ -1001,12 +1075,16 @@ export default function SecondBrain() {
           ...agent,
           status: 'external' as AgentStatus,
           lastActive: '外部系统',
+          lastActiveAt: null,
           currentTask: '不受 OpenClaw cron 管理',
           taskProgress: 0,
           totalTasks: 0,
           okTasks: 0,
           errorTasks: 0,
           runningTasks: 0,
+          collaborationId: null,
+          collaborationLabel: null,
+          collaborationRoom: null,
         };
       }
 
@@ -1014,12 +1092,16 @@ export default function SecondBrain() {
         ...agent,
         status: 'loading' as AgentStatus,
         lastActive: '同步中',
+        lastActiveAt: null,
         currentTask: '正在读取 OpenClaw 实时状态',
         taskProgress: 0,
         totalTasks: 0,
         okTasks: 0,
         errorTasks: 0,
         runningTasks: 0,
+        collaborationId: null,
+        collaborationLabel: null,
+        collaborationRoom: null,
       };
     });
   }
@@ -1028,6 +1110,9 @@ export default function SecondBrain() {
   const [isLoadingAgents, setIsLoadingAgents] = useState(true);
   const [selectedOfficeAgentId, setSelectedOfficeAgentId] = useState('chief');
   const [officeActivities, setOfficeActivities] = useState<OfficeActivity[]>([]);
+  const [liveActiveSessions, setLiveActiveSessions] = useState<AgentStatusApiSession[]>([]);
+  const [liveCollaborations, setLiveCollaborations] = useState<AgentStatusApiCollaboration[]>([]);
+  const [collaborationPreviewMode, setCollaborationPreviewMode] = useState<CollaborationPreviewMode>('live');
   const officeActivitySnapshotRef = useRef<Map<string, string>>(new Map());
 
   useEffect(() => {
@@ -1043,12 +1128,23 @@ export default function SecondBrain() {
         const data = await response.json();
         const apiAgents = ((data.agents || []) as AgentStatusApiAgent[]);
         const agentsById = new Map<string, AgentStatusApiAgent>(apiAgents.map((agent) => [agent.id, agent]));
-        
-        // 获取活跃的 subagent 会话
-        const activeSessions = data.activeSessions || [];
-        const activeAgentIds = new Set(activeSessions.map((s: any) => s.agentId));
+        const activeSessions = ((data.activeSessions || []) as AgentStatusApiSession[]);
+        const activeCollaborations = ((data.activeCollaborations || []) as AgentStatusApiCollaboration[]);
+        const activeAgentIds = new Set(activeSessions.map((session) => session.agentId));
+        const collaborationByAgentId = new Map<string, AgentStatusApiCollaboration>();
+
+        activeCollaborations.forEach((collaboration) => {
+          collaboration.agentIds.forEach((agentId) => {
+            if (!collaborationByAgentId.has(agentId)) {
+              collaborationByAgentId.set(agentId, collaboration);
+            }
+          });
+        });
 
         if (cancelled) return;
+
+        setLiveActiveSessions(activeSessions);
+        setLiveCollaborations(activeCollaborations);
 
         setTeamAgents(
           TEAM_AGENT_DEFINITIONS.map((agent) => {
@@ -1057,12 +1153,16 @@ export default function SecondBrain() {
                 ...agent,
                 status: 'external' as AgentStatus,
                 lastActive: '外部系统',
+                lastActiveAt: null,
                 currentTask: '不受 OpenClaw cron 管理',
                 taskProgress: 0,
                 totalTasks: 0,
                 okTasks: 0,
                 errorTasks: 0,
                 runningTasks: 0,
+                collaborationId: null,
+                collaborationLabel: null,
+                collaborationRoom: null,
               };
             }
 
@@ -1071,23 +1171,30 @@ export default function SecondBrain() {
             const okTasks = realAgent?.completedTasks || 0;
             const errorTasks = realAgent?.failedTasks || 0;
             const runningTasks = realAgent?.runningTasks || 0;
-            
-            // 如果有活跃的 subagent 会话，状态为 running
+            const collaboration = collaborationByAgentId.get(agent.id);
+            const isCollaborating = Boolean(collaboration);
             const isSubAgentRunning = activeAgentIds.has(agent.id);
-            const status = isSubAgentRunning ? 'running' : (realAgent?.status || 'idle');
+            const status = isCollaborating || isSubAgentRunning ? 'running' : (realAgent?.status || 'idle');
+            const activeSession = activeSessions.find((session) => session.agentId === agent.id);
 
             return {
               ...agent,
               status: status as AgentStatus,
               lastActive: formatRelativeTime(realAgent?.lastRun),
-              currentTask: isSubAgentRunning 
-                ? `活跃会话: ${activeSessions.find((s: any) => s.agentId === agent.id)?.key?.split(':').pop() || '工作中'}`
-                : buildCurrentTaskSummary(realAgent),
+              lastActiveAt: realAgent?.lastRun || null,
+              currentTask: collaboration
+                ? buildCollaborationTaskLabel(collaboration, agent.id)
+                : isSubAgentRunning
+                  ? `活跃会话: ${activeSession?.key?.split(':').pop() || '工作中'}`
+                  : buildCurrentTaskSummary(realAgent),
               taskProgress: totalTasks > 0 ? Math.round((okTasks / totalTasks) * 100) : 0,
               totalTasks,
               okTasks,
               errorTasks,
               runningTasks: isSubAgentRunning ? runningTasks + 1 : runningTasks,
+              collaborationId: collaboration?.id ?? null,
+              collaborationLabel: collaboration?.label ?? null,
+              collaborationRoom: collaboration?.roomName ?? null,
             };
           })
         );
@@ -1095,6 +1202,8 @@ export default function SecondBrain() {
         console.error('Failed to refresh agent status:', error);
         if (cancelled) return;
 
+        setLiveActiveSessions([]);
+        setLiveCollaborations([]);
         setTeamAgents(
           TEAM_AGENT_DEFINITIONS.map((agent) => {
             if (agent.isExternal) {
@@ -1102,12 +1211,16 @@ export default function SecondBrain() {
                 ...agent,
                 status: 'external' as AgentStatus,
                 lastActive: '外部系统',
+                lastActiveAt: null,
                 currentTask: '不受 OpenClaw cron 管理',
                 taskProgress: 0,
                 totalTasks: 0,
                 okTasks: 0,
                 errorTasks: 0,
                 runningTasks: 0,
+                collaborationId: null,
+                collaborationLabel: null,
+                collaborationRoom: null,
               };
             }
 
@@ -1115,12 +1228,16 @@ export default function SecondBrain() {
               ...agent,
               status: 'loading' as AgentStatus,
               lastActive: '状态获取失败',
+              lastActiveAt: null,
               currentTask: `无法连接 ${AGENT_STATUS_REALTIME_ENDPOINT}`,
               taskProgress: 0,
               totalTasks: 0,
               okTasks: 0,
               errorTasks: 0,
               runningTasks: 0,
+              collaborationId: null,
+              collaborationLabel: null,
+              collaborationRoom: null,
             };
           })
         );
@@ -1419,7 +1536,7 @@ export default function SecondBrain() {
 
     type HairStyle = 'bun' | 'bob' | 'spiky' | 'side-part' | 'curly' | 'ponytail' | 'waves';
     type AvatarAccessory = 'tie' | 'scarf' | 'hoodie' | 'badge' | 'glasses' | 'apron' | 'headset';
-    type OfficePose = 'desk' | 'walk' | 'sit' | 'reception' | 'stand';
+    type OfficePose = 'desk' | 'walk' | 'sit' | 'reception' | 'stand' | 'meeting';
 
     interface AvatarProfile {
       hairStyle: HairStyle;
@@ -1439,6 +1556,8 @@ export default function SecondBrain() {
       onDesk?: boolean;
       motionValues?: string;
       motionDuration?: string;
+      collaborationId?: string;
+      collaborationLabel?: string;
     }
 
     interface DeskAnchor {
@@ -1606,18 +1725,91 @@ export default function SecondBrain() {
       }
     };
 
-    const relaxingAgents = teamAgents.filter(
-      (agent) => !agent.isExternal && (agent.status === 'idle' || agent.status === 'ok')
+    const displayedCollaborations = collaborationPreviewMode === 'live'
+      ? liveCollaborations
+      : createMockCollaborations(collaborationPreviewMode);
+
+    const collaborationByAgentId = new Map<string, AgentStatusApiCollaboration>();
+    displayedCollaborations.forEach((collaboration) => {
+      collaboration.agentIds.forEach((agentId) => {
+        if (!collaborationByAgentId.has(agentId)) {
+          collaborationByAgentId.set(agentId, collaboration);
+        }
+      });
+    });
+
+    const collaborationRooms: Record<CollaborationRoom, { zone: string; x: number; y: number; spots: Array<{ x: number; y: number }> }> = {
+      'meeting-a': {
+        zone: 'Meeting A · 小会议室',
+        x: 654,
+        y: 214,
+        spots: [
+          { x: -44, y: 34 },
+          { x: 44, y: 34 },
+          { x: 0, y: -56 },
+          { x: 0, y: 82 },
+        ],
+      },
+      'meeting-b': {
+        zone: 'Meeting B · 大会议室',
+        x: 1078,
+        y: 214,
+        spots: [
+          { x: -108, y: 32 },
+          { x: -42, y: -62 },
+          { x: 40, y: -62 },
+          { x: 110, y: 28 },
+          { x: 0, y: 86 },
+          { x: -6, y: -102 },
+        ],
+      },
+    };
+
+    const walkingAgents = teamAgents.filter(
+      (agent) =>
+        !agent.isExternal &&
+        !collaborationByAgentId.has(agent.id) &&
+        (agent.status === 'idle' || agent.status === 'ok') &&
+        !isIdleOverOneHour(agent.lastActiveAt)
     );
-    const walkingTarget = Math.ceil(relaxingAgents.length / 2);
-    const walkingAgentIds = new Set(relaxingAgents.slice(0, walkingTarget).map((agent) => agent.id));
-    const restingAgentIds = new Set(relaxingAgents.slice(walkingTarget).map((agent) => agent.id));
+    const restingAgents = teamAgents.filter(
+      (agent) =>
+        !agent.isExternal &&
+        !collaborationByAgentId.has(agent.id) &&
+        (agent.status === 'idle' || agent.status === 'ok') &&
+        isIdleOverOneHour(agent.lastActiveAt)
+    );
+    const walkingAgentIds = new Set(walkingAgents.map((agent) => agent.id));
+    const restingAgentIds = new Set(restingAgents.map((agent) => agent.id));
 
     const officePlacementMap = new Map<string, OfficePlacement>();
+
+    displayedCollaborations.forEach((collaboration) => {
+      const room = collaborationRooms[collaboration.room];
+      const participantIds = collaboration.agentIds.filter((agentId) => {
+        const officeAgent = findOfficeAgent(agentId);
+        return officeAgent && !officeAgent.isExternal;
+      });
+
+      participantIds.forEach((agentId, index) => {
+        const spot = room.spots[index % room.spots.length] || { x: 0, y: 0 };
+        officePlacementMap.set(agentId, {
+          zone: `${room.zone} · ${collaboration.label}`,
+          x: room.x + spot.x,
+          y: room.y + spot.y,
+          pose: 'meeting',
+          motionValues: '0 0; 0 -5; 0 0; 0 3; 0 0',
+          motionDuration: `${2.4 + (index % 3) * 0.3}s`,
+          collaborationId: collaboration.id,
+          collaborationLabel: collaboration.label,
+        });
+      });
+    });
 
     deskAnchors.forEach((anchor) => {
       const agent = findOfficeAgent(anchor.ownerId);
       if (!agent || agent.isExternal) return;
+      if (officePlacementMap.has(agent.id)) return;
       if (walkingAgentIds.has(agent.id) || restingAgentIds.has(agent.id)) return;
       officePlacementMap.set(agent.id, {
         zone: `Open Workspace · ${anchor.label}`,
