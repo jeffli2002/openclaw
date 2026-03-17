@@ -919,6 +919,8 @@ export default function SecondBrain() {
     timestamp: string;
   }
 
+  const AGENT_STATUS_REALTIME_ENDPOINT = '/api/agent-status-realtime';
+
   const TEAM_AGENT_DEFINITIONS: TeamAgentDefinition[] = [
     { id: 'chief', name: 'Chief Agent', role: '主 Agent', icon: '👑' },
     { id: 'content', name: 'Content Agent', role: '内容创作', icon: '📝' },
@@ -1033,7 +1035,7 @@ export default function SecondBrain() {
 
     const refreshAgentStatus = async () => {
       try {
-        const response = await fetch('/api/agent-status', { cache: 'no-store' });
+        const response = await fetch(AGENT_STATUS_REALTIME_ENDPOINT, { cache: 'no-store' });
         if (!response.ok) {
           throw new Error(`status api failed: ${response.status}`);
         }
@@ -1113,7 +1115,7 @@ export default function SecondBrain() {
               ...agent,
               status: 'loading' as AgentStatus,
               lastActive: '状态获取失败',
-              currentTask: '无法连接 /api/agent-status',
+              currentTask: `无法连接 ${AGENT_STATUS_REALTIME_ENDPOINT}`,
               taskProgress: 0,
               totalTasks: 0,
               okTasks: 0,
