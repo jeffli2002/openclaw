@@ -1373,8 +1373,8 @@ export default function SecondBrain() {
 
   // 渲染 Office 页面
   const renderOffice = () => {
-    const svgWidth = 1280;
-    const svgHeight = 760;
+    const svgWidth = 1460;
+    const svgHeight = 900;
 
     const officeAgentThemes: Record<
       string,
@@ -1414,6 +1414,8 @@ export default function SecondBrain() {
       y: number;
       pose: OfficePose;
       onDesk?: boolean;
+      motionValues?: string;
+      motionDuration?: string;
     }
 
     interface DeskAnchor {
@@ -1428,6 +1430,8 @@ export default function SecondBrain() {
       x: number;
       y: number;
       pose: OfficePose;
+      motionValues?: string;
+      motionDuration?: string;
     }
 
     const avatarProfiles: Record<string, AvatarProfile> = {
@@ -1497,31 +1501,67 @@ export default function SecondBrain() {
     };
 
     const deskAnchors: DeskAnchor[] = [
-      { ownerId: 'chief', label: 'Desk A1', x: 780, y: 360 },
-      { ownerId: 'content', label: 'Desk A2', x: 940, y: 360 },
-      { ownerId: 'growth', label: 'Desk A3', x: 1100, y: 360 },
-      { ownerId: 'coding', label: 'Desk B1', x: 780, y: 560 },
-      { ownerId: 'product', label: 'Desk B2', x: 940, y: 560 },
-      { ownerId: 'finance', label: 'Desk B3', x: 1100, y: 560 },
+      { ownerId: 'chief', label: 'Desk A1', x: 900, y: 398 },
+      { ownerId: 'content', label: 'Desk A2', x: 1080, y: 398 },
+      { ownerId: 'growth', label: 'Desk A3', x: 1260, y: 398 },
+      { ownerId: 'coding', label: 'Desk B1', x: 900, y: 642 },
+      { ownerId: 'product', label: 'Desk B2', x: 1080, y: 642 },
+      { ownerId: 'finance', label: 'Desk B3', x: 1260, y: 642 },
     ];
 
     const walkingSpots: SceneSpot[] = [
-      { zone: 'Central Aisle · Walk Loop', x: 540, y: 360, pose: 'walk' },
-      { zone: 'Central Aisle · Walk Loop', x: 600, y: 540, pose: 'walk' },
-      { zone: 'Meeting Hall · Walk Loop', x: 720, y: 215, pose: 'walk' },
-      { zone: 'Coffee Bar · Walk Loop', x: 365, y: 585, pose: 'walk' },
+      {
+        zone: 'Break Area → Coffee Bar Loop',
+        x: 330,
+        y: 610,
+        pose: 'walk',
+        motionValues: '0 0; 80 -18; 170 28; 88 72; 0 0',
+        motionDuration: '12.5s',
+      },
+      {
+        zone: 'Meeting Hall → Center Loop',
+        x: 650,
+        y: 278,
+        pose: 'walk',
+        motionValues: '0 0; 108 -42; 244 4; 170 66; 42 34; 0 0',
+        motionDuration: '13.5s',
+      },
+      {
+        zone: 'Central Aisle Grand Loop',
+        x: 770,
+        y: 520,
+        pose: 'walk',
+        motionValues: '0 0; 132 -34; 264 14; 182 96; 54 64; 0 0',
+        motionDuration: '14.5s',
+      },
+      {
+        zone: 'Workspace Corridor Loop',
+        x: 1010,
+        y: 320,
+        pose: 'walk',
+        motionValues: '0 0; 118 -12; 224 44; 140 122; 24 78; 0 0',
+        motionDuration: '12.8s',
+      },
+      {
+        zone: 'Entrance → Reception Loop',
+        x: 190,
+        y: 760,
+        pose: 'walk',
+        motionValues: '0 0; 120 -10; 224 38; 168 94; 42 70; 0 0',
+        motionDuration: '13.2s',
+      },
     ];
 
     const restingSpots: SceneSpot[] = [
-      { zone: 'Break Area · Sofa Left', x: 155, y: 474, pose: 'sit' },
-      { zone: 'Break Area · Sofa Center', x: 235, y: 474, pose: 'sit' },
-      { zone: 'Break Area · Sofa Right', x: 315, y: 474, pose: 'sit' },
-      { zone: 'Break Area · Lounge Chair', x: 410, y: 520, pose: 'sit' },
+      { zone: 'Break Area · Sofa Left', x: 164, y: 524, pose: 'sit', motionValues: '0 0; 0 4; 0 0', motionDuration: '3.1s' },
+      { zone: 'Break Area · Sofa Left Center', x: 236, y: 524, pose: 'sit', motionValues: '0 0; 0 3; 0 0', motionDuration: '3.4s' },
+      { zone: 'Break Area · Sofa Right Center', x: 318, y: 524, pose: 'sit', motionValues: '0 0; 0 5; 0 0', motionDuration: '3.2s' },
+      { zone: 'Break Area · Sofa Right', x: 390, y: 524, pose: 'sit', motionValues: '0 0; 0 4; 0 0', motionDuration: '3.6s' },
     ];
 
     const fallbackSpots: SceneSpot[] = [
-      { zone: 'Collab Corner', x: 650, y: 250, pose: 'stand' },
-      { zone: 'Printer Area', x: 180, y: 205, pose: 'stand' },
+      { zone: 'Collab Corner', x: 720, y: 300, pose: 'stand' },
+      { zone: 'Printer Area', x: 228, y: 222, pose: 'stand' },
     ];
 
     const findOfficeAgent = (agentId: string) => teamAgents.find((agent) => agent.id === agentId);
@@ -1575,9 +1615,11 @@ export default function SecondBrain() {
       if (agent.id === 'abby') {
         officePlacementMap.set(agent.id, {
           zone: 'Reception · Front Desk',
-          x: 255,
-          y: 664,
+          x: 286,
+          y: 772,
           pose: 'reception',
+          motionValues: '0 0; 0 4; 0 0',
+          motionDuration: '3.4s',
         });
         return;
       }
@@ -1666,20 +1708,20 @@ export default function SecondBrain() {
     };
 
     const renderSofa = () => (
-      <g transform="translate(232 456)">
-        <ellipse cx="0" cy="70" rx="150" ry="18" fill="rgba(0,0,0,0.18)" />
-        <rect x="-118" y="-12" width="236" height="58" rx="24" fill="url(#sofaBase)" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
-        <rect x="-128" y="-4" width="30" height="50" rx="14" fill="rgba(255,255,255,0.14)" />
-        <rect x="98" y="-4" width="30" height="50" rx="14" fill="rgba(255,255,255,0.14)" />
-        <rect x="-108" y="-50" width="216" height="44" rx="18" fill="rgba(255,255,255,0.1)" />
-        <rect x="-103" y="2" width="64" height="30" rx="14" fill="rgba(255,255,255,0.08)" />
-        <rect x="-30" y="2" width="60" height="30" rx="14" fill="rgba(255,255,255,0.08)" />
-        <rect x="40" y="2" width="62" height="30" rx="14" fill="rgba(255,255,255,0.08)" />
+      <g transform="translate(278 500)">
+        <ellipse cx="0" cy="78" rx="176" ry="20" fill="rgba(0,0,0,0.18)" />
+        <rect x="-136" y="-16" width="272" height="66" rx="28" fill="url(#sofaBase)" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
+        <rect x="-146" y="-8" width="34" height="58" rx="16" fill="rgba(255,255,255,0.14)" />
+        <rect x="112" y="-8" width="34" height="58" rx="16" fill="rgba(255,255,255,0.14)" />
+        <rect x="-124" y="-58" width="248" height="48" rx="20" fill="rgba(255,255,255,0.1)" />
+        <rect x="-118" y="4" width="64" height="34" rx="15" fill="rgba(255,255,255,0.08)" />
+        <rect x="-38" y="4" width="76" height="34" rx="15" fill="rgba(255,255,255,0.08)" />
+        <rect x="54" y="4" width="64" height="34" rx="15" fill="rgba(255,255,255,0.08)" />
       </g>
     );
 
     const renderCoffeeTable = () => (
-      <g transform="translate(314 538)">
+      <g transform="translate(348 610)">
         <ellipse cx="0" cy="44" rx="60" ry="12" fill="rgba(0,0,0,0.16)" />
         <ellipse cx="0" cy="0" rx="72" ry="24" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.12)" strokeWidth="2" />
         <ellipse cx="0" cy="4" rx="60" ry="16" fill="rgba(255,255,255,0.05)" />
@@ -1688,7 +1730,7 @@ export default function SecondBrain() {
     );
 
     const renderReceptionDesk = () => (
-      <g transform="translate(238 666)">
+      <g transform="translate(270 772)">
         <ellipse cx="0" cy="40" rx="132" ry="16" fill="rgba(0,0,0,0.18)" />
         <path d="M -118 14 Q -96 -18 -20 -22 L 110 -16 Q 122 -14 122 -2 L 122 24 Q 122 38 104 40 L -104 40 Q -124 38 -124 22 Z" fill="url(#receptionDesk)" stroke="rgba(255,255,255,0.12)" strokeWidth="2" />
         <rect x="-60" y="-14" width="46" height="12" rx="6" fill="rgba(255,255,255,0.12)" />
@@ -1698,13 +1740,13 @@ export default function SecondBrain() {
 
     const renderPrinterArea = () => (
       <g>
-        <g transform="translate(128 165)">
+        <g transform="translate(148 180)">
           <rect x="-58" y="-30" width="116" height="60" rx="18" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" strokeWidth="2" />
           <rect x="-34" y="-42" width="56" height="24" rx="8" fill="rgba(15,23,42,0.88)" />
           <rect x="-28" y="-10" width="44" height="16" rx="6" fill="rgba(255,255,255,0.16)" />
           <rect x="-40" y="12" width="52" height="10" rx="5" fill="rgba(255,255,255,0.08)" />
         </g>
-        <g transform="translate(222 148)">
+        <g transform="translate(252 162)">
           <rect x="-42" y="-24" width="84" height="108" rx="18" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
           <rect x="-22" y="0" width="44" height="12" rx="6" fill="rgba(250,204,21,0.16)" />
           <rect x="-22" y="24" width="44" height="12" rx="6" fill="rgba(56,189,248,0.18)" />
@@ -1802,66 +1844,73 @@ export default function SecondBrain() {
       const walking = placement.pose === 'walk';
       const bodyY = seated ? -14 : -20;
       const headY = seated ? -44 : -52;
-      const animationClass =
-        placement.pose === 'walk'
-          ? 'office-anim-anchor animate-office-walk'
-          : placement.pose === 'sit' || placement.pose === 'reception'
-          ? 'office-anim-anchor animate-office-rest'
-          : '';
+      const motionValues = placement.motionValues || (walking ? '0 0; 80 -18; 160 24; 72 62; 0 0' : '0 0; 0 4; 0 0');
+      const motionDuration = placement.motionDuration || (walking ? '12s' : '3.2s');
+      const shouldAnimate = placement.pose === 'walk' || placement.pose === 'sit' || placement.pose === 'reception';
       const chestLetter = (profile.label || agent.name).slice(0, 1).toUpperCase();
 
       return (
         <g
           transform={`translate(${placement.x} ${placement.y}) scale(${scale})`}
-          className={animationClass}
           onClick={() => setSelectedOfficeAgentId(agent.id)}
           style={{ cursor: 'pointer' }}
         >
-          {selected && <circle cx="0" cy="-18" r="38" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="2.5" strokeDasharray="6 5" />}
-          <ellipse cx="0" cy="16" rx="22" ry="7" fill="rgba(0,0,0,0.22)" />
+          <g>
+            {shouldAnimate && (
+              <animateTransform
+                attributeName="transform"
+                type="translate"
+                values={motionValues}
+                dur={motionDuration}
+                repeatCount="indefinite"
+              />
+            )}
+            {selected && <circle cx="0" cy="-18" r="38" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="2.5" strokeDasharray="6 5" />}
+            <ellipse cx="0" cy="16" rx="22" ry="7" fill="rgba(0,0,0,0.22)" />
 
-          {renderHair(profile, headY)}
-          <circle cx="0" cy={headY} r="14" fill="#fde7d3" />
-          <circle cx="-5" cy={headY - 2} r="1.2" fill="#1f2937" />
-          <circle cx="5" cy={headY - 2} r="1.2" fill="#1f2937" />
-          <path d={`M -4 ${headY + 6} Q 0 ${headY + 9} 4 ${headY + 6}`} stroke="#b45309" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+            {renderHair(profile, headY)}
+            <circle cx="0" cy={headY} r="14" fill="#fde7d3" />
+            <circle cx="-5" cy={headY - 2} r="1.2" fill="#1f2937" />
+            <circle cx="5" cy={headY - 2} r="1.2" fill="#1f2937" />
+            <path d={`M -4 ${headY + 6} Q 0 ${headY + 9} 4 ${headY + 6}`} stroke="#b45309" strokeWidth="1.5" fill="none" strokeLinecap="round" />
 
-          <rect x="-17" y={bodyY} width="34" height="36" rx="13" fill={profile.outfit} />
-          <rect x="-17" y={bodyY + 18} width="34" height="10" rx="5" fill={profile.secondary} opacity="0.5" />
-          {renderAccessory(profile, bodyY)}
-          <text x="0" y={bodyY + 23} textAnchor="middle" fill="rgba(255,255,255,0.92)" fontSize="11" fontWeight="700">
-            {chestLetter}
-          </text>
-
-          {seated ? (
-            <g stroke="#1f2937" strokeWidth="4.5" strokeLinecap="round">
-              <line x1="-8" y1={bodyY + 28} x2="-20" y2={bodyY + 18} />
-              <line x1="8" y1={bodyY + 28} x2="20" y2={bodyY + 18} />
-              <line x1="-20" y1={bodyY + 18} x2="-18" y2={bodyY + 34} />
-              <line x1="20" y1={bodyY + 18} x2="18" y2={bodyY + 34} />
-            </g>
-          ) : walking ? (
-            <g stroke="#1f2937" strokeWidth="4.5" strokeLinecap="round">
-              <line x1="-12" y1={bodyY + 8} x2="-22" y2={bodyY + 20} />
-              <line x1="12" y1={bodyY + 8} x2="24" y2={bodyY + 16} />
-              <line x1="-6" y1={bodyY + 30} x2="-20" y2={bodyY + 48} />
-              <line x1="6" y1={bodyY + 30} x2="18" y2={bodyY + 38} />
-            </g>
-          ) : (
-            <g stroke="#1f2937" strokeWidth="4.5" strokeLinecap="round">
-              <line x1="-14" y1={bodyY + 10} x2="-24" y2={bodyY + 22} />
-              <line x1="14" y1={bodyY + 10} x2="24" y2={bodyY + 22} />
-              <line x1="-6" y1={bodyY + 30} x2="-8" y2={bodyY + 48} />
-              <line x1="6" y1={bodyY + 30} x2="8" y2={bodyY + 48} />
-            </g>
-          )}
-
-          <circle cx="24" cy={headY - 8} r="5" fill={statusColor} stroke="rgba(255,255,255,0.9)" strokeWidth="2" />
-          <g transform="translate(0 40)">
-            <rect x="-30" y="0" width="60" height="16" rx="8" fill="rgba(15,23,42,0.82)" stroke={theme.accent} strokeWidth="1" />
-            <text x="0" y="11" textAnchor="middle" fill="#f8fafc" fontSize="9.5" fontWeight="700">
-              {profile.label}
+            <rect x="-17" y={bodyY} width="34" height="36" rx="13" fill={profile.outfit} />
+            <rect x="-17" y={bodyY + 18} width="34" height="10" rx="5" fill={profile.secondary} opacity="0.5" />
+            {renderAccessory(profile, bodyY)}
+            <text x="0" y={bodyY + 23} textAnchor="middle" fill="rgba(255,255,255,0.92)" fontSize="11" fontWeight="700">
+              {chestLetter}
             </text>
+
+            {seated ? (
+              <g stroke="#1f2937" strokeWidth="4.5" strokeLinecap="round">
+                <line x1="-8" y1={bodyY + 28} x2="-20" y2={bodyY + 18} />
+                <line x1="8" y1={bodyY + 28} x2="20" y2={bodyY + 18} />
+                <line x1="-20" y1={bodyY + 18} x2="-18" y2={bodyY + 34} />
+                <line x1="20" y1={bodyY + 18} x2="18" y2={bodyY + 34} />
+              </g>
+            ) : walking ? (
+              <g stroke="#1f2937" strokeWidth="4.5" strokeLinecap="round">
+                <line x1="-12" y1={bodyY + 8} x2="-22" y2={bodyY + 20} />
+                <line x1="12" y1={bodyY + 8} x2="24" y2={bodyY + 16} />
+                <line x1="-6" y1={bodyY + 30} x2="-20" y2={bodyY + 48} />
+                <line x1="6" y1={bodyY + 30} x2="18" y2={bodyY + 38} />
+              </g>
+            ) : (
+              <g stroke="#1f2937" strokeWidth="4.5" strokeLinecap="round">
+                <line x1="-14" y1={bodyY + 10} x2="-24" y2={bodyY + 22} />
+                <line x1="14" y1={bodyY + 10} x2="24" y2={bodyY + 22} />
+                <line x1="-6" y1={bodyY + 30} x2="-8" y2={bodyY + 48} />
+                <line x1="6" y1={bodyY + 30} x2="8" y2={bodyY + 48} />
+              </g>
+            )}
+
+            <circle cx="24" cy={headY - 8} r="5" fill={statusColor} stroke="rgba(255,255,255,0.9)" strokeWidth="2" />
+            <g transform="translate(0 40)">
+              <rect x="-30" y="0" width="60" height="16" rx="8" fill="rgba(15,23,42,0.82)" stroke={theme.accent} strokeWidth="1" />
+              <text x="0" y="11" textAnchor="middle" fill="#f8fafc" fontSize="9.5" fontWeight="700">
+                {profile.label}
+              </text>
+            </g>
           </g>
         </g>
       );
@@ -1911,7 +1960,7 @@ export default function SecondBrain() {
             </g>
           )}
 
-          {occupied && placement && renderOfficeAvatar(owner, placement, 0.92)}
+          {occupied && placement && renderOfficeAvatar(owner, { ...placement, x: 0, y: 0 }, 0.92)}
         </g>
       );
     };
@@ -1948,7 +1997,7 @@ export default function SecondBrain() {
               Second Brain Office
             </h2>
             <p className="text-sm text-[#71717a] mt-2 max-w-4xl leading-6">
-              Office 视图现在改成单列全宽：删除右侧 Selected Agent 面板，把办公室主画布拉满。空闲中的 Agent 会自动分流——一半在中央过道走动，一半在休息区落座。
+              Office 主画布已经放大并改成 SVG 原生运动：所有 Agent 都会在画布里完整显示，空闲中的 Agent 会在休息区、中央过道、会议走廊和前台通道做大范围移动，resting 状态则固定坐在沙发上。
             </p>
           </div>
 
@@ -1965,7 +2014,7 @@ export default function SecondBrain() {
               <div>
                 <h3 className="font-semibold text-white">SVG Office Overview</h3>
                 <p className="text-xs text-[#71717a] mt-1 leading-5">
-                  用 SVG 重画了真实桌子、椭圆会议桌、三人沙发、茶几、带轮办公椅和差异化人物形象；点击人物或工位即可查看详情。
+                  用更大的 SVG 画布重画了真实桌子、椭圆会议桌、三人沙发、茶几、带轮办公椅和差异化人物形象；walk / rest 改为 SVG 原生位移动画，不会再把人物挤到左上角。
                 </p>
               </div>
               <div className="flex items-center gap-2 text-xs text-[#71717a]">
@@ -1995,36 +2044,36 @@ export default function SecondBrain() {
                   </linearGradient>
                 </defs>
 
-                <rect x="24" y="24" width="1232" height="712" rx="34" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)" />
-                <path d="M 506 120 L 640 120 L 640 642 L 506 642 Q 470 642 470 606 L 470 156 Q 470 120 506 120 Z" fill="rgba(255,255,255,0.018)" stroke="rgba(255,255,255,0.06)" strokeDasharray="10 12" />
-                <path d="M 82 82 H 432 V 270 H 82 Z" fill="rgba(255,255,255,0.018)" stroke="rgba(255,255,255,0.05)" />
-                <path d="M 710 82 H 1196 V 286 H 710 Z" fill="rgba(255,255,255,0.018)" stroke="rgba(255,255,255,0.05)" />
+                <rect x="24" y="24" width="1412" height="852" rx="36" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)" />
+                <path d="M 612 136 L 790 136 L 790 748 L 612 748 Q 568 748 568 704 L 568 180 Q 568 136 612 136 Z" fill="rgba(255,255,255,0.018)" stroke="rgba(255,255,255,0.06)" strokeDasharray="10 12" />
+                <path d="M 96 92 H 480 V 312 H 96 Z" fill="rgba(255,255,255,0.018)" stroke="rgba(255,255,255,0.05)" />
+                <path d="M 844 92 H 1352 V 320 H 844 Z" fill="rgba(255,255,255,0.018)" stroke="rgba(255,255,255,0.05)" />
 
-                {renderZoneLabel(78, 68, 'PRINT / STORAGE', '打印与储物')}
-                {renderZoneLabel(462, 64, 'MEETING B', '小型讨论')}
-                {renderZoneLabel(858, 64, 'MEETING A', '评审与会议')}
-                {renderZoneLabel(112, 350, 'BREAK AREA', '沙发与咖啡')}
-                {renderZoneLabel(486, 650, 'CENTRAL AISLE', '走动留白')}
-                {renderZoneLabel(824, 294, 'OPEN WORKSPACE', '工作工位')}
-                {renderZoneLabel(104, 622, 'RECEPTION', 'Abby 前台')}
-                {renderZoneLabel(1108, 610, 'WC', '洗手间')}
-                {renderZoneLabel(70, 606, 'ENTRANCE', '访客入口')}
+                {renderZoneLabel(92, 76, 'PRINT / STORAGE', '打印与储物')}
+                {renderZoneLabel(554, 76, 'MEETING B', '小型讨论')}
+                {renderZoneLabel(998, 76, 'MEETING A', '评审与会议')}
+                {renderZoneLabel(126, 392, 'BREAK AREA', '沙发与咖啡')}
+                {renderZoneLabel(612, 768, 'CENTRAL AISLE', '走动留白')}
+                {renderZoneLabel(936, 334, 'OPEN WORKSPACE', '工作工位')}
+                {renderZoneLabel(116, 724, 'RECEPTION', 'Abby 前台')}
+                {renderZoneLabel(1260, 716, 'WC', '洗手间')}
+                {renderZoneLabel(84, 720, 'ENTRANCE', '访客入口')}
 
                 {renderPrinterArea()}
-                {renderMeetingTable(555, 190, 'small')}
-                {renderMeetingTable(936, 188, 'large')}
+                {renderMeetingTable(654, 214, 'small')}
+                {renderMeetingTable(1078, 214, 'large')}
                 {renderSofa()}
                 {renderCoffeeTable()}
-                {renderRollingChair(418, 524, -24, '#e2e8f0', 0.95)}
-                <text x="430" y="474" fill="#fef3c7" fontSize="22">☕</text>
-                <text x="378" y="424" fill="#86efac" fontSize="26">🌿</text>
+                {renderRollingChair(458, 596, -24, '#e2e8f0', 0.95)}
+                <text x="474" y="540" fill="#fef3c7" fontSize="22">☕</text>
+                <text x="412" y="478" fill="#86efac" fontSize="26">🌿</text>
                 {renderReceptionDesk()}
-                <path d="M 82 666 h 86" stroke="rgba(250,204,21,0.7)" strokeWidth="4" strokeLinecap="round" strokeDasharray="6 8" />
-                <path d="M 164 656 l 18 10 l -18 10" fill="none" stroke="rgba(250,204,21,0.7)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-                <rect x="1110" y="612" width="92" height="118" rx="24" fill="rgba(255,255,255,0.045)" stroke="rgba(255,255,255,0.12)" strokeWidth="2" />
-                <rect x="1134" y="628" width="44" height="30" rx="12" fill="rgba(255,255,255,0.08)" />
-                <ellipse cx="1156" cy="643" rx="16" ry="8" fill="#020617" />
-                <rect x="1128" y="678" width="56" height="26" rx="12" fill="rgba(255,255,255,0.06)" />
+                <path d="M 94 778 h 118" stroke="rgba(250,204,21,0.7)" strokeWidth="4" strokeLinecap="round" strokeDasharray="6 8" />
+                <path d="M 204 768 l 18 10 l -18 10" fill="none" stroke="rgba(250,204,21,0.7)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+                <rect x="1278" y="720" width="102" height="132" rx="24" fill="rgba(255,255,255,0.045)" stroke="rgba(255,255,255,0.12)" strokeWidth="2" />
+                <rect x="1306" y="738" width="48" height="34" rx="12" fill="rgba(255,255,255,0.08)" />
+                <ellipse cx="1330" cy="755" rx="16" ry="8" fill="#020617" />
+                <rect x="1298" y="794" width="64" height="28" rx="12" fill="rgba(255,255,255,0.06)" />
 
                 {deskAnchors.map((anchor) => renderDeskUnit(anchor))}
 
@@ -2046,12 +2095,12 @@ export default function SecondBrain() {
             <div className="rounded-2xl border border-[#27272a] bg-[#141416] p-4">
               <p className="text-xs text-[#71717a] mb-2">闲置走动</p>
               <p className="text-2xl font-semibold text-white">{walkingCount}</p>
-              <p className="text-xs text-[#a1a1aa] mt-2">空闲中的一半 Agent 在中央过道做 walk 动画。</p>
+              <p className="text-xs text-[#a1a1aa] mt-2">空闲中的 Agent 会在休息区、中央过道、会议走廊和入口通道做大范围 walk 动画。</p>
             </div>
             <div className="rounded-2xl border border-[#27272a] bg-[#141416] p-4">
               <p className="text-xs text-[#71717a] mb-2">休息区落座</p>
               <p className="text-2xl font-semibold text-white">{restingCount}</p>
-              <p className="text-xs text-[#a1a1aa] mt-2">另一半 Agent 会坐在沙发或休息椅上做轻微休息动画。</p>
+              <p className="text-xs text-[#a1a1aa] mt-2">resting Agent 固定坐在休息区沙发上，只保留轻微起伏动画。</p>
             </div>
             <div className="rounded-2xl border border-[#27272a] bg-[#141416] p-4">
               <p className="text-xs text-[#71717a] mb-2">异常处理</p>
