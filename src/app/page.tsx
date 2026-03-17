@@ -308,6 +308,7 @@ interface Agent {
   failedTasks: number;
   tokenUsage: number;
   lastRun: string;
+  currentTask?: string;
 }
 
 // Agent 模拟数据
@@ -1116,6 +1117,43 @@ export default function SecondBrain() {
   const [agentStatusSource, setAgentStatusSource] = useState<string | null>(null);
   const [collaborationPreviewMode, setCollaborationPreviewMode] = useState<CollaborationPreviewMode>('live');
   const officeActivitySnapshotRef = useRef<Map<string, string>>(new Map());
+
+  const liveAgentCards = agentDefinitions.map((agent) => {
+    const fallbackAgent = agentCards.find((item) => item.id === agent.id);
+    const liveAgent = teamAgents.find((item) => item.id === agent.id && !item.isExternal);
+
+    if (!liveAgent) {
+      return {
+        ...agent,
+        status: fallbackAgent?.status || 'idle',
+        tasks: fallbackAgent?.tasks || 0,
+        completedTasks: fallbackAgent?.completedTasks || 0,
+        failedTasks: fallbackAgent?.failedTasks || 0,
+        tokenUsage: rangeTokenUsageByAgent[agent.id] || fallbackAgent?.tokenUsage || 0,
+        lastRun: fallbackAgent?.lastRun || '—',
+        currentTask: fallbackAgent?.description || '等待实时状态同步',
+      } satisfies Agent;
+    }
+
+    const normalizedStatus: Agent['status'] = liveAgent.status === 'running'
+      ? 'running'
+      : liveAgent.status === 'error'
+        ? 'error'
+        : liveAgent.status === 'loading'
+          ? 'disabled'
+          : 'idle';
+
+    return {
+      ...agent,
+      status: normalizedStatus,
+      tasks: liveAgent.totalTasks,
+      completedTasks: liveAgent.okTasks,
+      failedTasks: liveAgent.errorTasks,
+      tokenUsage: rangeTokenUsageByAgent[agent.id] || 0,
+      lastRun: liveAgent.lastActiveAt ? formatDateTime(liveAgent.lastActiveAt) : liveAgent.lastActive,
+      currentTask: liveAgent.currentTask,
+    } satisfies Agent;
+  });
 
   useEffect(() => {
     let cancelled = false;
@@ -2931,9 +2969,9 @@ export default function SecondBrain() {
 
   // 渲染Agent中心
   const renderAgents = () => {
-    const totalTasks = agentCards.reduce((sum, a) => sum + a.tasks, 0);
-    const totalCompleted = agentCards.reduce((sum, a) => sum + a.completedTasks, 0);
-    const totalFailed = agentCards.reduce((sum, a) => sum + a.failedTasks, 0);
+    const totalTasks = liveAgentCards.reduce((sum, a) => sum + a.tasks, 0);
+    const totalCompleted = liveAgentCards.reduce((sum, a) => sum + a.completedTasks, 0);
+    const totalFailed = liveAgentCards.reduce((sum, a) => sum + a.failedTasks, 0);
     const totalTokens = totalRangeTokens;
 
     return (
@@ -2982,7 +3020,7 @@ export default function SecondBrain() {
 
         {/* Agent列表 */}
         <div className="space-y-4">
-          {agentCards.map((agent) => (
+          {liveAgentCards.map((agent) => (
             <div
               key={agent.id}
               className="bg-[#141416] p-5 rounded-xl border border-[#27272a] hover:border-purple-500/50 transition-colors"
@@ -2994,7 +3032,8 @@ export default function SecondBrain() {
                 </div>
                 <span className="text-xs text-[#71717a]">{agent.lastRun}</span>
               </div>
-              <p className="text-sm text-[#a1a1aa] mb-4">{agent.description}</p>
+              <p className="text-sm text-[#a1a1aa] mb-2">{agent.description}</p>
+              <p className="text-xs text-[#71717a] mb-4">状态摘要：{agent.currentTask || '等待实时状态同步'}</p>
               <div className="grid grid-cols-5 gap-4 text-sm">
                 <div>
                   <p className="text-[#71717a] text-xs">模型</p>
