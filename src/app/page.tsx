@@ -919,7 +919,7 @@ export default function SecondBrain() {
     timestamp: string;
   }
 
-  const AGENT_STATUS_REALTIME_ENDPOINT = '/api/agent-status-realtime';
+  const AGENT_STATUS_REALTIME_ENDPOINT = '/api/agent-status';
 
   const TEAM_AGENT_DEFINITIONS: TeamAgentDefinition[] = [
     { id: 'chief', name: 'Chief Agent', role: '主 Agent', icon: '👑' },
