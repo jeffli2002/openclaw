@@ -945,7 +945,7 @@ export default function SecondBrain() {
     detectedFrom?: string;
   }
 
-  const AGENT_STATUS_REALTIME_ENDPOINT = '/api/agent-status';
+  const AGENT_STATUS_REALTIME_ENDPOINT = '/api/agent-status-realtime';
 
   const TEAM_AGENT_DEFINITIONS: TeamAgentDefinition[] = [
     { id: 'chief', name: 'Chief Agent', role: '主 Agent', icon: '👑' },
@@ -1112,6 +1112,8 @@ export default function SecondBrain() {
   const [officeActivities, setOfficeActivities] = useState<OfficeActivity[]>([]);
   const [liveActiveSessions, setLiveActiveSessions] = useState<AgentStatusApiSession[]>([]);
   const [liveCollaborations, setLiveCollaborations] = useState<AgentStatusApiCollaboration[]>([]);
+  const [agentStatusFetchedAt, setAgentStatusFetchedAt] = useState<string | null>(null);
+  const [agentStatusSource, setAgentStatusSource] = useState<string | null>(null);
   const [collaborationPreviewMode, setCollaborationPreviewMode] = useState<CollaborationPreviewMode>('live');
   const officeActivitySnapshotRef = useRef<Map<string, string>>(new Map());
 
@@ -1129,7 +1131,11 @@ export default function SecondBrain() {
         const apiAgents = ((data.agents || []) as AgentStatusApiAgent[]);
         const agentsById = new Map<string, AgentStatusApiAgent>(apiAgents.map((agent) => [agent.id, agent]));
         const activeSessions = ((data.activeSessions || []) as AgentStatusApiSession[]);
-        const activeCollaborations = ((data.activeCollaborations || []) as AgentStatusApiCollaboration[]);
+        const activeCollaborations = (((data.activeCollaborations || data.collaborations) || []) as AgentStatusApiCollaboration[]);
+        const fetchedAt = typeof data.timestamp === 'string' ? data.timestamp : new Date().toISOString();
+        const source = typeof data.source === 'string' ? data.source : null;
+        setAgentStatusFetchedAt(fetchedAt);
+        setAgentStatusSource(source);
         const activeAgentIds = new Set(activeSessions.map((session) => session.agentId));
         const collaborationByAgentId = new Map<string, AgentStatusApiCollaboration>();
 
@@ -1204,6 +1210,8 @@ export default function SecondBrain() {
 
         setLiveActiveSessions([]);
         setLiveCollaborations([]);
+        setAgentStatusFetchedAt(null);
+        setAgentStatusSource('error');
         setTeamAgents(
           TEAM_AGENT_DEFINITIONS.map((agent) => {
             if (agent.isExternal) {
@@ -1440,9 +1448,15 @@ export default function SecondBrain() {
           </svg>
           Team 架构
         </h2>
-        <div className="flex items-center gap-2 text-sm text-[#71717a]">
-          <span className={`w-2 h-2 rounded-full ${isLoadingAgents ? 'bg-purple-500' : 'bg-green-500'} ${isLoadingAgents ? '' : 'animate-pulse'}`}></span>
-          <span>{isLoadingAgents ? '正在同步实时状态' : '10秒轮询更新'}</span>
+        <div className="text-right">
+          <div className="flex items-center justify-end gap-2 text-sm text-[#71717a]">
+            <span className={`w-2 h-2 rounded-full ${isLoadingAgents ? 'bg-purple-500' : 'bg-green-500'} ${isLoadingAgents ? '' : 'animate-pulse'}`}></span>
+            <span>{isLoadingAgents ? '正在同步实时状态' : '真实状态 · 10秒轮询'}</span>
+          </div>
+          <p className="text-xs text-[#52525b] mt-1">
+            {agentStatusFetchedAt ? `最后抓取 ${formatFullDateTime(agentStatusFetchedAt)}` : '等待首轮抓取'}
+            {agentStatusSource ? ` · ${agentStatusSource}` : ''}
+          </p>
         </div>
       </div>
 

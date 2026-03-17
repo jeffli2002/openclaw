@@ -16,6 +16,10 @@ const CANONICAL_AGENTS = [
   { id: 'finance', name: 'Finance Agent' },
 ] as const;
 
+const EXCLUDED_JOB_NAMES = new Set([
+  'sync-agent-status',
+]);
+
 type CanonicalAgentId = (typeof CANONICAL_AGENTS)[number]['id'];
 type AggregatedAgentStatus = 'running' | 'ok' | 'error' | 'idle';
 
@@ -130,7 +134,7 @@ async function loadOpenClawCronJobs(): Promise<OpenClawCronJob[]> {
   });
 
   const payload = extractJsonPayload(stdout);
-  return payload.jobs || [];
+  return (payload.jobs || []).filter((job) => !EXCLUDED_JOB_NAMES.has(job.name || ''));
 }
 
 export async function GET() {
@@ -173,6 +177,7 @@ export async function GET() {
       source: 'openclaw-cron-realtime',
       agents,
       activeSessions: [],
+      activeCollaborations: [],
     });
   } catch (error) {
     console.error('Error fetching real-time agent status from OpenClaw cron:', error);
@@ -192,6 +197,7 @@ export async function GET() {
         lastRun: null,
       })),
       activeSessions: [],
+      activeCollaborations: [],
       error: error instanceof Error ? error.message : 'Unknown error',
     });
   }
