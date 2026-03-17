@@ -7,6 +7,9 @@ export const dynamic = 'force-dynamic';
 
 const execFileAsync = promisify(execFile);
 
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://njxjuvxosvwvluxefrzg.supabase.co';
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5qeGp1dnhvc3Z3dmx1eGVmcnpnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MTgyOTI1NSwiZXhwIjoyMDg3NDA1MjU1fQ.hNxgmLO2OOG75jmRKcFmddDq0fF21C0Uqh8XFFqydDU';
+
 const CANONICAL_AGENTS = [
   { id: 'chief', name: 'Chief Agent' },
   { id: 'content', name: 'Content Agent' },
@@ -82,6 +85,16 @@ type LiveSessionSummary = {
   updatedAt?: number;
   ageMs?: number;
   isSubagent: boolean;
+};
+
+type SupabaseTaskRow = {
+  id?: string;
+  name?: string;
+  status?: string;
+  last_run?: string | null;
+  schedule?: string | null;
+  error_count?: number | null;
+  updated_at?: string | null;
 };
 
 function normalizeAgentId(value?: string | null): CanonicalAgentId | null {
@@ -162,6 +175,24 @@ function normalizeJobStatus(job: OpenClawCronJob): AggregatedAgentStatus {
   return 'idle';
 }
 
+function normalizeSupabaseStatus(status?: string | null): AggregatedAgentStatus {
+  const normalized = status?.trim().toLowerCase();
+
+  if (['running', 'busy', 'working', 'queued', 'started', 'in-progress'].includes(normalized || '')) {
+    return 'running';
+  }
+
+  if (['error', 'failed', 'timeout', 'timed-out', 'cancelled'].includes(normalized || '')) {
+    return 'error';
+  }
+
+  if (['ok', 'success', 'succeeded', 'completed', 'finished'].includes(normalized || '')) {
+    return 'ok';
+  }
+
+  return 'idle';
+}
+
 function isCronSession(session: OpenClawSession) {
   return session.key.includes(':cron:');
 }
@@ -213,7 +244,7 @@ function dedupeLiveSessionsByAgent(sessions: LiveSessionSummary[]) {
   return [...byAgent.values()];
 }
 
-function buildActiveCollaborations(activeSessions: LiveSessionSummary[]) {
+function buildActiveCollaborations(activeSessions: LiveSessionSummary[], detectedFrom = 'openclaw-sessions-realtime') {
   const uniqueAgentIds = [...new Set(activeSessions.map((session) => session.agentId))];
   if (uniqueAgentIds.length < 2) return [];
 
@@ -239,9 +270,121 @@ function buildActiveCollaborations(activeSessions: LiveSessionSummary[]) {
         : `${agentNames.join(' / ')} 正在协作`,
       lastUpdatedAt: new Date(latestUpdatedAt || Date.now()).toISOString(),
       sessionKeys: activeSessions.map((session) => session.key),
-      detectedFrom: 'openclaw-sessions-realtime',
+      detectedFrom,
     },
   ];
+}
+
+function detectAgentFromName(name?: string | null): CanonicalAgentId | null {
+  const nameLower = name?.toLowerCase() || '';
+  if (!nameLower) return null;
+
+  if (nameLower.includes('content') || nameLower.includes('newsletter') || nameLower.includes('daily-content')) return 'content';
+  if (nameLower.includes('growth') || nameLower.includes('seo') || nameLower.includes('marketing') || nameLower.includes('openclaw-news')) return 'growth';
+  if (nameLower.includes('coding') || nameLower.includes('github') || nameLower.includes('sync-') || nameLower.includes('skill-evolution') || nameLower.includes('backup')) return 'coding';
+  if (nameLower.includes('product') || nameLower.includes('competitor')) return 'product';
+  if (nameLower.includes('finance') || nameLower.includes('financial') || nameLower.includes('trustmrr')) return 'finance';
+  if (nameLower.includes('chief') || nameLower.includes('health') || nameLower.includes('memory') || nameLower.includes('report') || nameLower.includes('delivery')) return 'chief';
+
+  return null;
+}
+
+function parseTaskCountFromSchedule(value?: string | null) {
+  const match = value?.match(/(\d+)/);
+  return match ? Number(match[1]) : 0;
+}
+
+function isAggregatedAgentRow(task: SupabaseTaskRow, agentId: CanonicalAgentId) {
+  return task.id === `agent-${agentId}` || task.name === CANONICAL_AGENTS.find((agent) => agent.id === agentId)?.name;
+}
+
+async function fetchSupabaseTasks(): Promise<SupabaseTaskRow[]> {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/tasks?select=id,name,status,last_run,schedule,error_count,updated_at`, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`,
+    },
+    cache: 'no-store',
+  });
+
+  if (!response.ok) {
+    throw new Error(`Supabase tasks fetch failed: HTTP ${response.status}`);
+  }
+
+  return (await response.json()) as SupabaseTaskRow[];
+}
+
+function buildSupabaseFallback(tasks: SupabaseTaskRow[]) {
+  const aggregatedRows = CANONICAL_AGENTS.map((agent) => tasks.find((task) => isAggregatedAgentRow(task, agent.id))).filter(Boolean) as SupabaseTaskRow[];
+  const hasAggregatedRows = aggregatedRows.length > 0;
+
+  const agents = CANONICAL_AGENTS.map((agent) => {
+    const aggregatedRow = tasks.find((task) => isAggregatedAgentRow(task, agent.id));
+    if (aggregatedRow) {
+      const status = normalizeSupabaseStatus(aggregatedRow.status);
+      const taskCount = parseTaskCountFromSchedule(aggregatedRow.schedule);
+      const failedTasks = Math.max(aggregatedRow.error_count || 0, 0);
+      const runningTasks = status === 'running' ? 1 : 0;
+      const completedTasks = Math.max(taskCount - failedTasks - runningTasks, 0);
+
+      return {
+        id: agent.id,
+        name: agent.name,
+        status,
+        tasks: taskCount,
+        completedTasks,
+        failedTasks,
+        runningTasks,
+        idleTasks: Math.max(taskCount - completedTasks - failedTasks - runningTasks, 0),
+        lastRun: aggregatedRow.last_run || null,
+      };
+    }
+
+    const rawAgentTasks = tasks.filter((task) => !String(task.id || '').startsWith('agent-') && detectAgentFromName(task.name) === agent.id);
+    const runningTasks = rawAgentTasks.filter((task) => normalizeSupabaseStatus(task.status) === 'running').length;
+    const failedTasks = rawAgentTasks.filter((task) => normalizeSupabaseStatus(task.status) === 'error').length;
+    const completedTasks = rawAgentTasks.filter((task) => normalizeSupabaseStatus(task.status) === 'ok').length;
+    const lastRun = rawAgentTasks.reduce<string | null>((latest, task) => {
+      if (!task.last_run) return latest;
+      if (!latest) return task.last_run;
+      return new Date(task.last_run).getTime() > new Date(latest).getTime() ? task.last_run : latest;
+    }, null);
+
+    let status: AggregatedAgentStatus = 'idle';
+    if (runningTasks > 0) status = 'running';
+    else if (failedTasks > 0) status = 'error';
+    else if (completedTasks > 0) status = 'ok';
+
+    return {
+      id: agent.id,
+      name: agent.name,
+      status,
+      tasks: rawAgentTasks.length,
+      completedTasks,
+      failedTasks,
+      runningTasks,
+      idleTasks: Math.max(rawAgentTasks.length - completedTasks - failedTasks - runningTasks, 0),
+      lastRun,
+    };
+  });
+
+  const activeSessions = agents
+    .filter((agent) => agent.status === 'running')
+    .map((agent) => ({
+      key: `supabase:agent:${agent.id}`,
+      agentId: agent.id,
+      updatedAt: agent.lastRun ? new Date(agent.lastRun).getTime() : Date.now(),
+      ageMs: agent.lastRun ? Math.max(Date.now() - new Date(agent.lastRun).getTime(), 0) : 0,
+      isSubagent: false,
+    }));
+
+  return {
+    timestamp: new Date().toISOString(),
+    source: hasAggregatedRows ? 'supabase-agent-sync-fallback' : 'supabase-task-fallback',
+    agents,
+    activeSessions,
+    activeCollaborations: buildActiveCollaborations(activeSessions as LiveSessionSummary[], hasAggregatedRows ? 'supabase-agent-sync' : 'supabase-task-inference'),
+  };
 }
 
 async function loadOpenClawCronJobs(): Promise<OpenClawCronJob[]> {
@@ -320,26 +463,33 @@ export async function GET() {
       activeSessions,
       activeCollaborations,
     });
-  } catch (error) {
-    console.error('Error fetching real-time agent status from OpenClaw cron:', error);
+  } catch (openClawError) {
+    console.warn('OpenClaw realtime unavailable, falling back to Supabase sync:', openClawError);
 
-    return NextResponse.json({
-      timestamp: new Date().toISOString(),
-      source: 'error',
-      agents: CANONICAL_AGENTS.map((agent) => ({
-        id: agent.id,
-        name: agent.name,
-        status: 'idle' as const,
-        tasks: 0,
-        completedTasks: 0,
-        failedTasks: 0,
-        runningTasks: 0,
-        idleTasks: 0,
-        lastRun: null,
-      })),
-      activeSessions: [],
-      activeCollaborations: [],
-      error: error instanceof Error ? error.message : 'Unknown error',
-    });
+    try {
+      const supabaseTasks = await fetchSupabaseTasks();
+      return NextResponse.json(buildSupabaseFallback(supabaseTasks));
+    } catch (fallbackError) {
+      console.error('Error fetching real-time agent status from OpenClaw and Supabase fallback:', fallbackError);
+
+      return NextResponse.json({
+        timestamp: new Date().toISOString(),
+        source: 'error',
+        agents: CANONICAL_AGENTS.map((agent) => ({
+          id: agent.id,
+          name: agent.name,
+          status: 'idle' as const,
+          tasks: 0,
+          completedTasks: 0,
+          failedTasks: 0,
+          runningTasks: 0,
+          idleTasks: 0,
+          lastRun: null,
+        })),
+        activeSessions: [],
+        activeCollaborations: [],
+        error: fallbackError instanceof Error ? fallbackError.message : 'Unknown error',
+      });
+    }
   }
 }
