@@ -301,9 +301,62 @@
 
 ---
 
-> 最后更新: 2026-03-17 22:06
+> 最后更新: 2026-03-18 11:05
 
-## 📊 每日记忆提取 | 2026-03-17 22:06
+## 📊 Memory 提炼 | 2026-03-18 11:05
+
+### Content Factory 选题策略更新
+
+**新确认的长期策略**：
+- 选题方向调整为偏向**应用方向** + **OpenClaw专题**
+- 优先选择贴近实际应用的选题
+- OpenClaw相关的技术实践文章优先
+
+**执行要点**：
+- YouTube直抓被bot校验拦截时，使用 `web_fetch` 或 `r.jina.ai` fallback
+- 选题需自评≥85分才能发布
+- 产出4种格式：公众号Markdown/HTML、小红书图文、X(Twitter)帖子
+
+---
+
+### 飞书文档写入验证机制
+
+**经验沉淀**：
+- feishu_doc write 后文档内容可能为空
+- 必须写入后用 read 验证内容
+- 验证失败时使用 append 补写
+
+---
+
+### 实时状态同步方案
+
+**技术方案**：
+- Vercel serverless 无法运行 openclaw CLI
+- 使用 5分钟 Supabase 同步方案
+- 同步脚本位置：`/root/.openclaw/workspace/scripts/sync-agent-status.js`
+- Agent 状态存储在 Supabase tasks 表
+
+---
+
+### Office 协作功能 PRD 已审批
+
+**功能设计**：
+- 2个 Agent → 小会议室
+- ≥3个 Agent → 大会议室
+- 状态定义：running/ok/error/idle
+
+---
+
+### info-card-designer Skill 已验证可用
+
+**技术细节**：
+- 使用本地 Chrome 截图，不需要 KIE 生图 API
+- 工作流：AI 生成 HTML → Chrome 截图 → PNG 输出
+- 已安装 GitHub joeseesun/info-card-designer
+
+---
+
+## 📊 Memory 提炼 | 2026-03-17 12:03
 
 ### Playwright MCP Bridge Chrome扩展安装
 - 用户已在本地Chrome手动安装扩展
