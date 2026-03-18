@@ -311,42 +311,58 @@ interface Agent {
   currentTask?: string;
 }
 
-// Agent 模拟数据
+const AGENT_MODEL_CHAINS: Record<string, string> = {
+  chief: "MiniMax M2.5 → GPT-5.4 → Kimi",
+  content: "Kimi K2.5 → MiniMax M2.5 → GPT-5.4",
+  coding: "GPT-5.4 → MiniMax M2.5 → Kimi",
+  growth: "MiniMax M2.5 → Kimi",
+  product: "MiniMax M2.5 → Kimi",
+  finance: "MiniMax M2.5 → Kimi",
+};
+
+// Agent 模型与展示配置（与 openclaw.json 当前运行链路保持一致）
 const agentDefinitions = [
   {
-    id: "coding",
-    name: "Coding Agent",
-    description: "负责代码开发、重构、调试、技术架构与Skill进化",
-    model: "MiniMax M2.5",
-    taskIds: ["task-evolution"],
+    id: "chief",
+    name: "Chief Agent",
+    description: "负责任务分派、总控协作、Chief 总结报告与系统巡检",
+    model: AGENT_MODEL_CHAINS.chief,
+    taskIds: ["task-chief", "task-health"],
   },
   {
     id: "content",
     name: "Content Agent",
-    description: "负责AI日报、内容发布、KOL追踪",
-    model: "Kimi K2.5",
+    description: "负责 AI 日报、内容发布、文章生产与 KOL 追踪",
+    model: AGENT_MODEL_CHAINS.content,
     taskIds: ["task-ai-daily", "task-content-publish", "task-kol"],
   },
   {
     id: "growth",
     name: "Growth Agent",
-    description: "负责OpenClaw动态监控",
-    model: "Kimi K2.5",
+    description: "负责增长监控、SEO 与 OpenClaw 动态追踪",
+    model: AGENT_MODEL_CHAINS.growth,
     taskIds: ["task-seo"],
+  },
+  {
+    id: "coding",
+    name: "Coding Agent",
+    description: "负责代码开发、重构、调试、技术架构与 Skill 进化",
+    model: AGENT_MODEL_CHAINS.coding,
+    taskIds: ["task-evolution"],
   },
   {
     id: "product",
     name: "Product Agent",
-    description: "负责竞品分析和产品规划",
-    model: "Kimi K2.5",
+    description: "负责竞品分析、需求拆解与产品规划",
+    model: AGENT_MODEL_CHAINS.product,
     taskIds: ["task-product"],
   },
   {
-    id: "chief",
-    name: "Chief Agent",
-    description: "负责每晚 Chief Agent 工作总结报告与系统巡检",
-    model: "GPT-5.4",
-    taskIds: ["task-chief", "task-health"],
+    id: "finance",
+    name: "Finance Agent",
+    description: "负责收入、成本、定价与 ROI / TrustMRR 分析",
+    model: AGENT_MODEL_CHAINS.finance,
+    taskIds: [],
   },
 ];
 
@@ -425,10 +441,12 @@ const normalizeTask = (row: any): Task => ({
 
 const agentColorMap: Record<string, string> = {
   total: "#facc15",
+  chief: "#a78bfa",
   content: "#60a5fa",
   growth: "#34d399",
+  coding: "#22d3ee",
   product: "#f97316",
-  chief: "#a78bfa",
+  finance: "#84cc16",
   evo: "#f472b6",
 };
 
@@ -3036,8 +3054,8 @@ export default function SecondBrain() {
               <p className="text-xs text-[#71717a] mb-4">状态摘要：{agent.currentTask || '等待实时状态同步'}</p>
               <div className="grid grid-cols-5 gap-4 text-sm">
                 <div>
-                  <p className="text-[#71717a] text-xs">模型</p>
-                  <p className="text-blue-400 text-xs">{agent.model}</p>
+                  <p className="text-[#71717a] text-xs">模型链</p>
+                  <p className="text-blue-400 text-xs leading-5 break-words">{agent.model}</p>
                 </div>
                 <div>
                   <p className="text-[#71717a] text-xs">任务数</p>
