@@ -301,7 +301,66 @@
 
 ---
 
-> 最后更新: 2026-03-18 11:05
+> 最后更新: 2026-03-18 20:02
+
+## 📊 每日记忆提炼 | 2026-03-18 20:02
+
+### 新增长期信息
+- Second Brain Agent模型：改为动态获取（/api/agent-models），不再硬编码
+- OpenClaw v2026.3.13-1 发布（2026-03-14）：compaction修复、Discord/Telegram修复、默认模型升级GPT-5.4
+
+### 持续问题
+- daily-skill-evolution 额度问题，预计22:00 fallback重试
+
+---
+
+## 📊 每日记忆提炼 | 2026-03-18 14:07
+
+### 今日完成
+- NVIDIA GTC 2026 文章完成（飞书 + 公众号）
+- Content Factory 4种格式生成完成
+- 模型配置更新完成
+
+### 长期规则
+- 飞书文档写入：必须用 append + read 验证
+
+---
+
+## 📊 飞书云文档写入避坑指南 | 2026-03-18
+
+**问题描述**：
+- 使用 `feishu_doc write` 后文档内容经常为空
+- 原因：write API 调用成功但内容未正确写入
+
+**正确做法**：
+1. **不要依赖 write** - 创建文档后使用 `append` 追加内容
+2. **必须验证** - 写入后用 `read` 检查内容是否真实存在
+3. **失败则补写** - 如果内容为空，立即使用 `append` 补写
+
+**错误流程**：
+```python
+# ❌ 错误：write 可能失败但返回成功
+feishu_doc(action="write", doc_token=xxx, content=xxx)
+```
+
+**正确流程**：
+```python
+# ✅ 正确：创建 → append → read 验证
+doc = feishu_doc(action="create", title="xxx", content="")
+feishu_doc(action="append", doc_token=doc.document_id, content="完整内容")
+result = feishu_doc(action="read", doc_token=doc.document_id)
+if not result.content:
+    # 内容为空，追加补写
+    feishu_doc(action="append", doc_token=doc.document_id, content=xxx)
+```
+
+**经验总结**：
+- `write` 操作存在隐性失败，必须用 `append` + `read` 验证双重保险
+- 所有飞书文档操作都要"写入后必验证"，不能只看 API 返回值
+
+---
+
+## 📊 Memory 提炼 | 2026-03-18 11:05
 
 ## 📊 Memory 提炼 | 2026-03-18 11:05
 
