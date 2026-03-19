@@ -87,6 +87,11 @@ bash /root/.openclaw/workspace/scripts/check-credentials.sh
 - **变量:** `$YOUTUBE_API_KEY`
 - **状态:** ⚠️ 需要填入 API Key
 
+### Pexo Agent
+- **API Key:** `credentials/pexo.json`（`PEXO_API_KEY`）
+- **用途：** AI 视频生成、图片生成（via Pexo Agent Skill）
+- **Skill 路径:** `skills/pexo-agent/SKILL.md`
+
 ### Supabase
 - **配置位置:** `credentials/supabase.json`
 - **变量:** `$SUPABASE_URL`, `$SUPABASE_ANON_KEY`, `$SUPABASE_SERVICE_KEY`

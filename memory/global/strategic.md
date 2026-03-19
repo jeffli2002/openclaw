@@ -301,7 +301,17 @@
 
 ---
 
-> 最后更新: 2026-03-18 20:02
+> 最后更新: 2026-03-19 04:08
+
+## 📊 每日记忆提炼 | 2026-03-19 04:08
+
+### Cron failureAlert 配置修复
+- 问题：部分 cron 任务缺少 failureAlert 配置，导致失败时无法通知
+- 修复：已为 4 个任务添加 `--failure-alert --failure-alert-channel feishu --failure-alert-after 1`
+- 受影响任务：ai-daily-newsletter, ai-daily-delivery-guard, ai-kol-daily-newsletter, sync-agent-status
+- 经验：新建 cron 任务时应默认配置 failureAlert，避免遗漏
+
+## 📊 每日记忆提炼 | 2026-03-18 20:02
 
 ## 📊 每日记忆提炼 | 2026-03-18 20:02
 
