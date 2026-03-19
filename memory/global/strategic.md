@@ -1560,3 +1560,72 @@ openclaw gateway restart
 ---
 
 > 最后更新: 2026-03-17 14:08
+
+---
+
+## 📊 Memory 提炼 | 2026-03-19 16:03
+
+### Pexo AI 视频生成工具已集成到 OpenClaw 工作流
+
+**新确认的长期能力资产**：
+- Pexo API Key 已写入 `credentials/pexo.json`（由 Jeff 提供），Skill 路径 `skills/pexo-agent/`
+- Pexo 是 AI 视频 Agent 平台，支持多顶级视频模型协同：Seedance / 可灵(Kling) / Veo
+- 核心价值：把创意自动拆解成分镜头，并行调用多模型生成，最后智能拼接配音剪辑
+- 典型效率：一个 30 秒视频全部链路约 10 分钟完成
+
+**已跑通的完整项目流程**：
+1. 自然语言描述需求
+2. Pexo 生成脚本 → 用户确认方向
+3. 用户反馈修正 → Pexo 重新生成
+4. 第二轮反馈 → Pexo 重新生成视频
+5. 最终成片交付
+
+**OpenClaw × Pexo 的定位分工**：
+- OpenClaw = 指令中枢 + 任务调度（接收自然语言、管理流程）
+- Pexo = 视频 Agent 执行工厂（脚本/分镜/生成/配音/剪辑）
+
+**Pexo 相关信息**：
+- GitHub：https://github.com/pexoai/pexo-skills
+- 当前状态：内测中，需要邀请码，每天有免费体验额度
+
+**战略含义**：
+- 这套组合已开始接近"全天候视频内容工厂"的雏形
+- 对短剧/漫剧/电商内容生产有较大促进价值
+- 是 Jeff AI 一人公司品牌内容生产的核心工具之一
+
+---
+
+### 微信公众号文章发布已可半自动化，草稿创建链路验证通过
+
+**新确认的工作流**：
+- 微信公众号 AppID：wxf9400829e3405317（凭据在 credentials/wechat.json）
+- 发布命令：`python3 -X utf8 scripts/wechat_publish.py --html "path/to/article.html"`
+- 草稿创建成功（media_id: WOr7ZIAYNpvYmON1V3ZQwXR...），但 preview 需要更高权限
+- 实际流程：AI 生成内容 → 脚本创建草稿 → Jeff 登录公众号后台手动发布
+
+**已沉淀的发布前内容规范**：
+- 飞书云文档必须用 write + read 验证双重保险
+- WeChat 文章用 `content-factory/scripts/wechat_publish.py` 发布
+
+---
+
+### 小红书内容抓取已跑通 Playwright + cookies 方案
+
+**已验证的工作流**：
+- 登录态保存在 `credentials/xiaohongshu.json`（cookies 格式）
+- 搜索 API 端点：`https://edith.xiaohongshu.com/api/sns/web/v1/search/notes?...&search_key=关键词&type=51`（type=51=视频）
+- Playwright 直接访问搜索页并拦截 API 响应可获取笔记元数据
+- 视频详情 API（note_info）需要更高权限认证，暂无完美方案
+
+**已写入飞书多维表格**：
+- 表格 app_token：CkVGbVjABaDV5ZskSXZcxoLnnBb
+- 字段：标题、排名、作者、发布时间、互动数
+
+---
+
+### Gateway 今日多次断联（12:06 / 14:06 / 16:02）
+
+**现象**：exec 执行 `openclaw gateway` 相关命令时报 `gateway closed (1000)`，需要 restart
+**影响**：Gateway 稳定性待观察，建议关注
+**状态**：重启后可恢复
+
