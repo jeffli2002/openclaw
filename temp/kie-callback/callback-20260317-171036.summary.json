@@ -1,0 +1,37 @@
+{
+  "receivedAt": "2026-03-17T17:10:36.522910",
+  "path": "/kie-callback",
+  "headers": {
+    "Host": "joint-london-resorts-wrapping.trycloudflare.com",
+    "User-Agent": "okhttp/3.14.9",
+    "Content-Length": "670",
+    "Accept-Encoding": "gzip",
+    "Cdn-Loop": "cloudflare; loops=1; subreqs=1",
+    "Cf-Connecting-Ip": "47.251.109.165",
+    "Cf-Ew-Via": "15",
+    "Cf-Ipcountry": "US",
+    "Cf-Ray": "9ddadd8b3059053e-SJC",
+    "Cf-Visitor": "{\"scheme\":\"https\"}",
+    "Cf-Warp-Tag-Id": "849db643-4e77-4e64-99d7-6d92766c69fa",
+    "Cf-Worker": "trycloudflare.com",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json; charset=utf-8",
+    "X-Forwarded-For": "47.251.109.165",
+    "X-Forwarded-Proto": "https"
+  },
+  "body": {
+    "code": 200,
+    "data": {
+      "completeTime": 1773738636000,
+      "costTime": 48,
+      "createTime": 1773738587000,
+      "model": "nano-banana-2",
+      "param": "{\"input\":\"{\\\"aspect_ratio\\\":\\\"9:16\\\",\\\"output_format\\\":\\\"png\\\",\\\"google_search\\\":false,\\\"prompt\\\":\\\"test\\\",\\\"resolution\\\":\\\"1K\\\"}\",\"callBackUrl\":\"https://joint-london-resorts-wrapping.trycloudflare.com/kie-callback\",\"model\":\"nano-banana-2\"}",
+      "resultJson": "{\"resultUrls\":[\"https://tempfile.aiquickdraw.com/na2/aaad78561c3b3d8f5fb01bda9d057c461435301.png\"]}",
+      "state": "success",
+      "taskId": "aaad78561c3b3d8f5fb01bda9d057c46",
+      "updateTime": 1773738636000
+    },
+    "msg": "Playground task completed successfully."
+  }
+}

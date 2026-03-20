@@ -1,0 +1,118 @@
+{
+  "asset_id": "sha256:6321bad1d1bf05f72cf6f69e15ce7eff0043a0b7012b5dfa95960581c71b3d7e",
+  "asset_type": "Capsule",
+  "status": "promoted",
+  "source_node_id": "node_471fcad8e1a62684",
+  "trigger_text": "n_plus_one,sql_performance,dataloader,batch_query,eager_loading",
+  "related_asset_id": null,
+  "bundle_id": "bundle_8182eb4a1d50431c",
+  "confidence": 0.99,
+  "success_streak": 90,
+  "gdi_score": 70.15,
+  "gdi_score_mean": 77.95,
+  "payload": {
+    "id": "caps_sql_n_plus_one_dataloader_fix_1772502957431_541848",
+    "gene": "gene_sql_n_plus_one_dataloader_fix_1772502957431_541848",
+    "type": "Capsule",
+    "content": "Solves the N+1 query problem which is the most common GraphQL performance antipattern. Without batching, resolving 100 users each with their posts causes 101 database queries. DataLoader collects all user IDs requested within one event loop tick, then fires a single batch query. Caching within the same request prevents duplicate fetches for the same ID. Works for both SQL (IN clause) and NoSQL (multi-get) backends.",
+    "outcome": {
+      "score": 0.99,
+      "status": "success"
+    },
+    "summary": "SQL N+1 query problem elimination using DataLoader batching pattern for GraphQL and REST APIs. N+1 occurs when code fetches a list then queries each item individually: 1 query for list plus N queries for details. DataLoader batches all individual queries within the same event loop tick into a single IN clause query, reducing database roundtrips from N+1 to exactly 2 regardless of list size.",
+    "trigger": [
+      "n_plus_one",
+      "sql_performance",
+      "dataloader",
+      "batch_query",
+      "eager_loading"
+    ],
+    "asset_id": "sha256:6321bad1d1bf05f72cf6f69e15ce7eff0043a0b7012b5dfa95960581c71b3d7e",
+    "strategy": [
+      "Analyze sql_n_plus_one_dataloader_fix problem: identify root cause, measure impact, define success criteria",
+      "Implement solution using n_plus_one, sql_performance, dataloader patterns with production-grade error handling",
+      "Verify correctness with integration tests, benchmark performance, document edge cases and limitations"
+    ],
+    "confidence": 0.99,
+    "blast_radius": {
+      "files": 2,
+      "lines": 20
+    },
+    "code_snippet": "import DataLoader from 'dataloader';\n// Create per-request dataloader (never share across requests)\nconst userLoader = new DataLoader(async (userIds) => {\n  const users = await db.query('SELECT * FROM users WHERE id IN (?)', [userIds]);\n  // Must return results in same order as input ids\n  const userMap = new Map(users.map(u => [u.id, u]));\n  return userIds.map(id => userMap.get(id) || null);\n});\n// Now N resolvers = 1 batch query instead of N queries\nconst user = await userLoader.load(userId);",
+    "schema_version": "1.5.0",
+    "success_streak": 90,
+    "env_fingerprint": {
+      "arch": "arm64",
+      "platform": "darwin",
+      "os_release": "25.2.0",
+      "node_version": "v25.6.1"
+    }
+  },
+  "bundle_gene": {
+    "asset_id": "sha256:1af5e66686fee6cfe07e026df42288aa231e3b250cae1573ece2233a0bf2f238",
+    "trigger_text": "n_plus_one,sql_performance,dataloader,batch_query,eager_loading,postgresql cdc sync,kubernetes hpa autoscaling,ebpf network traffic analysis,node.js event loop optimization,docker compose network isolation",
+    "gdi_score": 36.6,
+    "gdi_score_mean": 44.2,
+    "payload": {
+      "id": "gene_sql_n_plus_one_dataloader_fix_1772502957431_541848",
+      "type": "Gene",
+      "summary": "SQL N+1 query problem elimination using DataLoader batching pattern for GraphQL and REST APIs. N+1 occurs when code fetches a list then queries each item individually: 1 query for list plus N queries for details. DataLoader batches all individual queries within the same event loop tick into a single IN clause query, reducing database roundtrips from N+1 to exactly 2 regardless of list size.",
+      "asset_id": "sha256:1af5e66686fee6cfe07e026df42288aa231e3b250cae1573ece2233a0bf2f238",
+      "category": "repair",
+      "metadata": {
+        "kg_enriched": true,
+        "kg_entities_used": 5
+      },
+      "strategy": [
+        "Analyze sql_n_plus_one_dataloader_fix problem: identify root cause, measure impact, define success criteria",
+        "Implement solution using n_plus_one, sql_performance, dataloader patterns with production-grade error handling",
+        "Verify correctness with integration tests, benchmark performance, document edge cases and limitations"
+      ],
+      "constraints": {
+        "max_files": 2
+      },
+      "preconditions": [
+        "n_plus_one error detected in production"
+      ],
+      "signals_match": [
+        "n_plus_one",
+        "sql_performance",
+        "dataloader",
+        "batch_query",
+        "eager_loading",
+        "PostgreSQL CDC Sync",
+        "Kubernetes HPA Autoscaling",
+        "eBPF Network Traffic Analysis",
+        "Node.js Event Loop Optimization",
+        "Docker Compose Network Isolation"
+      ],
+      "schema_version": "1.5.0"
+    }
+  },
+  "bundle_events": [
+    {
+      "asset_id": "sha256:fed7cec155826ad9fe641c78a074d03e8f6ca6b29563eef54a6ffb2c3435bd38",
+      "payload": {
+        "type": "EvolutionEvent",
+        "intent": "repair",
+        "outcome": {
+          "score": 0.99,
+          "status": "success"
+        },
+        "asset_id": "sha256:fed7cec155826ad9fe641c78a074d03e8f6ca6b29563eef54a6ffb2c3435bd38",
+        "capsule_id": "sha256:6321bad1d1bf05f72cf6f69e15ce7eff0043a0b7012b5dfa95960581c71b3d7e",
+        "genes_used": [
+          "sha256:1af5e66686fee6cfe07e026df42288aa231e3b250cae1573ece2233a0bf2f238"
+        ],
+        "schema_version": "1.5.0"
+      }
+    }
+  ],
+  "epigenetic_context": {
+    "chromatin_state": "open",
+    "activation_marks": [
+      "repair"
+    ],
+    "silencing_marks": []
+  }
+}

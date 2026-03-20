@@ -1,5 +1,6 @@
 # 战略记忆 - 虾仔的长期记忆
 
+<<<<<<< HEAD
 > 最后更新: 2026-03-20 08:08
 
 ---
@@ -21,6 +22,815 @@
 **3. Gateway 稳定性问题**
 - 今日多次断联（约每2小时一次）
 - 需持续观察
+=======
+---
+
+---
+
+## 📊 Memory 提炼 | 2026-03-14 12:03
+
+### 飞书多维表格(Bitable)创建与维护经验
+
+**问题1：空行问题**
+- 现象：创建 Bitable 后自动生成 placeholder rows
+- 解决：创建后立即用 `feishu_bitable_list_records` 检查，如有空记录立即删除
+- 预防：创建时检查返回值是否有 `cleaned_placeholder_rows` 参数
+
+**问题2：时间戳错误**
+- 现象：日期显示为错误年份（如2025年）
+- 原因：复用历史代码中的时间戳常量，未根据当前年份重新计算
+- 解决：根据标题中的日期重新计算时间戳（2026年应为 177xxx 开始）
+- 预防：重要数据写入后应抽样验证时间戳范围
+
+**问题3：API权限问题**
+- 现象：添加文档协作者失败，权限 API 报 validation 错误
+- 原因：飞书权限 API 对应用类型支持特殊，需要正确的 member_type 和 type 组合
+- 解决：使用 `type=docx` 作为 query param；复杂场景优先 UI 手动处理
+
+**战略含义**：
+- 批量数据写入后必须验证
+- 时间戳等数值字段写入前校验合理范围
+- 复杂飞书 API 优先在 UI 验证后再自动化
+
+---
+
+## 📊 Memory 提炼 | 2026-03-12 20:02
+
+### 飞书云文档整理与知识库迁移的操作经验
+
+**问题描述**：
+- 尝试帮老板整理飞书云文档并迁移到知识库时，遇到两套不同的权限体系问题
+
+**云空间操作限制**：
+- 当前权限不足，无法执行：创建文件夹、移动文档、批量删除
+- 可用权限：`drive:drive` (只读)、`drive:file` (部分读写)
+- 缺失权限：`space:folder:create` (创建文件夹)
+
+**知识库操作限制**：
+- 机器人需要被**明确添加为知识库成员**
+- 仅在云空间开放权限不够，必须到知识库 → 设置 → 成员管理 → 添加机器人
+- 添加后可用 API：`wiki:node:create`、`wiki:node:update`、`wiki:member:create`
+
+**可行的手动方案**：
+1. 生成索引文档（告诉用户哪些要删、哪些要归类）
+2. 引导用户在飞书 UI 手动操作
+3. 或者先创建文件夹/移动文档，再让机器人接管后续迁移
+
+**战略含义**：
+- 飞书文档整理目前只能做"方案输出 + 手动执行"模式
+- 知识库迁移需要预先配置成员权限，不能靠 API 临时申请
+- 后续类似需求应先评估权限是否满足，再承诺自动化程度
+
+### AI KOL 日报必须配置指定 watchlist，禁止泛写行业新闻
+
+**新确认的长期配置规则**：AI KOL 日报（ai-kol-daily-newsletter）必须按老板指定的 15 个 KOL 账号监控 X/Twitter 动态，禁止泛写普通行业新闻。
+
+**应长期保留的配置**：
+- watchlist 配置文件位置：`/root/.openclaw/workspace/config/ai-kol-watchlist.yaml`
+- 15 个指定 KOL：sama, elonmusk, zuck, DarioAmodei, danielaamodei, ilyasut, karpathy, ylecun, demishassabis, jeffdean, AndrewYNg, drfeifei, Thom_Wolf, gdb, steipete
+- 信息源优先级：X/Twitter > web_search/web_fetch > YouTube（仅作补充背景）
+- 每条内容必须包含：KOL、账号、更新摘要、核心观点/原话、信号判断、对 Jeff 的启发
+- 只写过去 24 小时有更新的 KOL，无更新则明确写"无人更新"
+- 禁止把普通行业新闻冒充 KOL 动态
+
+**战略含义**：
+- 这是老板明确的监控范围，后续 KOL 日报必须严格按此名单执行，不能随意扩大或缩小。
+
+---
+
+### 模型额度耗尽时的降级策略
+
+**新确认的系统性问题**：GPT-5.4 和 MiniMax 额度均会耗尽导致任务失败，需要建立额度监控和降级机制。
+
+**应长期保留的应对策略**：
+- 监控信号：任务报错 "400 limit exceeded" 即额度用完
+- 降级路径：GPT-5.4 → MiniMax-M2.5 → Kimi (kimi-coding/k2p5)
+- cron job 配置：优先使用默认模型，不要在 job 中显式指定容易耗尽的模型
+- 关键任务（如 ai-daily-newsletter、ai-kol-daily-newsletter）应配置为使用默认模型的 fallback 链路
+
+**战略含义**：
+- 额度管理是系统性风险，不能依赖单一模型，后续新任务创建时应优先使用默认模型的 fallback。
+
+---
+
+## 📊 Memory 提炼 | 2026-03-11 10:33
+
+### 飞书 Calendar API 创建日程的稳定路径已验证：优先写主日历，权限不足时回退到共享日历
+
+**新确认的长期可复用能力**：当前 OpenClaw 环境已经实测跑通“通过 Feishu Calendar API 创建日程并邀请老板”的完整链路，而且不仅有主路径，也有权限受限时的回退路径。
+
+**这次保留的长期信息**：
+- 已沉淀为可复用 skill：`skills/feishu-calendar-invite/`。
+- 稳定执行策略应固定为两段式：
+  1. 先检测目标用户主日历权限；
+  2. 若 app 对主日历具备 `writer/owner`，直接写主日历；
+  3. 若只有 `reader` 或无写权限，则自动创建/复用 app 持有的共享日历，授予目标用户 writer，再创建事件并添加参与人。
+- 该链路已做过真实测试，并验证共享日历回退可用；测试事件也已删除，说明不是纸面方案，而是已被实际验证的工作流。
+
+**战略含义**：
+- 后续凡是“飞书日历提醒 / 会议邀请 / 行程代创建 / Calendar API 能力验证”类需求，都不需要从零摸索权限问题，应直接优先走这条已验证路径。
+- 这属于跨任务可复用的能力资产，而不是某一次临时日程的短期噪音，因此值得进入 global memory。
+
+
+## 📊 Memory 提炼 | 2026-03-11 00:02
+
+### Root 环境下 Browser/Chrome 必须先显式关闭 sandbox，再谈后续稳定性排查
+
+**新确认的长期运行规则**：在当前这台以 root 运行 OpenClaw 的 Linux 主机上，若要拉起 Chrome / browser tool，`browser.noSandbox: true` 不是可选优化，而是基础前置条件。
+
+**这次保留的长期信息**：
+- 2026-03-10 夜间已定位到一层明确根因：Chrome 在 root 环境下会因 sandbox 机制而无法正常启动。
+- 已把 `browser.noSandbox: true` 写入 `openclaw.json` 并重启 gateway，说明这条配置应作为此环境的默认基线保留。
+- 同时也确认：**配置生效 ≠ 浏览器链路已完全修复**；即便 noSandbox 已补上，browser tool 仍可能因更深层问题继续超时，因此后续排障必须分层进行：
+  1. 先验证 sandbox 配置是否满足启动前提；
+  2. 再检查浏览器进程、代理链路、tool 超时、host 环境等更深层问题；
+  3. 不能把“已加 noSandbox”误判为“browser 已彻底恢复”。
+
+**战略含义**：
+- 这条经验属于可跨任务复用的环境级规则，后续凡是做浏览器自动化、Chrome 启动修复、browser tool 排障，都应先检查 noSandbox 基线，避免重复从表层报错重新摸索。
+- 同时它也提醒后续排障要避免“一处修复即宣告全好”的假恢复判断。
+
+
+## 📊 Memory 提炼 | 2026-03-10 22:05
+
+### Cron 交付策略必须分层治理：维护类静默，业务/报告类直达并归档
+
+**新确认的长期规则**：不要把所有 cron 都按同一种“执行后发消息”方式处理，必须按任务性质区分交付层级。
+
+**应长期保留的分层原则**：
+- **系统维护类任务**（如健康检查、memory extractor、delivery guard、GitHub / Supabase 同步等）默认静默执行，仅在告警、失败、或需要人工介入时才直发老板。
+- **业务执行类任务** 正常完成后，应直接把结果送达老板，不能只留在内部 run history 或日报汇总里。
+- **报告产出类任务**（如 AI 日报、竞品分析、TrustMRR、KOL 通讯、Chief 日报等）必须同时完成三份交付：本地 Markdown 归档、飞书云文档归档、飞书核心总结直发老板。
+
+**战略含义**：
+- 若维护类任务也频繁常规通知，会制造高噪音并稀释真正告警；
+- 若业务/报告类任务只落盘不直达老板，又会形成“系统做了，但人没收到”的半交付；
+- 因此，cron 体系必须同时追求 **低噪音** 与 **强交付**，这是一条跨任务复用的系统治理规则。
+
+
+## 📊 Memory 提炼 | 2026-03-10 20:02
+
+### Chief 私聊分发硬闸门（避免再次退化为"Chief 全包"）
+
+**新确认的长期规则**：在 Chief 私聊窗口中，只要不是前台型小问题，且任务落入内容 / 增长 / 代码 / 产品 / 财务任一领域，**必须先经过 dispatch planner**（如 `chief_dispatch.py`）再决定执行路径；禁止 Chief 直接跳过分发链路开工。
+
+**这次排查得到的关键结论**：
+- 问题根因不在 `openclaw.json`、`agent_keyword_router.yaml` 或 worker 配置缺失；
+- 真正失效点在 **Chief 执行纪律** —— 领域任务被 Chief 直接做了，导致真实委派链路被绕开；
+- 因此，长期修复不能只靠“记得委派”，而要把它升格为硬规则：
+  1. 先分类/规划；
+  2. 命中领域 worker 时优先真实 `sessions_spawn` / `sessions_send`；
+  3. 只有委派不可用或失败时，Chief 才能透明降级执行；
+  4. 未真实发生委派时，禁止对外表述为“已切给某 Agent”。
+
+**战略含义**：
+- 这条规则直接决定多 Agent 体系是不是“真实协作”，还是表面分工、实际单线程；
+- 只有守住这个硬闸门，Chief→Worker 的编排、观测、责任归属和后续扩展才不会重新退化；
+- 这属于系统治理规则，不是一次性任务细节，因此值得写入长期记忆。
+
+## 📊 Memory 提炼 | 2026-03-10 17:44
+
+### Kie.ai 生图 API 回调模式（避免再次踩坑）
+
+**问题描述**：
+- Kie.ai API 是**异步任务 + 回调模式**，不是同步返回图片
+- 创建任务成功返回 `taskId`，但状态查询端点 `/api/v1/jobs/{id}` 返回 404
+- 直接轮询查询会失败
+
+**解决方案**：
+1. 启动本地回调服务器：`python3 scripts/kie_callback_server.py`（端口 8787）
+2. 通过 Cloudflare Quick Tunnel 暴露到公网：`cloudflared tunnel --url http://localhost:8787`
+3. 创建任务时带上 `callBackUrl` 参数
+4. 回调收到后解析 `data.resultJson.resultUrls[]` 获取图片 URL
+5. 用 `curl -L` 下载图片（不能用 urllib，会遇到 403）
+
+**关键经验**：
+- 每次使用前需要确保回调服务器和 Tunnel 正常运行
+- 可以把 Tunnel PID 写入文件，方便后续检查和清理
+
+---
+
+## 📊 Memory 提炼 | 2026-03-10 08:12
+
+### 近两日新增应固化的系统规则（2026-03-09 ~ 2026-03-10）
+
+**1. 守护/维护类 `isolated + agentTurn` cron 必须显式设置 `delivery.mode=none`，不要吃默认 announce**
+- 2026-03-10 08:03 二次巡检确认：4 条 Chief 守护任务在改成 `sessionTarget=isolated + payload.kind=agentTurn + agentId=main` 后，被默认带成了 `delivery.mode=announce`。
+- 这类任务的职责是巡检、提炼、守卫，不应每次常规主动投递；否则会制造无谓打扰，也会让“任务执行”与“消息投递”耦合得过紧。
+- 长期规则：凡是守护、巡检、记忆提炼、补发判定这类后台维护任务，若无明确对外通知需求，必须显式写 `delivery.mode=none`；只有真正需要提醒老板时，再单独配置通知路径。
+- **战略含义**：把后台维护任务默认设为静默执行，能降低噪音、减少隐式投递副作用，也能让 cron 配置语义更清晰。
+
+**2. 看 cron 健康度时，必须区分“主任务成功”与“消息投递失败”两层状态**
+- 2026-03-09 当日汇总已出现典型案例：GitHub / Supabase / OpenClaw 监控若干 run 的 `error` 实际都是 `⚠️ ✉️ Message failed`，主任务本身并未中断。
+- 长期规则：对 cron 做稳定性评估时，至少分成两层统计：
+  - **执行层**：抓取 / 生成 / 同步 / 写入是否完成；
+  - **投递层**：消息、announce、reply 是否成功送达。
+- **战略含义**：只有把执行失败和投递失败拆开看，才能避免误判系统可靠性，也更容易把优化重点放到真正的薄弱环节。
+
+## 📊 Memory 提炼 | 2026-03-10 06:05
+
+### 近两日新增应固化的系统规则（2026-03-09 ~ 2026-03-10）
+
+**1. Chief 守护类 cron 若需要可验证的执行摘要，应优先采用 `sessionTarget=isolated + payload.kind=agentTurn + agentId=main`，不要继续依赖 `main + systemEvent`**
+- 已验证：仅靠强化 prompt 文案，仍不足以解决 run summary 只回显提醒文本的“假绿灯”问题。
+- 2026-03-10 06:01 已完成结构性修复：将 `cron-health-check`、`daily-memory-extractor`、`ai-daily-delivery-guard`、`daily-content-publish-guard` 统一切到 isolated agentTurn，并显式指定 `agentId=main`。
+- **战略含义**：Chief 守护任务的可观测性不能只靠提示词优化，必要时要直接调整执行形态，让 run history 更容易沉淀真实结果，而不是只留下提醒文本。
+
+**2. 任何任务声称“已生成报告 / 已写入文件”时，必须把目标文件真实存在纳入成功判定**
+- 近两日已出现两类证据：Product 任务 summary 声称产出 `memory/reports/competitor-analysis-2026-03-09.md`，但实际文件不存在；多项任务声称已写入 `memory/daily/2026-03-09.md`，但晚间核查时该日志仍缺失，最终需要 Chief 补建。
+- 长期规则：对涉及落盘产物的任务，不能只看 `status` 或 summary 文案，还要抽样核对目标文件是否真实存在、路径是否正确、内容是否落盘。
+- **战略含义**：这条规则能减少“看起来完成、实际上没落盘”的隐性失败，避免后续记忆提炼、报告归档和复盘建立在不存在的产物上。
+
+## 📊 Memory 提炼 | 2026-03-10 04:08
+
+### 近两日新增应固化的系统规则（2026-03-09 ~ 2026-03-10）
+
+**1. Chief 的 system-event cron 不能只看 `status=ok`，必须防“假绿灯”**
+- 已确认 `cron-health-check`、`daily-memory-extractor`、`ai-daily-delivery-guard`、`daily-content-publish-guard` 曾出现 run history 显示 `ok`，但 summary 只是回显提醒词的情况。
+- 长期修复原则：Chief 守护类 cron prompt 必须强制写明 **执行路径 + 实际检查/补发/写入动作 + 结构化结果**，并明确禁止只复述任务说明。
+- **战略含义**：后续评估 cron 质量时，不能只看表面状态，还要看 summary 是否证明“真的做了事”。
+
+**2. `sessionTarget=isolated` + `payload.kind=agentTurn` 的 cron 必须显式设置 `agentId`**
+- 新发现：`trustmrr-daily-analysis` 在待首跑前缺少 `agentId`，容易让任务在默认路由下产生执行歧义。
+- 长期规则：凡是 isolated agentTurn 任务，都要把 `agentId` 当成必填项检查，不要依赖默认 agent 或隐式推断。
+- **战略含义**：这能降低首跑异常、错路由和“配置看起来完整、实际有歧义”的隐性风险。
+
+**3. 判断 cron 时间异常时，必须把 `staggerMs` 计入容差**
+- 04:00 档任务出现 `nextRunAtMs` 略早于当前时间的现象，经核对属于 `staggerMs=300000` 的 5 分钟错峰窗口，不是真异常。
+- 长期规则：Cron 健康检查不能只拿裸 `nextRunAtMs` 与当前时间硬比较，而要按 `nextRunAtMs + staggerMs` 判断是否真的漏调度。
+- **战略含义**：这能减少误报，让巡检结果更接近真实运行状态。
+
+---
+
+## 📊 Memory 提炼 | 2026-03-09 10:05
+
+### 今日新增（2026-03-09 上午）
+
+**1. TrustMRR双人对谈播客技术方案**
+- 角色定义：小李(男声-Yunxi) vs 老王(女声-Xiaoxiao)
+- Edge TTS分角色生成独立ogg片段
+- ffmpeg合并关键：必须用 `-c:a libopus` 编码（vorbis飞书不兼容）
+- 飞书发送：asVoice=true + mimeType=audio/ogg
+- Skill位置：/workspace/skills/trustmrr-podcast/SKILL.md
+
+**2. OpenClaw v2026.3.7 动态**
+- ContextEngine 插件接口
+- 生命周期钩子支持 (bootstrap, ingest, assemble, compact等)
+- scoped subagent runtime
+- sessions.get 网关方法
+- 为 lossless-claw 等插件提供支持
+
+---
+
+## 📊 Memory 提炼 | 2026-03-15 04:10
+
+### Cron 任务超时问题的持续优化（第三轮）
+
+**问题描述**：
+- 2026-03-15 凌晨检查发现3个 cron 任务 timeout：
+  - `openclaw-news-monitor` (growth): timeout 15min → 运行超时
+  - `daily-skill-evolution` (coding): timeout 30min → 运行超时
+  - `github-daily-backup` (coding): timeout 30min → 运行超时（连续4次）
+
+**修复方案**：
+- 使用 `openclaw cron edit <job-id> --timeout-seconds <seconds>` 更新超时配置
+- 修复结果：
+  - openclaw-news-monitor: 900s → 1800s (30min)
+  - daily-skill-evolution: 1800s → 2700s (45min)
+  - github-daily-backup: 1800s → 2700s (45min)
+
+**经验总结**：
+- 监控类任务（openclaw-news-monitor）：建议至少 30min
+- 技能进化/备份类任务：建议至少 45min
+- 内容生成类任务：建议至少 2h (7200s)
+- 定期观察实际执行时间进行调整
+
+---
+
+## 📊 Memory 提炼 | 2026-03-15 08:05
+
+### Cron 任务超时问题持续优化（第四轮）
+
+**问题描述**：
+- 3个任务持续 timeout：openclaw-news-monitor、daily-skill-evolution、github-daily-backup
+- 调整路径：15min → 30min → 45min → 60min
+- 根因：任务实际执行时间接近或超过超时限制
+
+**经验总结**：
+- 监控类任务（openclaw-news-monitor）：建议至少 60min
+- 技能进化/备份类任务：建议至少 60min
+- 内容生成类任务：建议至少 2h
+- 定期观察实际执行时间进行调整
+
+---
+
+> 最后更新: 2026-03-19 04:08
+
+## 📊 每日记忆提炼 | 2026-03-19 04:08
+
+### Cron failureAlert 配置修复
+- 问题：部分 cron 任务缺少 failureAlert 配置，导致失败时无法通知
+- 修复：已为 4 个任务添加 `--failure-alert --failure-alert-channel feishu --failure-alert-after 1`
+- 受影响任务：ai-daily-newsletter, ai-daily-delivery-guard, ai-kol-daily-newsletter, sync-agent-status
+- 经验：新建 cron 任务时应默认配置 failureAlert，避免遗漏
+
+## 📊 每日记忆提炼 | 2026-03-18 20:02
+
+## 📊 每日记忆提炼 | 2026-03-18 20:02
+
+### 新增长期信息
+- Second Brain Agent模型：改为动态获取（/api/agent-models），不再硬编码
+- OpenClaw v2026.3.13-1 发布（2026-03-14）：compaction修复、Discord/Telegram修复、默认模型升级GPT-5.4
+
+### 持续问题
+- daily-skill-evolution 额度问题，预计22:00 fallback重试
+
+---
+
+## 📊 每日记忆提炼 | 2026-03-18 14:07
+
+### 今日完成
+- NVIDIA GTC 2026 文章完成（飞书 + 公众号）
+- Content Factory 4种格式生成完成
+- 模型配置更新完成
+
+### 长期规则
+- 飞书文档写入：必须用 append + read 验证
+
+---
+
+## 📊 飞书云文档写入避坑指南 | 2026-03-18
+
+**问题描述**：
+- 使用 `feishu_doc write` 后文档内容经常为空
+- 原因：write API 调用成功但内容未正确写入
+
+**正确做法**：
+1. **不要依赖 write** - 创建文档后使用 `append` 追加内容
+2. **必须验证** - 写入后用 `read` 检查内容是否真实存在
+3. **失败则补写** - 如果内容为空，立即使用 `append` 补写
+
+**错误流程**：
+```python
+# ❌ 错误：write 可能失败但返回成功
+feishu_doc(action="write", doc_token=xxx, content=xxx)
+```
+
+**正确流程**：
+```python
+# ✅ 正确：创建 → append → read 验证
+doc = feishu_doc(action="create", title="xxx", content="")
+feishu_doc(action="append", doc_token=doc.document_id, content="完整内容")
+result = feishu_doc(action="read", doc_token=doc.document_id)
+if not result.content:
+    # 内容为空，追加补写
+    feishu_doc(action="append", doc_token=doc.document_id, content=xxx)
+```
+
+**经验总结**：
+- `write` 操作存在隐性失败，必须用 `append` + `read` 验证双重保险
+- 所有飞书文档操作都要"写入后必验证"，不能只看 API 返回值
+
+---
+
+## 📊 Memory 提炼 | 2026-03-18 11:05
+
+## 📊 Memory 提炼 | 2026-03-18 11:05
+
+### Content Factory 选题策略更新
+
+**新确认的长期策略**：
+- 选题方向调整为偏向**应用方向** + **OpenClaw专题**
+- 优先选择贴近实际应用的选题
+- OpenClaw相关的技术实践文章优先
+
+**执行要点**：
+- YouTube直抓被bot校验拦截时，使用 `web_fetch` 或 `r.jina.ai` fallback
+- 选题需自评≥85分才能发布
+- 产出4种格式：公众号Markdown/HTML、小红书图文、X(Twitter)帖子
+
+---
+
+### 飞书文档写入验证机制
+
+**经验沉淀**：
+- feishu_doc write 后文档内容可能为空
+- 必须写入后用 read 验证内容
+- 验证失败时使用 append 补写
+
+---
+
+### 实时状态同步方案
+
+**技术方案**：
+- Vercel serverless 无法运行 openclaw CLI
+- 使用 5分钟 Supabase 同步方案
+- 同步脚本位置：`/root/.openclaw/workspace/scripts/sync-agent-status.js`
+- Agent 状态存储在 Supabase tasks 表
+
+---
+
+### Office 协作功能 PRD 已审批
+
+**功能设计**：
+- 2个 Agent → 小会议室
+- ≥3个 Agent → 大会议室
+- 状态定义：running/ok/error/idle
+
+---
+
+### info-card-designer Skill 已验证可用
+
+**技术细节**：
+- 使用本地 Chrome 截图，不需要 KIE 生图 API
+- 工作流：AI 生成 HTML → Chrome 截图 → PNG 输出
+- 已安装 GitHub joeseesun/info-card-designer
+
+---
+
+## 📊 Memory 提炼 | 2026-03-17 12:03
+
+### Playwright MCP Bridge Chrome扩展安装
+- 用户已在本地Chrome手动安装扩展
+- 下一步：配置MCP服务器连接CDP端口
+
+### 运营更新
+- Second Brain UI 修改完成（SVG办公室场景 + Agent动画）
+- 飞书文档写入验证：写入后必须读取验证
+- 实时状态方案：5分钟Supabase同步（Vercel无法运行openclaw CLI）
+- Office协作功能 PRD已审批
+
+## 📊 每日记忆提取 | 2026-03-17 18:08
+
+### info-card-designer Skill 测试完成
+- 已安装 GitHub joeseesun/info-card-designer
+- 工作流：AI生成HTML → Chrome截图 → PNG输出
+- 测试验证：Chrome浏览器截图功能正常
+- 无需KIE生图API，使用本地Chrome截图
+
+### Cron健康检查
+- 22个任务正常运行
+- 2个失败任务：
+  - github-daily-backup: 超时 (90s limit)
+  - sync-github-15-00: 路径错误 (workspace-coding不存在)
+
+## 📊 每日记忆提取 | 2026-03-17 10:07
+
+### 飞书文档写入验证问题
+- 问题：feishu_doc write 后文档内容为空
+- 根因：API 调用成功但内容未正确写入
+- 解决：写入后必须用 feishu_doc read 验证内容
+- 以后所有飞书文档操作都要验证后再通知用户
+
+### Vercel 与 OpenClaw CLI 兼容性
+- 问题：实时状态 API 在 Vercel 无法运行 openclaw CLI
+- 原因：Vercel 是无服务器环境，无法执行本地 CLI
+- 解决：使用 Supabase 5分钟同步方案
+
+### Second Brain Office 协作功能
+- PRD 已审批
+- 2个 Agent → 小会议室
+- ≥3个 Agent → 大会议室
+
+## 📊 每日记忆提取 | 2026-03-17 04:04
+
+### 检查结果
+- 2026-03-15 和 2026-03-16 两天的 daily memory 已复核
+- 核心信息均已沉淀到 strategic.md，无新增系统性知识需要写入
+- 飞书文档写入问题已记录，SupaData API 经验已记录，产品方向已确认
+
+## 📊 产品方向 | 2026-03-16
+
+### 核心业务
+1. **AI教育培训** - 主要业务方向
+2. **OpenClaw 相关** - 技术服务方向
+
+### AI培训定价（Finance Agent产出）
+- 线下培训：保底分成 50%，保底 ¥5,000/天
+- 线上课程：课程制作分成 30%
+
+---
+
+## 📊 飞书文档写入问题 | 2026-03-16
+
+### 问题描述
+- 使用 feishu_doc write 后文档内容为空
+- 影响：Chief 每日汇报飞书文档空白
+
+### 解决方案
+- 写入后增加验证
+- 失败则用 append 补写
+
+---
+
+### SupaData API 调用已验证可用
+
+**问题**：SupaData API 连接失败 - 域名错误
+- 错误域名：`api.supadata.io`（不存在）
+- 正确域名：`api.supadata.ai`
+- Skill 位置：`/root/.openclaw/workspace-coding/tmp/2ndbrain/skills/supadata/`
+
+**调用方式**：
+```python
+from supadata_client import SupadataClient
+client = SupadataClient()
+result = client.get_transcript("https://youtu.be/VIDEO_ID")
+```
+
+**凭据**：`/root/.openclaw/credentials/supadata.json`
+
+**战略含义**：
+- YouTube/Twitter/TikTok 等内容抓取优先使用 Supadata
+- 比 YouTube Data API 更可靠（不需要配置 API Key）
+
+---
+
+## 📊 Memory 提炼 | 2026-03-15 04:10
+
+### Cron任务超时问题的持续优化
+
+**问题描述**：
+- sync-supabase-30m 任务持续超时
+- 初始timeoutSeconds: 300s (5分钟) → 超时
+- 多次调整: 300s → 600s → 1200s → 1800s
+
+**解决方案**：
+- 根据任务复杂度设置合理的timeoutSeconds
+- 高频同步任务(如30分钟一次)建议至少600s
+- 内容生成类任务建议至少1800s
+- 定期观察实际执行时间进行调整
+
+**经验**：
+- timeoutSeconds调整后需要等待下一次执行验证
+- 不要只看lastStatus，要查看实际的durationMs
+- 有时代理执行时间可能比预期长
+
+## 📊 Memory 提炼 | 2026-03-15 00:10
+
+### GitHub push 失败处理：远程有本地没有的 commit
+
+**问题描述**：
+- 本地 `git push` 失败，错误：`error: failed to push some refs... Updates were rejected because the remote contains work that you do not have locally`
+- 原因：远程仓库有本地没有的 commit（可能是其他设备或手动提交）
+
+**解决方案**：
+- 执行 `git pull --rebase` 合并远程更改
+- 然后再 `git push`
+
+**命令**：
+```bash
+git pull --rebase
+git push
+```
+
+**战略含义**：
+- 不要在有外部提交的仓库上直接 force push
+- 先 pull 再 push 是更安全的协作方式
+
+---
+
+### Edge-TTS 语音合成时 emoji 导致音频损坏
+
+**问题描述**：
+- 用户反馈 TTS 语音播放时出现杂音
+- 原因：edge-tts 会把 emoji 字符当作异常文本处理，导致生成的音频极短（1.59秒）且损坏
+
+**解决方案**：
+- 在 `build_feishu_voice.py` 中添加 `remove_emoji()` 函数
+- TTS 合成前过滤掉 emoji，保留原文显示
+- Emoji 正则只匹配 emoji 字符范围，不触及其他 Unicode 字符（如中文）
+
+**技术细节**：
+- 分离"显示文本"和"朗读文本"
+- 朗读时过滤 emoji，显示时保留原样
+
+**战略含义**：
+- 语音合成前需清理特殊字符
+- 正则需精确范围，避免误删 CJK 字符
+
+---
+
+## 📊 Memory 提炼 | 2026-03-14 02:05
+
+### Cron 任务超时问题的系统性修复：任务超时从 1h 调整为 2h
+
+**问题描述**：
+- 多个 cron 任务（daily-content-publish、ai-kol-daily-newsletter、sync-github-18-00）因执行超时被系统强杀
+- 错误信息：`Error: cron: job execution timed out`
+- 超时限制默认为 1 小时，部分长跑任务（如内容生成）无法在时限内完成
+
+**修复方案**：
+- 将任务超时从 3600s (1h) 调整为 7200s (2h)
+- 修复命令：`openclaw cron edit <job-id> --timeout 7200000`
+- 同时补全 ai-kol-daily-newsletter 的飞书投递目标配置
+
+**修复的任务**：
+| 任务 | 修复内容 |
+|------|---------|
+| daily-content-publish | 超时 1h → 2h |
+| ai-kol-daily-newsletter | 超时 1h → 2h + 飞书投递 target |
+| sync-github-18-00 | 超时 1h → 2h |
+
+**战略含义**：
+- Cron 任务超时应根据任务性质差异化配置，不能一刀切
+- 内容生成类任务（需要研究、写作、多格式输出）建议至少配置 2h 超时
+- 后续新增 cron 任务时，应根据任务复杂度预估合理的超时时间
+
+### OpenClaw 2026.3.12 / 3.14 版本新特性
+
+**版本号**：2026.3.13-1 (最新)
+**发布时间**：2026-03-14
+
+**新功能**：
+- 🖥️ Android 聊天设置重构：分组设备/媒体区域，更紧凑的移动端布局
+- 📱 iOS 引导页优化：首次欢迎页 + QR 扫描指引，停止自动打开扫描器
+- 🔌 Chrome DevTools MCP：官方支持附加到已登录 Chrome 会话
+- 🌐 Browser profiles：`profile="user"` (主机浏览器) / `profile="chrome-relay"` (扩展中继)
+- ⚡ 批量浏览器操作：支持 batched actions、selector 定位、延迟点击
+- 🐳 Docker 时区覆盖：新增 `OPENCLAW_TZ` 环境变量
+- 📦 Pi 依赖更新：升级到 0.58.0
+
+**关键修复**：
+- Dashboard 性能优化：工具结果不再触发完整历史重载
+- Gateway 超时处理：RPC 调用增加 bounded timeout
+- Ollama 推理隐藏：不再泄露内部思考内容
+- 浏览器会话加强：driver 验证加强，断线自动重连
+
+**升级建议**：移动端体验优化明显，推荐升级 🚀
+
+---
+
+### OpenClaw 2026.3.8 版本新特性
+
+**版本号**：2026.3.8 (3caab92)
+**发布时间**：2026-03-13
+
+**新功能**：
+- 🖥️ Control UI/dashboard-v2：全新模块化仪表盘，支持 command palette、移动端底部标签
+- ⚡ OpenAI GPT-5.4 / Claude Fast Mode：会话级快速切换
+- ☸️ K8s 安装文档上线
+- 💬 Slack Block Kit 支持
+- 🔄 sessions_yield：编排器可提前结束当前 turn 并携带隐藏 payload 进入下一轮
+
+**安全修复**：
+- 🔐 设备配对改为短效 bootstrap token
+- 🔒 禁用 workspace 插件自动加载（防止克隆仓库自动执行恶意代码）
+
+**Bug 修复**：20+ 项，包括 Kimi Coding 工具调用、TUI 重复消息、Cron 投递等
+
+---
+
+## 📊 Memory 提炼 | 2026-03-09 04:05
+
+### 今日新增（2026-03-09）
+
+**1. 飞书多维表格写入格式已验证**
+- 写入 Bitable 必须使用中文字段名，不能用 field_id
+- ❌ `{"fldhqf2zi3": "值"}` → 报错 FieldNameNotFound
+- ✅ `{"案例名称": "值"}` → 成功写入
+
+**2. KIE AI 生图异步链路已跑通**
+- 官方端点：`POST https://api.kie.ai/api/v1/jobs/createTask`
+- 请求结构：`{ model, callBackUrl?, input }`
+- 回调字段：`data.resultJson.resultUrls[]`
+- 关键坑位：KIE 图床有时返回 403，下载必须用 `curl -L` fallback
+- 已集成到 baoyu-slide-deck skill
+
+**⚠️ 重要：KIE 回调服务器必须先启动**
+- 问题：回调服务器未运行时，KIE 回调无法接收，任务一直 pending
+- 解决：每次使用 KIE 前必须先启动：
+  1. `python3 ~/.agents/skills/baoyu-slide-deck/scripts/kie-callback-server.py &`
+  2. `cloudflared tunnel --url http://127.0.0.1:8787`（每次地址不同！）
+- 回调地址会变：每次启动 Tunnel 都会生成新的 trycloudflare.com 地址
+- 解决方案：Tunnel 日志中提取最新地址，或在提交任务时动态获取
+
+**3. 2nd Brain 云端稳定性三层设计**
+- 本地可用 + 云端可用 + 数据缺失可降级
+- Next.js 多 workspace 需显式 `outputFileTracingRoot: process.cwd()`
+- 前端搜索必须 null-safe 处理
+- 图表/API 数据必须有 Supabase fallback
+
+---
+
+> 最后更新: 2026-03-15 16:05
+
+---
+
+## 📊 重要经验沉淀 | 2026-03-08
+
+### 1. Skill 路径管理机制（重要）
+- **问题**：isolated session 中的 agent 无法自动找到已注册的 skill
+- **解决方案**：在 AGENTS.md 中建立 Skill Catalog，所有 Sub Agent 启动时必读
+- **配置要求**：所有调用 skill 的 cron 任务，必须在配置中添加 `skill_path` 字段
+- **文件位置**：
+  - AGENTS.md - Skill Catalog（真相源）
+  - cron-agent-dispatch.yaml - 任务级配置
+  - memory/agents/{agent}/memory.md - Agent 私有记忆
+
+### 2. 飞书凭据配置
+- **状态**：飞书多维表格凭据未完整配置（缺少 feishu.json）
+- **临时方案**：优先使用飞书云文档（feishu-doc）代替多维表格
+- **待配置**：需要在 credentials/ 目录添加飞书应用凭据
+
+### 3. 飞书多维表格写入格式（重要经验）
+- **问题**：写入记录报错 `FieldNameNotFound`
+- **根因**：错误使用 field_id 作为 key
+- **正确方式**：使用中文字段名作为 key
+  - ❌ `{"fldhqf2zi3": "值"}`
+  - ✅ `{"案例名称": "值"}`
+- **结论**：飞书 Bitable API 需要使用人类可读的中文字段名，不是内部 ID
+
+### 4. 飞书文档权限问题
+- **现象**：创建文档时无法自动添加用户权限
+- **原因**：runtime 以 app 模式运行，无法获取用户 identity
+- **错误信息**：`trusted requester identity unavailable`
+- **临时方案**：需要手动在飞书中添加编辑权限
+- **长期方案**：需要配置 user_access_token 或使用用户授权模式
+
+### 5. 飞书文档权限添加成功 (10:52)
+- 使用 Python 脚本直接调用飞书 API 成功添加编辑权限
+- API 端点：`POST /drive/v1/permissions/{token}/members`
+- 参数：`type=docx/bitable`, `member_type=openid`, `member_id`, `perm=edit`
+- 已添加权限的文档：
+  - ✅ 案例清单 (docx)
+  - ✅ 价格对比 (docx)
+  - ✅ 多维表格 (bitable)
+
+### 3. 模型切换
+- 当前主力模型：openai-code/gpt-5.4
+- Fallback 链：minimax-cn/MiniMax-M2.5 → kimi-coding/k2p5
+
+---
+
+## 📊 工具映射表 | 2026-03-08
+
+### 微信公众号抓取
+- 工具：`tools/wechat-article-for-ai`
+- 位置：`/root/.openclaw/workspace/tools/wechat-article-for-ai/`
+- 已封装为 Skill：SKILL.md 已存在
+- 调用方式：`python main.py "文章URL"`
+- MCP 模式：`python mcp_server.py`（可选）
+
+### Chief 路由关键词
+- "公众号" → Content Agent
+- "抓取" → Content Agent  
+- "提取" → Content Agent
+
+### Content Agent 内部映射
+见 `memory/agents/content/memory.md`
+
+---
+
+## 📊 Memory 提炼 | 2026-03-08 12:06
+
+### 今日新增（2026-03-08 上午）
+
+**1. 图片生成 API 现状**
+- GLM API：已配置并验证 `cogview-3` / `cogview-3-plus` 可用于生图
+- KIE API (nano-banana-2)：已实测跑通异步生图链路
+  - 官方端点：`POST https://api.kie.ai/api/v1/jobs/createTask`
+  - 请求结构：`{ model, callBackUrl?, input }`
+  - 回调字段：`data.resultJson`，解析后读取 `resultUrls[]`
+  - 已验证：本地 callback server + Cloudflare Tunnel + 自动下载结果图
+- KIE 已集成进 PPT 生成 Skill：`/root/.agents/skills/baoyu-slide-deck/`
+- 关键坑位：KIE 图床有时对 `urllib` 返回 403，下载逻辑必须保留 `curl -L` fallback
+- 备选方案：Replicate / OpenAI DALL-E / DashScope
+
+**2. 飞书凭据配置**
+- 飞书应用凭据已添加到 credentials/feishu-default-allowFrom.json
+- 多维表格权限添加已跑通（Python 脚本调用 API）
+
+---
+
+## 📊 Memory 提炼 | 2026-03-08 02:00
+
+### 今日新增（2026-03-08）
+
+**1. EvoMap 拉取脚本修复**
+- 问题：Coding Agent 报告 "无新报告"
+- 根因：
+  1. 缺少 `Authorization: Bearer <node_secret>` 认证头
+  2. JSON 格式错误 (`status: "promfilters": {"oted"}`)
+  3. 数据路径错误 (读取 `payload.capsules` 而非 `payload.results`)
+  4. 缺少去重机制
+- 修复：
+  - 添加 `Authorization: Bearer <node_secret>` 认证头
+  - 修正 JSON 结构
+  - 添加 node_secret 持久化 (`/root/.openclaw/credentials/evomap.json`)
+  - 添加 processed.json 去重
+- 结果：成功拉取 16 个新胶囊（confidence ≥ 0.9, streak ≥ 5）
+- 脚本位置：`/root/.openclaw/workspace/scripts/evomap_auto_pull.sh`
+
+**2. Vercel 构建失败处理**
+- 项目：github.com/jeffli2002/2ndbrain
+- 错误：`No Next.js version detected`
+- 原因：package.json 缺少 `next` 依赖声明
+- 状态：待修复
+
+---
+
+> 最后更新: 2026-03-08 13:42
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
 
 ---
 
@@ -623,3 +1433,226 @@ openclaw gateway restart
 **4. 今日完成 Chief 每日汇报**
 - 已于 19:30 成功发送每日汇报到飞书
 - 包含：各 Agent 进展、GitHub 同步、Supabase 同步、OpenClaw 动态、需要确认事项
+<<<<<<< HEAD
+=======
+
+## 📊 Memory 提炼 | 2026-03-08 20:18
+
+### 近2日新增应固化的长期信息（2026-03-07 ~ 2026-03-08 晚）
+
+**1. Cron 的 `summary_only` 任务必须显式区分“常规摘要”与“老板通知”路径**
+- `product-competitor-analysis` 的失败根因已确认：isolated cron 会话里，Agent 在需要老板确认产品方向时尝试发消息，但未显式指定 `channel` / `target`，导致 `⚠️ ✉️ Message failed`。
+- 修复原则：
+  - `summary_only` 任务的常规 delivery 应设为 `none`，不要默认 announce 给老板。
+  - 只有在确实需要老板决策时，Agent 才调用 `message`。
+  - 一旦调用 `message`，必须显式传入 `channel=feishu` 与 `target=user:ou_aeb3984fc66ae7c78e396255f7c7a11b`，不能依赖当前会话上下文。
+- **战略含义**：Cron 任务设计不能只写“需要时通知老板”，必须把“怎么通知”固化到 prompt / config，否则会反复出现 delivery 类假失败。
+
+**2. 2nd Brain 的线上稳定性应优先做“环境差异兜底”而不是只在本地跑通**
+- Vercel 构建修复说明：多 workspace / 多 lockfile 环境下，需要显式固定 Next 的 tracing root（`outputFileTracingRoot: process.cwd()`），否则平台可能误判根目录或依赖边界。
+- 搜索功能修复说明：前端搜索必须对所有可空字段做 null-safe 处理，不能默认任何 Supabase 数据字段都非空。
+- Agents Token 图表修复说明：页面不能只依赖本地 cron runs 文件；在云部署场景下，应提供 Supabase snapshot fallback，确保图表至少有可展示的当前数据。
+- **战略含义**：2nd Brain 后续开发要优先遵循“本地可用 + 云端可用 + 数据缺失可降级”的三层设计，而不是默认生产环境等同于本地环境。
+
+## 📊 Memory 提炼 | 2026-03-11 02:02
+
+### Cron 修复后的首轮验证，必须等下一次真实触发，不能拿修复前旧 run 直接下结论
+
+**新确认的长期运行规则**：当某个 cron 的 delivery / routing / config 刚被修复后，旧 run history 里残留的 `not-delivered`、`error`、或其他失败状态，不能被直接当成“当前仍异常”的证据；必须等修复后的**下一次真实触发**完成，再做最终收口判断。
+
+**这次保留的长期信息**：
+- 2026-03-11 00:08 巡检时，`trustmrr-daily-analysis` 与 `product-competitor-analysis` 的最近一次 run 仍显示 `deliveryStatus=not-delivered`，但对应配置已在前一晚补齐为明确的 Feishu announce 目标。
+- 因此，这类状态在修复刚落地后的观察窗口里，应标记为**待验证项**，而不是立即判为“当前配置仍坏”或反向判为“已经彻底恢复”。
+- 正确做法应分三步：
+  1. 先确认配置已真实改动并落盘；
+  2. 再区分旧 run 是修复前遗留，还是修复后首轮结果；
+  3. 只有看到修复后的首轮 run 正常完成，才能正式关闭该问题。
+
+**战略含义**：
+- 这条规则能避免两种常见误判：一是把历史失败当成当前故障，制造假红灯；二是配置刚改完就直接宣告恢复，制造假绿灯。
+- 对后续 cron 巡检、投递修复、路由修复和可观测性治理，都属于可跨任务复用的收口规则。
+
+---
+
+## 📊 Memory 提炼 | 2026-03-11 12:02
+
+### 高频/重复 cron 必须显式设置与任务周期匹配的超时，不要依赖默认 3600s
+
+**新确认的长期运行规则**：凡是会周期性重复执行的 cron，尤其是高频任务（如 30 分钟级同步）和易长跑的报告任务，都不应继续依赖默认 `timeoutSeconds=3600`。应根据任务类型显式设置更短、与调度周期匹配的超时上限，避免单次长跑拖垮后续调度。
+
+**这次保留的长期信息**：
+- 2026-03-11 10:39 巡检中，`trustmrr-daily-analysis` 最近一次运行因默认 `3600s` 超时而报错，`sync-supabase-30m` 则出现单次运行 **约 59 分 53 秒**，直接把下一次 `nextRunAtMs` 拖到过去，形成调度积压/假异常。
+- 已采取的修复动作说明了正确方向：
+  1. 为长报告任务显式设置更合理的上限（如 `trustmrr-daily-analysis=1800s`）；
+  2. 为高频同步任务把超时压到明显小于调度周期（如 `sync-supabase-30m=600s`）；
+  3. 把“超时是否小于任务周期并留有缓冲”纳入 cron 健康检查，而不是只看最后一次 status。
+- 长期判断标准应固定为：**若任务的最长允许执行时间接近或超过其调度间隔，就不是单次慢，而是系统级调度风险。**
+
+**战略含义**：
+- 这条规则能减少三类问题：默认超时过长导致的长时间假挂起、单次慢任务拖住后续调度、以及“主任务其实卡住了但系统迟迟不报错”的观测盲区。
+- 对后续所有同步类、巡检类、报告类 cron，都属于可跨任务复用的治理规则；后面新增 cron 时，也应把显式 timeout 当成配置检查项，而不是事后补洞。
+
+---
+
+## 📊 Memory 提炼 | 2026-03-11 14:05
+
+### 报告类 cron 的同日补跑应优先复用已存在产物，并把飞书云文档“内容已写入”纳入成功判定
+
+**新确认的长期运行规则**：当报告类 cron 在同一天内因为飞书写入、投递或收尾步骤失败而需要补跑时，若本地 Markdown 已经完整存在，就不应再次从头做全量生成；应优先复用现有产物，只修复后半段交付链路。同时，飞书云文档不能只以“文档已创建”判成功，必须核实**正文内容真的写进去了**。
+
+**这次保留的长期信息**：
+- 2026-03-11 对 `trustmrr-daily-analysis` 的排查显示：本地报告 `reports/trustmrr-detailed-2026-03-11.md` 已成功生成，但飞书侧出现了“文档创建成功、正文写入失败、并留下重复空白文档”的情况。
+- 这说明报告任务的补救路径应固定为两段式：
+  1. **先检查现有本地产物是否已完整落盘**；
+  2. 若已存在，则优先复用该产物，只执行飞书云文档补写/更新与核心总结投递，不再重复全量重算。
+- 同时，飞书交付的成功判定应至少覆盖三点：
+  1. 保留的目标文档唯一且明确；
+  2. 文档不是空白壳子，正文已真实写入；
+  3. 重复创建出来的空白文档应被识别并清理，避免后续引用到错误版本。
+
+**战略含义**：
+- 这条规则能同时减少三类系统性问题：重复补跑导致的长时间超时、飞书侧“创建成功但内容为空”的假成功、以及同名重复文档造成的归档混乱。
+- 对后续所有报告型任务（日报、竞品分析、TrustMRR、KOL 通讯、Chief 日报等）的重试、补发和归档治理，都属于可跨任务复用的恢复规则。
+
+---
+
+## 2026-03-12 记忆提取
+
+### 运营变更
+- **模型切换**: MiniMax额度用尽，已切到 `kimi-coding/k2p5`，多个cron任务恢复
+- **AI KOL监控**: 新增15人watchlist (`config/ai-kol-watchlist.yaml`)，日报聚焦这15个KOL的X/Twitter更新
+
+### 稳定结论
+- Supabase同步链路正常 (30分钟一次)
+- TrustMRR分析产出稳定，方向: 高意向获客Agent、Agentic Social Ops、垂直ROI Copilot、Agent Delivery
+
+---
+
+## 📊 Memory 提炼 | 2026-03-16 12:06
+
+### Second Brain 项目 Agent 状态监控方案
+
+**问题**：Vercel serverless 无法执行 openclaw CLI
+
+**解决方案**：
+1. 本地定时同步脚本 `sync-agent-status.js` 每30分钟执行
+2. 写入 Supabase tasks 表
+3. Vercel API 从 Supabase 读取状态
+4. 前端每10秒轮询更新
+
+**关键配置**：
+- Supabase: njxjuvxosvwvluxefrzg
+- 同步脚本: `/root/.openclaw/workspace/scripts/sync-agent-status.js`
+- Agent 状态 ID 格式: `agent-{chief|content|growth|coding|product|finance}`
+
+**状态定义**：
+- running: 有活跃 subagent 会话
+- ok: cron 任务正常运行
+- error: 任务失败
+- idle: 无分配任务
+
+### Supadata API 正确调用方式
+- 域名: `api.supadata.ai` (不是 .io)
+- 端点: `/transcript`
+- 参数: `url` (完整 YouTube URL)
+
+### 经验总结
+- Vercel 部署问题优先检查 token 有效性
+- GitHub 推送失败可能是文件超过 100MB
+
+---
+
+## 📊 每日记忆提取 | 2026-03-17 14:08
+
+### OpenClaw培训课程大纲已生成
+- 1天通用版：原理与部署 + 应用实操
+- 1天主题版：办公效率/一人公司/自媒体内容
+- 2天企业版：第一天原理+部署基础，第二天进阶+实践分享
+- 定价参考：线下保底分成50%保底¥5000/天，线上课程分成30%
+
+### Second Brain Office协作功能
+- PRD已审批，开发中
+- 2个Agent → 小会议室
+- ≥3个Agent → 大会议室
+
+### 飞书文档写入验证
+- 问题：feishu_doc write后内容可能为空
+- 解决：写入后必须用read验证
+
+### 实时状态同步方案
+- Vercel无法运行openclaw CLI（无服务器环境）
+- 使用5分钟Supabase同步方案
+
+---
+
+> 最后更新: 2026-03-17 14:08
+
+---
+
+## 📊 Memory 提炼 | 2026-03-19 16:03
+
+### Pexo AI 视频生成工具已集成到 OpenClaw 工作流
+
+**新确认的长期能力资产**：
+- Pexo API Key 已写入 `credentials/pexo.json`（由 Jeff 提供），Skill 路径 `skills/pexo-agent/`
+- Pexo 是 AI 视频 Agent 平台，支持多顶级视频模型协同：Seedance / 可灵(Kling) / Veo
+- 核心价值：把创意自动拆解成分镜头，并行调用多模型生成，最后智能拼接配音剪辑
+- 典型效率：一个 30 秒视频全部链路约 10 分钟完成
+
+**已跑通的完整项目流程**：
+1. 自然语言描述需求
+2. Pexo 生成脚本 → 用户确认方向
+3. 用户反馈修正 → Pexo 重新生成
+4. 第二轮反馈 → Pexo 重新生成视频
+5. 最终成片交付
+
+**OpenClaw × Pexo 的定位分工**：
+- OpenClaw = 指令中枢 + 任务调度（接收自然语言、管理流程）
+- Pexo = 视频 Agent 执行工厂（脚本/分镜/生成/配音/剪辑）
+
+**Pexo 相关信息**：
+- GitHub：https://github.com/pexoai/pexo-skills
+- 当前状态：内测中，需要邀请码，每天有免费体验额度
+
+**战略含义**：
+- 这套组合已开始接近"全天候视频内容工厂"的雏形
+- 对短剧/漫剧/电商内容生产有较大促进价值
+- 是 Jeff AI 一人公司品牌内容生产的核心工具之一
+
+---
+
+### 微信公众号文章发布已可半自动化，草稿创建链路验证通过
+
+**新确认的工作流**：
+- 微信公众号 AppID：wxf9400829e3405317（凭据在 credentials/wechat.json）
+- 发布命令：`python3 -X utf8 scripts/wechat_publish.py --html "path/to/article.html"`
+- 草稿创建成功（media_id: WOr7ZIAYNpvYmON1V3ZQwXR...），但 preview 需要更高权限
+- 实际流程：AI 生成内容 → 脚本创建草稿 → Jeff 登录公众号后台手动发布
+
+**已沉淀的发布前内容规范**：
+- 飞书云文档必须用 write + read 验证双重保险
+- WeChat 文章用 `content-factory/scripts/wechat_publish.py` 发布
+
+---
+
+### 小红书内容抓取已跑通 Playwright + cookies 方案
+
+**已验证的工作流**：
+- 登录态保存在 `credentials/xiaohongshu.json`（cookies 格式）
+- 搜索 API 端点：`https://edith.xiaohongshu.com/api/sns/web/v1/search/notes?...&search_key=关键词&type=51`（type=51=视频）
+- Playwright 直接访问搜索页并拦截 API 响应可获取笔记元数据
+- 视频详情 API（note_info）需要更高权限认证，暂无完美方案
+
+**已写入飞书多维表格**：
+- 表格 app_token：CkVGbVjABaDV5ZskSXZcxoLnnBb
+- 字段：标题、排名、作者、发布时间、互动数
+
+---
+
+### Gateway 今日多次断联（12:06 / 14:06 / 16:02）
+
+**现象**：exec 执行 `openclaw gateway` 相关命令时报 `gateway closed (1000)`，需要 restart
+**影响**：Gateway 稳定性待观察，建议关注
+**状态**：重启后可恢复
+
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856

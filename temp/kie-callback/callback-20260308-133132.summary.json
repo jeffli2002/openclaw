@@ -1,0 +1,37 @@
+{
+  "receivedAt": "2026-03-08T13:31:32.044259",
+  "path": "/kie-callback",
+  "headers": {
+    "Host": "overseas-cam-corps-provisions.trycloudflare.com",
+    "User-Agent": "okhttp/3.14.9",
+    "Content-Length": "826",
+    "Accept-Encoding": "gzip",
+    "Cdn-Loop": "cloudflare; loops=1; subreqs=1",
+    "Cf-Connecting-Ip": "47.77.232.176",
+    "Cf-Ew-Via": "15",
+    "Cf-Ipcountry": "US",
+    "Cf-Ray": "9d8f7442646267d7-SJC",
+    "Cf-Visitor": "{\"scheme\":\"https\"}",
+    "Cf-Warp-Tag-Id": "e9590d10-d372-4fb5-bbd2-40529e5fe8db",
+    "Cf-Worker": "trycloudflare.com",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json; charset=utf-8",
+    "X-Forwarded-For": "47.77.232.176",
+    "X-Forwarded-Proto": "https"
+  },
+  "body": {
+    "code": 200,
+    "data": {
+      "completeTime": 1772947891000,
+      "costTime": 36,
+      "createTime": 1772947855000,
+      "model": "nano-banana-2",
+      "param": "{\"input\":\"{\\\"aspect_ratio\\\":\\\"16:9\\\",\\\"output_format\\\":\\\"png\\\",\\\"google_search\\\":false,\\\"prompt\\\":\\\"OpenClaw 0308线下分享的PPT封面照片，科技感，线下演讲现场，蓝色主色，专业高级，适合作为16:9 PPT封面背景，无水印，无多余文字\\\",\\\"resolution\\\":\\\"1K\\\"}\",\"callBackUrl\":\"https://overseas-cam-corps-provisions.trycloudflare.com/kie-callback\",\"model\":\"nano-banana-2\"}",
+      "resultJson": "{\"resultUrls\":[\"https://tempfile.aiquickdraw.com/images/1772947889858-mutoyjwga4d.png\"]}",
+      "state": "success",
+      "taskId": "5c0136c899be791169021318b2464d87",
+      "updateTime": 1772947891000
+    },
+    "msg": "Playground task completed successfully."
+  }
+}

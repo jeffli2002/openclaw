@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw 企业AI内容营销 Skills 套件</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #0a2540 0%, #1a3a5c 50%, #0d2847 100%);
+            min-height: 100vh;
+            padding: 40px;
+        }
+        .poster {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #0f2a4a 0%, #0a1f38 100%);
+            border-radius: 32px;
+            padding: 50px 60px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 1px solid rgba(59,130,246,0.3);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 8px 25px rgba(59,130,246,0.4);
+        }
+        .logo-text {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+        .subtitle {
+            font-size: 22px;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .skill-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+            border-radius: 20px;
+            padding: 30px 25px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        .skill-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 32px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        .skill-icon.blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .skill-icon.red { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .skill-icon.green { background: linear-gradient(135deg, #10b981, #059669); }
+        .skill-icon.orange { background: linear-gradient(135deg, #f97316, #ea580c); }
+        .skill-icon.purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .skill-icon.cyan { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+        
+        .skill-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .skill-desc {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+        .skill-price {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #fbbf24;
+        }
+        
+        .price-section {
+            text-align: center;
+            margin-top: 45px;
+            padding: 35px;
+            background: linear-gradient(145deg, rgba(251,191,36,0.15), rgba(251,191,36,0.05));
+            border-radius: 24px;
+            border: 2px solid rgba(251,191,36,0.3);
+        }
+        .price-label {
+            font-size: 18px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+        .price-value {
+            font-size: 56px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .price-original {
+            font-size: 20px;
+            color: #64748b;
+            text-decoration: line-through;
+            margin-top: 8px;
+        }
+        .price-tagline {
+            font-size: 20px;
+            color: #10b981;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(239,68,68,0.4);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+            color: #64748b;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <span class="logo-text">OpenClaw</span>
+            </div>
+            <h1>企业AI内容营销 Skills 套件</h1>
+            <p class="subtitle">让企业内容营销全自动运行</p>
+        </div>
+        
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon blue">📰</div>
+                <div class="skill-name">每日行业信息报告</div>
+                <div class="skill-desc">自动收集行业资讯并生成AI报告</div>
+                <span class="skill-price">99元</span>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon red">📕</div>
+                <div class="skill-name">小红书图文生成</div>
+                <div class="skill-desc">自动生成小红书图文内容</div>
+                <span class="skill-price">199元</span>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon green">💬</div>
+                <div class="skill-name">公众号图文预发布</div>
+                <div class="skill-desc">自动生成并预发布公众号文章</div>
+                <span class="skill-price">299元</span>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon orange">🎨</div>
+                <div class="skill-name">营销海报生成</div>
+                <div class="skill-desc">自动生成营销海报</div>
+                <span class="skill-price">99元</span>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon purple">🎬</div>
+                <div class="skill-name">广告创意短视频</div>
+                <div class="skill-desc">自动生成广告创意短视频</div>
+                <span class="skill-price">199元</span>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon cyan">📹</div>
+                <div class="skill-name">网站宣传与培训视频</div>
+                <div class="skill-desc">制作网站宣传、培训材料等视频</div>
+                <span class="skill-price">199元</span>
+            </div>
+        </div>
+        
+        <div class="price-section">
+            <div class="price-label">Skills 套件打包价</div>
+            <div class="price-value">999元</div>
+            <div class="price-original">原价 1094元</div>
+            <div class="price-tagline">✓ 已安装用户仅需 999元</div>
+            <div class="badge">🎁 限时赠送价值199元部署服务</div>
+        </div>
+        
+        <div class="footer">
+            ⚡ OpenClaw AI · 一套AI自动化系统，让企业内容营销自动运行
+        </div>
+    </div>
+</body>
+</html>

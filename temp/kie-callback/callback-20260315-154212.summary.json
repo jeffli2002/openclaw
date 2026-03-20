@@ -1,0 +1,37 @@
+{
+  "receivedAt": "2026-03-15T15:42:12.434457",
+  "path": "/kie-callback",
+  "headers": {
+    "Host": "suites-mayor-dish-inventory.trycloudflare.com",
+    "User-Agent": "okhttp/3.14.9",
+    "Content-Length": "767",
+    "Accept-Encoding": "gzip",
+    "Cdn-Loop": "cloudflare; loops=1; subreqs=1",
+    "Cf-Connecting-Ip": "47.254.71.23",
+    "Cf-Ew-Via": "15",
+    "Cf-Ipcountry": "US",
+    "Cf-Ray": "9dc9e14f039a303f-SIN",
+    "Cf-Visitor": "{\"scheme\":\"https\"}",
+    "Cf-Warp-Tag-Id": "3687420b-9ca5-40f0-b383-4cbf68ffbc4b",
+    "Cf-Worker": "trycloudflare.com",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json; charset=utf-8",
+    "X-Forwarded-For": "47.254.71.23",
+    "X-Forwarded-Proto": "https"
+  },
+  "body": {
+    "code": 200,
+    "data": {
+      "completeTime": 1773560532000,
+      "costTime": 44,
+      "createTime": 1773560488000,
+      "model": "nano-banana-2",
+      "param": "{\"input\":\"{\\\"aspect_ratio\\\":\\\"16:9\\\",\\\"prompt\\\":\\\"PPT封面设计，标题：3.15 OpenClaw 小龙虾线下交流。橙色+深蓝渐变背景，暖色调。小龙虾、代码元素。现代简约风格，16:9。\\\",\\\"resolution\\\":\\\"1K\\\"}\",\"callBackUrl\":\"https://suites-mayor-dish-inventory.trycloudflare.com/kie-callback\",\"model\":\"nano-banana-2\"}",
+      "resultJson": "{\"resultUrls\":[\"https://tempfile.aiquickdraw.com/vnp/a5ca2467b8fbc346710b3ee1f56b806f_1773560531.jpeg\"]}",
+      "state": "success",
+      "taskId": "a5ca2467b8fbc346710b3ee1f56b806f",
+      "updateTime": 1773560532000
+    },
+    "msg": "Playground task completed successfully."
+  }
+}

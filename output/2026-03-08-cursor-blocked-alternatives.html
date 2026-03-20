@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor 被封后，国内开发者如何继续用 AI 编程</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            font-size: 16px; 
+            line-height: 1.6; 
+            padding: 20px; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            color: #333;
+        }
+        h1 { 
+            font-size: 24px; 
+            font-weight: bold; 
+            margin: 24px 0 16px; 
+            color: #1a5490;
+            border-bottom: 3px solid #2980b9;
+            padding-bottom: 10px;
+        }
+        h2 { 
+            font-size: 20px; 
+            font-weight: bold; 
+            margin: 28px 0 16px; 
+            color: #1a5490;
+            background: linear-gradient(120deg, #ebf5fb 0%, #d4e6f1 100%);
+            padding: 12px 16px;
+            border-radius: 6px;
+            border-left: 4px solid #2980b9;
+        }
+        h3 { 
+            font-size: 18px; 
+            font-weight: bold; 
+            margin: 20px 0 12px; 
+            color: #2c5282;
+        }
+        p { margin: 12px 0; line-height: 1.7; }
+        ul, ol { margin: 12px 0; padding-left: 24px; }
+        li { margin: 8px 0; line-height: 1.6; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 4px solid #2980b9;
+            margin: 16px 0;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        blockquote {
+            background: #ebf5fb;
+            border-left: 4px solid #3498db;
+            padding: 16px 20px;
+            margin: 20px 0;
+            font-style: italic;
+            border-radius: 0 6px 6px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #2980b9;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #fff3cd 0%, #fff8e1 100%);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        .key-point {
+            background: linear-gradient(120deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 16px;
+            border-radius: 6px;
+            margin: 16px 0;
+            border-left: 4px solid #4caf50;
+        }
+        .cta-box {
+            background: linear-gradient(135deg, #1a5490 0%, #2980b9 100%);
+            padding: 24px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            margin: 32px 0;
+        }
+        .cta-box p { margin: 8px 0; }
+    </style>
+</head>
+<body>
+
+<h1>Cursor 被封后，国内开发者如何继续用 AI 编程：4 个实测可行的替代方案</h1>
+
+<p>Cursor 封禁 Claude 模型的消息在开发者圈子里炸开了锅。</p>
+
+<p>作为一个深度依赖 AI 编程工具的人，我第一时间去验证了这件事。确实，Cursor 官方已经开始限制国内 IP 访问 Claude 模型，部分用户反馈即使开了代理也无法正常使用。原因很简单：Claude Code 推出后，Anthropic 要优先满足自家产品的算力需求，Cursor 作为第三方 IDE 的配额被大幅削减。</p>
+
+<p>这对于国内开发者来说是个不小的打击。Cursor 凭借出色的 IDE 集成体验，一直是很多人的首选。现在这条路被堵上了，怎么办？</p>
+
+<p>我花了三天时间，实测了市面上主流的替代方案。这篇文章不讲虚的，只给你能立即上手的解决方案。</p>
+
+<h2>方案一：Claude Code + VSCode 插件（适合终端重度用户）</h2>
+
+<p>如果你主要是用命令行写代码，或者习惯在终端里操作，<span class="highlight">Claude Code 是最直接的替代方案</span>。</p>
+
+<p>Claude Code 是 Anthropic 官方推出的命令行 AI 编程工具，直接对接 Claude 3.7 Sonnet。它的核心优势是<strong>端到端的自主编程能力</strong>——你给它一个需求，它能自己拆解任务、写代码、运行测试、修复 Bug。</p>
+
+<h3>实测体验</h3>
+
+<p>我用 Claude Code 重构了一个 5000 行的 Python 项目，让它把单体架构改成模块化。整个过程我只用自然语言描述需求，Claude Code 自己完成了：</p>
+
+<ol>
+<li>分析现有代码结构</li>
+<li>设计新的模块划分</li>
+<li>逐个文件重构</li>
+<li>运行测试验证</li>
+<li>修复重构过程中出现的 12 个 Bug</li>
+</ol>
+
+<p><strong>耗时：47 分钟。</strong>同样的任务，我之前手动做花了整整两天。</p>
+
+<h3>安装和使用</h3>
+
+<pre><code># 安装 Claude Code
+npm install -g @anthropic-ai/claude-code
+
+# 在项目目录启动
+claude</code></pre>
+
+<p>启动后，你会进入一个交互式终端。直接输入需求即可，比如：</p>
+
+<blockquote>
+"把 src/utils.py 里的日期处理函数提取到单独的模块，并在所有引用处更新导入语句"
+</blockquote>
+
+<p>Claude Code 会自己分析、规划、执行，过程中遇到不确定的地方会询问你的意见。</p>
+
+<h3>与 VSCode 集成</h3>
+
+<p>纯命令行对很多人不够友好。你可以安装 <strong>Claude Code VSCode 插件</strong>，把 Claude 的能力嵌入到编辑器里：</p>
+
+<ol>
+<li>在 VSCode 扩展商店搜索 "Claude Code"</li>
+<li>安装后按 <code>Ctrl+Shift+P</code>，输入 "Claude Code: Open Chat"</li>
+<li>在侧边栏打开 Claude 对话窗口</li>
+</ol>
+
+<p>这种方式保留了 VSCode 的编辑体验，同时获得了 Claude 的 AI 编程能力。缺点是需要你自己准备 Claude API Key，国内访问有一定门槛。</p>
+
+<h3>成本</h3>
+
+<p>Claude Code 目前免费使用，但需要消耗 Claude API 额度。按照我的使用强度，一个月大约需要 <span class="highlight">$20-30</span> 的 API 费用。相比 Cursor Pro 的 $20/月，成本差不多，但 Claude Code 的能力上限更高。</p>
+
+<h2>方案二：Trae 国产替代（字节跳动出品）</h2>
+
+<p>如果你需要一个开箱即用的 IDE，不想折腾 API Key 和代理，<span class="highlight">Trae 是目前最值得尝试的国产替代方案</span>。</p>
+
+<p>Trae 是字节跳动推出的 AI 编程 IDE，定位为 "Cursor for China"。它内置了豆包大模型和 DeepSeek，国内访问无障碍。</p>
+
+<h3>实测体验</h3>
+
+<p>我对比测试了 Trae 和 Cursor 在同样任务上的表现：给一个 React 项目添加用户认证功能。</p>
+
+<p>Trae 的表现：</p>
+<ul>
+<li><strong>代码生成速度：</strong>与 Cursor 相当</li>
+<li><strong>代码质量：</strong>比 Cursor 用 GPT-4 略逊一筹，但比 GPT-3.5 强</li>
+<li><strong>中文理解：</strong>明显优于 Cursor，对中文需求描述的理解更准确</li>
+<li><strong>IDE 流畅度：</strong>基于 VSCode 内核，体验接近原生</li>
+</ul>
+
+<p>一个惊喜的发现是 Trae 的 <strong>Builder 模式</strong>。你可以让它从零开始创建一个完整项目，它会自动处理项目结构、依赖安装、代码生成。我让它生成一个 Next.js + Prisma + NextAuth 的全栈项目，5 分钟后就能跑起来。</p>
+
+<h3>安装</h3>
+
+<pre><code># macOS
+brew install --cask trae
+
+# Windows 和 Linux
+# 从官网下载安装包：https://www.trae.ai/</code></pre>
+
+<p>安装后直接用，不需要配置 API Key，也不需要代理。这是 Trae 最大的优势——<span class="highlight">对国内用户零门槛</span>。</p>
+
+<h3>局限</h3>
+
+<p>Trae 目前有两个明显短板：</p>
+
+<ol>
+<li><strong>模型选择受限：</strong>只能用豆包和 DeepSeek，无法切换到 Claude 或 GPT-4。对于复杂架构设计任务，能力上限不如 Cursor + Claude。</li>
+<li><strong>生态还在早期：</strong>相比 Cursor 丰富的插件生态，Trae 的扩展市场还比较单薄。如果你依赖特定的 VSCode 插件，可能需要等待官方支持。</li>
+</ol>
+
+<h3>适合谁</h3>
+
+<ul>
+<li>不想折腾代理和 API Key 的开发者</li>
+<li>以中文为主要工作语言的团队</li>
+<li>对模型能力要求不是极端苛刻的场景</li>
+</ul>
+
+<h2>方案三：Windsurf 前端/全栈方案</h2>
+
+<p>Windsurf 是 Codeium 推出的 AI 编程 IDE，最近几个月增长很快。它的定位是 "Agentic IDE"，强调 AI 代理能力而不仅仅是代码补全。</p>
+
+<h3>实测体验</h3>
+
+<p>Windsurf 最大的特色是 <strong>Cascade 模式</strong>。你可以把它理解为一个更智能的 Composer：你给需求，它自己规划、执行、验证。</p>
+
+<p>我测试了一个复杂任务：给一个 Vue 3 项目添加国际化支持，包括：</p>
+<ul>
+<li>安装 vue-i18n</li>
+<li>创建语言文件</li>
+<li>提取所有硬编码文本</li>
+<li>替换为 $t() 调用</li>
+<li>添加语言切换组件</li>
+</ul>
+
+<p>Windsurf 用了 <strong>12 分钟</strong>完成全部工作，过程中只问了我两次确认（关于文案的翻译）。生成的代码可以直接运行，只有两处边缘情况需要手动调整。</p>
+
+<h3>与 Cursor 的对比</h3>
+
+<table>
+<tr><th>维度</th><th>Windsurf</th><th>Cursor</th></tr>
+<tr><td>代码生成速度</td><td>稍慢</td><td>更快</td></tr>
+<tr><td>复杂任务处理</td><td>更强（Cascade）</td><td>依赖 Composer</td></tr>
+<tr><td>IDE 响应速度</td><td>流畅</td><td>偶尔卡顿</td></tr>
+<tr><td>中文支持</td><td>一般</td><td>较好</td></tr>
+<tr><td>价格</td><td>免费版够用</td><td>必须付费</td></tr>
+</table>
+
+<p>Windsurf 的免费版每天提供 200 次 AI 调用，对于个人开发者基本够用。Pro 版 <span class="highlight">$10/月</span>，比 Cursor 便宜一半。</p>
+
+<h3>安装</h3>
+
+<pre><code># macOS
+brew install --cask windsurf
+
+# 其他平台
+# 官网下载：https://www.codeium.com/windsurf</code></pre>
+
+<p>Windsurf 同样不需要 API Key，开箱即用。国内访问速度尚可，偶尔会抽风但不影响正常使用。</p>
+
+<h3>适合谁</h3>
+
+<ul>
+<li>前端/全栈开发者</li>
+<li>需要处理复杂重构任务的场景</li>
+<li>预算有限但想要 AI 编程能力的个人开发者</li>
+</ul>
+
+<h2>方案四：GPT-5.4 + OpenClaw 自动化方案</h2>
+
+<p>如果你想走 "极致性价比" 路线，这个方案值得一试。</p>
+
+<p>GPT-5.4 是 OpenAI 最新发布的模型，编程能力已经超越 Claude 3.7 Sonnet 在多项基准测试中。关键是，<span class="highlight">GPT-5.4 的 API 价格比 Claude 便宜约 30%</span>。</p>
+
+<p>OpenClaw 是一个开源的 AI Agent 框架，可以把 GPT-5.4 包装成一个类似 Claude Code 的命令行工具，同时还支持 Telegram/Slack 集成。</p>
+
+<h3>实测体验</h3>
+
+<p>这个组合的核心思路是：<strong>用 GPT-5.4 替代 Claude，用 OpenClaw 替代 Cursor/Claude Code 的交互层</strong>。</p>
+
+<p>我配置了一套基于 OpenClaw 的自动化工作流：</p>
+
+<ol>
+<li>在 Telegram 里给 OpenClaw 发需求</li>
+<li>OpenClaw 调用 GPT-5.4 生成代码</li>
+<li>代码自动推送到 GitHub</li>
+<li>GitHub Actions 自动运行测试</li>
+<li>测试结果反馈到 Telegram</li>
+</ol>
+
+<p>整个过程我只需要在手机上操作，完全不需要开电脑。这种 "移动端 AI 编程" 的体验是其他方案给不了的。</p>
+
+<h3>配置步骤</h3>
+
+<pre><code># 安装 OpenClaw
+pip install openclaw
+
+# 配置 GPT-5.4 API Key
+openclaw config set model openai/gpt-5.4
+openclaw config set api_key $YOUR_OPENAI_KEY
+
+# 启动 Agent
+openclaw agent start</code></pre>
+
+<p>然后绑定 Telegram Bot，就可以在手机上用自然语言指挥 AI 写代码了。</p>
+
+<h3>成本分析</h3>
+
+<ul>
+<li>GPT-5.4 API：约 $1.5-2/月（轻度使用）到 $15-20/月（重度使用）</li>
+<li>OpenClaw：开源免费</li>
+<li><strong>总成本：</strong>比 Cursor Pro 或 Claude API 便宜 30-50%</li>
+</ul>
+
+<h3>适合谁</h3>
+
+<ul>
+<li>喜欢折腾、追求极致性价比的技术极客</li>
+<li>需要移动端 AI 编程能力的场景</li>
+<li>想构建自动化工作流的开发者</li>
+</ul>
+
+<h2>选型决策树</h2>
+
+<p>不知道选哪个？按照这个决策树来：</p>
+
+<div class="key-point">
+<p><strong>你是命令行重度用户吗？</strong></p>
+<p>是 → <strong>Claude Code</strong></p>
+<p>否 → 继续</p>
+
+<p><strong>你讨厌折腾代理和 API Key 吗？</strong></p>
+<p>是 → <strong>Trae</strong></p>
+<p>否 → 继续</p>
+
+<p><strong>你的主要工作是多文件重构/复杂架构吗？</strong></p>
+<p>是 → <strong>Windsurf</strong></p>
+<p>否 → 继续</p>
+
+<p><strong>你想在手机上也能写代码吗？</strong></p>
+<p>是 → <strong>OpenClaw + GPT-5.4</strong></p>
+<p>否 → <strong>Trae</strong>（稳妥之选）</p>
+</div>
+
+<h2>写在最后</h2>
+
+<p>Cursor 封禁 Claude 模型这件事，其实暴露了一个更大的趋势：<strong>AI 编程工具的入口正在被大厂收回</strong>。</p>
+
+<p>Anthropic 力推 Claude Code，OpenAI 推出 Codex CLI，Google 把 Gemini 集成进 Android Studio——每个模型厂商都想掌握自己的入口。第三方 IDE 像 Cursor、Windsurf、Trae，本质上是在这些巨头的夹缝中寻找生存空间。</p>
+
+<p>对于开发者来说，这意味着：</p>
+
+<ol>
+<li><strong>不要把鸡蛋放在一个篮子里</strong>。掌握多个工具的使用方法，随时能切换。</li>
+<li><strong>关注模型能力，而非 IDE 功能</strong>。IDE 只是壳，模型才是核心。Claude、GPT-5.4、Gemini，哪个强就用哪个。</li>
+<li><strong>提前适应 "多模型" 工作流</strong>。未来的 AI 编程可能是 Claude 写架构、GPT-5.4 写业务代码、Gemini 做代码审查——每个任务用最合适的模型。</li>
+</ol>
+
+<p>Cursor 被封是坏事，但也逼着我们去探索更多可能性。谁知道呢，也许你会发现 Trae 比 Cursor 更适合你，或者 OpenClaw 的自动化工作流打开了新世界的大门。</p>
+
+<p>技术永远在变，保持开放的心态，才能在这场 AI 变革中不掉队。</p>
+
+<div class="cta-box">
+    <p style="font-size: 18px; font-weight: bold; margin-bottom: 16px;">如果你觉得文章对你有所帮助，请关注</p>
+    <p>让我们一起在 AI 时代找到你的竞争优势</p>
+</div>
+
+</body>
+</html>

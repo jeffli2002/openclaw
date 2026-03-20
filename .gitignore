@@ -1,48 +1,8 @@
-# Dependencies
 node_modules/
-package-lock.json
-
-# Build outputs
+.next/
+.git/
 dist/
 build/
 *.log
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Environment
 .env
 .env.local
-
-# Chrome user data (for browser automation)
-*data/
-*_data/
-xiaohongshu-data/
-
-# Credentials/Auth
-*.json
-!package.json
-xhs_*.json
-xhs_*.txt
-*_auth*.json
-*_cookie*.txt
-.env
-*.env
-
-# Test/Debug
-test_*.js
-debug_*.js
-*.html
-
-# Temp
-tmp/
-temp/
-*.tmp
-.trash/

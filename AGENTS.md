@@ -29,6 +29,49 @@ Before doing anything else:
 9. ✅ `memory/daily/YYYY-MM-DD.md` (yesterday) — 昨日工作记录
 10. ✅ `skills/feishu-voice-reply/SKILL.md` — 飞书语音回复规则（必读）
 
+### 📦 Skill Catalog (Skill 路径清单)
+**所有 Sub Agent 必须通过读取此章节知道可用 Skill 的位置**
+
+| Skill | 路径 | 用途 |
+|-------|------|------|
+| content-factory | `skills/content-factory/SKILL.md` | 公众号文章创作 |
+| wechat-article | `skills/wechat-article/SKILL.md` | 微信公众号抓取 |
+| youtube | `skills/youtube/SKILL.md` | YouTube 视频研究 |
+| xhs-publish | `skills/xiaohongshu-skills/skills/xhs-publish/SKILL.md` | 小红书发布 |
+| xhs-explore | `skills/xiaohongshu-skills/skills/xhs-explore/SKILL.md` | 小红书内容发现 |
+| xhs-interact | `skills/xiaohongshu-skills/skills/xhs-interact/SKILL.md` | 小红书社交互动 |
+| feishu-voice-reply | `skills/feishu-voice-reply/SKILL.md` | 飞书语音回复 |
+| feishu-doc | `skills/feishu-doc/SKILL.md` | 飞书文档操作 |
+| feishu-wiki | `skills/feishu-wiki/SKILL.md` | 飞书知识库 |
+| feishu-drive | `skills/feishu-drive/SKILL.md` | 飞书云空间 |
+| github-ai-trends | `skills/github-ai-trends/SKILL.md` | GitHub AI 趋势 |
+| evomap | `skills/evomap/SKILL.md` | EvoMap 进化市场 |
+| skill-creator | `skills/skill-creator/SKILL.md` | 创建、评估、优化和打磨 Agent Skill |
+| notebooklm | `skills/notebooklm-skill/SKILL.md` | NotebookLM 查询 |
+| skill-vetter | `skills/skill-vetter/SKILL.md` | Skill 安全审查 |
+| supadata | `skills/supadata/SKILL.md` | YouTube/Twitter Transcript 抓取 |
+| smart-search | `skills/smart-search/SKILL.md` | 智能搜索 |
+| coding-agent | `skills/coding-agent/SKILL.md` | 代码任务委派 |
+| agent-orchestrator | `skills/agent-orchestrator/SKILL.md` | Agent 调度中心 |
+| weather | `skills/weather/SKILL.md` | 天气查询 |
+| feishu-doc-with-perm | `skills/feishu-doc-with-perm/SKILL.md` | 飞书文档创建（自动授权版） |
+| feishu-calendar-invite | `skills/feishu-calendar-invite/SKILL.md` | 飞书日历创建/邀请 |
+
+**安装新 Skill 规则：**
+- 安装前必须先使用 `skill-vetter` 进行安全审查
+- 审查通过后再执行 `clawhub install`
+| smart-search | `skills/smart-search/SKILL.md` | 智能搜索 |
+| coding-agent | `skills/coding-agent/SKILL.md` | 代码任务委派 |
+| agent-orchestrator | `skills/agent-orchestrator/SKILL.md` | Agent 调度中心 |
+| weather | `skills/weather/SKILL.md` | 天气查询 |
+| feishu-doc-with-perm | `skills/feishu-doc-with-perm/SKILL.md` | 飞书文档创建（自动授权版） |
+| feishu-calendar-invite | `skills/feishu-calendar-invite/SKILL.md` | 飞书日历创建/邀请（主日历直写或共享日历回退） |
+
+**使用规则**：
+- 收到任务时，先判断需要哪个 Skill
+- 读取对应 SKILL.md 理解使用方式
+- 不要跳过 Skill 直接裸做
+
 **必须遵循的规则：**
 - 不要等待用户确认，直接读取这些文件
 - 所有 Sub Agent 共享相同的 USER.md 和 TOOLS.md
@@ -105,6 +148,12 @@ Chief 私聊的关键词分类以 `config/agent_keyword_router.yaml` 为准：
 - `openclaw.json` 是 **runtime 绑定和模型配置** 的真相源
 - `config/agent_keyword_router.yaml` 是 **Chief 私聊分类** 的真相源
 - `AGENTS.md` 负责记录行为规则，**不要再伪造固定 session_key 示例当成真实已接通链路**
+- **硬闸门（2026-03-10）**：私聊中的非前台任务，Chief **禁止跳过 dispatch planner 直接开工**。必须先执行 `chief_dispatch.py`（或完全等价的分类/规划），再决定：
+  - `chief_direct` → Chief 自己做
+  - `delegate_spawn` → 先真实调用 `sessions_spawn` 派活，再整合结果
+  - `chief_fallback` / 委派失败 → 才允许降级执行
+- **禁止伪委派**：如果没有真实发生 `sessions_spawn` / `sessions_send`，就不能口头上把任务说成“已切给对应 Agent”。
+- `config/chief_dispatch_workers.yaml` 里的 `runtime.agent_id=main` 是**当前 one-shot worker 设计**，表示由 Chief 拉起一次性 worker、角色由 prompt 决定；这**不是**“没有配置 sub-agent”。
 
 ### 私聊窗口任务分配（原有）
 **当用户在私聊窗口向 Chief Agent 分配任务时，默认行为如下：**
@@ -137,13 +186,14 @@ Chief 私聊的关键词分类以 `config/agent_keyword_router.yaml` 为准：
 **流程：**
 1. 分析任务类型（Content / Growth / Coding / Product / Finance / Chief）
 2. 先调用 `python3 /root/.openclaw/workspace/scripts/chief_dispatch.py --json "<用户消息>"` 生成真实执行计划
-3. 若计划结果为 `delegate_spawn`，则按返回的 `spawn_request` 调用 `sessions_spawn(mode="run")` 即时创建一次性 worker
-4. 若 `result_bridge.enabled=true`，则使用 `python3 /root/.openclaw/workspace/scripts/wait_dispatch_result.py <result_file> --allowed-dir <allowed_dir> --expected-dispatch-id <dispatch_id> --expected-agent <agent> --expected-route-debug <route_debug> --json` 等待 worker 回传 JSON 文件
-5. 读取回传 JSON 内容，再由 Chief 整理后回复用户
-6. 如果未来存在稳定目标 Agent session，再优先切到 `sessions_send`
-7. 如果未来通道支持 thread worker，再升级为持久委派
-8. 如果当前 runtime 没有可用 spawn 权限，或 planner 返回 fallback，则进入降级模式，由 Chief 按对应领域规则执行
-9. 整合后回复用户
+3. **未完成第 2 步前，Chief 不得直接处理任何领域任务**（内容 / 增长 / 代码 / 产品 / 财务）
+4. 若计划结果为 `delegate_spawn`，则按返回的 `spawn_request` 调用 `sessions_spawn(mode="run")` 即时创建一次性 worker
+5. 若 `result_bridge.enabled=true`，则使用 `python3 /root/.openclaw/workspace/scripts/wait_dispatch_result.py <result_file> --allowed-dir <allowed_dir> --expected-dispatch-id <dispatch_id> --expected-agent <agent> --expected-route-debug <route_debug> --json` 等待 worker 回传 JSON 文件
+6. 读取回传 JSON 内容，再由 Chief 整理后回复用户
+7. 如果未来存在稳定目标 Agent session，再优先切到 `sessions_send`
+8. 如果未来通道支持 thread worker，再升级为持久委派
+9. 如果当前 runtime 没有可用 spawn 权限，或 planner 返回 fallback，则进入降级模式，由 Chief 按对应领域规则执行
+10. 整合后回复用户
 
 #### 2. 降级执行：Chief Agent 自己执行
 **只有当以下情况发生时，Chief Agent 才自己降级执行：**
@@ -158,7 +208,8 @@ Chief 私聊的关键词分类以 `config/agent_keyword_router.yaml` 为准：
 2. **执行** 任务（使用该领域的配置和风格）
 3. **写入** 执行记录到 `memory/agents/{agent}/memory.md`
 4. **更新** `memory/daily/YYYY-MM-DD.md` — 记录工作日志
-5. **如有必要**，明确告诉用户这是“降级执行”，避免误以为已真实切到对应 Agent 会话
+5. **明确告诉用户**这是“降级执行”，避免误以为已真实切到对应 Agent 会话
+6. **补记失败原因**：在 daily log 里写明为什么没能委派（如 spawn 权限缺失 / 委派超时 / 用户明确要求 Chief 亲自处理）
 
 ### 示例
 **用户**: "写一篇AI日报"
@@ -454,25 +505,6 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
-
----
-
-## 📦 Git 版本控制规范
-
-### 仓库分工
-
-| 仓库 | 用途 | 文件/目录 |
-|------|------|-----------|
-| `github.com/jeffli2002/openclaw` | OpenClaw 配置 | AGENTS.md, SOUL.md, USER.md, TOOLS.md, HEARTBEAT.md, MEMORY.md, IDENTITY.md, config/, skills/, scripts/ |
-| `github.com/jeffli2002/2ndbrain` | 业务数据 | memory/, projects/, reports/, ai-daily/, capsules/, output/ |
-
-### 禁止推送
-- `credentials/` - 敏感凭据
-- `xhs_*.json/png` - 小红书 cookies
-- `chrome-profile/` - 浏览器配置
-- `node_modules/` - 依赖
-- `tmp/` - 临时文件
-- `.openclaw/` - 系统内部
 
 ---
 

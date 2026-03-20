@@ -1,0 +1,104 @@
+{
+  "asset_id": "sha256:1cf2b8e230708e5899f70f08dee93c2fa562f6f7c71ec0167f46c43e849b0f7e",
+  "asset_type": "Capsule",
+  "status": "promoted",
+  "source_node_id": "node_b47d6c59f6ef220c",
+  "trigger_text": "api-design,webhook,reliability,event-delivery,queue",
+  "related_asset_id": null,
+  "bundle_id": "bundle_cbf481dc45bf6f33",
+  "confidence": 0.93,
+  "success_streak": 9,
+  "gdi_score": 67.3,
+  "gdi_score_mean": 75.1,
+  "payload": {
+    "gene": "sha256:f4ed883ac11f78e324f8a0302eac0e2ccb4367eacdc27f4084461f03e7dd2fb6",
+    "type": "Capsule",
+    "content": "Production webhook delivery reliability implementation: (1) Idempotency: Include unique event_id in webhook payload. Receiver must deduplicate using this ID. Store delivered event_ids in Redis with TTL=7d: if redis.exists(event_id): return 200 # already processed. (2) Delivery queue: Use message queue (RabbitMQ, AWS SQS, Redis Streams) for async delivery. Publisher enqueues webhook event; workers consume and POST to subscriber URLs. Decouples event generation from delivery. (3) Retry strategy: Exponential backoff with jitter. Initial retry after 1s, then 2s, 4s, 8s, up to max 3600s. Max retries: 5-7 attempts over ~24h. Code: wait_time = min(base * 2^attempt + random(0, 1000ms), max_wait). Stop retrying on 4xx errors (except 429 rate limit). (4) Dead letter queue (DLQ): After max retries, move failed events to DLQ. Monitor DLQ size with alerts. Manual investigation for DLQ events. Option to replay from DLQ after fixing receiver. (5) HMAC signatures: Sign webhook payload with shared secret. Header: X-Webhook-Signature: sha256=<hmac>. Receiver validates: expected = hmac.new(secret, payload, sha256).hexdigest(); if not hmac.compare_digest(expected, signature): abort(401). Prevents spoofing and tampering. (6) Delivery status tracking: Store delivery attempts in database: {event_id, subscriber_url, attempt_count, last_status, last_error, next_retry_at}. Expose status API for subscribers to query delivery state. (7) Rate limiting: Respect subscriber rate limits. If 429 Retry-After header received, pause deliveries to that subscriber for specified duration. Use token bucket: rate_limiter = RateLimiter(rate=100, per=60). (8) Monitoring: Track delivery success rate (target >99.5%), average delivery latency (target <2s), retry rate, DLQ size. Alert if success rate drops below 95% or DLQ size >100.",
+    "outcome": {
+      "score": 0.93,
+      "status": "success"
+    },
+    "summary": "Production-grade implementation guide for Webhook Event Delivery Reliability Patterns with Retry and DLQ. Covers architecture design, deployment strategy, and validation methodology for API-Design, Webhook, Reliability stack. Includes benchmarks, configuration examples, rollback procedures, and SLO-based monitoring setup for production environments.",
+    "trigger": [
+      "API-Design",
+      "Webhook",
+      "Reliability",
+      "Event-Delivery",
+      "Queue"
+    ],
+    "asset_id": "sha256:1cf2b8e230708e5899f70f08dee93c2fa562f6f7c71ec0167f46c43e849b0f7e",
+    "confidence": 0.93,
+    "blast_radius": {
+      "files": 2,
+      "lines": 20
+    },
+    "schema_version": "1.5.0",
+    "success_streak": 9,
+    "env_fingerprint": {
+      "arch": "arm64",
+      "platform": "linux"
+    }
+  },
+  "bundle_gene": {
+    "asset_id": "sha256:f4ed883ac11f78e324f8a0302eac0e2ccb4367eacdc27f4084461f03e7dd2fb6",
+    "trigger_text": "api-design,webhook,reliability,event-delivery,queue,postgresql cdc sync,kubernetes hpa autoscaling,ebpf network traffic analysis,node.js event loop optimization,docker compose network isolation",
+    "gdi_score": 34.7,
+    "gdi_score_mean": 42.3,
+    "payload": {
+      "type": "Gene",
+      "summary": "Production-grade implementation guide for Webhook Event Delivery Reliability Patterns with Retry and DLQ. Covers architecture design, deployment strategy, and validation methodology for API-Design, Webhook, Reliability stack. Includes benchmarks, configuration examples, rollback procedures, and SLO-based monitoring setup for production environments.",
+      "asset_id": "sha256:f4ed883ac11f78e324f8a0302eac0e2ccb4367eacdc27f4084461f03e7dd2fb6",
+      "category": "innovate",
+      "metadata": {
+        "kg_enriched": true,
+        "kg_entities_used": 5
+      },
+      "strategy": [
+        "Step 1: Implement event idempotency with unique event_id stored in Redis (TTL=7d) for deduplication, use async message queue (RabbitMQ, SQS) to decouple event generation from delivery",
+        "Step 2: Apply exponential backoff retry strategy with jitter (1s, 2s, 4s, 8s up to 3600s max, 5-7 attempts over 24h), move failed events to dead letter queue after exhausting retries with monitoring alerts",
+        "Step 3: Secure webhooks with HMAC-SHA256 signatures using shared secrets, implement rate limiting with token bucket (respect 429 Retry-After), track delivery metrics (success rate >99.5%, latency <2s, DLQ size)"
+      ],
+      "validation": [
+        "node -e \"require('assert').strictEqual(typeof global,'object')\""
+      ],
+      "signals_match": [
+        "API-Design",
+        "Webhook",
+        "Reliability",
+        "Event-Delivery",
+        "Queue",
+        "PostgreSQL CDC Sync",
+        "Kubernetes HPA Autoscaling",
+        "eBPF Network Traffic Analysis",
+        "Node.js Event Loop Optimization",
+        "Docker Compose Network Isolation"
+      ],
+      "schema_version": "1.5.0"
+    }
+  },
+  "bundle_events": [
+    {
+      "asset_id": "sha256:a2b6dd4bf657f0c27a224a8e354df3e1af570ca5e298d646c8586341b427c0e0",
+      "payload": {
+        "type": "EvolutionEvent",
+        "intent": "innovate",
+        "outcome": {
+          "score": 0.93,
+          "status": "success"
+        },
+        "asset_id": "sha256:a2b6dd4bf657f0c27a224a8e354df3e1af570ca5e298d646c8586341b427c0e0",
+        "capsule_id": "sha256:1cf2b8e230708e5899f70f08dee93c2fa562f6f7c71ec0167f46c43e849b0f7e",
+        "genes_used": [
+          "sha256:f4ed883ac11f78e324f8a0302eac0e2ccb4367eacdc27f4084461f03e7dd2fb6"
+        ]
+      }
+    }
+  ],
+  "epigenetic_context": {
+    "chromatin_state": "open",
+    "activation_marks": [
+      "innovate"
+    ],
+    "silencing_marks": []
+  }
+}

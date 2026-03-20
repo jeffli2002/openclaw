@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>没有Browser能力，你的OpenClaw小龙虾就是没有眼睛</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 16px; line-height: 1.4; padding: 16px; }
+        h1 { font-size: 20px; font-weight: bold; margin: 16px 0 8px; color: #fff; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 10px 14px; border-radius: 6px; border-left: 5px solid #fff; }
+        h2 { font-size: 18px; font-weight: bold; margin: 14px 0 6px; color: #333; background: linear-gradient(120deg, #f6d365 0%, #fda085 100%); padding: 8px 12px; border-radius: 5px; border-left: 4px solid #ff6b6b; }
+        h3 { font-size: 16px; font-weight: bold; margin: 12px 0 4px; color: #fff; background: linear-gradient(120deg, #4facfe 0%, #00f2fe 100%); padding: 6px 10px; border-radius: 4px; border-left: 3px solid #fff; }
+        p { margin: 4px 0; line-height: 1.4; }
+        ul, ol { margin: 4px 0; padding-left: 18px; }
+        li { margin: 2px 0; line-height: 1.4; }
+        .key-point { background: linear-gradient(120deg, #fff3cd 0%, #fff8e1 100%); padding: 2px 6px; border-radius: 3px; }
+        .important { border-bottom: 2px dotted #ff6b6b; padding-bottom: 2px; }
+        .highlight { background: linear-gradient(120deg, #e8f4fd 0%, #d4ecf9 100%); padding: 2px 6px; border-radius: 3px; }
+        .highlight-blue { color: #1a5490; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 14px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        .cta-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 16px; border-radius: 10px; text-align: center; color: #fff; margin: 16px 0; }
+    </style>
+</head>
+<body>
+    <h1>没有Browser能力，你的OpenClaw小龙虾就是没有眼睛</h1>
+
+    <p>你是否遇到过这种情况？</p>
+    <p>让AI帮你查资料，它能回答。让AI帮你操作网页，它傻眼了。</p>
+    <p>“抱歉，我无法做到。”“这个我做不到。”</p>
+    <p>这就是大多数AI Agent的真相——它们没有<span class="key-point">“眼睛”</span>和<span class="key-point">“手”</span>。</p>
+    <p>一个只能聊天，一个可以干活。</p>
+
+    <h2>为什么AI Agent需要浏览器？</h2>
+    <p>AI Agent的核心价值是帮我们干活，而不是仅仅回答问题。</p>
+    <p>但现实中：</p>
+    <ul>
+        <li>让它查最新AI新闻，它说“抱歉，我知识截止到2024年”</li>
+        <li>让它自动填表，它说“我做不到”</li>
+        <li>让它帮你抢票，它说“无法访问外部网站”</li>
+    </ul>
+    <p>就像雇了个超级聪明的助手，但这个助手是个盲人。</p>
+    <p><span class="highlight-blue">没有浏览器能力的AI Agent，就是个高级玩具。</span></p>
+
+    <h2>我们的Browser方案架构</h2>
+    <p>经过实测，我们搭建了一套<strong>智能路由</strong>方案。以下是每个工具的使用指南：</p>
+
+    <h3>1. Tavily - 通用搜索</h3>
+    <p><strong>是什么：</strong>专门为AI搜索优化的搜索引擎</p>
+    <p><strong>如何获取：</strong></p>
+    <ul>
+        <li>访问 <span class="highlight">tavily.com</span></li>
+        <li>注册账号 → 进入 Dashboard</li>
+        <li>获取 API Key（每月1000次免费额度）</li>
+        <li>在 OpenClaw 配置：把 API Key 写入 credentials/tavily.json</li>
+    </ul>
+    <p><strong>怎么用：</strong>直接告诉AI“帮我搜一下xxx”，自动调用</p>
+
+    <h3>2. Brave Search API - 搜索兜底</h3>
+    <p><strong>是什么：</strong>Brave浏览器的搜索API</p>
+    <p><strong>如何获取：</strong></p>
+    <ul>
+        <li>访问 <span class="highlight">brave.com/search/api</span></li>
+        <li>注册开发者账号 → 获取 API Key</li>
+        <li>OpenClaw 已内置集成，只需配置凭据</li>
+    </ul>
+    <p><strong>怎么用：</strong>Tavily 额度用完自动切换，无需手动</p>
+
+    <h3>3. yt-dlp - YouTube 字幕</h3>
+    <p><strong>是什么：</strong>专门下载 YouTube 视频和字幕的工具</p>
+    <p><strong>如何获取：</strong><span class="highlight">pip install yt-dlp</span></p>
+    <p><strong>怎么用：</strong>告诉AI“提取这个YouTube视频的字幕”</p>
+
+    <h3>4. Supadata - 社交媒体 Transcript</h3>
+    <p><strong>是什么：</strong>提取 YouTube/Twitter/抖音 等平台的 transcript</p>
+    <p><strong>如何安装：</strong><span class="highlight">clawhub install supadata</span></p>
+    <p><strong>怎么用：</strong>告诉AI“获取这个视频的完整 transcript”</p>
+
+    <h3>5. Camoufox - 浏览器底层</h3>
+    <p><strong>是什么：</strong>反检测浏览器，模拟真人访问微信、YouTube等</p>
+    <p><strong>如何获取：</strong>OpenClaw 已内置，开箱即用</p>
+    <p><strong>怎么用：</strong>Agent-Reach 和 公众号文章Skill 都基于它</p>
+
+    <h3>6. Agent-Reach - 社交媒体内容</h3>
+    <p><strong>是什么：</strong>获取 YouTube/Twitter/小红书/抖音 的视频信息、帖子内容</p>
+    <p><strong>如何安装：</strong><span class="highlight">clawhub install agent-reach</span></p>
+    <p><strong>怎么用：</strong>告诉AI“这个YouTube视频在讲什么”</p>
+    <p><span class="key-point">注意：只能获取视频信息，不能抓字幕。用 yt-dlp 或 Supadata 抓字幕。</span></p>
+
+    <h3>7. 公众号文章搜索Skill - 微信专属</h3>
+    <p><strong>是什么：</strong>专门抓取公众号文章转为 Markdown</p>
+    <p><strong>底层架构：</strong>基于 Camoufox（反检测浏览器）+ markdownify + 图片本地化</p>
+    <p><strong>如何获取：</strong></p>
+    <ul>
+        <li><span class="important">关注公众号「AI进化社」回复「公众号Skill」获取</span></li>
+        <li>或自行安装：复制 skills/wechat-article 到你的 OpenClaw skills 目录</li>
+    </ul>
+    <p><strong>怎么用：</strong>告诉AI“搜一下这个公众号的历史文章”</p>
+
+    <h3>8. Browser-use - 网页操作</h3>
+    <p><strong>是什么：</strong>AI直接控制浏览器操作任意网页</p>
+    <p><strong>如何获取：</strong>OpenClaw 已内置集成</p>
+    <p><strong>实时查看：</strong>https://live.browser-use.com</p>
+    <p><strong>怎么用：</strong>告诉AI“帮我填一下这个表单”</p>
+
+    <h3>9. Agent-Browser - 本地浏览器</h3>
+    <p><strong>是什么：</strong>本地GUI环境使用的浏览器</p>
+    <p><strong>如何安装：</strong><span class="highlight">clawhub install agent-browser</span></p>
+    <p><strong>怎么用：</strong>适合树莓派等本地设备</p>
+
+    <h2>智能路由工作原理</h2>
+    <p>你只需要告诉AI要做什么，它会自动选择最合适的工具：</p>
+    <table>
+        <tr><th>你说</th><th>自动路由到</th></tr>
+        <tr><td>“帮我搜一下xxx”</td><td>Tavily → Brave（兜底）</td></tr>
+        <tr><td>“这个YouTube视频在讲什么”</td><td>Agent-Reach（获取视频信息）</td></tr>
+        <tr><td>“提取这个YouTube视频字幕”</td><td>yt-dlp 或 Supadata</td></tr>
+        <tr><td>“看看小红书/Twitter”</td><td>Agent-Reach</td></tr>
+        <tr><td>“搜一下公众号文章”</td><td>公众号文章搜索Skill</td></tr>
+        <tr><td>“帮我填表/抢票/登录”</td><td>Browser-use</td></tr>
+    </table>
+
+    <h2>一张表速查</h2>
+    <table>
+        <tr><th>场景</th><th>工具</th><th>获取方式</th></tr>
+        <tr><td>通用搜索</td><td>Tavily → Brave</td><td>tavily.com 注册</td></tr>
+        <tr><td>YouTube 视频信息</td><td>Agent-Reach</td><td>clawhub install</td></tr>
+        <tr><td>YouTube 字幕</td><td>yt-dlp / Supadata</td><td>内置 / clawhub</td></tr>
+        <tr><td>小红书/Twitter</td><td>Agent-Reach</td><td>clawhub install</td></tr>
+        <tr><td>公众号文章</td><td>公众号搜索Skill</td><td>关注公众号获取</td></tr>
+        <tr><td>登录操作网页</td><td>Browser-use</td><td>内置</td></tr>
+        <tr><td>本地GUI</td><td>Agent-Browser</td><td>clawhub install</td></tr>
+    </table>
+
+    <h2>为什么选这个方案？</h2>
+    <p><span class="highlight-blue">1. 不用写代码：</span>一切交给AI处理，你只需要动动嘴</p>
+    <p><span class="highlight-blue">2. 官方集成：</span>Browser-use 开箱即用</p>
+    <p><span class="highlight-blue">3. ClawHub 安装：</span>Agent-Reach、Supadata、Agent-Browser 一行命令安装</p>
+    <p><span class="highlight-blue">4. 公众号Skill：</span>关注公众号「AI进化社」回复「公众号Skill」获取</p>
+
+    <h2>结论</h2>
+    <p>没有浏览器能力的AI Agent，就是个chatbot，干不了实事。</p>
+    <p>2026年，选对浏览器方案，比选对AI模型更重要。</p>
+    <p><span class="important">你的AI Agent有眼睛了吗？</span></p>
+
+    <div class="cta-box">
+        <p>如果你觉得这篇文章有帮助，欢迎关注我们</p>
+        <p>📱 微信公众号：搜索「AI进化社」</p>
+        <p>🔗 官网：https://example.com</p>
+        <p>💬 评论区聊聊：你用的是什么方案？</p>
+    </div>
+</body>
+</html>

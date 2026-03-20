@@ -1,0 +1,15 @@
+🚀 NVIDIA GTC 2026: The AI Agent Era Begins
+
+Jensen Huang just announced NemoClaw - NVIDIA's official AI Agent stack built on OpenClaw. Think "Android moment" for AI Agents.
+
+Key highlights:
+• One command to deploy 24/7 AI Agents
+• Isolated sandbox for privacy
+• Policy guardrails for safety
+• Optimized for NVIDIA hardware
+
+Vera CPU also unveiled: 2x energy efficiency, 50% faster, purpose-built for Agentic AI.
+
+For China devs: NemoClaw is open-source & hardware-agnostic - can run on domestic chips like Huawei Ascend. Chip export limits remain, but software opens doors.
+
+The age of AI Agents is here. #NVIDIA #GTC2026 #AIAgent #NemoClaw

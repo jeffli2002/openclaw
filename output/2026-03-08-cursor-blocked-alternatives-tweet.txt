@@ -1,0 +1,23 @@
+Cursor blocked Claude in China? Here are 4 tested alternatives:
+
+1️⃣ Claude Code
+Terminal-based, end-to-end autonomous coding. Refactored 5k lines in 47 min (was 2 days manually). VSCode plugin available. Requires API key.
+
+2️⃣ Trae (ByteDance)
+"Cursor for China" - zero setup, domestic access. Builder mode creates full-stack projects in 5 min. Free tier sufficient. Limited to Doubao/DeepSeek models.
+
+3️⃣ Windsurf
+Cascade mode excels at complex refactoring. 200 free daily calls. Pro at $10/mo (50% cheaper than Cursor). Occasionally laggy in China.
+
+4️⃣ OpenClaw + GPT-5.4
+Most cost-effective. GPT-5.4 API ~30% cheaper than Claude. Mobile coding via Telegram bot. Full automation workflow.
+
+💡 Decision tree:
+CLI user → Claude Code
+Zero friction → Trae
+Complex tasks → Windsurf
+Mobile/automation → OpenClaw
+
+The real insight: don't bet on one tool. Master multiple, switch flexibly. The AI coding landscape is consolidating—adaptability wins.
+
+#AI #Coding #Cursor #ClaudeCode #DeveloperTools #Programming

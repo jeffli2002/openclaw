@@ -1,0 +1,37 @@
+{
+  "receivedAt": "2026-03-15T15:45:02.370367",
+  "path": "/kie-callback",
+  "headers": {
+    "Host": "suites-mayor-dish-inventory.trycloudflare.com",
+    "User-Agent": "okhttp/3.14.9",
+    "Content-Length": "731",
+    "Accept-Encoding": "gzip",
+    "Cdn-Loop": "cloudflare; loops=1; subreqs=1",
+    "Cf-Connecting-Ip": "47.254.92.134",
+    "Cf-Ew-Via": "15",
+    "Cf-Ipcountry": "US",
+    "Cf-Ray": "9dc9e5753409e8d9-SIN",
+    "Cf-Visitor": "{\"scheme\":\"https\"}",
+    "Cf-Warp-Tag-Id": "3687420b-9ca5-40f0-b383-4cbf68ffbc4b",
+    "Cf-Worker": "trycloudflare.com",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json; charset=utf-8",
+    "X-Forwarded-For": "47.254.92.134",
+    "X-Forwarded-Proto": "https"
+  },
+  "body": {
+    "code": 200,
+    "data": {
+      "completeTime": 1773560702000,
+      "costTime": 29,
+      "createTime": 1773560672000,
+      "model": "nano-banana-2",
+      "param": "{\"input\":\"{\\\"aspect_ratio\\\":\\\"16:9\\\",\\\"output_format\\\":\\\"png\\\",\\\"google_search\\\":false,\\\"prompt\\\":\\\"PPT封面，橙色深蓝渐变背景，小龙虾，代码元素，现代简约\\\",\\\"resolution\\\":\\\"1K\\\"}\",\"callBackUrl\":\"https://suites-mayor-dish-inventory.trycloudflare.com/kie-callback\",\"model\":\"nano-banana-2\"}",
+      "resultJson": "{\"resultUrls\":[\"https://tempfile.aiquickdraw.com/images/1773560701415-8ye6g464c84.png\"]}",
+      "state": "success",
+      "taskId": "206f1f5283082f65116c20ad2e5eb688",
+      "updateTime": 1773560702000
+    },
+    "msg": "Playground task completed successfully."
+  }
+}

@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import * as fs from 'fs';
 import * as path from 'path';
+<<<<<<< HEAD
+=======
+import { getSupabaseAdmin } from '@/lib/supabase';
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
 
 const CRON_DIR = '/root/.openclaw/cron';
 const RUNS_DIR = '/root/.openclaw/cron/runs';
@@ -28,6 +32,10 @@ function shanghaiDate(ms: number): string {
 }
 
 function listJobSnapshotFiles(): string[] {
+<<<<<<< HEAD
+=======
+  if (!fs.existsSync(CRON_DIR)) return [];
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
   return fs
     .readdirSync(CRON_DIR)
     .filter((name) => name.startsWith('jobs.json'))
@@ -91,9 +99,89 @@ function buildTrend(): TrendPoint[] {
   return [...byDate.values()].sort((a, b) => a.date.localeCompare(b.date));
 }
 
+<<<<<<< HEAD
 export async function GET() {
   try {
     const trend = buildTrend();
+=======
+async function buildTrendFromSupabaseHistory(): Promise<TrendPoint[]> {
+  const supabase = getSupabaseAdmin();
+  const { data, error } = await supabase
+    .from('documents')
+    .select('date, content')
+    .eq('type', 'metric-token-daily')
+    .order('date', { ascending: true });
+
+  if (error) {
+    throw error;
+  }
+
+  if (!data?.length) return [];
+
+  return data
+    .map((row) => {
+      try {
+        const payload = typeof row.content === 'string' ? JSON.parse(row.content) : row.content;
+        return {
+          date: String(payload?.date || row.date),
+          totalTokens: Number(payload?.totalTokens || 0),
+          taskBreakdown: (payload?.taskBreakdown || {}) as Record<string, number>,
+        } satisfies TrendPoint;
+      } catch {
+        return null;
+      }
+    })
+    .filter((point): point is TrendPoint => !!point)
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+async function buildTrendFromSupabaseSnapshot(): Promise<TrendPoint[]> {
+  const supabase = getSupabaseAdmin();
+  const { data, error } = await supabase
+    .from('tasks')
+    .select('id, token_usage, updated_at');
+
+  if (error) {
+    throw error;
+  }
+
+  if (!data?.length) return [];
+
+  const byDate = new Map<string, TrendPoint>();
+
+  for (const row of data) {
+    const taskId = row.id as string | undefined;
+    const totalTokens = Number(row.token_usage || 0);
+    const updatedAt = row.updated_at ? new Date(row.updated_at).getTime() : Date.now();
+    if (!taskId) continue;
+
+    const date = shanghaiDate(updatedAt);
+    const point = byDate.get(date) || { date, totalTokens: 0, taskBreakdown: {} };
+    point.totalTokens += totalTokens;
+    point.taskBreakdown[taskId] = totalTokens;
+    byDate.set(date, point);
+  }
+
+  return [...byDate.values()].sort((a, b) => a.date.localeCompare(b.date));
+}
+
+export async function GET() {
+  try {
+    const localTrend = buildTrend();
+    let trend = localTrend;
+    let source: 'cron-runs' | 'supabase-history' | 'supabase-snapshot' = 'cron-runs';
+
+    if (!trend.length) {
+      trend = await buildTrendFromSupabaseHistory();
+      source = 'supabase-history';
+    }
+
+    if (!trend.length) {
+      trend = await buildTrendFromSupabaseSnapshot();
+      source = 'supabase-snapshot';
+    }
+
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
     const latest14 = trend.slice(-14);
     const totalTokens = trend.reduce((sum, point) => sum + point.totalTokens, 0);
 
@@ -103,6 +191,10 @@ export async function GET() {
       latest14,
       totalTokens,
       taskMeta: TASK_MAPPINGS,
+<<<<<<< HEAD
+=======
+      source,
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
     });
   } catch (error) {
     console.error('token-trend error:', error);

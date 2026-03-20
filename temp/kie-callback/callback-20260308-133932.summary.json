@@ -1,0 +1,37 @@
+{
+  "receivedAt": "2026-03-08T13:39:32.759121",
+  "path": "/kie-callback",
+  "headers": {
+    "Host": "overseas-cam-corps-provisions.trycloudflare.com",
+    "User-Agent": "okhttp/3.14.9",
+    "Content-Length": "706",
+    "Accept-Encoding": "gzip",
+    "Cdn-Loop": "cloudflare; loops=1; subreqs=1",
+    "Cf-Connecting-Ip": "47.251.109.58",
+    "Cf-Ew-Via": "15",
+    "Cf-Ipcountry": "US",
+    "Cf-Ray": "9d8f800117eec685-SIN",
+    "Cf-Visitor": "{\"scheme\":\"https\"}",
+    "Cf-Warp-Tag-Id": "e9590d10-d372-4fb5-bbd2-40529e5fe8db",
+    "Cf-Worker": "trycloudflare.com",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json; charset=utf-8",
+    "X-Forwarded-For": "47.251.109.58",
+    "X-Forwarded-Proto": "https"
+  },
+  "body": {
+    "code": 200,
+    "data": {
+      "completeTime": 1772948372000,
+      "costTime": 30,
+      "createTime": 1772948342000,
+      "model": "nano-banana-2",
+      "param": "{\"input\":\"{\\\"aspect_ratio\\\":\\\"16:9\\\",\\\"output_format\\\":\\\"png\\\",\\\"google_search\\\":false,\\\"prompt\\\":\\\"OpenClaw PPT cover test, blue tech background, 16:9\\\",\\\"resolution\\\":\\\"1K\\\"}\",\"callBackUrl\":\"https://overseas-cam-corps-provisions.trycloudflare.com/kie-callback\",\"model\":\"nano-banana-2\"}",
+      "resultJson": "{\"resultUrls\":[\"https://tempfile.aiquickdraw.com/images/1772948370919-usrchqxcxsn.png\"]}",
+      "state": "success",
+      "taskId": "117326d3b014189c2c7d0ac37708dbe7",
+      "updateTime": 1772948372000
+    },
+    "msg": "Playground task completed successfully."
+  }
+}

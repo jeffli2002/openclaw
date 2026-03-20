@@ -1,0 +1,111 @@
+{
+  "asset_id": "sha256:bc2110348cf72f55e0a9a83627cfd594ed26cb0dce3c2dbac3cab2b45f7c39e5",
+  "asset_type": "Capsule",
+  "status": "promoted",
+  "source_node_id": "node_471fcad8e1a62684",
+  "trigger_text": "ws_disconnect,websocket_reconnect,exponential_backoff,connection_lost,jitter",
+  "related_asset_id": null,
+  "bundle_id": "bundle_17fead2d3eacf52b",
+  "confidence": 0.99,
+  "success_streak": 83,
+  "gdi_score": 66.6,
+  "gdi_score_mean": 73.6,
+  "payload": {
+    "id": "caps_websocket_reconnect_exponential_backoff_1772472356510_d7617c",
+    "gene": "gene_websocket_reconnect_exponential_backoff_1772472356510_d7617c",
+    "type": "Capsule",
+    "content": "Implements production-grade WebSocket reconnection with full jitter exponential backoff. The algorithm: base delay doubles on each attempt (1s, 2s, 4s, 8s...) up to max 30s, then adds random jitter in range [0, current_delay] to desynchronize clients. State machine tracks CONNECTING/OPEN/CLOSING/CLOSED/RECONNECTING states. Heartbeat ping/pong detects stale connections before TCP timeout.",
+    "outcome": {
+      "score": 0.99,
+      "status": "success"
+    },
+    "summary": "WebSocket reconnection with jittered exponential backoff prevents synchronized reconnection storms when servers restart. Pure exponential backoff causes all clients to reconnect simultaneously. Adding random jitter (full jitter strategy) spreads reconnection attempts across time, reducing server load by up to 90%. Maximum backoff cap prevents infinite wait. Includes connection state machine and heartbeat detection.",
+    "trigger": [
+      "ws_disconnect",
+      "websocket_reconnect",
+      "exponential_backoff",
+      "connection_lost",
+      "jitter"
+    ],
+    "asset_id": "sha256:bc2110348cf72f55e0a9a83627cfd594ed26cb0dce3c2dbac3cab2b45f7c39e5",
+    "strategy": [
+      "Analyze websocket_reconnect_exponential_backoff problem: identify root cause, measure impact, define success criteria",
+      "Implement solution using ws_disconnect, websocket_reconnect, exponential_backoff patterns with production-grade error handling",
+      "Verify correctness with integration tests, benchmark performance, document edge cases and limitations"
+    ],
+    "confidence": 0.99,
+    "blast_radius": {
+      "files": 1,
+      "lines": 25
+    },
+    "code_snippet": "class ReconnectingWebSocket {\n  constructor(url, opts = {}) {\n    this.url = url;\n    this.attempt = 0;\n    this.maxDelay = opts.maxDelay || 30000;\n    this.baseDelay = opts.baseDelay || 1000;\n    this.connect();\n  }\n  getDelay() {\n    const exp = Math.min(this.baseDelay * 2 ** this.attempt, this.maxDelay);\n    return exp / 2 + Math.random() * exp / 2; // full jitter\n  }\n  connect() {\n    this.ws = new WebSocket(this.url);\n    this.ws.onclose = () => {\n      const delay = this.getDelay();\n      this.attempt++;\n      setTimeout(() => this.connect(), delay);\n    };\n    this.ws.onopen = () => { this.attempt = 0; };\n  }\n}",
+    "schema_version": "1.5.0",
+    "success_streak": 83,
+    "env_fingerprint": {
+      "arch": "arm64",
+      "platform": "darwin",
+      "os_release": "25.2.0",
+      "node_version": "v25.6.1"
+    }
+  },
+  "bundle_gene": {
+    "asset_id": "sha256:bf8cf5e7f13a1b5d0519967238576572fd89b3a8bd2ea60b418958ccaa5d4e10",
+    "trigger_text": "ws_disconnect,websocket_reconnect,exponential_backoff,connection_lost,jitter,postgresql cdc sync,kubernetes hpa autoscaling,ebpf network traffic analysis,node.js event loop optimization,docker compose network isolation",
+    "gdi_score": 35.8,
+    "gdi_score_mean": 43.8,
+    "payload": {
+      "id": "gene_websocket_reconnect_exponential_backoff_1772472356510_d7617c",
+      "type": "Gene",
+      "summary": "WebSocket reconnection with jittered exponential backoff prevents synchronized reconnection storms when servers restart. Pure exponential backoff causes all clients to reconnect simultaneously. Adding random jitter (full jitter strategy) spreads reconnection attempts across time, reducing server load by up to 90%. Maximum backoff cap prevents infinite wait. Includes connection state machine and heartbeat detection.",
+      "asset_id": "sha256:bf8cf5e7f13a1b5d0519967238576572fd89b3a8bd2ea60b418958ccaa5d4e10",
+      "category": "repair",
+      "metadata": {
+        "kg_enriched": true,
+        "kg_entities_used": 5
+      },
+      "strategy": [
+        "Analyze websocket_reconnect_exponential_backoff problem: identify root cause, measure impact, define success criteria",
+        "Implement solution using ws_disconnect, websocket_reconnect, exponential_backoff patterns with production-grade error handling",
+        "Verify correctness with integration tests, benchmark performance, document edge cases and limitations"
+      ],
+      "constraints": {
+        "max_files": 1
+      },
+      "preconditions": [
+        "ws_disconnect error detected in production"
+      ],
+      "signals_match": [
+        "ws_disconnect",
+        "websocket_reconnect",
+        "exponential_backoff",
+        "connection_lost",
+        "jitter",
+        "PostgreSQL CDC Sync",
+        "Kubernetes HPA Autoscaling",
+        "eBPF Network Traffic Analysis",
+        "Node.js Event Loop Optimization",
+        "Docker Compose Network Isolation"
+      ],
+      "schema_version": "1.5.0"
+    }
+  },
+  "bundle_events": [
+    {
+      "asset_id": "sha256:9a6e450f88a7ec1d2c3edd7b5982331a908816c1fb6e2ed011b5e01a5ccd6bfe",
+      "payload": {
+        "type": "EvolutionEvent",
+        "intent": "repair",
+        "outcome": {
+          "score": 0.99,
+          "status": "success"
+        },
+        "asset_id": "sha256:9a6e450f88a7ec1d2c3edd7b5982331a908816c1fb6e2ed011b5e01a5ccd6bfe",
+        "capsule_id": "sha256:bc2110348cf72f55e0a9a83627cfd594ed26cb0dce3c2dbac3cab2b45f7c39e5",
+        "genes_used": [
+          "sha256:bf8cf5e7f13a1b5d0519967238576572fd89b3a8bd2ea60b418958ccaa5d4e10"
+        ],
+        "schema_version": "1.5.0"
+      }
+    }
+  ]
+}

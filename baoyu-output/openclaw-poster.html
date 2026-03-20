@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>3.15 OpenClaw 海报</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            width: 1200px;
+            height: 1600px;
+            background: linear-gradient(160deg, #0d1b2a 0%, #1b263b 30%, #1e3a5f 60%, #0d1b2a 100%);
+            font-family: 'Noto Sans SC', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        /* 装饰元素 */
+        .bg-glow {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255,107,53,0.15) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+        }
+        .bg-glow2 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(247,147,30,0.1) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+        }
+        /* 网格 */
+        .grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        /* 装饰框 */
+        .corner {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 3px solid rgba(255,107,53,0.4);
+        }
+        .corner-tl { top: 40px; left: 40px; border-right: none; border-bottom: none; }
+        .corner-tr { top: 40px; right: 40px; border-left: none; border-bottom: none; }
+        .corner-bl { bottom: 40px; left: 40px; border-right: none; border-top: none; }
+        .corner-br { bottom: 40px; right: 40px; border-left: none; border-top: none; }
+        
+        .container {
+            text-align: center;
+            z-index: 10;
+            margin-top: 120px;
+        }
+        
+        .logo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, rgba(255,107,53,0.25), rgba(247,147,30,0.15));
+            border: 2px solid rgba(255,107,53,0.6);
+            padding: 20px 50px;
+            border-radius: 60px;
+            margin-bottom: 60px;
+        }
+        .logo-icon {
+            font-size: 40px;
+        }
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ff6b35;
+            letter-spacing: 4px;
+        }
+        
+        .title {
+            font-size: 140px;
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            text-shadow: 0 8px 60px rgba(0,0,0,0.5);
+        }
+        .title-accent {
+            display: block;
+            background: linear-gradient(90deg, #ff6b35, #f7931e, #ffba08);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 42px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 80px;
+            letter-spacing: 10px;
+            font-weight: 300;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .divider-line {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(255,107,53,0.7));
+        }
+        .divider-line:last-child {
+            background: linear-gradient(90deg, rgba(255,107,53,0.7), transparent);
+        }
+        .divider-icon {
+            color: #ff6b35;
+            font-size: 30px;
+        }
+        
+        .date-box {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: linear-gradient(135deg, rgba(255,107,53,0.2), rgba(247,147,30,0.1));
+            border: 2px solid rgba(255,107,53,0.5);
+            padding: 30px 80px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+        }
+        .date-icon {
+            font-size: 50px;
+        }
+        .date-text {
+            font-size: 56px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 8px;
+        }
+        
+        .info {
+            font-size: 28px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 6px;
+        }
+        
+        .footer-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e, #ffba08, #f7931e, #ff6b35);
+        }
+        
+        .emoji-row {
+            position: absolute;
+            bottom: 100px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-size: 50px;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow"></div>
+    <div class="bg-glow2"></div>
+    <div class="grid"></div>
+    
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+    
+    <div class="container">
+        <div class="logo-badge">
+            <span class="logo-icon">🦐</span>
+            <span class="logo-text">OPENCLAW</span>
+            <span class="logo-icon">🦐</span>
+        </div>
+        
+        <h1 class="title">
+            OpenClaw
+            <span class="title-accent">线下交流会</span>
+        </h1>
+        
+        <p class="subtitle">技术人的周末聚会</p>
+        
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-icon">◉</span>
+            <div class="divider-line"></div>
+        </div>
+        
+        <div class="date-box">
+            <span class="date-icon">📅</span>
+            <span class="date-text">2026.03.15</span>
+        </div>
+        
+        <p class="info">诚邀各位开发者参加</p>
+    </div>
+    
+    <div class="emoji-row">
+        <span>🦞</span>
+        <span>🦐</span>
+        <span>💻</span>
+        <span>🤖</span>
+        <span>☕</span>
+    </div>
+    
+    <div class="footer-bar"></div>
+</body>
+</html>

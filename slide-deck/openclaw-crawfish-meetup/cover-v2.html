@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>OpenClaw 小龙虾线下交流</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            width: 1920px;
+            height: 1080px;
+            background: linear-gradient(145deg, #0d1b2a 0%, #1b263b 40%, #415a77 100%);
+            font-family: 'Noto Sans SC', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        /* 背景装饰 */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+        .circle1 {
+            width: 600px; height: 600px;
+            background: #ff6b35;
+            top: -200px; right: -100px;
+        }
+        .circle2 {
+            width: 400px; height: 400px;
+            background: #f7931e;
+            bottom: -150px; left: -50px;
+        }
+        .circle3 {
+            width: 300px; height: 300px;
+            background: #e63946;
+            top: 50%; left: 10%;
+            opacity: 0.05;
+        }
+        
+        /* 网格背景 */
+        .grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        .crawfish-pattern {
+            position: absolute;
+            font-size: 80px;
+            opacity: 0.06;
+            color: #ff6b35;
+        }
+        .cf1 { top: 15%; left: 8%; transform: rotate(-15deg); }
+        .cf2 { top: 25%; right: 12%; transform: rotate(20deg); }
+        .cf3 { bottom: 20%; right: 20%; transform: rotate(-10deg); }
+        .cf4 { bottom: 30%; left: 15%; transform: rotate(25deg); }
+        
+        .container {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, rgba(255,107,53,0.2), rgba(247,147,30,0.2));
+            border: 2px solid rgba(255,107,53,0.5);
+            color: #ff6b35;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+        }
+        .badge-icon {
+            font-size: 28px;
+        }
+        
+        .title {
+            font-size: 120px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 30px;
+            letter-spacing: 12px;
+            text-shadow: 0 10px 60px rgba(0,0,0,0.5);
+            line-height: 1.1;
+        }
+        .title-accent {
+            display: block;
+            background: linear-gradient(90deg, #ff6b35, #f7931e, #ffba08);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 36px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 70px;
+            letter-spacing: 8px;
+            font-weight: 300;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .divider-line {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(255,107,53,0.6));
+        }
+        .divider-line:last-child {
+            background: linear-gradient(90deg, rgba(255,107,53,0.6), transparent);
+        }
+        .divider-icon {
+            color: #ff6b35;
+            font-size: 24px;
+        }
+        
+        .date {
+            font-size: 42px;
+            color: white;
+            font-weight: 700;
+            letter-spacing: 6px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .date-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .footer-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e, #ffba08, #f7931e, #ff6b35);
+        }
+        
+        .logo {
+            position: absolute;
+            bottom: 30px;
+            right: 50px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255,255,255,0.25);
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 3px;
+        }
+        .logo-icon {
+            font-size: 28px;
+        }
+        
+        .corner-decor {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 2px solid rgba(255,107,53,0.2);
+        }
+        .corner-tl { top: 40px; left: 40px; border-right: none; border-bottom: none; }
+        .corner-tr { top: 40px; right: 40px; border-left: none; border-bottom: none; }
+        .corner-bl { bottom: 40px; left: 40px; border-right: none; border-top: none; }
+        .corner-br { bottom: 40px; right: 40px; border-left: none; border-top: none; }
+    </style>
+</head>
+<body>
+    <div class="bg-circle circle1"></div>
+    <div class="bg-circle circle2"></div>
+    <div class="bg-circle circle3"></div>
+    <div class="grid-bg"></div>
+    
+    <div class="crawfish-pattern cf1">🦞</div>
+    <div class="crawfish-pattern cf2">🦐</div>
+    <div class="crawfish-pattern cf3">🦞</div>
+    <div class="crawfish-pattern cf4">🦐</div>
+    
+    <div class="corner-decor corner-tl"></div>
+    <div class="corner-decor corner-tr"></div>
+    <div class="corner-decor corner-bl"></div>
+    <div class="corner-decor corner-br"></div>
+    
+    <div class="container">
+        <div class="badge">
+            <span class="badge-icon">🎉</span>
+            OPENCLAW MEETUP 2026
+            <span class="badge-icon">🎉</span>
+        </div>
+        
+        <h1 class="title">
+            小龙虾
+            <span class="title-accent">线下交流</span>
+        </h1>
+        
+        <p class="subtitle">技术人的周末聚会 · 吃虾聊AI</p>
+        
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-icon">◉</span>
+            <div class="divider-line"></div>
+        </div>
+        
+        <div class="date">
+            <div class="date-icon">📅</div>
+            2026.03.15
+        </div>
+    </div>
+    
+    <div class="footer-bar"></div>
+    <div class="logo">
+        <span class="logo-icon">🦐</span>
+        OPENCLAW
+    </div>
+</body>
+</html>

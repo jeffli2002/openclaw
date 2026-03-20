@@ -19,17 +19,39 @@ task_agent_mapping:
     session_target: "isolated"
     notify_policy: "deliver_and_alert"
     exact: true
+<<<<<<< HEAD
     timeout_seconds: 900
     required_skill: "content-factory"
     message_instructions:
       - "该任务已由 cron 直接分配给 Content Agent，不需要再经 Chief 二次分流。"
       - "必须使用 content-factory skill，不要跳过 skill，也不要直接裸写文章。"
+=======
+    timeout_seconds: 3600
+    model: "openai-code/gpt-5.4"
+    thinking: "off"
+    light_context: true
+    required_skill: "content-factory"
+    skill_path: "/root/.openclaw/workspace/skills/content-factory/SKILL.md"
+    message_instructions:
+      - "该任务已由 cron 直接分配给 Content Agent，不需要再经 Chief 二次分流。"
+      - "【关键】必须先读取 /root/.openclaw/workspace/skills/content-factory/SKILL.md，理解 skill 的工作流程后再执行。"
+      - "skill 位置已标注在 skill_path 中，请先读取并理解其工作方式。"
+      - "从今天起，9 点选题要重点关注 OpenClaw 相关内容：创业机会、版本更新、使用玩法、相关 skill、典型使用场景。"
+      - "研究来源优先级：先抓 YouTube，其次抓 Twitter/X；如 Twitter/X 直接抓取受限，就用 web_search / web_fetch 间接抓取 X 讨论、转述文章和相关页面。"
+      - "生成 3-5 个候选主题时，其中关于 OpenClaw 的候选不少于 3 条；不能只有 1 条或 2 条轻描淡写带过。"
+      - "给老板展示候选时，要明确标注哪些是 OpenClaw 方向，并简写信息来源（YouTube / X / 官方更新 / 社区案例）。"
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
       - "如果流程要求用户确认选题，就先给候选主题并等待确认，不要越过交互步骤。"
       - "只要出现需要老板确认选题、补充信息或人工决策的情况，必须立刻通知老板，不要默默等待。"
     workflow:
       - step: "research"
+<<<<<<< HEAD
         description: "研究热门AI资讯"
         tools: ["web_search", "youtube"]
+=======
+        description: "研究热门AI资讯（优先 YouTube 与 Twitter/X，并重点关注 OpenClaw）"
+        tools: ["web_search", "web_fetch", "youtube"]
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
       - step: "generate_topics"
         description: "生成3-5个候选主题"
         tools: ["memory"]
@@ -55,6 +77,7 @@ task_agent_mapping:
     session_target: "isolated"
     notify_policy: "deliver_and_alert"
     exact: true
+<<<<<<< HEAD
     timeout_seconds: 900
     required_skill: "/root/.openclaw/workspace/skills/ai-daily-newsletter/SKILL.md"
     required_format: "/root/.openclaw/workspace/config/ai-daily-format.md"
@@ -64,6 +87,21 @@ task_agent_mapping:
       - "必须严格遵循 /root/.openclaw/workspace/config/ai-daily-format.md 的格式要求。"
       - "不要用 content-factory 或其它 skill 替代 AI Daily Newsletter skill。"
       - "发送前先确认内容是过去24小时内、链接真实、没有编造。"
+=======
+    timeout_seconds: 1800
+    required_skill: "/root/.openclaw/workspace/skills/ai-daily-newsletter/SKILL.md"
+    skill_path: "/root/.openclaw/workspace/skills/ai-daily-newsletter/SKILL.md"
+    required_format: "/root/.openclaw/workspace/config/ai-daily-format.md"
+    message_instructions:
+      - "该任务已由 cron 直接分配给 Content Agent，不需要再经 Chief 二次分流。"
+      - "【关键】必须先读取 /root/.openclaw/workspace/skills/ai-daily-newsletter/SKILL.md，理解 skill 工作流程后再执行。"
+      - "必须严格遵循 /root/.openclaw/workspace/config/ai-daily-format.md 的格式要求。"
+      - "不要用 content-factory 或其它 skill 替代 AI Daily Newsletter skill。"
+      - "发送前先确认内容是过去24小时内、链接真实、没有编造。"
+      - "【硬规则】每天 07:30 发给老板的飞书消息必须是完整版正文，包含当天全部入选新闻；禁止只发 3 条重磅摘要替代全文。"
+      - "如需摘要，只能放在最前面的 1-2 句导语里，后面仍必须完整展开全部条目。"
+      - "本地 Markdown、飞书云文档、飞书最终消息三者必须保持同一批入选新闻，不得缩水投递。"
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
     workflow:
       - step: "collect_news"
         description: "收集AI行业新闻"
@@ -108,8 +146,15 @@ task_agent_mapping:
     exact: true
     timeout_seconds: 300
     message_instructions:
+<<<<<<< HEAD
       - "检查 ai-daily-newsletter 今天是否已经成功运行并完成投递。"
       - "如果今天 7:30 的 AI 日报没有成功发送，立刻手动补发，并明确向老板说明是补发。"
+=======
+      - "【关键】必须严格按日期检查：只认可今天（Asia/Shanghai 时区）的成功 run，不允许用昨天的成功记录。"
+      - "检查方法：执行 `openclaw cron runs --id 3e36cb70-5b1e-450e-9605-31513fd0509f --limit 5`，过滤出 runAtMs 在今天 00:00-23:59 Asia/Shanghai 且 status=finished 且 deliveryStatus=delivered 的记录。"
+      - "如果找不到今天满足条件的成功记录，立刻手动补发今天的 AI 日报，并明确向老板说明是补发。"
+      - "禁止只看 lastStatus=ok 或 consecutiveErrors=0 就判断成功；必须验证今天的 deliveryStatus。"
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
       - "补发后继续检查根因，并汇报修复动作。"
     workflow:
       - step: "verify_ai_daily_delivery"
@@ -129,16 +174,39 @@ task_agent_mapping:
     dispatch_mode: "direct_agent"
     session_target: "isolated"
     notify_policy: "deliver_and_alert"
+<<<<<<< HEAD
     message_instructions:
       - "该任务已由 cron 直接分配给 Content Agent，不需要再经 Chief 二次分流。"
+=======
+    model: "openai-code/gpt-5.4"
+    thinking: "off"
+    light_context: true
+    skill_path: "/root/.openclaw/workspace/skills/youtube/SKILL.md"
+    message_instructions:
+      - "该任务已由 cron 直接分配给 Content Agent，不需要再经 Chief 二次分流。"
+      - "【关键】必须先读取 /root/.openclaw/workspace/config/ai-kol-watchlist.yaml，严格按其中的 15 个 X/Twitter 账号执行。"
+      - "重点监控 watchlist 中 KOL 在过去24小时内的 X/Twitter 更新；只写有更新的账号，没有更新就明确写无人更新。"
+      - "不要再泛写普通行业新闻，不要把无关资讯冒充 KOL 动态。日报主体必须围绕 KOL 原帖/原观点展开。"
+      - "信息源优先级：先看 X/Twitter；如直接抓取受限，再用 web_search / web_fetch 查找可靠转述或引用，但必须能确认对应 KOL 确有新动态。"
+      - "每条入选内容至少写清：KOL、账号、更新摘要、核心观点/原话、信号判断、对 Jeff 的启发。"
+      - "优先关注高优先级账号：sama、elonmusk、zuck、DarioAmodei、ilyasut、karpathy、ylecun、demishassabis。"
+      - "【关键】如需使用 YouTube 研究 KOL 内容，必须先读取 youtube skill 了解使用方法；但 YouTube 只能作为补充背景，不能替代 X/Twitter 主监控。"
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
       - "KOL 日报属于每日应直达老板的内容任务，常规运行也必须正常发送，不要只放进 Chief 每日汇报。"
       - "如果发现重大机会、异常风险，或需要老板确认方向，必须立刻通知老板。"
     workflow:
       - step: "monitor_kol"
+<<<<<<< HEAD
         description: "监控KOL动态"
         tools: ["youtube", "web_search"]
       - step: "compile_insights"
         description: "编译洞察"
+=======
+        description: "监控 watchlist 中 KOL 的 X/Twitter 动态"
+        tools: ["web_search", "web_fetch", "youtube"]
+      - step: "compile_insights"
+        description: "按有更新的 KOL 编译洞察"
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
       - step: "publish"
         description: "发布内容"
 
@@ -152,12 +220,22 @@ task_agent_mapping:
     priority: P1
     dispatch_mode: "direct_agent"
     session_target: "isolated"
+<<<<<<< HEAD
     notify_policy: "summary_only"
+=======
+    notify_policy: "deliver_and_alert"
+    timeout_seconds: 900
+    light_context: true
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
     message_instructions:
       - "该任务已由 cron 直接分配给 Growth Agent，不需要再经 Chief 二次分流。"
       - "重点关注 OpenClaw 官方 release、文档、博客和社区动态，不要只盯安全漏洞。"
       - "默认不要逐次向老板发送常规轮询结果；将摘要汇总到 Chief 每日汇报。"
       - "如果发现需要升级、修复或值得同步给老板的重要更新，或需要老板确认动作，必须立刻通知老板。"
+<<<<<<< HEAD
+=======
+      - "如需主动通知老板，必须使用 message 工具并显式传入 `channel=feishu` 与 `target=user:ou_aeb3984fc66ae7c78e396255f7c7a11b`，不要依赖当前会话上下文。"
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
     workflow:
       - step: "search_news"
         description: "搜索安全相关新闻"
@@ -184,6 +262,10 @@ task_agent_mapping:
       - "输出应聚焦竞品功能、定位、差异点与产品决策启发。"
       - "默认不要逐次向老板发送常规运行消息；将摘要汇总到 Chief 每日汇报。"
       - "如果分析结果需要老板做产品方向确认，必须立刻通知老板。"
+<<<<<<< HEAD
+=======
+      - "如需主动通知老板，必须使用 message 工具并显式传入 `channel=feishu` 与 `target=user:ou_aeb3984fc66ae7c78e396255f7c7a11b`，不要依赖当前会话上下文。"
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
     workflow:
       - step: "collect_competitor_info"
         description: "收集竞品信息"
@@ -206,6 +288,13 @@ task_agent_mapping:
     dispatch_mode: "direct_agent"
     session_target: "isolated"
     notify_policy: "summary_only"
+<<<<<<< HEAD
+=======
+    timeout_seconds: 1800
+    model: "openai-code/gpt-5.4"
+    thinking: "off"
+    light_context: true
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
     message_instructions:
       - "该任务已由 cron 直接分配给 Coding Agent，不需要再经 Chief 二次分流。"
       - "重点关注 skill 演进、依赖更新、自动化机会与技术债。"
@@ -228,6 +317,13 @@ task_agent_mapping:
     priority: P2
     session_target: "main"
     notify_policy: "failure_only"
+<<<<<<< HEAD
+=======
+    timeout_seconds: 900
+    model: "openai-code/gpt-5.4"
+    thinking: "off"
+    light_context: true
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
     message_instructions:
       - "该任务归 Chief 直接负责，不需要再分配给其他 Agent。"
       - "读取最近两天的 daily memory，提炼长期有效的信息后再写入 global memory。"
@@ -250,9 +346,20 @@ task_agent_mapping:
     session_target: "isolated"
     notify_policy: "deliver_and_alert"
     exact: true
+<<<<<<< HEAD
     timeout_seconds: 600
     message_instructions:
       - "这是每天必须直达老板的总汇报任务。"
+=======
+    timeout_seconds: 2700
+    model: "openai-code/gpt-5.4"
+    thinking: "off"
+    light_context: true
+    skill_path: "/root/.openclaw/workspace/skills/chief-agent-report/SKILL.md"
+    message_instructions:
+      - "这是每天必须直达老板的总汇报任务。"
+      - "【关键】必须先读取 /root/.openclaw/workspace/skills/chief-agent-report/SKILL.md，理解汇报格式要求后再执行。"
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
       - "必须汇总今日各 Agent 的关键进展、失败告警、修复动作与待办。"
       - "必须单独包含 GitHub 同步/备份摘要（成功次数、失败次数、最后一次结果、是否需要老板关注）。"
       - "必须单独包含 Supabase 同步摘要、OpenClaw 动态监控摘要，以及所有需要老板确认的事项。"
@@ -274,6 +381,13 @@ task_agent_mapping:
     priority: P0
     session_target: "main"
     notify_policy: "failure_only"
+<<<<<<< HEAD
+=======
+    timeout_seconds: 900
+    model: "openai-code/gpt-5.4"
+    thinking: "off"
+    light_context: true
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
     message_instructions:
       - "该任务归 Chief 直接负责，不需要再分配给其他 Agent。"
       - "检查所有 cron job 的 lastStatus、nextRunAtMs 和 delivery / failureAlert 配置情况。"
@@ -297,6 +411,13 @@ task_agent_mapping:
     dispatch_mode: "direct_agent"
     session_target: "isolated"
     notify_policy: "summary_only"
+<<<<<<< HEAD
+=======
+    timeout_seconds: 1200
+    model: "openai-code/gpt-5.4"
+    thinking: "off"
+    light_context: true
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
     message_instructions:
       - "该任务已由 cron 直接分配给 Coding Agent，不需要再经 Chief 二次分流。"
       - "执行备份前先检查 git 状态；备份完成后明确记录是否 push 成功。"
@@ -335,6 +456,11 @@ task_agent_mapping:
     dispatch_mode: "direct_agent"
     session_target: "isolated"
     notify_policy: "failure_only"
+<<<<<<< HEAD
+=======
+    timeout_seconds: 300
+    light_context: true
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
     message_instructions:
       - "该任务已由 cron 直接分配给 Coding Agent，不需要再经 Chief 二次分流。"
       - "必须执行 `/root/.openclaw/workspace/scripts/supabase/sync_supabase.py`，不要再用 mock 任务状态代替真实同步。"

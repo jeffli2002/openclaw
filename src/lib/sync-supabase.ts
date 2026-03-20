@@ -1,12 +1,20 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { execFileSync } from 'child_process';
+<<<<<<< HEAD
 import { supabaseAdmin as supabase } from './supabase';
+=======
+import { getSupabaseAdmin } from './supabase';
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
 
 const workspace = '/root/.openclaw/workspace';
 const cronDir = '/root/.openclaw/cron';
 const jobsPath = '/root/.openclaw/cron/jobs.json';
 const runsDir = '/root/.openclaw/cron/runs';
+<<<<<<< HEAD
+=======
+const SHANGHAI_OFFSET_MS = 8 * 60 * 60 * 1000;
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
 
 const TASK_MAPPINGS = [
   { task_id: 'task-ai-daily', job_name: 'ai-daily-newsletter', schedule: '07:30 每天' },
@@ -65,6 +73,7 @@ function getJobIdsForName(jobName: string): string[] {
   return [...ids];
 }
 
+<<<<<<< HEAD
 function getLatestHistoricalRun(jobName: string): any | null {
   let latest: any | null = null;
   for (const jobId of getJobIdsForName(jobName)) {
@@ -79,6 +88,28 @@ function getLatestHistoricalRun(jobName: string): any | null {
       }
     } catch {
       continue;
+=======
+function readRunEntries(jobId: string): any[] {
+  const runFile = path.join(runsDir, `${jobId}.jsonl`);
+  if (!fs.existsSync(runFile)) return [];
+  try {
+    return fs
+      .readFileSync(runFile, 'utf-8')
+      .split('\n')
+      .filter(Boolean)
+      .map((line) => JSON.parse(line))
+      .filter((entry) => entry.action === 'finished');
+  } catch {
+    return [];
+  }
+}
+
+function getLatestHistoricalRun(jobName: string): any | null {
+  let latest: any | null = null;
+  for (const jobId of getJobIdsForName(jobName)) {
+    for (const entry of readRunEntries(jobId)) {
+      if (!latest || (entry.runAtMs || 0) > (latest.runAtMs || 0)) latest = entry;
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
     }
   }
   return latest;
@@ -100,7 +131,62 @@ function msToDuration(ms?: number | null): string | null {
   return `${Math.max(0, Math.round(ms / 1000))}s`;
 }
 
+<<<<<<< HEAD
 export async function syncSecondBrainData() {
+=======
+function shanghaiDate(ms: number): string {
+  return new Date(ms + SHANGHAI_OFFSET_MS).toISOString().slice(0, 10);
+}
+
+function buildHistoricalTokenSnapshots(now: string) {
+  const byDate = new Map<string, { date: string; totalTokens: number; taskBreakdown: Record<string, number> }>();
+
+  for (const mapping of TASK_MAPPINGS) {
+    const seenRunKeys = new Set<string>();
+    for (const jobId of getJobIdsForName(mapping.job_name)) {
+      for (const entry of readRunEntries(jobId)) {
+        const runAtMs = entry.runAtMs as number | undefined;
+        const totalTokens = entry.usage?.total_tokens as number | undefined;
+        if (!runAtMs || typeof totalTokens !== 'number') continue;
+
+        const runKey = `${mapping.task_id}:${runAtMs}:${totalTokens}`;
+        if (seenRunKeys.has(runKey)) continue;
+        seenRunKeys.add(runKey);
+
+        const date = shanghaiDate(runAtMs);
+        const point = byDate.get(date) || { date, totalTokens: 0, taskBreakdown: {} };
+        point.totalTokens += totalTokens;
+        point.taskBreakdown[mapping.task_id] = (point.taskBreakdown[mapping.task_id] || 0) + totalTokens;
+        byDate.set(date, point);
+      }
+    }
+  }
+
+  return [...byDate.values()]
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .map((point) => {
+      const content = JSON.stringify({
+        date: point.date,
+        totalTokens: point.totalTokens,
+        taskBreakdown: point.taskBreakdown,
+      });
+
+      return {
+        id: `doc-token-daily-${point.date}`,
+        title: `Token Daily Snapshot ${point.date}`,
+        path: `/metrics/token-daily/${point.date}.json`,
+        type: 'metric-token-daily',
+        date: point.date,
+        size: content.length,
+        content,
+        updated_at: now,
+      };
+    });
+}
+
+export async function syncSecondBrainData() {
+  const supabase = getSupabaseAdmin();
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
   const now = new Date().toISOString();
   const memories: any[] = [];
   const docs: any[] = [];
@@ -173,6 +259,11 @@ export async function syncSecondBrainData() {
     });
   }
 
+<<<<<<< HEAD
+=======
+  docs.push(...buildHistoricalTokenSnapshots(now));
+
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
   const jobsByName = loadCronJobs();
   const existingTasksRes = await supabase.from('tasks').select('*');
   const existingTasks = Object.fromEntries((existingTasksRes.data || []).map((row: any) => [row.id, row]));

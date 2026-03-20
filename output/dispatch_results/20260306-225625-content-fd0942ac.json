@@ -1,0 +1,8 @@
+{
+  "protocol": "chief_result_bridge/v1",
+  "status": "ok",
+  "route_debug": "route=content;dispatch=spawn;model=minimax-cn/MiniMax-M2.5",
+  "dispatch_id": "20260306-225625-content-fd0942ac",
+  "agent": "content",
+  "body": "## OpenClaw 公众号选题推荐\n\n### 选题1：从0到1搭建你的第一个AI Agent\n**类型**: 实战教程\n**方向**: 入门级玩家友好\n**核心内容**:\n- 介绍 OpenClaw 的核心概念（Agent、Task、Skill）\n- 手把手演示创建一个简单 Agent\n- 集成一个实际技能（如天气查询）\n- 代码+截图，适合新手阅读\n**预期效果**: 降低上手门槛，吸引开发者关注\n\n---\n\n### 选题2：2026年AI Agent工具横评\n**类型**: 行业分析\n**方向**: 中级玩家/决策者\n**核心内容**:\n- 主流AI Agent框架对比（OpenClaw vs LangChain vs AutoGen vsCrewAI）\n- 各家优势劣势分析\n- 适用场景推荐\n- 2026年发展趋势预测\n**预期效果**: 建立行业认知，突出 OpenClaw 差异化定位"
+}

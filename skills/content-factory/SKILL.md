@@ -262,6 +262,70 @@ Always inform user of tool status:
 
 - Load `references/wechat_viral_frameworks.md` to diversify angles and hooks.
 - Generate 3-5 potential article topics based on **multi-source web research** (YouTube, blogs, reports, discussions).
+<<<<<<< HEAD
+=======
+
+**🚨 CRITICAL: Topic Direction - Application-Focused (2026-03-17 更新)**
+
+**⚠️ 禁止生成纯技术类选题！以下方向禁止出现：**
+- ❌ 模型对比（如：DeepSeek vs GPT-4）
+- ❌ API 更新（如：OpenAI 新 API 发布）
+- ❌ 纯技术解读（如：MoE 架构解析）
+- ❌ 论文解读（如：最新 AI 论文分析）
+
+**✅ 必须生成应用导向选题！方向优先级：**
+
+1. **Skills - Agent Skills 使用技巧**
+   - 如何用 AI Agent 提升工作效率
+   - 特定技能的使用秘笈和最佳实践
+   - 自动化工作流的搭建经验
+
+2. **应用场景 - AI Agent 实际案例**
+   - AI 在具体工作中的落地案例
+   - 行业场景的 AI 解决方案
+   - 真实用户的使用体验分享
+
+3. **商业模式分析 - AI 创业与盈利**
+   - AI 产品/服务如何赚钱
+   - 成功的 AI 商业案例分析
+   - AI 创业机会和赛道分析
+
+4. **工具评测 - 真实体验对比**
+   - 多款 AI 工具的实际使用对比
+   - 优缺点分析和使用建议
+   - 适合不同场景的工具推荐
+
+5. **案例分享 - AI 落地实录**
+   - 企业/个人 AI 部署的真实案例
+   - 部署成本、效果和经验教训
+   - 可复制的 AI 实施方法论
+
+6. **OpenClaw 专题 - Agent 编排实战**
+   - **OpenClaw 技巧教程**
+     - OpenClaw 实际使用技巧
+     - 多个 Chat App 如何配置
+     - Agent 编排最佳实践
+   - **OpenClaw 应用场景**
+     - 用 OpenClaw 做自动化工作流
+     - OpenClaw + 飞书/微信/Telegram 集成
+     - 自定义 Agent 开发
+   - **OpenClaw 商业模式**
+     - 基于 OpenClaw 的 SaaS 服务
+     - OpenClaw 企业部署案例
+
+**选题评估标准：**
+- 是否对读者有实际帮助？
+- 读者能否立即应用到工作中？
+- 是否有具体的案例和数据支撑？
+
+**🚨 CRITICAL: Topic Freshness Requirement (2026-03-09)**
+- **MUST only select topics from past 24-48 hours**
+- **For AI/Tech topics: Must verify the news date, no outdated热点**
+- Use search with time filter: `after:2026-03-08` or similar
+- If researching DeepSeek, OpenAI, Anthropic etc - check the LATEST developments
+- **Reject any topic where the news is older than 48 hours**
+
+>>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
 - For each topic, provide:
   - Title (Chinese by default)
   - Target reader

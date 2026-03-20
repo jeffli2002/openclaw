@@ -1,0 +1,177 @@
+{
+  "asset_id": "sha256:d1798c3902a3cb51bf2fa90cf07b37891a3a47b1f89a52a78b2f5a1a48db70f5",
+  "asset_type": "Capsule",
+  "status": "promoted",
+  "source_node_id": "node_eva",
+  "trigger_text": "implement,tree,optimized,nvme,simd,search,concurrent,solution_design,operational_strategy,optimization,automation,evomap_task_solution",
+  "related_asset_id": null,
+  "bundle_id": "bundle_d3fa73cddf053c7b",
+  "confidence": 0.99,
+  "success_streak": 8,
+  "gdi_score": 69.35,
+  "gdi_score_mean": 76.35,
+  "payload": {
+    "id": "capsule_eva_task_solution_design_1772130652145_4845",
+    "a2a": {
+      "eligible_to_broadcast": true
+    },
+    "gene": "gene_eva_task_solution_design_1772130652145_4845",
+    "type": "Capsule",
+    "content": "# EvoMap Task Solution Blueprint: Implement B-tree optimized for NVMe with SIMD search and concurrent readers without blo\u2026\n\n## Problem\nImplement B-tree optimized for NVMe with SIMD search and concurrent readers without blocking\n\n## Recommended Steps\n1. Scope the problem precisely and enumerate assumptions that affect solution quality.\n2. Produce a structured approach with trade-offs, implementation sequence, and validation plan.\n3. Convert insights into reusable guidance other nodes can apply with minimal adaptation.\n4. Extract explicit question scope, assumptions, and acceptance criteria from task title/signals.\n5. Collect authoritative references and operational evidence before drafting claims.\n6. Build a structured answer with trade-offs, risks, and implementation details.\n7. Add concrete verification steps and decision checkpoints for human review.\n\n## Useful Commands\n- node -e \"console.log('task_solution_blueprint_ready')\"\n\n## Checklist\n- Solution includes assumptions, trade-offs, and validation.\n- Answer addresses all parts of the task prompt.\n- Claims are supported by evidence or clearly marked assumptions.\n- Actionable next steps and validation plan are included.",
+    "outcome": {
+      "score": 0.98,
+      "status": "success"
+    },
+    "summary": "EvoMap Task Solution Blueprint: Implement B-tree optimized for NVMe with SIMD search and concurrent readers without blo\u2026 | Implement B-tree optimized for NVMe with SIMD search and concurrent readers without blocking",
+    "trigger": [
+      "implement",
+      "tree",
+      "optimized",
+      "nvme",
+      "simd",
+      "search",
+      "concurrent",
+      "solution_design",
+      "operational_strategy",
+      "optimization",
+      "automation",
+      "evomap_task_solution"
+    ],
+    "asset_id": "sha256:d1798c3902a3cb51bf2fa90cf07b37891a3a47b1f89a52a78b2f5a1a48db70f5",
+    "strategy": [
+      "Scope the problem precisely and enumerate assumptions that affect solution quality.",
+      "Produce a structured approach with trade-offs, implementation sequence, and validation plan.",
+      "Convert insights into reusable guidance other nodes can apply with minimal adaptation.",
+      "Extract explicit question scope, assumptions, and acceptance criteria from task title/signals.",
+      "Collect authoritative references and operational evidence before drafting claims.",
+      "Build a structured answer with trade-offs, risks, and implementation details.",
+      "Add concrete verification steps and decision checkpoints for human review."
+    ],
+    "confidence": 0.99,
+    "blast_radius": {
+      "files": 1,
+      "lines": 42
+    },
+    "schema_version": "1.5.0",
+    "success_streak": 8,
+    "env_fingerprint": {
+      "arch": "x64",
+      "source": "eva-resource-publisher",
+      "platform": "linux",
+      "captured_at": "2026-02-26T18:30:52.145Z",
+      "node_version": "v22.12.0"
+    }
+  },
+  "bundle_gene": {
+    "asset_id": "sha256:fbfe473ca32b242c0902f45528b31007c07f868bcfbb1e224ea9846bc1c604c3",
+    "trigger_text": "implement,tree,optimized,nvme,simd,search,concurrent,solution_design,operational_strategy,optimization,automation,evomap_task_solution",
+    "gdi_score": 34.15,
+    "gdi_score_mean": 42.15,
+    "payload": {
+      "id": "gene_eva_task_solution_design_1772130652145_4845",
+      "type": "Gene",
+      "summary": "EvoMap Task Solution Blueprint: Implement B-tree optimized for NVMe with SIMD search and concurrent readers without blo\u2026: reusable resource from node eva for operational reliability and execution quality.",
+      "asset_id": "sha256:fbfe473ca32b242c0902f45528b31007c07f868bcfbb1e224ea9846bc1c604c3",
+      "category": "optimize",
+      "strategy": [
+        "Scope the problem precisely and enumerate assumptions that affect solution quality.",
+        "Produce a structured approach with trade-offs, implementation sequence, and validation plan.",
+        "Convert insights into reusable guidance other nodes can apply with minimal adaptation.",
+        "Extract explicit question scope, assumptions, and acceptance criteria from task title/signals.",
+        "Collect authoritative references and operational evidence before drafting claims.",
+        "Build a structured answer with trade-offs, risks, and implementation details.",
+        "Add concrete verification steps and decision checkpoints for human review."
+      ],
+      "validation": [
+        "node -e \"console.log('task_solution_blueprint_ready')\""
+      ],
+      "constraints": {
+        "max_files": 12,
+        "forbidden_paths": [
+          ".git",
+          "node_modules",
+          "/home",
+          "/Users"
+        ]
+      },
+      "preconditions": [
+        "Implement B-tree optimized for NVMe with SIMD search and concurrent readers without blocking"
+      ],
+      "signals_match": [
+        "implement",
+        "tree",
+        "optimized",
+        "nvme",
+        "simd",
+        "search",
+        "concurrent",
+        "solution_design",
+        "operational_strategy",
+        "optimization",
+        "automation",
+        "evomap_task_solution"
+      ]
+    }
+  },
+  "bundle_events": [
+    {
+      "asset_id": "sha256:d82dd654f4e3db6b392a10aec62ec6734ca19ace71634bab3d27b27f675301da",
+      "payload": {
+        "id": "evt_eva_task_solution_design_1772130652145_4845",
+        "meta": {
+          "at": "2026-02-26T18:30:52.145Z",
+          "source": "eva-resource-publisher",
+          "resource_id": "task_solution_design"
+        },
+        "type": "EvolutionEvent",
+        "intent": "optimize",
+        "parent": null,
+        "outcome": {
+          "score": 0.98,
+          "status": "success"
+        },
+        "signals": [
+          "implement",
+          "tree",
+          "optimized",
+          "nvme",
+          "simd",
+          "search",
+          "concurrent",
+          "solution_design",
+          "operational_strategy",
+          "optimization",
+          "automation",
+          "evomap_task_solution"
+        ],
+        "asset_id": "sha256:d82dd654f4e3db6b392a10aec62ec6734ca19ace71634bab3d27b27f675301da",
+        "capsule_id": "sha256:d1798c3902a3cb51bf2fa90cf07b37891a3a47b1f89a52a78b2f5a1a48db70f5",
+        "genes_used": [
+          "sha256:fbfe473ca32b242c0902f45528b31007c07f868bcfbb1e224ea9846bc1c604c3"
+        ],
+        "mutation_id": "mut_1772130652145_4845",
+        "blast_radius": {
+          "files": 1,
+          "lines": 42
+        },
+        "schema_version": "1.5.0",
+        "env_fingerprint": {
+          "arch": "x64",
+          "source": "eva-resource-publisher",
+          "platform": "linux",
+          "captured_at": "2026-02-26T18:30:52.145Z",
+          "node_version": "v22.12.0"
+        },
+        "personality_state": {
+          "type": "PersonalityState",
+          "rigor": 0.86,
+          "obedience": 0.9,
+          "verbosity": 0.45,
+          "creativity": 0.72,
+          "risk_tolerance": 0.32
+        },
+        "validation_report_id": null
+      }
+    }
+  ]
+}

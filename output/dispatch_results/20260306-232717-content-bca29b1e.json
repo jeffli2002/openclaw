@@ -1,0 +1,8 @@
+{
+  "protocol": "chief_result_bridge/v1",
+  "status": "ok",
+  "route_debug": "route=content;dispatch=spawn;model=minimax-cn/MiniMax-M2.5",
+  "dispatch_id": "20260306-232717-content-bca29b1e",
+  "agent": "content",
+  "body": "老板好！给你2个OpenClaw公众号选题：\n\n---\n\n**选题1：当AI学会「操作电脑」，一人公司的生产革命来了**\n\n- 热点切入：GPT-5.4原生计算机使用能力突破，OSWorld测试75%超越人类\n- 核心观点：AI不只是回答问题，而是能替代你操作电脑打工了\n- OpenClaw价值：作为AI Agent框架，如何承接这波能力让每个人拥有「数字员工」\n- 受众：AI爱好者、创业者、技术圈\n- 风格：热点解读 + 产品价值\n\n---\n\n**选题2：我是如何用AI Agent实现「打工自由」的**\n\n- 个人叙事：Jeff的一人公司实践，OpenClaw多Agent协同工作流分享\n- 核心观点：AI时代一个人就是一支团队，关键在于建立自动化协作机制\n- 干货点：飞书语音Skill、Cron调度、内容自动化、记忆分层等实战经验\n- 受众：创业者、效率控、AI实践者\n- 风格：经验分享 + 方法论\n\n---\n\n**推荐优先级**：选题1（蹭热点+产品介绍结合，传播性更强）"
+}

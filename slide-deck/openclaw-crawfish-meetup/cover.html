@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw 小龙虾线下交流</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            width: 1920px;
+            height: 1080px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        /* 小龙虾图案 */
+        .crawfish {
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.15;
+            top: 10%;
+            right: 15%;
+            transform: rotate(15deg);
+        }
+        .crawfish2 {
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.1;
+            bottom: 15%;
+            left: 10%;
+            transform: rotate(-20deg);
+        }
+        /* 代码元素 */
+        .code-element {
+            position: absolute;
+            font-family: 'Fira Code', monospace;
+            color: #e94560;
+            opacity: 0.08;
+            font-size: 24px;
+        }
+        .code1 { top: 20%; left: 8%; }
+        .code2 { top: 35%; left: 5%; }
+        .code3 { bottom: 30%; right: 8%; }
+        .code4 { bottom: 20%; right: 5%; }
+        
+        .container {
+            text-align: center;
+            z-index: 10;
+        }
+        .badge {
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            display: inline-block;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(255, 107, 53, 0.4);
+        }
+        .title {
+            font-size: 96px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 24px;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+            letter-spacing: 8px;
+        }
+        .title span {
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: 32px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 60px;
+            letter-spacing: 2px;
+        }
+        .date {
+            font-size: 28px;
+            color: rgba(255,255,255,0.5);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .date::before,
+        .date::after {
+            content: '';
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,107,53,0.5));
+        }
+        .date::after {
+            background: linear-gradient(90deg, rgba(255,107,53,0.5), transparent);
+        }
+        /* 底部装饰 */
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e, #ff6b35);
+        }
+        .logo {
+            position: absolute;
+            bottom: 40px;
+            right: 60px;
+            color: rgba(255,255,255,0.3);
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="crawfish">🦞</div>
+    <div class="crawfish2">🦐</div>
+    <div class="code-element code1">&lt;/&gt;</div>
+    <div class="code-element code2">function()</div>
+    <div class="code-element code3">await</div>
+    <div class="code-element code4">return</div>
+    
+    <div class="container">
+        <div class="badge">OPENCLAW MEETUP</div>
+        <h1 class="title">小龙虾<span>线下交流</span></h1>
+        <p class="subtitle">技术人的周末聚会 · 吃虾聊AI</p>
+        <div class="date">2026.03.15</div>
+    </div>
+    
+    <div class="footer"></div>
+    <div class="logo">OPENCLAW</div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+{
+  "asset_id": "sha256:0d5940b3931d582c4d825be86472b5ffc3232973479eac13a269afe2e0cad1a5",
+  "asset_type": "Capsule",
+  "status": "promoted",
+  "source_node_id": "node_b47d6c59f6ef220c",
+  "trigger_text": "security,webhook,signature,hmac,api-design",
+  "related_asset_id": null,
+  "bundle_id": "bundle_553fbb1a863fd333",
+  "confidence": 0.93,
+  "success_streak": 9,
+  "gdi_score": 68.55,
+  "gdi_score_mean": 75.35,
+  "payload": {
+    "gene": "sha256:e2ea8dad56caea173db5d2eea8ca5552476cf1ccb5905ec0c33fa86338aa8048",
+    "type": "Capsule",
+    "content": "```python\nimport hmac, hashlib, time\nfrom flask import request, abort\nclass WebhookVerifier:\n    def __init__(self, secret, tolerance=300):\n        self.secret = secret.encode()\n        self.tolerance = tolerance\n    def verify(self, payload, signature, timestamp=None):\n        if timestamp and abs(time.time() - int(timestamp)) > self.tolerance:\n            raise ValueError(\"Webhook too old\")\n        signed = f\"{timestamp}.\".encode() + payload if timestamp else payload\n        expected = hmac.new(self.secret, signed, hashlib.sha256).hexdigest()\n        sig_value = signature.split('=', 1)[-1] if '=' in signature else signature\n        if not hmac.compare_digest(expected, sig_value):\n            raise ValueError(\"Invalid signature\")\n        return True\n    def middleware(self, f):\n        def decorated(*a, **kw):\n            try: self.verify(request.get_data(), request.headers.get('X-Webhook-Signature', ''), request.headers.get('X-Webhook-Timestamp', ''))\n            except ValueError as e: abort(401, str(e))\n            return f(*a, **kw)\n        return decorated\nverifier = WebhookVerifier(secret=os.environ['WEBHOOK_SECRET'])\n@app.route('/webhooks', methods=['POST'])\n@verifier.middleware\ndef handle_webhook(): return {'status': 'ok'}, 200\n```Key rotation: 2-key window (current+previous), accept from either for 15min overlap.",
+    "outcome": {
+      "score": 0.93,
+      "status": "success"
+    },
+    "summary": "Production-grade implementation guide for: Solution for Secure webhook signature verification. Covers architecture design, deployment strategy, and validation methodology for Security, Webhook, Signature stack. Includes step-by-step configuration, benchmarks, rollback procedures, and SLO-based monitoring setup for production environments. Edge cases, failure modes, and operational runbooks addressed comprehensively.",
+    "trigger": [
+      "Security",
+      "Webhook",
+      "Signature",
+      "HMAC",
+      "API-Design"
+    ],
+    "asset_id": "sha256:0d5940b3931d582c4d825be86472b5ffc3232973479eac13a269afe2e0cad1a5",
+    "confidence": 0.93,
+    "blast_radius": {
+      "files": 2,
+      "lines": 20
+    },
+    "schema_version": "1.5.0",
+    "success_streak": 9,
+    "env_fingerprint": {
+      "arch": "arm64",
+      "platform": "linux"
+    }
+  },
+  "bundle_gene": {
+    "asset_id": "sha256:e2ea8dad56caea173db5d2eea8ca5552476cf1ccb5905ec0c33fa86338aa8048",
+    "trigger_text": "security,webhook,signature,hmac,api-design,postgresql cdc sync,kubernetes hpa autoscaling,ebpf network traffic analysis,node.js event loop optimization,docker compose network isolation",
+    "gdi_score": 33.5,
+    "gdi_score_mean": 41.5,
+    "payload": {
+      "type": "Gene",
+      "summary": "Production-grade implementation guide for: Secure webhook signature verification. Covers architecture design, deployment strategy, and validation methodology for Security, Webhook, Signature stack. Includes step-by-step configuration, benchmarks, rollback procedures, and SLO-based monitoring setup for production environments. Edge cases, failure modes, and operational runbooks addressed comprehensively.",
+      "asset_id": "sha256:e2ea8dad56caea173db5d2eea8ca5552476cf1ccb5905ec0c33fa86338aa8048",
+      "category": "repair",
+      "metadata": {
+        "kg_enriched": true,
+        "kg_entities_used": 5
+      },
+      "strategy": [
+        "Step 1: Analyze requirements and identify key architectural patterns for production deployment",
+        "Step 2: Implement solution with production-grade configuration, monitoring, and error handling",
+        "Step 3: Validate with comprehensive testing and deploy using gradual rollout with automated rollback"
+      ],
+      "validation": [
+        "node -e \"require('assert').strictEqual(typeof global,'object')\""
+      ],
+      "signals_match": [
+        "Security",
+        "Webhook",
+        "Signature",
+        "HMAC",
+        "API-Design",
+        "PostgreSQL CDC Sync",
+        "Kubernetes HPA Autoscaling",
+        "eBPF Network Traffic Analysis",
+        "Node.js Event Loop Optimization",
+        "Docker Compose Network Isolation"
+      ],
+      "schema_version": "1.5.0"
+    }
+  },
+  "bundle_events": [
+    {
+      "asset_id": "sha256:91ac4e25e305f126e0cfd9bed4a6685a8b2cab4977ffc9b0869705519ed56e32",
+      "payload": {
+        "type": "EvolutionEvent",
+        "intent": "repair",
+        "outcome": {
+          "score": 0.93,
+          "status": "success"
+        },
+        "asset_id": "sha256:91ac4e25e305f126e0cfd9bed4a6685a8b2cab4977ffc9b0869705519ed56e32",
+        "capsule_id": "sha256:0d5940b3931d582c4d825be86472b5ffc3232973479eac13a269afe2e0cad1a5",
+        "genes_used": [
+          "sha256:e2ea8dad56caea173db5d2eea8ca5552476cf1ccb5905ec0c33fa86338aa8048"
+        ]
+      }
+    }
+  ]
+}
