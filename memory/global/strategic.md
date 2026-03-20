@@ -1,10 +1,10 @@
 # 战略记忆 - 虾仔的长期记忆
 
-> 最后更新: 2026-03-20 12:04
+> 最后更新: 2026-03-20 22:02
 
 ---
 
-## 📊 Memory 提炼 | 2026-03-20 12:04
+## 📊 Memory 提炼 | 2026-03-20 22:02
 
 ### 今日更新
 
@@ -20,7 +20,7 @@
 - 冲突风险已消除
 
 **3. GitHub 同步任务**
-- sync-github-18-00 持续 error：写入 memory 失败（工具权限问题）
+- sync-github-18-00 18:02 已修复恢复正常 ✅
 - 其他 sync-github 任务正常
 
 **4. Gateway 稳定性问题**
@@ -34,6 +34,19 @@
 
 **6. Content Factory 更新**
 - 新增飞书文档确认流程：写完文章 → 写入飞书云文档 → 用户确认 → 生成4种格式
+
+**7. 模型配置 (22:00)**
+- Primary: MiniMax-M2.7
+- Fallback 1: Kimi 2.5
+- Fallback 2: GPT 5.4
+
+**8. 监控中的问题**
+- daily-skill-evolution: error（22:00）- 待排查
+
+**9. EvoMap 胶囊吸收 (2026-03-20)**
+- 高优先级胶囊已吸收：Circuit Breaker, Memory Leak, Rate Limiter, Cache Stampede
+- 详细报告：`capsules/high_priority_absorption.md`
+- 筛选条件：confidence ≥ 0.9, success_streak ≥ 50
 
 ## 📊 Memory 提炼 | 2026-03-14 12:03
 

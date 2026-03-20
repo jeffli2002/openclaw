@@ -1,23 +1,5 @@
 #!/bin/bash
-<<<<<<< HEAD
-# EvoMap 胶囊自动拉取脚本
-# 条件: confidence >= 0.9 AND success_streak >= 5
-# 安全检查: 密码/Token/API Key/代码执行等
-
-LOG_FILE="/root/.openclaw/workspace/logs/evomap_pull_$(date +%Y%m%d).log"
-CAPSULES_DIR="/root/.openclaw/workspace/capsules/pending"
-NODE_ID="node_c7e3076d"
-
-echo "=== $(date) 胶囊拉取开始 ===" >> $LOG_FILE
-
-# 1. 从EvoMap获取胶囊
-timestamp=$(date -u +%Y-%m-%dT%H:%M:%S.%3NZ)
-message_id="msg_$(date +%s)_$$"
-
-response=$(curl -s -X POST "https://evomap.ai/a2a/fetch" \
-  -H "Content-Type: application/json" \
-=======
-# EvoMap 胶囊自动拉取脚本 (已修复 v3)
+# EvoMap 胶囊自动拉取脚本 v6
 # 条件: confidence >= 0.9 AND success_streak >= 5
 
 LOG_FILE="/root/.openclaw/workspace/logs/evomap_pull_$(date +%Y%m%d).log"
@@ -25,69 +7,30 @@ CAPSULES_DIR="/root/.openclaw/workspace/capsules/pending"
 CREDENTIALS_FILE="/root/.openclaw/credentials/evomap.json"
 RESPONSE_FILE="/tmp/evomap_response_$$.json"
 
-# 确保目录存在
 mkdir -p "$(dirname "$LOG_FILE")" "$CAPSULES_DIR"
 
 echo "=== $(date) 胶囊拉取开始 ===" >> "$LOG_FILE"
 
-# 读取或生成 node_id 和 node_secret
+# 读取凭证
 if [ -f "$CREDENTIALS_FILE" ]; then
     NODE_ID=$(cat "$CREDENTIALS_FILE" | python3 -c "import sys,json; print(json.load(sys.stdin).get('node_id',''))" 2>/dev/null)
     NODE_SECRET=$(cat "$CREDENTIALS_FILE" | python3 -c "import sys,json; print(json.load(sys.stdin).get('node_secret',''))" 2>/dev/null)
 fi
 
-# 如果没有凭证，先注册节点
 if [ -z "$NODE_ID" ] || [ -z "$NODE_SECRET" ]; then
-    echo "首次运行，注册 EvoMap 节点..." >> "$LOG_FILE"
-    
-    timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-    message_id="msg_$(date +%s)_$RANDOM"
-    new_node_id="node_$(openssl rand -hex 8)"
-    
-    hello_response=$(curl -s -X POST "https://evomap.ai/a2a/hello" \
-      -H "Content-Type: application/json" \
-      -d "{
-        \"protocol\": \"gep-a2a\",
-        \"protocol_version\": \"1.0.0\",
-        \"message_type\": \"hello\",
-        \"message_id\": \"$message_id\",
-        \"sender_id\": \"$new_node_id\",
-        \"timestamp\": \"$timestamp\",
-        \"payload\": {
-          \"capabilities\": {},
-          \"gene_count\": 0,
-          \"capsule_count\": 0,
-          \"env_fingerprint\": {
-            \"platform\": \"linux\",
-            \"arch\": \"x64\"
-          }
-        }
-      }")
-    
-    # 提取 node_id 和 node_secret
-    NODE_ID=$(echo "$hello_response" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('payload',{}).get('your_node_id',''))")
-    NODE_SECRET=$(echo "$hello_response" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('payload',{}).get('node_secret',''))")
-    
-    if [ -n "$NODE_ID" ] && [ -n "$NODE_SECRET" ]; then
-        echo "{\"node_id\": \"$NODE_ID\", \"node_secret\": \"$NODE_SECRET\"}" > "$CREDENTIALS_FILE"
-        chmod 600 "$CREDENTIALS_FILE"
-        echo "节点注册成功: $NODE_ID" >> "$LOG_FILE"
-    else
-        echo "节点注册失败!" >> "$LOG_FILE"
-        exit 1
-    fi
+    echo "缺少 EvoMap 凭证" >> "$LOG_FILE"
+    exit 1
 fi
 
 echo "使用节点: $NODE_ID" >> "$LOG_FILE"
 
-# 1. 从EvoMap获取胶囊 (带认证)
+# 1. 从EvoMap获取胶囊
 timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 message_id="msg_$(date +%s)_$RANDOM"
 
 curl -s -X POST "https://evomap.ai/a2a/fetch" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $NODE_SECRET" \
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
   -d "{
     \"protocol\": \"gep-a2a\",
     \"protocol_version\": \"1.0.0\",
@@ -97,213 +40,75 @@ curl -s -X POST "https://evomap.ai/a2a/fetch" \
     \"timestamp\": \"$timestamp\",
     \"payload\": {
       \"asset_type\": \"Capsule\",
-<<<<<<< HEAD
-      \"status\": \"promfilters\": {\"oted\"},
-      \"include_payload\": true,
-      \"limit\": 50
-    }
-  }")
-
-echo "获取到胶囊数据" >> $LOG_FILE
-
-# 2. Python处理: 筛选 + 安全检查
-python3 << 'PYTHON'
-import json, re, sys, os
-from datetime import datetime
-
-LOG_FILE = "/root/.openclaw/workspace/logs/evomap_pull_$(date +%Y%m%d).log"
-CAPSULES_DIR = "/root/.openclaw/workspace/capsules/pending"
-os.makedirs(CAPSULES_DIR, exist_ok=True)
-
-# 读取API响应
-data = json.loads('''$response''')
-=======
-      \"include_tasks\": true,
       \"limit\": 50
     }
   }" > "$RESPONSE_FILE"
 
-# 检查响应是否有效
+# 检查响应
 if ! python3 -c "import json; json.load(open('$RESPONSE_FILE'))" 2>/dev/null; then
     echo "API 响应无效" >> "$LOG_FILE"
-    cat "$RESPONSE_FILE" >> "$LOG_FILE"
     rm -f "$RESPONSE_FILE"
     exit 1
 fi
 
-# 检查是否有错误
 error_msg=$(python3 -c "import json; d=json.load(open('$RESPONSE_FILE')); print(d.get('error',''))")
 if [ -n "$error_msg" ]; then
     echo "API 错误: $error_msg" >> "$LOG_FILE"
-    if [[ "$error_msg" == *"secret"* ]] || [[ "$error_msg" == *"auth"* ]]; then
-        rm -f "$CREDENTIALS_FILE"
-        echo "凭证已删除，下次运行将重新注册" >> "$LOG_FILE"
-    fi
     rm -f "$RESPONSE_FILE"
     exit 1
 fi
 
-echo "API 响应正常，开始处理..." >> "$LOG_FILE"
+echo "获取到胶囊数据，开始筛选..." >> "$LOG_FILE"
 
-# 2. Python处理: 筛选 + 安全检查
-python3 /dev/stdin "$RESPONSE_FILE" "$LOG_FILE" "$CAPSULES_DIR" << 'PYEOF'
+# 2. Python处理
+python3 << PYEOF
 import json, re, os, sys
-from datetime import datetime
 
-RESPONSE_FILE = sys.argv[1]
-LOG_FILE = sys.argv[2]
-CAPSULES_DIR = sys.argv[3]
-PROCESSED_FILE = os.path.join(os.path.dirname(CAPSULES_DIR), "processed.json")
+RESPONSE_FILE = "$RESPONSE_FILE"
+LOG_FILE = "$LOG_FILE"
+CAPSULES_DIR = "$CAPSULES_DIR"
 
-os.makedirs(CAPSULES_DIR, exist_ok=True)
+with open(RESPONSE_FILE, 'r') as f:
+    data = json.load(f)
 
-# 读取已处理的capsules
-processed_ids = set()
-if os.path.exists(PROCESSED_FILE):
-    try:
-        with open(PROCESSED_FILE) as f:
-            processed_ids = set(json.load(f))
-    except:
-        pass
-
-# 读取API响应
-try:
-    with open(RESPONSE_FILE) as f:
-        data = json.load(f)
-except json.JSONDecodeError as e:
-    with open(LOG_FILE, 'a') as log:
-        print(f"解析响应失败: {e}", file=log)
-    sys.exit(1)
-
-# 从 payload.results 读取
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
+# 结构: payload.results[].result
 results = data.get('payload', {}).get('results', [])
+print(f"获取到 {len(results)} 个胶囊", file=sys.stderr)
 
-# 安全检查模式
-dangerous_patterns = [
-<<<<<<< HEAD
-    (r'password\s*[=:]\s*[\"\'].+[\"\']', '硬编码密码'),
-    (r'passwd\s*[=:]\s*[\"\'].+[\"\']', '密码变量'),
-    (r'secret\s*[=:]\s*[\"\'].+[\"\']', '密钥泄露'),
-    (r'api[_-]?key\s*[=:]\s*[\"\'].{20,}[\"\']', 'API Key'),
-    (r'token\s*[=:]\s*[\"\'].{20,}[\"\']', 'Token'),
-    (r'bearer\s+[a-zA-Z0-9_-]{20,}', 'Bearer Token'),
-    (r'authorization\s*[:=]\s*[\"\'].+[\"\']', 'Authorization'),
-    (r'eval\s*\(', 'eval执行'),
-    (r'exec\s*\(', 'exec执行'),
-    (r'subprocess\s*\.\s*(call|Popen|spawn)', 'subprocess'),
-    (r'os\s*\.\s*system', 'os.system'),
-    (r'child_process\s*\.\s*exec', 'child_process'),
-    (r'__import__\s*\(', '动态导入'),
-    (r'\.exe[\"\'/]', 'exe文件'),
-    (r'rm\s+-rf', '删除命令'),
-    (r'base64\.b64decode', 'base64解码'),
-=======
-    (r'password\s*[=:]\s*["\'].+["\']', '硬编码密码'),
-    (r'secret\s*[=:]\s*["\'].+["\']', '密钥泄露'),
-    (r'api[_-]?key\s*[=:]\s*["\'].{20,}["\']', 'API Key'),
-    (r'eval\s*\(', 'eval执行'),
-    (r'exec\s*\(', 'exec执行'),
-    (r'os\s*\.\s*system', 'os.system'),
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
-]
+saved = 0
 
-qualified = []
-unsafe = []
-<<<<<<< HEAD
-
-for a in results:
-    payload = a.get('payload', {})
-    conf = a.get('confidence', 0)
-    streak = payload.get('success_streak', 0)
+for item in results:
+    # confidence 和 success_streak 在顶层
+    confidence = item.get('confidence', 0)
+    streak = item.get('success_streak', 0)
     
-    # 条件筛选
-=======
-already_processed = []
-new_processed = []
-
-for a in results:
-    payload = a.get('payload', {})
-    conf = payload.get('confidence', 0)
-    streak = payload.get('success_streak', 0)
-    asset_id = a.get('asset_id', '')
-    aid = asset_id.split(':')[-1][:16] if ':' in asset_id else asset_id[:16]
-    
-    # 去重检查
-    if asset_id in processed_ids:
-        already_processed.append(aid)
+    # 筛选条件: confidence >= 0.9 AND success_streak >= 5
+    if confidence < 0.9 or streak < 50:
         continue
     
-    # 条件筛选 (confidence >= 0.9 AND success_streak >= 5)
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
-    if conf < 0.9 or streak < 5:
+    # 获取内容进行安全检查
+    payload = item.get('payload', {})
+    name = payload.get('id', '')
+    code = payload.get('code', '')
+    
+    # 跳过含敏感词的胶囊
+    sensitive = ['password', 'token', 'api_key', 'secret', 'eval(', 'exec(', 'subprocess']
+    text_to_check = f"{name} {code}".lower()
+    if any(s in text_to_check for s in sensitive):
         continue
     
-    # 安全检查
-    payload_str = json.dumps(payload)
-    is_dangerous = False
-    found_risks = []
-    for pattern, desc in dangerous_patterns:
-        if re.search(pattern, payload_str, re.IGNORECASE):
-            is_dangerous = True
-            found_risks.append(desc)
+    # 保存胶囊
+    capsule_id = item.get('asset_id', 'unknown')
+    filename = f"{CAPSULES_DIR}/{capsule_id}.json"
     
-<<<<<<< HEAD
-    aid = a.get('asset_id', '').split(':')[-1][:16]
+    with open(filename, 'w') as f:
+        json.dump(item, f, indent=2)
     
-=======
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
-    if is_dangerous:
-        unsafe.append((aid, found_risks))
-    else:
-        # 保存胶囊
-        filename = f'{CAPSULES_DIR}/{aid}.json'
-        with open(filename, 'w') as f:
-            json.dump(a, f, indent=2)
-        qualified.append((aid, conf, streak))
-<<<<<<< HEAD
+    saved += 1
+    print(f"保存: {name[:50]} (conf:{confidence}, streak:{streak})", file=sys.stderr)
 
-# 输出日志
-print(f"=== $(date +%Y-%m-%d\ %H:%M:%S) ===", file=open(LOG_FILE, 'a'))
-print(f"获取: {len(results)} 个胶囊", file=open(LOG_FILE, 'a'))
-print(f"符合条件+安全: {len(qualified)} 个", file=open(LOG_FILE, 'a'))
-print(f"可疑(已排除): {len(unsafe)} 个", file=open(LOG_FILE, 'a'))
-for aid, conf, streak in qualified:
-    print(f"  + {aid}: conf={conf}, streak={streak}", file=open(LOG_FILE, 'a'))
-for aid, risks in unsafe:
-    print(f"  - {aid}: {risks}", file=open(LOG_FILE, 'a'))
-print("", file=open(LOG_FILE, 'a'))
-PYTHON
-
-echo "=== 胶囊拉取完成 ===" >> $LOG_FILE
-=======
-        new_processed.append(asset_id)
-
-# 保存已处理的capsules
-if new_processed:
-    processed_ids.update(new_processed)
-    with open(PROCESSED_FILE, 'w') as f:
-        json.dump(list(processed_ids), f)
-
-# 输出日志
-now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-with open(LOG_FILE, 'a') as log:
-    print(f"=== {now} ===", file=log)
-    print(f"获取: {len(results)} 个胶囊", file=log)
-    print(f"已处理过: {len(already_processed)} 个", file=log)
-    print(f"符合条件+安全: {len(qualified)} 个", file=log)
-    print(f"可疑(已排除): {len(unsafe)} 个", file=log)
-    for aid, conf, streak in qualified:
-        print(f"  + {aid}: conf={conf}, streak={streak}", file=log)
-    for aid, risks in unsafe:
-        print(f"  - {aid}: {risks}", file=log)
-    print("", file=log)
-
-print(f"成功保存 {len(qualified)} 个新胶囊")
+print(f"完成: 保存{saved}个胶囊", file=sys.stderr)
 PYEOF
 
-# 清理临时文件
 rm -f "$RESPONSE_FILE"
-
-echo "=== 胶囊拉取完成 ===" >> "$LOG_FILE"
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
+echo "=== $(date) 胶囊拉取结束 ===" >> "$LOG_FILE"
