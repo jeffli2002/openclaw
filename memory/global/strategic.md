@@ -1,6 +1,26 @@
 # 战略记忆 - 虾仔的长期记忆
 
-> 最后更新: 2026-03-07 22:05
+> 最后更新: 2026-03-20 08:08
+
+---
+
+## 📊 Memory 提炼 | 2026-03-20 08:08
+
+### 今日更新
+
+**1. OpenClaw 核心配置 Git 版本控制**
+- 仓库地址：https://github.com/jeffli2002/openclaw
+- 核心文件：AGENTS.md, SOUL.md, USER.md, TOOLS.md, HEARTBEAT.md, MEMORY.md, IDENTITY.md
+- config/ 目录同步
+- .gitignore 已配置（排除 credentials, output, tmp 等敏感/临时文件）
+
+**2. GitHub 同步任务修复**
+- sync-github-18-00 持续 error：写入 memory 失败（工具权限问题）
+- 其他 sync-github 任务正常
+
+**3. Gateway 稳定性问题**
+- 今日多次断联（约每2小时一次）
+- 需持续观察
 
 ---
 
