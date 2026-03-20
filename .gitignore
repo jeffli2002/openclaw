@@ -1,8 +1,45 @@
+# 2ndbrain 专用
+memory/
+projects/
+reports/
+ai-daily/
+capsules/
+output/
+skills/
+config/
+scripts/
+
+# OpenClaw 系统
+.openclaw/
+.trash/
+.xiaohongshu_cookie.txt
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+
+# Python 缓存
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node 模块
 node_modules/
+
+# Chrome 配置
+chrome-profile/
+
+# 测试文件
+test_*.py
+test_*.js
+
+# 凭证
+xhs_auth.json
+xhs_cookie.txt
+credentials/
+
+# 其他
+qrcode.html
 .next/
-.git/
 dist/
-build/
-*.log
-.env
-.env.local
