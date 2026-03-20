@@ -457,6 +457,25 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 
 ---
 
+## 📦 Git 版本控制规范
+
+### 仓库分工
+
+| 仓库 | 用途 | 文件/目录 |
+|------|------|-----------|
+| `github.com/jeffli2002/openclaw` | OpenClaw 配置 | AGENTS.md, SOUL.md, USER.md, TOOLS.md, HEARTBEAT.md, MEMORY.md, IDENTITY.md, config/, skills/, scripts/ |
+| `github.com/jeffli2002/2ndbrain` | 业务数据 | memory/, projects/, reports/, ai-daily/, capsules/, output/ |
+
+### 禁止推送
+- `credentials/` - 敏感凭据
+- `xhs_*.json/png` - 小红书 cookies
+- `chrome-profile/` - 浏览器配置
+- `node_modules/` - 依赖
+- `tmp/` - 临时文件
+- `.openclaw/` - 系统内部
+
+---
+
 ## 🛠️ 代码执行准则
 
 ### 执行前：理解项目架构
