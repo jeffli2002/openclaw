@@ -1,14 +1,3 @@
-# 2ndbrain 专用
-memory/
-projects/
-reports/
-ai-daily/
-capsules/
-output/
-skills/
-config/
-scripts/
-
 # OpenClaw 系统
 .openclaw/
 .trash/
@@ -43,3 +32,11 @@ credentials/
 qrcode.html
 .next/
 dist/
+
+# 业务数据（推送到 2ndbrain）
+memory/
+projects/
+reports/
+ai-daily/
+capsules/
+output/
