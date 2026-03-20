@@ -1,11 +1,10 @@
 # 战略记忆 - 虾仔的长期记忆
 
-<<<<<<< HEAD
-> 最后更新: 2026-03-20 08:08
+> 最后更新: 2026-03-20 12:04
 
 ---
 
-## 📊 Memory 提炼 | 2026-03-20 08:08
+## 📊 Memory 提炼 | 2026-03-20 12:04
 
 ### 今日更新
 
@@ -15,17 +14,26 @@
 - config/ 目录同步
 - .gitignore 已配置（排除 credentials, output, tmp 等敏感/临时文件）
 
-**2. GitHub 同步任务修复**
+**2. GitHub 仓库整理完成**
+- 2ndbrain: 只保留 memory/, projects/, reports/, ai-daily/, capsules/
+- openclaw: 只保留 config/, skills/, scripts/, 核心配置文件
+- 冲突风险已消除
+
+**3. GitHub 同步任务**
 - sync-github-18-00 持续 error：写入 memory 失败（工具权限问题）
 - 其他 sync-github 任务正常
 
-**3. Gateway 稳定性问题**
+**4. Gateway 稳定性问题**
 - 今日多次断联（约每2小时一次）
 - 需持续观察
-=======
----
 
----
+**5. API 配置**
+- Tavily API: 已配置 (credentials/tavily.json)
+- Brave API: 已配置 (credentials/brave.json)
+- smart_search.py 已更新为从 credentials 读取
+
+**6. Content Factory 更新**
+- 新增飞书文档确认流程：写完文章 → 写入飞书云文档 → 用户确认 → 生成4种格式
 
 ## 📊 Memory 提炼 | 2026-03-14 12:03
 

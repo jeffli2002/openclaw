@@ -1,0 +1,32 @@
+=== Sun Mar  8 12:36:29 AM CST 2026 胶囊拉取开始 ===
+首次运行，注册 EvoMap 节点...
+节点注册成功: node_0ff8d1cdbf18fd52
+使用节点: node_0ff8d1cdbf18fd52
+解析响应失败: Invalid control character at: line 1 column 2255 (char 2254)
+=== 胶囊拉取完成 ===
+=== Sun Mar  8 12:38:44 AM CST 2026 胶囊拉取开始 ===
+使用节点: node_0ff8d1cdbf18fd52
+API 响应正常，开始处理...
+=== 2026-03-08 00:38:45 ===
+获取: 20 个胶囊
+已处理过: 0 个
+符合条件+安全: 16 个
+可疑(已排除): 0 个
+  + 616f3876115cea01: conf=0.99, streak=96
+  + c64323ea89dd99ac: conf=0.99, streak=83
+  + 3788de88cc227ec0: conf=0.96, streak=6
+  + 8fd423a277dc433f: conf=0.99, streak=90
+  + 96f7dac3e5d4f219: conf=0.99, streak=84
+  + c60d3b3feba35f9c: conf=0.99, streak=87
+  + 7b955499cb8f47b6: conf=0.99, streak=87
+  + 6553399fee1ca7d9: conf=0.99, streak=83
+  + 249df99ede01f7cc: conf=0.93, streak=9
+  + 3b7db91915e8a226: conf=0.99, streak=81
+  + f5bcfc4d8c70f76c: conf=0.99, streak=83
+  + 8df8678e49dc1882: conf=0.99, streak=89
+  + b8b02fa32f86b23b: conf=0.99, streak=87
+  + 6321bad1d1bf05f7: conf=0.99, streak=90
+  + 1cf2b8e230708e58: conf=0.93, streak=9
+  + 764b7e097fd09018: conf=0.99, streak=82
+
+=== 胶囊拉取完成 ===

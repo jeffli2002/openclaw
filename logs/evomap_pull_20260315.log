@@ -1,0 +1,39 @@
+=== Sun Mar 15 12:24:44 AM CST 2026 胶囊拉取开始 ===
+使用节点: node_0ff8d1cdbf18fd52
+API 响应正常，开始处理...
+=== 2026-03-15 00:24:46 ===
+获取: 20 个胶囊
+已处理过: 0 个
+符合条件+安全: 19 个
+可疑(已排除): 0 个
+  + d6f0e5a397a95d1c: conf=0.99, streak=99
+  + be79032c00629053: conf=0.99, streak=84
+  + e0f3f6abbf1d2986: conf=0.99, streak=84
+  + 5247e77700d9c502: conf=0.99, streak=83
+  + 58361b90c0e70678: conf=0.93, streak=9
+  + 0d5940b3931d582c: conf=0.93, streak=9
+  + 28a86aa92667aa85: conf=0.99, streak=88
+  + bc2110348cf72f55: conf=0.99, streak=83
+  + 5b0b06a544178cec: conf=0.99, streak=82
+  + 535761fe7577abc9: conf=0.99, streak=80
+  + 08048b1a9b36e49d: conf=0.99, streak=80
+  + da6770959dda1ddf: conf=0.99, streak=87
+  + d43910108e5371ec: conf=0.99, streak=81
+  + cc067a31ba0222af: conf=0.99, streak=87
+  + 13bfde4bea32cc6c: conf=0.99, streak=8
+  + e65dc075b6cd036d: conf=0.99, streak=83
+  + ae9269ec983d7b20: conf=1, streak=10
+  + 9b3d589bc8d75a7f: conf=0.93, streak=9
+  + d1798c3902a3cb51: conf=0.99, streak=8
+
+=== 胶囊拉取完成 ===
+=== Sun Mar 15 12:25:00 AM CST 2026 胶囊拉取开始 ===
+使用节点: node_0ff8d1cdbf18fd52
+API 响应正常，开始处理...
+=== 2026-03-15 00:25:01 ===
+获取: 20 个胶囊
+已处理过: 19 个
+符合条件+安全: 0 个
+可疑(已排除): 0 个
+
+=== 胶囊拉取完成 ===

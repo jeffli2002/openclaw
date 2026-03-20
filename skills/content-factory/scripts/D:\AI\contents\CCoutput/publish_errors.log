@@ -1,0 +1,60 @@
+2026-03-05 21:41:45,458 - INFO - Starting publication for: /root/.openclaw/workspace/memory/reports/article-for-wechat.html
+2026-03-05 21:41:45,953 - INFO - Access token obtained successfully
+2026-03-05 21:41:45,959 - INFO - Found 0 images in HTML
+2026-03-05 21:41:45,962 - INFO - Extracted and converted content from HTML: 提取视频字幕
+2026-03-05 21:41:45,962 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-05 21:41:48,523 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwc47UgbY4xkWDSTac2YMEsBWQfJNujcjBxO5tyQ6JZ7i
+2026-03-05 21:41:48,760 - WARNING - Preview submission: api unauthorized rid: 69a9881c-17585fcb-2902941d
+2026-03-05 21:41:48,760 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwc47UgbY4xkWDSTac2YMEsBWQfJNujcjBxO5tyQ6JZ7i
+2026-03-05 21:41:48,760 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-05 21:41:48,760 - INFO - https://mp.weixin.qq.com/
+2026-03-05 22:03:26,313 - INFO - Starting publication for: /root/.openclaw/workspace/memory/reports/article-for-wechat.html
+2026-03-05 22:03:26,805 - INFO - Access token obtained successfully
+2026-03-05 22:03:26,811 - INFO - Found 0 images in HTML
+2026-03-05 22:03:26,814 - INFO - Extracted and converted content from HTML: 没有浏览器，AI Agent 就是个摆设
+2026-03-05 22:03:26,814 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-05 22:03:29,411 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwQ82gFeKbsDSKVzcMO_3vKXjEOo5ONzDlECevXlnBveR
+2026-03-05 22:03:29,612 - WARNING - Preview submission: api unauthorized rid: 69a98d31-78e237da-2dfc9508
+2026-03-05 22:03:29,612 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwQ82gFeKbsDSKVzcMO_3vKXjEOo5ONzDlECevXlnBveR
+2026-03-05 22:03:29,612 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-05 22:03:29,612 - INFO - https://mp.weixin.qq.com/
+2026-03-05 22:08:26,293 - INFO - Starting publication for: /root/.openclaw/workspace/memory/reports/article-for-wechat.html
+2026-03-05 22:08:26,684 - INFO - Access token obtained successfully
+2026-03-05 22:08:26,695 - INFO - Found 0 images in HTML
+2026-03-05 22:08:26,702 - INFO - Extracted and converted content from HTML: 没有浏览器，AI Agent 就是个摆设
+2026-03-05 22:08:26,702 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-05 22:08:29,561 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwVFe3DuHeP8Gl8rcMKo7zBJ7IdNjnb-aOIWDA6boqBjp
+2026-03-05 22:08:29,768 - WARNING - Preview submission: api unauthorized rid: 69a98e5d-1110e9f6-666a7c83
+2026-03-05 22:08:29,768 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwVFe3DuHeP8Gl8rcMKo7zBJ7IdNjnb-aOIWDA6boqBjp
+2026-03-05 22:08:29,768 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-05 22:08:29,768 - INFO - https://mp.weixin.qq.com/
+2026-03-05 22:10:34,493 - INFO - Starting publication for: /root/.openclaw/workspace/memory/reports/article-for-wechat.html
+2026-03-05 22:10:34,902 - INFO - Access token obtained successfully
+2026-03-05 22:10:34,908 - INFO - Found 0 images in HTML
+2026-03-05 22:10:34,911 - INFO - Extracted and converted content from HTML: 没有浏览器，AI Agent 就是个摆设
+2026-03-05 22:10:34,911 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-05 22:10:37,512 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwf_z69mhFZsZZFrawkuN0ppcywdoCuDjonyiI3AveSRQ
+2026-03-05 22:10:37,711 - WARNING - Preview submission: api unauthorized rid: 69a98edd-55469b01-0fa258de
+2026-03-05 22:10:37,711 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwf_z69mhFZsZZFrawkuN0ppcywdoCuDjonyiI3AveSRQ
+2026-03-05 22:10:37,711 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-05 22:10:37,711 - INFO - https://mp.weixin.qq.com/
+2026-03-05 22:14:57,553 - INFO - Starting publication for: /root/.openclaw/workspace/memory/reports/article-for-wechat.html
+2026-03-05 22:14:58,023 - INFO - Access token obtained successfully
+2026-03-05 22:14:58,029 - INFO - Found 0 images in HTML
+2026-03-05 22:14:58,033 - INFO - Extracted and converted content from HTML: 没有浏览器，AI Agent 就是个摆设
+2026-03-05 22:14:58,033 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-05 22:15:00,725 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwcQirwadQImdyND92z04dm4pVXnYOS_93Tj0MToBqo8L
+2026-03-05 22:15:00,928 - WARNING - Preview submission: api unauthorized rid: 69a98fe4-766b1502-0d7f86b0
+2026-03-05 22:15:00,928 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwcQirwadQImdyND92z04dm4pVXnYOS_93Tj0MToBqo8L
+2026-03-05 22:15:00,928 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-05 22:15:00,928 - INFO - https://mp.weixin.qq.com/
+2026-03-05 22:18:22,855 - INFO - Starting publication for: /root/.openclaw/workspace/memory/reports/article-for-wechat.html
+2026-03-05 22:18:23,256 - INFO - Access token obtained successfully
+2026-03-05 22:18:23,262 - INFO - Found 0 images in HTML
+2026-03-05 22:18:23,265 - INFO - Extracted and converted content from HTML: 没有浏览器，AI Agent 就是个摆设
+2026-03-05 22:18:23,265 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-05 22:18:25,701 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwVm9eEsnQ5QJ8PdPehTnjSezNGzH_Mhd4UoxPBol75vL
+2026-03-05 22:18:25,903 - WARNING - Preview submission: api unauthorized rid: 69a990b1-53c186ab-6ceeb148
+2026-03-05 22:18:25,903 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwVm9eEsnQ5QJ8PdPehTnjSezNGzH_Mhd4UoxPBol75vL
+2026-03-05 22:18:25,903 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-05 22:18:25,903 - INFO - https://mp.weixin.qq.com/

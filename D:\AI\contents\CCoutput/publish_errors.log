@@ -1,0 +1,114 @@
+2026-03-05 19:05:18,324 - INFO - Starting publication for: /root/.openclaw/workspace/ai-contents/2026-03-05/2026-03-05-openclaw-3.2-caution-upgrade.html
+2026-03-05 19:05:18,775 - INFO - Access token obtained successfully
+2026-03-05 19:05:18,782 - INFO - Found 0 images in HTML
+2026-03-05 19:05:18,786 - INFO - Extracted and converted content from HTML: OpenClaw v2026.3.2 发布：实测踩坑汇总，升级前必看
+2026-03-05 19:05:18,786 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-05 19:05:21,452 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwa4AHlyXWQEdzJ4RdLOy60V0KdIm5p6qVTNgWzoAkubx
+2026-03-05 19:05:21,689 - WARNING - Preview submission: api unauthorized rid: 69a96371-6b020c90-75b83fed
+2026-03-05 19:05:21,689 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwa4AHlyXWQEdzJ4RdLOy60V0KdIm5p6qVTNgWzoAkubx
+2026-03-05 19:05:21,689 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-05 19:05:21,689 - INFO - https://mp.weixin.qq.com/
+2026-03-06 08:49:15,124 - INFO - Starting publication for: output/2026-03-06-gpt-5-4-openclaw-best-choice-v2.html
+2026-03-06 08:49:15,595 - INFO - Access token obtained successfully
+2026-03-06 08:49:15,599 - INFO - Found 0 images in HTML
+2026-03-06 08:49:15,602 - INFO - Extracted and converted content from HTML: GPT-5.4发布：目前最强AI模型，OpenClaw才是最佳选择
+2026-03-06 08:49:15,602 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-06 08:49:18,014 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwabM_OfaaaKn5QtHJ0lBoyiTIn0OTCUoSQ1qEyhUQgqS
+2026-03-06 08:49:18,231 - WARNING - Preview submission: api unauthorized rid: 69aa248e-4f053f00-0cce2310
+2026-03-06 08:49:18,231 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwabM_OfaaaKn5QtHJ0lBoyiTIn0OTCUoSQ1qEyhUQgqS
+2026-03-06 08:49:18,231 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-06 08:49:18,231 - INFO - https://mp.weixin.qq.com/
+2026-03-07 23:34:24,853 - INFO - Starting publication for: /root/.openclaw/workspace/temp/2026-03-07-openclaw-march-update.html
+2026-03-07 23:34:25,339 - INFO - Access token obtained successfully
+2026-03-07 23:34:25,343 - INFO - Found 0 images in HTML
+2026-03-07 23:34:25,346 - INFO - Extracted and converted content from HTML: 一个人AI公司必备：OpenClaw3月更新带来了什么
+2026-03-07 23:34:25,346 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-07 23:34:27,995 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwfdKwqpZC-wlE-MEgSrR9EnqZtK0s-zaHy7OUZIfWwOA
+2026-03-07 23:34:28,198 - WARNING - Preview submission: api unauthorized rid: 69ac4584-6ff8e643-2b17deeb
+2026-03-07 23:34:28,199 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwfdKwqpZC-wlE-MEgSrR9EnqZtK0s-zaHy7OUZIfWwOA
+2026-03-07 23:34:28,199 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-07 23:34:28,199 - INFO - https://mp.weixin.qq.com/
+2026-03-10 10:37:29,490 - INFO - Starting publication for: /root/.openclaw/workspace/outputs/content-factory/2026-03-10-giants-rush-ai-agent-entry-war.html
+2026-03-10 10:37:30,005 - INFO - Access token obtained successfully
+2026-03-10 10:37:30,010 - WARNING - Title truncated to 64 characters
+2026-03-10 10:37:30,011 - INFO - Found 0 images in HTML
+2026-03-10 10:37:30,014 - INFO - Extracted and converted content from HTML: 腾讯 QClaw、WorkBuddy，阿里 CoPaw，字节 ArkClaw：大厂集体“养龙虾”，中小创业者最危险的不是卷模型，
+2026-03-10 10:37:30,014 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-10 10:37:32,881 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwZQjHLuvmNSnYQIs8KZxrQL3o2k9meg_ecPViIFzhur1
+2026-03-10 10:37:33,087 - WARNING - Preview submission: api unauthorized rid: 69af83ec-0568a92e-697ab451
+2026-03-10 10:37:33,087 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwZQjHLuvmNSnYQIs8KZxrQL3o2k9meg_ecPViIFzhur1
+2026-03-10 10:37:33,087 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-10 10:37:33,087 - INFO - https://mp.weixin.qq.com/
+2026-03-10 10:44:30,576 - INFO - Starting publication for: /root/.openclaw/workspace/outputs/content-factory/2026-03-10-giants-rush-ai-agent-entry-war.html
+2026-03-10 10:44:31,007 - INFO - Access token obtained successfully
+2026-03-10 10:44:31,015 - WARNING - Title truncated to 64 characters
+2026-03-10 10:44:31,016 - INFO - Found 0 images in HTML
+2026-03-10 10:44:31,021 - INFO - Extracted and converted content from HTML: 腾讯 QClaw、WorkBuddy，阿里 CoPaw，字节 ArkClaw：大厂集体"养龙虾"，中小创业者最危险的不是卷模型，
+2026-03-10 10:44:31,022 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-10 10:44:33,407 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwdmYXGzSjr5cuab59Dcqhg5ver4oKEXE_zNaECNK5HDD
+2026-03-10 10:44:33,619 - WARNING - Preview submission: api unauthorized rid: 69af8591-729cd936-46fc4737
+2026-03-10 10:44:33,619 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwdmYXGzSjr5cuab59Dcqhg5ver4oKEXE_zNaECNK5HDD
+2026-03-10 10:44:33,619 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-10 10:44:33,619 - INFO - https://mp.weixin.qq.com/
+2026-03-10 11:08:00,247 - INFO - Starting publication for: /root/.openclaw/workspace/outputs/content-factory/2026-03-10-giants-rush-ai-agent-entry-war.html
+2026-03-10 11:08:00,761 - INFO - Access token obtained successfully
+2026-03-10 11:08:00,777 - WARNING - Title truncated to 64 characters
+2026-03-10 11:08:00,779 - INFO - Found 0 images in HTML
+2026-03-10 11:08:00,791 - INFO - Extracted and converted content from HTML: 腾讯 QClaw、WorkBuddy，阿里 CoPaw，字节 ArkClaw：大厂集体"养龙虾"，中小创业者最危险的不是卷模型，
+2026-03-10 11:08:00,791 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-10 11:08:03,418 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwcb0mwEaFjXLq3a-vvymPBfDGRsv5zmKpI0XWRUKoss0
+2026-03-10 11:08:03,637 - WARNING - Preview submission: api unauthorized rid: 69af8b13-40bc74c3-4f66262e
+2026-03-10 11:08:03,637 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwcb0mwEaFjXLq3a-vvymPBfDGRsv5zmKpI0XWRUKoss0
+2026-03-10 11:08:03,637 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-10 11:08:03,637 - INFO - https://mp.weixin.qq.com/
+2026-03-10 11:13:39,450 - INFO - Starting publication for: /root/.openclaw/workspace/outputs/content-factory/2026-03-10-giants-rush-ai-agent-entry-war.html
+2026-03-10 11:13:39,878 - INFO - Access token obtained successfully
+2026-03-10 11:13:39,886 - INFO - Found 0 images in HTML
+2026-03-10 11:13:39,892 - INFO - Extracted and converted content from HTML: Untitled Article
+2026-03-10 11:13:39,892 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-10 11:13:42,316 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwcQeTASYrVstuOKGLc9Vy-eEsGAsfhVp_XtMRQ7Qu5P8
+2026-03-10 11:13:42,503 - WARNING - Preview submission: api unauthorized rid: 69af8c66-5528fb26-2be28f72
+2026-03-10 11:13:42,503 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwcQeTASYrVstuOKGLc9Vy-eEsGAsfhVp_XtMRQ7Qu5P8
+2026-03-10 11:13:42,503 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-10 11:13:42,503 - INFO - https://mp.weixin.qq.com/
+2026-03-10 11:17:41,250 - INFO - Starting publication for: /root/.openclaw/workspace/outputs/content-factory/2026-03-10-giants-rush-ai-agent-entry-war.html
+2026-03-10 11:17:41,602 - INFO - Access token obtained successfully
+2026-03-10 11:17:41,610 - INFO - Found 0 images in HTML
+2026-03-10 11:17:41,615 - INFO - Extracted and converted content from HTML: Untitled Article
+2026-03-10 11:17:41,616 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-10 11:17:44,005 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwWroU63aVJHx8pRppFnQOsRpdlZM4P8GWH8DC1ItT9Mg
+2026-03-10 11:17:44,217 - WARNING - Preview submission: api unauthorized rid: 69af8d58-5e15fe8e-42ca3ec9
+2026-03-10 11:17:44,218 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwWroU63aVJHx8pRppFnQOsRpdlZM4P8GWH8DC1ItT9Mg
+2026-03-10 11:17:44,218 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-10 11:17:44,218 - INFO - https://mp.weixin.qq.com/
+2026-03-10 11:21:30,345 - INFO - Starting publication for: /root/.openclaw/workspace/outputs/content-factory/2026-03-10-giants-rush-ai-agent-entry-war.html
+2026-03-10 11:21:30,850 - INFO - Access token obtained successfully
+2026-03-10 11:21:30,859 - INFO - Found 0 images in HTML
+2026-03-10 11:21:30,864 - INFO - Extracted and converted content from HTML: Untitled Article
+2026-03-10 11:21:30,865 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-10 11:21:33,420 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwa4Y3X6Pm1NxPZSs95W-eGbkZswNvpwf3gIhOkNOYVeV
+2026-03-10 11:21:33,634 - WARNING - Preview submission: api unauthorized rid: 69af8e3d-3e6b01b5-7a107993
+2026-03-10 11:21:33,634 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwa4Y3X6Pm1NxPZSs95W-eGbkZswNvpwf3gIhOkNOYVeV
+2026-03-10 11:21:33,634 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-10 11:21:33,634 - INFO - https://mp.weixin.qq.com/
+2026-03-10 11:39:30,609 - INFO - Starting publication for: /root/.openclaw/workspace/outputs/content-factory/2026-03-10-giants-rush-ai-agent-entry-war.html
+2026-03-10 11:39:31,117 - INFO - Access token obtained successfully
+2026-03-10 11:39:31,124 - WARNING - Title truncated to 64 characters
+2026-03-10 11:39:31,125 - INFO - Found 0 images in HTML
+2026-03-10 11:39:31,130 - INFO - Extracted and converted content from HTML: 腾讯 QClaw、WorkBuddy，阿里 CoPaw，字节 ArkClaw：大厂集体"养龙虾"，中小创业者最危险的不是卷模型，
+2026-03-10 11:39:31,130 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-10 11:39:33,812 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwYkWll82IE9BsPB8TvxF03aAgf_Dgo_8m7HWo_SsiBfe
+2026-03-10 11:39:33,985 - WARNING - Preview submission: api unauthorized rid: 69af9275-3f6ad372-05e0b86d
+2026-03-10 11:39:33,985 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwYkWll82IE9BsPB8TvxF03aAgf_Dgo_8m7HWo_SsiBfe
+2026-03-10 11:39:33,985 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-10 11:39:33,985 - INFO - https://mp.weixin.qq.com/
+2026-03-10 15:21:10,861 - INFO - Starting publication for: /root/.openclaw/workspace/outputs/content-factory/2026-03-10-openclaw-china-claw-products-comparison.html
+2026-03-10 15:21:11,381 - INFO - Access token obtained successfully
+2026-03-10 15:21:11,393 - INFO - Found 0 images in HTML
+2026-03-10 15:21:11,399 - INFO - Extracted and converted content from HTML: 深度对比中国7大Claw产品横评：谁才是真正的"效率之王"？
+2026-03-10 15:21:11,400 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-10 15:21:13,939 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwYSC7LudL7JO5nDRo2im4AqonpMVVhDaZc3Mj2G3BVwY
+2026-03-10 15:21:14,157 - WARNING - Preview submission: api unauthorized rid: 69afc66a-133d7251-3581cd46
+2026-03-10 15:21:14,157 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwYSC7LudL7JO5nDRo2im4AqonpMVVhDaZc3Mj2G3BVwY
+2026-03-10 15:21:14,157 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-10 15:21:14,157 - INFO - https://mp.weixin.qq.com/
