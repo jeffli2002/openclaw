@@ -178,3 +178,11 @@ description: 生成Chief Agent每日汇报，包含各Agent工作汇总、核心
 - [ ] 建议是否有预期收益量化？
 - [ ] 明日规划是否标明优先级？
 - [ ] 本周规划是否与项目整体目标关联？
+
+---
+
+## 归档路径
+
+生成的 Chief 每日汇报统一归档到：`/root/.openclaw/workspace/reports/chief-daily-report-YYYY-MM-DD.md`
+
+> 详细规范见：`/root/.openclaw/workspace/REPORT_ARCHIVE_CONVENTION.md`

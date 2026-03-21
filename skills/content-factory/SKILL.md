@@ -530,14 +530,14 @@ After completing the MD draft, perform a structured quality review and scoring:
    notebooklm artifact wait <artifact_id> --timeout 900
 
    # Download to output directory
-   notebooklm download infographic "D:\AI\contents\CCoutput\YYYY-MM-DD-[slug]-[data-name].png"
+   notebooklm download infographic "YYYY-MM-DD-[slug]-[data-name].png"
    ```
 
 5. **CRITICAL: Compress image for WeChat upload:**
    ```bash
    # NotebookLM generates large PNG files (5-10MB) that timeout during WeChat upload
    # ALWAYS compress to JPEG before publishing
-   python scripts/compress_image.py "D:\AI\contents\CCoutput\YYYY-MM-DD-[slug]-[data-name].png"
+   python scripts/compress_image.py "YYYY-MM-DD-[slug]-[data-name].png"
 
    # This creates: YYYY-MM-DD-[slug]-[data-name]-compressed.jpg (typically < 1MB)
    # Compression: PNG 5.93MB → JPEG 0.68MB (88% reduction, quality=85)
@@ -605,13 +605,13 @@ After completing the MD draft, perform a structured quality review and scoring:
 **MANDATORY: Always generate ALL FOUR formats**
 
 **Format 1: Markdown (.md) - 完整专业版**
-- Save to `D:\AI\contents\CCoutput\YYYY-MM-DD-[article-title-slug].md`
+- Save to `/root/.openclaw/workspace/output/YYYY-MM-DD-[article-title-slug].md`
 - Clean markdown with proper heading hierarchy
 - **DO NOT include metadata/frontmatter** - Start directly with `# Article Title`
 - No YAML header, no version info, no date header
 
 **Format 2: HTML (.html) - 完整专业版**
-- Save to `D:\AI\contents\CCoutput\YYYY-MM-DD-[article-title-slug].html`
+- Save to `/root/.openclaw/workspace/output/YYYY-MM-DD-[article-title-slug].html`
 - **⚠️ INFOGRAPHIC GENERATION REQUIRED**: If article contains core data (market trends, statistics, comparisons), use Phase 4 workflow to generate infographics via notebooklm-api skill BEFORE finalizing HTML
 - Use the enhanced HTML structure and styling:
   - **Color scheme**: Blue-based theme (#1a5490, #2980b9, #3498db) - UNIFIED COLOR SYSTEM
@@ -730,7 +730,7 @@ li { margin: 2px 0; line-height: 1.4; }
   - Use `<p class="image-source">` with clickable attribution links
 
 **Format 3: Markdown (.md) - 小红书版 (Xiaohongshu Style)**
-- Save to `D:\AI\contents\CCoutput\YYYY-MM-DD-[article-title-slug]-小红书.md`
+- Save to `/root/.openclaw/workspace/output/YYYY-MM-DD-[article-title-slug]-小红书.md`
 - **🚨 STRICT CHARACTER COUNT (CRITICAL)**:
   - Target: **800-1000 characters** (Chinese chars + English words)
   - **MUST use Python script to verify before sending to user**
@@ -779,7 +779,7 @@ li { margin: 2px 0; line-height: 1.4; }
   ```
 
 **Format 4: Text (.txt) - X/Twitter 英文长推文版 (X Pro)**
-- Save to `D:\AI\contents\CCoutput\YYYY-MM-DD-[article-title-slug]-tweet.txt`
+- Save to `/root/.openclaw/workspace/output/YYYY-MM-DD-[article-title-slug]-tweet.txt`
 - **English language only** - Professional, data-driven long-form tweet
 - **Maximum length: 1000 characters** (optimized for readability and engagement)
 - **MUST include 2-3 complete cases with specific metrics** from the article
@@ -816,7 +816,7 @@ li { margin: 2px 0; line-height: 1.4; }
 
 **Output Directory Structure:**
 ```
-D:\AI\contents\CCoutput\
+
 ├── 2026-01-14-[article-title-slug].md
 ├── 2026-01-14-[article-title-slug].html
 ├── 2026-01-14-[article-title-slug]-小红书.md
@@ -844,7 +844,7 @@ Create the output directory if it doesn't exist.
    python scripts/generate_cover_photo.py \
      --title "[article title]" \
      --theme "[article theme]" \
-     --output "D:\AI\contents\CCoutput\YYYY-MM-DD-[article-slug]-cover.png"
+     --output "/root/.openclaw/workspace/output/YYYY-MM-DD-[article-slug]-cover.png"
    ```
 
 3. **Image will be automatically generated at 21:9 ratio (900x386 pixels)**
@@ -852,10 +852,10 @@ Create the output directory if it doesn't exist.
 4. **Compress if needed:**
    ```bash
    # Check file size
-   ls -lh "D:\AI\contents\CCoutput\YYYY-MM-DD-[article-slug]-cover.png"
+   ls -lh "YYYY-MM-DD-[article-slug]-cover.png"
 
    # If > 1MB, compress to JPEG
-   python scripts/compress_image.py "D:\AI\contents\CCoutput\YYYY-MM-DD-[article-slug]-cover.png"
+   python scripts/compress_image.py "YYYY-MM-DD-[article-slug]-cover.png"
    # Creates: YYYY-MM-DD-[article-slug]-cover-compressed.jpg
    ```
 
@@ -999,7 +999,7 @@ Create the output directory if it doesn't exist.
 **Publishing Script Usage (CRITICAL - Windows UTF-8 Mode):**
 ```bash
 # ALWAYS use -X utf8 flag on Windows to prevent encoding errors
-python -X utf8 scripts/wechat_publish.py --html "D:\AI\contents\CCoutput\YYYY-MM-DD-[article-title-slug].html"
+python -X utf8 scripts/wechat_publish.py --html "/root/.openclaw/workspace/output/YYYY-MM-DD-[article-title-slug].html"
 
 # WITHOUT -X utf8, Chinese characters will show as \uXXXX escape sequences
 # This is a Windows-specific issue due to GBK default encoding
@@ -1026,7 +1026,7 @@ python -X utf8 scripts/wechat_publish.py --html "D:\AI\contents\CCoutput\YYYY-MM
 
 **Error Handling:**
 - If API call fails, save HTML locally and notify user
-- Log error details to `D:\AI\contents\CCoutput\publish_errors.log`
+- Log error details to `publish_errors.log`
 - Provide manual publishing instructions
 
 **Security Notes:**
@@ -1179,7 +1179,7 @@ Continue      → Try WebFetch    → Retry scripts
 **Correct approach:**
 ```bash
 # ALWAYS use Python UTF-8 mode on Windows for WeChat publishing
-python -X utf8 scripts/wechat_publish.py --html "path/to/article.html"
+python -X utf8 scripts/wechat_publish.py --html "/root/.openclaw/workspace/output/article.html"
 
 # NOT just PYTHONIOENCODING (insufficient):
 # PYTHONIOENCODING=utf-8 python scripts/wechat_publish.py  # ❌ Only fixes I/O
@@ -1250,7 +1250,7 @@ print(f'Original: {original_mb:.2f}MB → Compressed: {compressed_mb:.2f}MB')
 # With:    <img src="output-compressed.jpg" ...>
 
 # Step 4: Publish with compressed image
-python -X utf8 scripts/wechat_publish.py --html "article.html"
+python -X utf8 scripts/wechat_publish.py --html "/root/.openclaw/workspace/output/article.html"
 ```
 
 **Compression results:**
@@ -1424,7 +1424,7 @@ All API keys and credentials are stored in `.env` file for security and easy man
 - `assets/wechat_outline_template.md` - Outline template (optional)
 
 **Output Directory:**
-- `D:\AI\contents\CCoutput\` - Target directory for generated MD, HTML, Xiaohongshu, Tweet files, and cover photos
+- `/root/.openclaw/workspace/output/` - Target directory for generated MD, HTML, Xiaohongshu, Tweet files, and cover photos
 
 ---
 

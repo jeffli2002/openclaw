@@ -53,3 +53,33 @@ output/
 - beautifulsoup4
 - httpx
 - aiohttp
+
+---
+
+## 外部依赖与 Fallback
+
+### 依赖层级
+
+| 依赖 | 类型 | Fallback 策略 |
+|------|------|--------------|
+| Camoufox 浏览器 | Chrome/Firefox 自动化 | `--no-headless` 手动处理验证码 |
+| WeChat 文章页面 | 网络请求 | 3× 指数退避重试 |
+| 图片下载 | HTTP 异步 | 3× 线性退避重试，失败保留远程 URL |
+| 验证码页面 | 反爬检测 | 抛出 `CaptchaError`，提示用户手动处理 |
+
+### 错误类型
+
+| 错误 | 含义 | 处理方式 |
+|------|------|---------|
+| `CaptchaError` | 微信验证页面 | 用 `--no-headless` 手动解决 |
+| `NetworkError` | 重试耗尽仍失败 | 检查网络，稍后重试 |
+| `ParseError` | HTML 结构解析失败 | 可能是微信改版，报 issue |
+
+### 推荐重试间隔
+
+```python
+# 指数退避：1s → 2s → 4s
+# 线性退避（图片）：1s → 2s → 3s
+```
+
+如需更高级的重试策略，可参考 `/root/.openclaw/workspace/skills/content-factory/scripts/fallback_wrapper.py` 中的 `CircuitBreaker` 模式。

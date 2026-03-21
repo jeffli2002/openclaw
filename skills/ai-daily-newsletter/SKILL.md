@@ -2,16 +2,12 @@
 
 生成AI行业日报，精选24小时内重大新闻。
 
+> **口径说明**：本技能专注于 AI 行业动态（模型发布、公司融资、产品发布、技术突破）。
+> OpenClaw 产品本身的版本更新、GitHub issues、社区动态由 `openclaw-news-monitor` 技能单独监控。
+> 两者泾渭分明，不得混用。
+
 ## 信息源
 
-<<<<<<< HEAD
-### 主要搜索源
-- web_search + freshness=pd: "OpenAI Anthropic Google AI 2026"
-- web_search + freshness=pd: "中国 AI DeepSeek 字节跳动 2026"
-- web_search + freshness=pd: "AI funding startup 2026"
-
-### 关键词（必搜）
-=======
 ### 搜索策略：广义搜索 + 趋势发现
 
 **核心原则**：
@@ -23,7 +19,7 @@
 
 **第一层：AI行业趋势**
 - `web_search`: "AI 2026 最新消息"
-- `web_search`: "大模型 发布 2026"  
+- `web_search`: "大模型 发布 2026"
 - `web_search`: "开源 AI 模型 GitHub 2026"
 
 **第二层：国外巨头**
@@ -46,30 +42,18 @@
 ### 关键词（辅助验证）
 
 当搜到相关新闻后，用以下关键词验证是否有遗漏：
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
-- OpenClaw
+
 - Anthropic
 - Gemini
 - DeepSeek
 - Qwen
 - Seedance
 - Seedream
-<<<<<<< HEAD
-- MiniMax
-=======
 - MiniMax / 迷你Max
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
 - ChatGPT
 - Claude
 - 豆包
 - 元宝
-<<<<<<< HEAD
-
-### RSS订阅源（推荐）
-**第一层（必读 - 每天）**
-- 量子位
-- TechCrunch AI
-=======
 - 小米 / mIMO / 米家
 - OpenRouter
 - HuggingFace
@@ -83,7 +67,6 @@
 **第一层（必读 - 每天）**
 - 量子位 - 国内AI news
 - TechCrunch AI - 海外AI
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
 - Anthropic Blog
 - Simon Willison
 
@@ -96,32 +79,13 @@
 **第三层（按需）**
 - Arxiv CS.AI
 - 机器之心
-<<<<<<< HEAD
-
-### RSS工具推荐
-- Feedly (feedly.com) - AI摘要过滤
-- Follow (follow.is) - 自动发现RSS，支持AI摘要
-- Inoreader - 关键词过滤规则
-=======
 - GitHub Trending (ai|llm|agent|machine-learning)
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
 
 ## 执行步骤
 
 ### 第一步：天气
 使用 weather 工具获取北京今日天气。
 
-<<<<<<< HEAD
-### 第二步：搜索新闻
-使用 web_search + freshness=pd 搜索：
-- "OpenAI Anthropic Google AI 2026" + freshness=pd
-- "DeepSeek Qwen MiniMax 字节跳动" + freshness=pd
-- "AI funding startup 2026" + freshness=pd
-- "OpenClaw Claude Gemini ChatGPT" + freshness=pd
-- "豆包 元宝 Seedream Seedance" + freshness=pd
-
-### 第三步：验证时效
-=======
 ### 第二步：广义搜索（核心）
 按顺序执行以下搜索：
 
@@ -140,16 +104,11 @@
 - 用关键词列表二次检查是否有遗漏
 
 ### 第四步：验证时效
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
 - 检查每条新闻的发布时间
 - 只选择过去24小时内的
 - 超过时间的直接跳过
 
-<<<<<<< HEAD
-### 第四步：输出格式
-=======
 ### 第五步：输出格式
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
 ```
 🌤️ 北京今日天气：[天气]
 
@@ -184,12 +143,9 @@
 3. **时效要求**：严格24小时内，超过一律不报
 4. **虾仔观点**：最后必须加3-5句话核心洞察
 5. **不显示完整URL**：只用超链接格式
-<<<<<<< HEAD
-=======
 6. **飞书最终投递必须是完整版正文**：最终发给老板的飞书消息，必须包含当天所有入选新闻的完整正文分组，不得只发送"3条重磅/核心摘要"替代全文。
 7. **摘要只能做导语，不能替代正文**：如需在开头加 1-2 句总览可以，但后面仍必须完整展开全部条目。
 8. **归档与发送保持一致**：本地 Markdown、飞书云文档、飞书最终消息三者应保持同一批入选新闻，不能出现"归档完整版、飞书只发摘要"的缩水投递。
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
 
 ## 发送
 
@@ -202,7 +158,9 @@
 - 不确定的信息标注「待确认」
 - 绝对不编造新闻
 - 优先选择有原文链接的新闻
-<<<<<<< HEAD
-=======
 - **搜索策略是广义的不是狭义的**：每次要搜趋势、搜热点，而不是只盯几个关键词
->>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
+- **OpenClaw 产品动态不在本技能范围内**：如有需要，请使用 `openclaw-news-monitor` 技能
+
+## 归档路径
+
+生成的 AI 日报统一归档到：`/root/.openclaw/workspace/reports/ai-daily-YYYY-MM-DD.md`
