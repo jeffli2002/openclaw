@@ -130,7 +130,7 @@ ls scripts/yt_dlp_captions.py
 ```
 
 **If scripts missing:**
-- Check skill base directory: `C:\Users\jeffl\.claude\skills\content-factory\scripts\`
+- Check skill base directory: `~/.claude/skills\content-factory\scripts\`
 - Inform user if files are missing
 - DO NOT proceed without verifying script availability
 
@@ -1376,7 +1376,7 @@ All API keys and credentials are stored in `.env` file for security and easy man
 
 1. **Copy the example file**:
    ```bash
-   cd C:\Users\jeffl\.claude\skills\content-factory
+   cd ~/.claude/skills\content-factory
    copy .env.example .env
    ```
 

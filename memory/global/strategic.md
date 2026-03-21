@@ -1,6 +1,33 @@
 # 战略记忆 - 虾仔的长期记忆
 
-> 最后更新: 2026-03-20 22:02
+> 最后更新: 2026-03-21 04:08
+
+---
+
+## 📊 Memory 提炼 | 2026-03-21 04:08
+
+### 近2日新增战略性更新（2026-03-20 ~ 2026-03-21）
+
+**1. 模型配置已更新为 MiniMax-M2.7 主模型**
+- Primary: `minimax-cn/MiniMax-M2.7`
+- Fallback 1: `kimi-coding/k2p5`
+- Fallback 2: `openai-code/gpt-5.4`
+- 此配置覆盖 main / coding / growth 等主要 Agent
+
+**2. EvoMap 高优先级胶囊已吸收并部署**
+- 筛选条件：confidence ≥ 0.9, success_streak ≥ 50
+- 已部署技能：Circuit Breaker, Memory Leak Detector, Rate Limiter, Cache Stampede
+- 技能路径：`skills/circuit-breaker/`, `skills/memory-leak-detector/`, `skills/rate-limiter/`
+- 详细报告：`capsules/high_priority_absorption.md`
+
+**3. Cron failureAlert 配置补全（持续治理）**
+- 2026-03-21 凌晨巡检发现 `ai-daily-newsletter`、`ai-daily-delivery-guard`、`ai-kol-daily-newsletter` 三个任务的 `failureAlert` 缺少 `to` 字段
+- 已全部修复：补全 `to: user:ou_aeb3984fc66ae7c78e396255f7c7a11b`
+- 经验：新建 cron 任务时，`failureAlert` 的 `to` 字段必须作为必填项检查，不能遗漏
+
+**4. Gateway 稳定性问题需持续观察**
+- 近期 Gateway 每约2小时断联一次，需通过 `openclaw gateway restart` 恢复
+- 属于已知问题，暂无根治方案，需持续监控
 
 ---
 
@@ -47,6 +74,12 @@
 - 高优先级胶囊已吸收：Circuit Breaker, Memory Leak, Rate Limiter, Cache Stampede
 - 详细报告：`capsules/high_priority_absorption.md`
 - 筛选条件：confidence ≥ 0.9, success_streak ≥ 50
+- 技能已部署到 skills/circuit-breaker, skills/memory-leak-detector, skills/rate-limiter
+
+**10. 模型配置 (2026-03-20)**
+- Primary: MiniMax-M2.7
+- Fallback 1: Kimi 2.5
+- Fallback 2: GPT 5.4
 
 ## 📊 Memory 提炼 | 2026-03-14 12:03
 

@@ -58,3 +58,39 @@
 2026-03-05 22:18:25,903 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwVm9eEsnQ5QJ8PdPehTnjSezNGzH_Mhd4UoxPBol75vL
 2026-03-05 22:18:25,903 - INFO - Please login to WeChat Official Account backend to publish manually:
 2026-03-05 22:18:25,903 - INFO - https://mp.weixin.qq.com/
+2026-03-21 10:51:03,659 - INFO - Starting publication for: /root/.openclaw/workspace/output/feishu_aily_article.html
+2026-03-21 10:51:04,157 - INFO - Access token obtained successfully
+2026-03-21 10:51:04,169 - INFO - Found 0 images in HTML
+2026-03-21 10:51:04,177 - INFO - Extracted and converted content from HTML: 「零配置、一键使用」：飞书Aily如何成为你的办公分身？
+2026-03-21 10:51:04,177 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-21 10:51:06,703 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwc7nxbPdazGT4slk_GhEJzIK-7_W1BlGyM9IqtksdbxB
+2026-03-21 10:51:06,903 - WARNING - Preview submission: api unauthorized rid: 69be079a-1acb7e28-3b1fa0a6
+2026-03-21 10:51:06,903 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwc7nxbPdazGT4slk_GhEJzIK-7_W1BlGyM9IqtksdbxB
+2026-03-21 10:51:06,903 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-21 10:51:06,903 - INFO - https://mp.weixin.qq.com/
+2026-03-21 10:58:26,092 - INFO - Starting publication for: /root/.openclaw/workspace/output/feishu_aily_article_v2.html
+2026-03-21 10:58:26,446 - INFO - Access token obtained successfully
+2026-03-21 10:58:26,458 - INFO - Found 2 images in HTML
+2026-03-21 10:58:26,458 - WARNING - Image not found: /root/.openclaw/workspace/output/image1_placeholder.jpg
+2026-03-21 10:58:26,459 - WARNING - Image not found: /root/.openclaw/workspace/output/image2_placeholder.jpg
+2026-03-21 10:58:26,466 - INFO - Extracted and converted content from HTML: 「零配置、一键使用」：飞书Aily如何成为你的办公分身？
+2026-03-21 10:58:26,467 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-21 10:58:28,968 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwYF1_QkRC60Qs6cO7791-q4Z3qeoZZqBcvyfyXMWE2tv
+2026-03-21 10:58:29,184 - WARNING - Preview submission: api unauthorized rid: 69be0955-03982976-5bc8c649
+2026-03-21 10:58:29,184 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwYF1_QkRC60Qs6cO7791-q4Z3qeoZZqBcvyfyXMWE2tv
+2026-03-21 10:58:29,184 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-21 10:58:29,184 - INFO - https://mp.weixin.qq.com/
+2026-03-21 11:10:30,665 - INFO - Starting publication for: /root/.openclaw/workspace/output/feishu_aily_final.html
+2026-03-21 11:10:31,069 - INFO - Access token obtained successfully
+2026-03-21 11:10:31,081 - INFO - Found 2 images in HTML
+2026-03-21 11:10:32,259 - INFO - Content image uploaded: img_001.jpg -> http://mmbiz.qpic.cn/mmbiz_jpg/zmOHjFUd6icn2JyVicyiaicnN5iax8szfUHCcDUodcfXEP05ZupDDYvTE98zwv5UaWIwSicqw5yejmCIabiatDTbQ6O87gx9iaYVwMpmNoVTUYfLlt4/0?from=appmsg
+2026-03-21 11:10:32,260 - INFO - Replaced /root/.openclaw/workspace/output/img_001.jpg with http://mmbiz.qpic.cn/mmbiz_jpg/zmOHjFUd6icn2JyVicyiaicnN5iax8szfUHCcDUodcfXEP05ZupDDYvTE98zwv5UaWIwSicqw5yejmCIabiatDTbQ6O87gx9iaYVwMpmNoVTUYfLlt4/0?from=appmsg
+2026-03-21 11:10:34,856 - INFO - Content image uploaded: img_002.jpg -> http://mmbiz.qpic.cn/sz_mmbiz_jpg/zmOHjFUd6iclepYu3mHKj2LMYtv7sJZMqc0wl98RG1mZ1TfCPLSW0TD5wnBFta0DBnz9WlX1Hicib81KbsRkrwugcn8RupRbfVmnZZKkibf9RNA/0?from=appmsg
+2026-03-21 11:10:34,857 - INFO - Replaced /root/.openclaw/workspace/output/img_002.jpg with http://mmbiz.qpic.cn/sz_mmbiz_jpg/zmOHjFUd6iclepYu3mHKj2LMYtv7sJZMqc0wl98RG1mZ1TfCPLSW0TD5wnBFta0DBnz9WlX1Hicib81KbsRkrwugcn8RupRbfVmnZZKkibf9RNA/0?from=appmsg
+2026-03-21 11:10:34,865 - INFO - Extracted and converted content from HTML: 「零配置、一键使用」：飞书Aily如何成为你的办公分身？
+2026-03-21 11:10:34,865 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-21 11:10:37,514 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwZNewP8RhWiJVG5TwS101n88mp7jLIv8fS7Nwm_mbj-Z
+2026-03-21 11:10:37,719 - WARNING - Preview submission: api unauthorized rid: 69be0c2d-21a541ba-5f3b4bf3
+2026-03-21 11:10:37,719 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwZNewP8RhWiJVG5TwS101n88mp7jLIv8fS7Nwm_mbj-Z
+2026-03-21 11:10:37,719 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-21 11:10:37,719 - INFO - https://mp.weixin.qq.com/
