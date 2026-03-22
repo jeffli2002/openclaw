@@ -1,6 +1,25 @@
 # 战略记忆 - 虾仔的长期记忆
 
-> 最后更新: 2026-03-21 16:02
+> 最后更新: 2026-03-22 06:03
+
+---
+
+## 📊 Memory 提炼 | 2026-03-22 04:05
+
+### 近2日战略性更新（2026-03-21 深夜 ~ 2026-03-22 凌晨）
+
+**1. Coding Agent workspace-coding memory/daily 写入错误已第二次确认，不能靠 consecutiveErrors 自动掩盖**
+- 03-21 18:00 那次 sync-github-18-00 再次报同样错误（与 03-19 完全相同的 edit 失败：`~/.openclaw/workspace-coding/memory/daily/2026-03-21.md`）
+- 这是同一错误的第三次出现（前两次：03-19 + 03-21 18:00 = consecutiveErrors 触发），21:00 那次 sync-github-21-00 成功后 consecutiveErrors 归零，但错误根源未修复
+- GitHub 同步本身始终成功，问题仅在 agent 收尾写 memory 日志时触发
+- 根因判断：workspace-coding 路径下的 memory/daily/ 目录或文件权限/存在性问题，属于结构性路径问题，不是偶发
+- **战略含义**：必须彻底排查 workspace-coding 的 memory/daily 路径是否正确创建、是否可写；这是同一个系统性错误第三次出现，consecutiveErrors 归零只是表面恢复
+
+**2. Gateway 凌晨窗口（00:00-06:00）仍有偶发抖动，需持续重点观察**
+- 03-21 凌晨 12:00-12:04 出现持续断联（daily-memory-extractor 日志明确记录）
+- 03-20 全天仅 1 次断联（相对改善），但凌晨窗口仍有偶发
+- 长期判断：凌晨是多个 cron 集中启动的并发窗口（00:00 backup、02:00 health-check、04:00 两轮 extractor、06:00 两轮），资源争抢可能加剧 Gateway 不稳定
+- **战略含义**：凌晨 cron 高并发窗口的 Gateway 稳定性是当前系统最薄弱环节；建议在 00:00-06:00 窗口避免新增 cron，或为关键任务配置独立重试策略
 
 ---
 
@@ -1746,3 +1765,61 @@ openclaw gateway restart
 **状态**：重启后可恢复
 
 >>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
+
+**3月21日系统性修复（已归档）**：
+- 监控口径：ai-daily-newsletter 只监控AI行业，OpenClaw产品由 openclaw-news-monitor 独立监控
+- 归档规范：所有报告统一到 `reports/`，废弃 `memory/reports/`、`ai-daily/`、`outputs/content-factory/`
+- 内容fallback：统一 fallback_wrapper.py 三级降级（YouTube→GLM封面→WeChat保存本地）
+
+## 📊 Memory 提炼 | 2026-03-22 04:05
+
+### 近2日应沉淀的战略性更新（2026-03-20 ~ 2026-03-21）
+
+**1. sync-supabase-30m 长期使用简化版脚本，已系统性修复为完整版**
+- 问题：活跃 cron job 长期跑简化版 `/workspace/scripts/supabase/sync_supabase.py`（103行），只同步 documents + memories，缺少 tasks 同步
+- 根因：cron job payload 里指定了简化版路径，屏蔽了完整版的存在
+- 完整版路径：`/workspace/projects/second-brain/scripts/supabase/sync_supabase.py`（386行），含 `sync_tasks()` + token历史回填
+- 修复：已更新 cron job payload 指向完整版，下次运行时恢复 40记忆/21文档/8任务全量同步
+- 战略含义：cron job 的脚本路径必须定期核查，不能假设"能跑就是对的"；后续任何脚本路径变更都要同步更新到 cron payload
+
+**2. IMA All AI Skill v1.4.0 已发布：图像改用 KIE API，视频/音乐/TTS 继续用 IMA API**
+- 图像生成：改用 KIE API (nano-banana-2)，KIE API Key 已存在于 `credentials/kie.json`
+- 视频/音乐/TTS：继续使用 IMA API
+- ima_create.py 已修改支持 --kie-key 参数和自动 KIE 图像生成链路
+- 已发布到 ClawHub：`jeffli-ima-all-ai@1.4.0`
+- 战略含义：两条生图链路（KIE/IMA）现已并存，日常优先 KIE（更快/更便宜），IMA 作为视频/音乐/TTS 专用
+
+**3. Cron 任务系统性治理已完成：监控分离 + 归档统一 + KOL fallback 固化**
+- P1：ai-daily-newsletter 与 openclaw-news-monitor 口径分离，各自独立监控，不再混用
+- P1：报告归档统一到 `reports/`，已完成11个散落文件迁移，废弃 `memory/reports/`、`ai-daily/`、`outputs/content-factory/`
+- P2：KOL/内容链路统一 fallback_wrapper.py 三级降级（YouTube → GLM封面 → WeChat保存本地）
+- 战略含义：这三项修复代表了 cron 体系"治理先行、扩展在后"的思路确立，后续新增任务前应先确保基础设施完整
+
+**4. Coding Agent 的 workspace-coding memory 写入存在持续性路径错误**
+- 症状：03-19 和 03-21 两次 sync-github-18-00 都报同样的 edit 失败：`Edit: in ~/.openclaw/workspace-coding/memory/daily/2026-03-21.md (478 chars) failed`
+- GitHub 同步本身是成功的，问题出在 agent 收尾时写 memory/daily 日志失败
+- 这是同一错误第二次出现，说明不是偶发，而是 workspace-coding 路径下对应文件/目录不存在或权限问题
+- 状态：consecutiveErrors=1，failureAlert 已触发；下次 sync-github-21-00 继续观察
+- 战略含义：Coding Agent 的 workspace-coding 路径下的 memory/daily/ 写入失败属于系统性路径问题，需在下次出现时彻底修复，不能靠 consecutiveErrors 自动归零掩盖
+
+**5. Gateway 稳定性 03-20 有改善，但仍需持续观察**
+- 03-20 全天仅 1 次断联（vs 03-19 的多次）
+- 03-21 凌晨 12:00-04:00 出现持续断联（daily-memory-extractor 日志明确记录"Gateway 12:00-12:04 持续断开"）
+- 总体趋势：相比 03-19 之前的高频断联有改善，但凌晨窗口仍有偶发断联
+- 战略含义：Gateway 凌晨稳定性仍是薄弱时段，与资源调度/内存可能相关；建议关注凌晨 00:00-06:00 高频 cron 启动窗口的并发压力
+
+**6. content-factory SKILL.md 工具检查缺失，导致 Web Search 被误判不可用**
+- 症状：Content Agent 报 "web_search 不可用"，实际上 Tavily API（tvly-dev）和 Brave API 均已配置且可读
+- 根因：SKILL.md 的 MANDATORY tool check 只覆盖 yt-dlp + 脚本文件，漏掉了 Web Search 验证步骤；Content Agent 没有检查依据，只能凭直觉误判
+- 违反原则：SKILL.md 自身写着 "Never assume tools are unavailable without checking first"，但工具检查本身就不完整
+- 修复：
+  1. 新增 Step 3：Verify Web Search Tools，强制检查 `/root/.openclaw/credentials/tavily.json` 和 `brave.json` 是否存在并可读，同时测试 smart_search.py 连通性
+  2. 工具状态报告改为四选一，不允许"假设不可用"
+  3. 补建了 `references/youtube_research_checklist.md` 和 `references/wechat_viral_frameworks.md`（之前报缺失的两个文件）
+- 战略含义：skill 的工具依赖检查必须是完整的，必须在每个 skill 的 MANDATORY 步骤里覆盖所有该 skill 用到的外部工具，不能只检查"最重要的那个"
+
+**7. MiniMax VLM 图片分析服务 03-21 白天多次不可用（1033系统繁忙），傍晚后恢复**
+- 症状：图片分析返回"系统繁忙"，持续约 6 小时
+- 影响：所有依赖图片分析的 skill（封面生成、内容配图等）降级
+- 恢复：18:00 后陆续恢复
+- 战略含义：MiniMax VLM 作为图片分析主力时有单点风险；重要图片任务建议同时配置 GLM/其他模型作为 fallback，避免服务不可用时完全卡死

@@ -134,17 +134,40 @@ ls scripts/yt_dlp_captions.py
 - Inform user if files are missing
 - DO NOT proceed without verifying script availability
 
-### Step 3: Tool Status Communication
+### Step 3: Verify Web Search Tools
+```bash
+# Test Tavily (primary) - check credentials first
+python3 -c "import json; print(json.load(open('/root/.openclaw/credentials/tavily.json'))['api_key'])" && echo "Tavily: OK"
+
+# Test Brave (fallback) - check credentials
+python3 -c "import json; print(json.load(open('/root/.openclaw/credentials/brave.json'))['api_key'])" && echo "Brave: OK"
+
+# Test smart_search script
+python3 /root/.openclaw/workspace/scripts/smart_search.py "test" --max-results 1 2>&1 | head -5
+```
+
+**If Tavily/Brave credentials exist:**
+- ✅ "Web search tools verified: Tavily API ✓, Brave API ✓"
+- Proceed with web research using smart_search.py (Tavily primary, Brave fallback)
+
+**If credentials missing:**
+- ⚠️ "Web search credentials not found in credentials/ — check Tavily/Brave setup"
+- Fall back to: YouTube search results + X/Nitter + official pages (still viable)
+
+### Step 4: Tool Status Communication
 Always inform user of tool status:
 - ✅ "yt-dlp installed (version X.X.X), proceeding with YouTube content extraction"
+- ✅ "Web search: Tavily ✓, Brave ✓"
 - ❌ "yt-dlp not found, please install with: pip install yt-dlp"
 - ⚠️ "Scripts found but yt-dlp missing, installation required"
+- ⚠️ "Web search unavailable — using YouTube search + X/Nitter + official pages"
 
 **IMPORTANT PRINCIPLE:**
 - Tool checking is a PREREQUISITE, not optional
 - "Optionally run scripts" means "use if available", NOT "skip if inconvenient"
 - Local scripts are PRIMARY method, WebFetch is FALLBACK
 - Never assume tools are unavailable without checking first
+- **Web search credentials MUST be verified by checking /root/.openclaw/credentials/ — do NOT assume unavailability without checking**
 
 ## Workflow
 

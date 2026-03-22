@@ -4,6 +4,34 @@
     "agentmail": {
       "version": "1.1.1",
       "installedAt": 1772710392212
+    },
+    "tavily-search": {
+      "version": "1.0.0",
+      "installedAt": 1774146835792
+    },
+    "summarize": {
+      "version": "1.0.0",
+      "installedAt": 1774146839724
+    },
+    "agent-browser": {
+      "version": "0.2.0",
+      "installedAt": 1774146842297
+    },
+    "find-skills": {
+      "version": "0.1.0",
+      "installedAt": 1774146844891
+    },
+    "github": {
+      "version": "1.0.0",
+      "installedAt": 1774146848562
+    },
+    "obsidian": {
+      "version": "1.0.0",
+      "installedAt": 1774146852213
+    },
+    "weather": {
+      "version": "1.0.0",
+      "installedAt": 1774146854690
     }
   }
 }
