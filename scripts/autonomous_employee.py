@@ -87,6 +87,57 @@ def send_feishu_message(token, user_id, text):
     )
     return resp.json()
 
+def get_feishu_user_info(token, user_id):
+    """获取飞书用户信息（用于确认身份）"""
+    resp = requests.get(
+        f"https://open.feishu.cn/open-apis/contact/v3/users/{user_id}?user_id_type=open_id",
+        headers={"Authorization": f"Bearer {token}"},
+        timeout=10
+    )
+    if resp.ok:
+        return resp.json()
+    return {}
+
+def create_feishu_doc(token, title, content):
+    """在飞书云文档创建一篇文档"""
+    # 1. 创建文档
+    doc_resp = requests.post(
+        "https://open.feishu.cn/open-apis/docx/v1/documents",
+        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+        json={"title": title},
+        timeout=15
+    )
+    if not doc_resp.ok:
+        return None, doc_resp.text
+
+    doc_data = doc_resp.json()
+    doc_token = doc_data.get("data", {}).get("document", {}).get("document_id")
+    if not doc_token:
+        return None, "No document_id in response"
+
+    # 2. 写入内容（使用 blocks API）
+    blocks_payload = []
+    for para in content.split("\n"):
+        if para.strip():
+            blocks_payload.append({
+                "block_type": 2,  # paragraph
+                "paragraph": {
+                    "elements": [{"type": "text_run", "text_run": {"content": para}}],
+                    "style": {}
+                }
+            })
+
+    if blocks_payload:
+        block_resp = requests.post(
+            f"https://open.feishu.cn/open-apis/docx/v1/documents/{doc_token}/blocks/{doc_token}/children",
+            headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+            json={"children": blocks_payload, "index": -1},
+            timeout=15
+        )
+
+    doc_url = f"https://my.feishu.cn/docx/{doc_token}"
+    return doc_url, None
+
 def get_week_of_cycle(date_obj):
     """计算这是第几周（4周循环）"""
     # 以2026-03-23为第1周第1天（周一）基准
@@ -134,11 +185,11 @@ WEEK_THEMES = {
         "theme_prompt": "本周主题是「获客引擎」：内容创作 + Cold Outreach。重点是生产可以在LinkedIn/朋友圈传播的内容，以及可以持续复用的Cold Email序列。",
         "tasks": [
             {
-                "id": "li_monday",
+                "id": "wechat_monday",
                 "day": 0,  # 周一
-                "name": "LinkedIn长文",
-                "description": "写一篇有观点、有案例、有态度的LinkedIn文章，聚焦AI培训和OpenClaw生态",
-                "prompt": """你是黎镭的LinkedIn内容策划师。
+                "name": "微信公众号内容",
+                "description": "写一篇有观点的微信公众号文章，并写入飞书云文档供黎镭审核",
+                "prompt": """你是黎镭的内容策划师。
 
 黎镭的背景：
 - AI培训专家，OpenClaw生态核心推手
@@ -147,26 +198,29 @@ WEEK_THEMES = {
 - 风格：实战、犀利、有态度，不废话
 
 本周主题：获客引擎（内容创作）
-今日任务：写一篇LinkedIn长文
+今日任务：写一篇微信公众号文章
 
 要求：
 1. 有明确的观点（不是泛泛而谈）
 2. 有具体例子或数据支撑
-3. 结尾有明确的CTA（不是"欢迎交流"，是明确让读者做什么）
+3. 结尾有明确的CTA
 4. 语气真实，像人写的不像AI
-5. 长度：600-1000字
+5. 长度：800-1500字
 6. 标题要吸引人，让人想点进来
 
 文章主题方向（选择一个，或自己提一个更好的）：
 选项A：「为什么你上了那么多AI课，还是落不了地？」
-选项B：「OpenClaw生态最被低估的能力：自动化工作流」
-选项C：「企业AI转型最大的障碍不是技术，是这个」
+选项B：「企业AI转型最大的障碍不是技术，是这个」
+选项C：「AI培训的真实成本：不是课时的费用，是机会成本」
 
-输出格式（直接输出文章全文）：
+输出格式（直接输出文章全文，不需要任何说明）：
 ---
-标题：（1句话）
-正文：（600-1000字）
-标签：（3-5个相关话题标签）
+标题：（吸引人的标题，1句话）
+作者：黎镭
+正文：
+（800-1500字的完整文章内容）
+---
+附注：请将本文直接写入飞书云文档，文件名为「AI思考 | [标题]」，存入飞书知识库。
 ---"""
             },
             {
@@ -711,7 +765,7 @@ P0: AI培训 / AI咨询 / AI陪跑
 **任务**: {today_task['name']}
 
 **产出**:
-{result}
+{result[:500]}{'[已截断]' if len(result) > 500 else ''}
 
 ---
 """
@@ -723,7 +777,24 @@ P0: AI培训 / AI咨询 / AI陪跑
     except Exception as e:
         print(f"❌ 日志写入失败: {e}")
 
-    # Step 5: 推送飞书
+    # Step 5: 内容任务 → 写入飞书云文档
+    feishu_doc_url = None
+    if "内容" in today_task["name"] or "文章" in today_task["name"]:
+        try:
+            token = get_feishu_token()
+            title_line = [l for l in result.split("\n") if "标题" in l]
+            doc_title = title_line[0].split("：")[-1].strip() if title_line else f"AI思考 | {today_task['name']}"
+            content_part = result.split("正文：")[-1].split("---")[0].strip() if "正文：" in result else result
+            feishu_doc_url, err = create_feishu_doc(token, doc_title, content_part)
+            if feishu_doc_url:
+                print(f"✅ 飞书云文档: {feishu_doc_url}")
+            else:
+                print(f"⚠️ 飞书文档创建失败: {err}")
+        except Exception as e:
+            print(f"⚠️ 飞书文档创建异常: {e}")
+
+    # Step 6: 推送飞书
+    doc_line = f"\n📄 飞书文档: {feishu_doc_url}" if feishu_doc_url else ""
     summary = f"""🤖 Autonomous Employee 夜班报告 | {now_str}
 
 📅 {theme_name} | {['周一','周二','周三','周四','周五','周六','周日'][day_of_week]}
@@ -731,7 +802,7 @@ P0: AI培训 / AI咨询 / AI陪跑
 **今夜任务**: {today_task['name']}
 
 **产出摘要**:
-{result[:1000]}{'...' if len(result) > 1000 else ''}
+{result[:800]}{'...' if len(result) > 800 else ''}{doc_line}
 
 ---
 💡 明晚02:00继续推进。"""
