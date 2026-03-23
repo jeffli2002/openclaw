@@ -210,3 +210,12 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+---
+
+## ⚠️ 重要地址备忘
+
+- **Second Brain 仓库**: `https://github.com/jeffli2002/2ndbrain`（注意是 `2ndbrain`，不是 `second-brain`）
+  - 本地 remote：`origin` 和 `secondbrain` 均指向 `https://github.com/jeffli2002/2ndbrain.git`
+- **Vercel 项目**: `https://vercel.com/jeff-lees-projects-92a56a05/2ndbrain`
+- **飞书 Bitable R&D Dashboard**: `https://my.feishu.cn/base/L0qDbUS5ma16tmsd5NkcX35Jnml`

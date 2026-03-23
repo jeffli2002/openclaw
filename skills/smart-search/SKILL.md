@@ -1,47 +1,83 @@
----
-name: smart-search
-description: Smart web search that uses Tavily first, falls back to Brave if failed. Provides AI-powered search with better results.
-homepage: https://tavily.com
-metadata: {"clawdbot":{"emoji":"🔍","requires":{"bins":["python3"],"env":["TAVILY_WEBSEARCH_API_KEY","BRAVE_API_KEY"]},"primaryEnv":"TAVILY_WEBSEARCH_API_KEY"}}
----
+# smart-search
 
-# Smart Search
+网络搜索工具，支持 Tavily（优先）和 Brave（兜底）双引擎，自动容错。
 
-智能搜索引擎：Tavily 优先，Brave 作为备用
-
-## 搜索
+## 调用方式
 
 ```bash
-python3 {baseDir}/scripts/smart_search.py "your search query"
+python3 /root/.openclaw/workspace/scripts/smart_search.py "搜索关键词" --max-results 10 --json
 ```
 
-选项：
-- `--max-results, -n`: 结果数量 (默认: 10)
-- `--verbose, -v`: 显示详细过程
+## 参数
 
-## 工作流程
+| 参数 | 说明 | 默认值 |
+|------|------|--------|
+| `query` | 搜索关键词（位置参数） | 必填 |
+| `--max-results`, `-n` | 最大结果数 | 10 |
+| `--json`, `-j` | 输出纯 JSON（Agent 工具调用必须加） | 文本模式 |
+| `--provider`, `-p` | 强制使用 `tavily` / `brave` / `auto` | auto |
 
-1. **首选 Tavily** - AI驱动的精确搜索
-2. **备用 Brave** - 如果Tavily失败，自动切换
+## 输出格式（--json 模式）
 
-## 环境变量
-
-- `TAVILY_WEBSEARCH_API_KEY` - Tavily API (优先)
-- `TAVILY_API_KEY` - Tavily 备用
-- `BRAVE_API_KEY` - Brave API (备用)
-
-## 示例
-
-```bash
-# 搜索AI新闻
-python3 {baseDir}/scripts/smart_search.py "AI news"
-
-# 只返回5个结果
-python3 {baseDir}/scripts/smart_search.py "OpenClaw" --max-results 5
+```json
+{
+  "ok": true,
+  "provider": "Tavily",
+  "query": "OpenClaw AI agent service case",
+  "count": 10,
+  "results": [
+    {
+      "title": "Article Title",
+      "url": "https://example.com/article",
+      "content": "Full content or description snippet...",
+      "score": 0.95
+    }
+  ],
+  "answer": "AI-generated short answer to the query"
+}
 ```
 
-## 注意
+**失败时：**
+```json
+{
+  "ok": false,
+  "provider": "Brave",
+  "query": "...",
+  "count": 0,
+  "results": [],
+  "error": "No Brave API key"
+}
+```
 
-- 搜索结果包含来源URL和内容摘要
-- 如果Tavily失败会自动切换到Brave
-- 两者都失败会显示错误信息
+## API Key 配置
+
+两个 API Key 均从 `/root/.openclaw/credentials/` 读取：
+- `tavily.json` — 格式：`{"api_key": "tvly-..."}`
+- `brave.json` — 格式：`{"api_key": "BSAw..."}`
+
+如 Tavily 失败，自动降级到 Brave；两者均失败返回 error。
+
+## 适用场景
+
+- 选题研究（搜索 YouTube / Twitter / 公众号 / 新闻链接）
+- 文章素材采集
+- 竞品分析
+- 任何需要网络搜索的场景
+
+## 使用示例
+
+**Agent 调用（推荐）：**
+```
+exec: python3 /root/.openclaw/workspace/scripts/smart_search.py "OpenClaw AI agent freelance service case 2026" --max-results 10 --json
+```
+
+**强制 Brave（当 Tavily 被限流时）：**
+```
+exec: python3 /root/.openclaw/workspace/scripts/smart_search.py "关键词" --provider brave --json
+```
+
+## 注意事项
+
+- Tavily 返回的 `content` 字段是完整摘要，质量高于 Brave 的 description
+- Tavily 有 `answer` 字段（AI 摘要），适合快速获取答案
+- `--json` 模式不含 emoji 和日志，输出可直接解析，是 Agent 工具调用的标准格式

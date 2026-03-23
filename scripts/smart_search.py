@@ -1,119 +1,169 @@
 #!/usr/bin/env python3
 """
-Smart Search - 先尝试 Tavily，失败则回退到 Brave
+Smart Search - 智能网络搜索（Tavily 优先，Brave 兜底）
+支持 --json 结构化输出模式，兼容 Agent 工具调用
 """
 
 import os
 import sys
 import json
-import subprocess
 import argparse
+import requests
+from typing import List, Dict, Any, Optional
 
-def run_command(cmd):
-    """执行命令并返回结果"""
+CRED_DIR = "/root/.openclaw/credentials"
+
+
+def get_credential(filename: str) -> Optional[str]:
+    """从 credentials 目录读取 API Key"""
+    path = os.path.join(CRED_DIR, filename)
     try:
-        result = subprocess.run(
-            cmd, 
-            shell=True, 
-            capture_output=True, 
-            text=True, 
-            timeout=30
-        )
-        return result.returncode, result.stdout, result.stderr
-    except Exception as e:
-        return -1, "", str(e)
-
-def search_tavily(query, max_results=10):
-    """使用 Tavily 搜索"""
-    api_key = get_credential("tavily.json")
-    if api_key:
-        os.environ["TAVILY_API_KEY"] = api_key
-    
-    script = "/root/.openclaw/workspace/scripts/tavily_search.py"
-    cmd = f'python3 {script} "{query}" --max-results {max_results}'
-    
-    code, stdout, stderr = run_command(cmd)
-    
-    if code == 0 and stdout and "error" not in stdout.lower():
-        return True, stdout
-    return False, stderr or "Tavily search failed"
-
-def get_credential(filename):
-    """从 credentials 目录读取凭据"""
-    cred_path = f"/root/.openclaw/credentials/{filename}"
-    try:
-        with open(cred_path) as f:
+        with open(path) as f:
             return json.load(f).get("api_key", "")
-    except:
-        return os.environ.get(filename.replace(".json", "").upper() + "_API_KEY", "")
+    except Exception:
+        return None
 
-def search_brave(query, max_results=10):
-    """使用 Brave API 搜索"""
-    api_key = get_credential("brave.json")
-    
+
+def search_tavily(query: str, max_results: int = 10) -> Dict[str, Any]:
+    """
+    直接调用 Tavily API（不通过子进程）
+    Returns: {"ok": bool, "results": list, "error": str or None}
+    """
+    api_key = get_credential("tavily.json")
     if not api_key:
-        return False, "No Brave API key"
-    
+        return {"ok": False, "results": [], "error": "No Tavily API key in credentials/tavily.json"}
+
+    url = "https://api.tavily.com/search"
+    headers = {"Content-Type": "application/json"}
+    data = {
+        "api_key": api_key,
+        "query": query,
+        "max_results": max_results,
+        "include_answer": True,
+        "include_raw_content": False,
+        "include_images": False,
+    }
+
+    try:
+        resp = requests.post(url, json=data, headers=headers, timeout=30)
+        resp.raise_for_status()
+        raw = resp.json()
+
+        results = []
+        for item in raw.get("results", []):
+            results.append({
+                "title": item.get("title", ""),
+                "url": item.get("url", ""),
+                "content": item.get("content", ""),
+                "score": item.get("score", 0),
+            })
+
+        answer = raw.get("answer", "")
+        return {"ok": True, "results": results, "answer": answer, "error": None}
+    except Exception as e:
+        return {"ok": False, "results": [], "error": str(e)}
+
+
+def search_brave(query: str, max_results: int = 10) -> Dict[str, Any]:
+    """
+    调用 Brave Search API
+    Returns: {"ok": bool, "results": list, "error": str or None}
+    """
+    api_key = get_credential("brave.json")
+    if not api_key:
+        return {"ok": False, "results": [], "error": "No Brave API key in credentials/brave.json"}
+
     url = f"https://api.search.brave.com/res/v1/web/search?q={query}&count={max_results}"
     headers = {
         "X-Subscription-Token": api_key,
-        "Accept": "application/json"
+        "Accept": "application/json",
     }
-    
+
     try:
-        import requests
         resp = requests.get(url, headers=headers, timeout=30)
-        
-        if resp.status_code == 200:
-            data = resp.json()
-            results = data.get("web", {}).get("results", [])
-            
-            output = []
-            for i, r in enumerate(results, 1):
-                output.append(f"{i}. {r.get('title', 'No title')}")
-                output.append(f"   URL: {r.get('url', 'No URL')}")
-                desc = r.get('description', '')
-                if desc:
-                    output.append(f"   {desc[:200]}..." if len(desc) > 200 else f"   {desc}")
-                output.append("")
-            
-            return True, "\n".join(output)
-        else:
-            return False, f"Brave API error: {resp.status_code}"
-            
+        if resp.status_code != 200:
+            return {"ok": False, "results": [], "error": f"Brave API error: {resp.status_code}"}
+
+        data = resp.json()
+        results = []
+        for item in data.get("web", {}).get("results", []):
+            results.append({
+                "title": item.get("title", ""),
+                "url": item.get("url", ""),
+                "content": item.get("description", ""),
+                "score": 0,
+            })
+        return {"ok": True, "results": results, "answer": "", "error": None}
     except Exception as e:
-        return False, str(e)
+        return {"ok": False, "results": [], "error": str(e)}
+
+
+def format_text(results: List[Dict], answer: str = "") -> str:
+    """人类可读的文本格式"""
+    lines = []
+    for i, r in enumerate(results, 1):
+        lines.append(f"{i}. {r.get('title', 'No title')}")
+        lines.append(f"   URL: {r.get('url', 'No URL')}")
+        content = r.get("content", "")
+        if content:
+            truncated = content[:200] + "..." if len(content) > 200 else content
+            lines.append(f"   {truncated}")
+        lines.append("")
+    if answer:
+        lines.insert(0, f"📌 AI 摘要: {answer}\n")
+    return "\n".join(lines)
+
 
 def main():
-    parser = argparse.ArgumentParser(description="Smart Search: Tavily → Brave")
-    parser.add_argument("query", help="Search query")
-    parser.add_argument("--max-results", "-n", type=int, default=10)
-    parser.add_argument("--verbose", "-v", action="store_true")
-    
+    parser = argparse.ArgumentParser(description="Smart Search: Tavily → Brave (structured output)")
+    parser.add_argument("query", help="Search query string")
+    parser.add_argument("--max-results", "-n", type=int, default=10, help="Max results (default: 10)")
+    parser.add_argument("--json", "-j", action="store_true", help="Output pure JSON (no logs/emoji)")
+    parser.add_argument("--provider", "-p", choices=["auto", "tavily", "brave"], default="auto",
+                        help="Force specific provider")
+
     args = parser.parse_args()
-    
-    print(f"🔍 Searching: {args.query}")
-    
-    # 先尝试 Tavily
-    print("📡 Trying Tavily...")
-    success, result = search_tavily(args.query, args.max_results)
-    
-    if success:
-        print("✅ Tavily succeeded!")
-        print(result)
-        return
-    
-    # Tavily 失败，回退到 Brave
-    print(f"⚠️ Tavily failed: {result[:100]}...")
-    print("📡 Falling back to Brave...")
-    
-    success, result = search_brave(args.query, args.max_results)
-    
-    if success:
-        print("✅ Brave succeeded!")
-        print(result)
+
+    # 执行搜索
+    if args.provider == "auto":
+        result = search_tavily(args.query, args.max_results)
+        provider = "Tavily"
+        if not result["ok"]:
+            result = search_brave(args.query, args.max_results)
+            provider = "Brave"
+    elif args.provider == "tavily":
+        result = search_tavily(args.query, args.max_results)
+        provider = "Tavily"
     else:
-        print(f"❌ Both failed: {result}")
+        result = search_brave(args.query, args.max_results)
+        provider = "Brave"
+
+    # JSON 模式：纯结构化输出（Agent 工具调用用这个）
+    if args.json:
+        output = {
+            "ok": result["ok"],
+            "provider": provider,
+            "query": args.query,
+            "count": len(result.get("results", [])),
+            "results": result.get("results", []),
+        }
+        if result.get("answer"):
+            output["answer"] = result["answer"]
+        if result.get("error"):
+            output["error"] = result["error"]
+        print(json.dumps(output, indent=2, ensure_ascii=False))
+        sys.exit(0 if result["ok"] else 1)
+
+    # 人类模式：带日志和 emoji
+    if result["ok"]:
+        print(f"✅ {provider} succeeded — {len(result['results'])} results")
+        if result.get("answer"):
+            print(f"\n📌 AI 摘要:\n{result['answer']}\n")
+        print(format_text(result["results"]))
+    else:
+        print(f"❌ All providers failed: {result.get('error', 'unknown error')}")
+        sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

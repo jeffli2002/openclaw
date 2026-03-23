@@ -1,6 +1,68 @@
 # 战略记忆 - 虾仔的长期记忆
 
-> 最后更新: 2026-03-22 06:03
+> 最后更新: 2026-03-23 04:06
+
+---
+
+## 📊 Memory 提炼 | 2026-03-23 21:00
+
+**R&D 智囊团三角辩论系统正式上线**
+- 核心逻辑：3个AI模型每日辩论两次，围绕AI培训/AI咨询/AI陪跑三个P0方向产出结构化Memo
+- 技术栈：Supabase(documents表) + 飞书Bitable + Next.js前端
+- 飞书API权限注意：直接HTTP调用会403，需走OpenClaw内置工具或用户身份代理
+- 仓库地址已纠正：https://github.com/jeffli2002/2ndbrain（之前一直推错仓库）
+
+---
+
+## 📊 Memory 提炼 | 2026-03-23 16:03
+
+### 今日战略更新（2026-03-23）
+
+**1. sync-github-18-00 workspace-coding memory 写入错误连续出现——必须彻底排查**
+- 03-22 18:00、03-21 18:00、03-19 三次完全相同的 edit 失败：`~/.openclaw/workspace-coding/memory/daily/YYYY-MM-DD.md`
+- GitHub 同步本身正常，根因在 workspace-coding 的 memory/daily 路径不可写
+- 战略含义：**下次出现时必须彻底修复（检查目录权限、路径正确性），不能靠 consecutiveErrors 掩盖**
+
+**2. smart_search.py 升级为直接 API 调用 + JSON 输出模式**
+- 重写为直接调用 Tavily API（非子进程），新增 `--json` 结构化输出
+- 已注册 skills/smart-search/SKILL.md
+- 战略含义：搜索工具的稳定性和可观测性提升，内容调研效率提高
+
+**3. 内容调研已积累完整素材库（OpenClaw 服务化交付选题）**
+- 已完成 YouTube / LinkedIn / 中文媒体多源原始链接搜集
+- 战略含义：内容工厂的生产资料库持续丰富，选题方向向 OpenClaw 实战应用倾斜
+
+---
+
+## 📊 Memory 提炼 | 2026-03-23 04:06
+
+### 近2日战略性更新（2026-03-22 ~ 2026-03-23）
+
+**1. sync-github-18-00 第三次报同样错误——workspace-coding 写 memory 失败仍是未解决系统性问题**
+- 03-22 18:00 再次失败（与 03-19、03-21 完全相同的报错：`~/.openclaw/workspace-coding/memory/daily/2026-03-22.md` edit 失败）
+- 连续第三次出现，根因：workspace-coding 路径下 memory/daily/ 文件写入存在结构性障碍（非偶发）
+- GitHub 同步本身始终成功，问题仅在 agent 收尾写 memory 日志时触发
+- 战略含义：**必须彻底修复 workspace-coding 的 memory/daily 路径可写性问题**，建议检查目录是否存在、权限是否正确，这是连续第三次，consecutiveErrors 掩盖了问题但未解决
+
+**2. KIE API (nano-banana-2) 图像生成已稳定用于多场景**
+- 已成功用于：PPT 生成（小龙虾风格背景图 + HTML 文字叠加层）、AI 读书会启动海报
+- 工作流程：KIE API 生成图片 → HTML 叠加文字层 → 飞书发送
+- 经验：KIE API 图像生成比 IMA API 更稳定，已作为默认图像生成工具
+
+**3. 微信公众号文章发布流程已跑通**
+- 已发布文章《微信急了，终于支持OpenClaw》（media_id 已获取）
+- 内容工厂 content-factory SKILL.md 补充：Web Search 验证已加入 Step 3 + 2 个参考文件
+
+**4. MiniMax VLM 图片分析业务时段不稳定的规律**
+- 03-21 白天多次报 1033 系统繁忙（1033系统繁忙）
+- 下午6点后恢复正常
+- 规律：MiniMax VLM 白天高负载时段不稳定，夜间恢复
+- 战略含义：高优先级图片分析任务建议安排在 18:00 后执行，或配置 fallback 到 GPT-5.4
+
+**5. Supabase sync 问题已彻底修复**
+- 根因：cron job 调度的是简化版 sync_supabase.py（103行），缺少 tasks 同步
+- 修复：将 cron job 指向完整版 sync_supabase.py（386行）
+- 验证：40记忆 / 21文档 / 8任务状态全部成功同步
 
 ---
 
@@ -112,7 +174,7 @@
 **5. API 配置**
 - Tavily API: 已配置 (credentials/tavily.json)
 - Brave API: 已配置 (credentials/brave.json)
-- smart_search.py 已更新为从 credentials 读取
+- smart_search.py 已增强：直接调用 Tavily API（非子进程），支持 `--json` 结构化输出模式，含 AI answer 摘要；Brave 自动兜底；已注册 SKILL.md (`skills/smart-search/SKILL.md`)
 
 **6. Content Factory 更新**
 - 新增飞书文档确认流程：写完文章 → 写入飞书云文档 → 用户确认 → 生成4种格式
