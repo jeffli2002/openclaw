@@ -777,21 +777,9 @@ P0: AI培训 / AI咨询 / AI陪跑
     except Exception as e:
         print(f"❌ 日志写入失败: {e}")
 
-    # Step 5: 内容任务 → 写入飞书云文档
+    # Step 5: 内容任务 → 内容已写入本地日志，可直接在飞书消息中查看完整内容
+    # 飞书云文档创建需额外权限（docx:document:create），暂通过消息推送替代
     feishu_doc_url = None
-    if "内容" in today_task["name"] or "文章" in today_task["name"]:
-        try:
-            token = get_feishu_token()
-            title_line = [l for l in result.split("\n") if "标题" in l]
-            doc_title = title_line[0].split("：")[-1].strip() if title_line else f"AI思考 | {today_task['name']}"
-            content_part = result.split("正文：")[-1].split("---")[0].strip() if "正文：" in result else result
-            feishu_doc_url, err = create_feishu_doc(token, doc_title, content_part)
-            if feishu_doc_url:
-                print(f"✅ 飞书云文档: {feishu_doc_url}")
-            else:
-                print(f"⚠️ 飞书文档创建失败: {err}")
-        except Exception as e:
-            print(f"⚠️ 飞书文档创建异常: {e}")
 
     # Step 6: 推送飞书
     doc_line = f"\n📄 飞书文档: {feishu_doc_url}" if feishu_doc_url else ""
