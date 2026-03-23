@@ -38,6 +38,95 @@ P0_PROJECTS = ["AI培训", "AI咨询", "AI陪跑"]
 # 飞书用户
 FEISHU_USER_ID = "ou_aeb3984fc66ae7c78e396255f7c7a11b"
 
+# ── 模型 API 配置（从 models.json 读取）─────────────────────
+MODEL_CONFIGS = {
+    "minimax-cn/MiniMax-M2.7": {
+        "provider": "minimax-portal",
+        "model": "MiniMax-M2.7",
+        "base_url": "https://api.minimaxi.com/anthropic/v1/messages",
+        "api_key": "minimax-oauth",
+        "format": "anthropic",
+    },
+    "minimax-cn/MiniMax-M2.5": {
+        "provider": "minimax-cn",
+        "model": "MiniMax-M2.5",
+        "base_url": "https://api.minimaxi.com/anthropic/v1/messages",
+        "api_key": "sk-cp-cMqGihpXu1XQ7CnFGLKP5kUORqrva1RJ_MDdrOSF5DXD4dmijK1aoHUhD6glH1qJUMBXts8PntThJNMdkiIdEGcBB9WKn9M4-_2zaE29N1-w3R8RsFchavo",
+        "format": "anthropic",
+    },
+    "kimi-coding/k2p5": {
+        "provider": "kimi-coding",
+        "model": "k2p5",
+        "base_url": "https://api.kimi.com/coding/v1/chat/completions",
+        "api_key": "sk-kimi-X2PdPbADTlW5YKB4r1oNBlqA2mT_GCYy0Z8vT9ZqL3Xc",
+        "format": "openai",
+    },
+    "openai-code/gpt-5.4": {
+        "provider": "openai-code",
+        "model": "gpt-5.4",
+        "base_url": "https://capi.quan2go.com/openai/v1/chat/completions",
+        "api_key": "012807E3-BF31-422B-8E6F-6D8B5A3F7C1E",
+        "format": "openai",
+    },
+}
+
+# 策略师默认用 M2.5（直接API key），M2.7需OAuth暂不可用
+DEFAULT_STRATEGIST = "minimax-cn/MiniMax-M2.5"
+DEFAULT_PRODUCT   = "kimi-coding/k2p5"
+DEFAULT_ADVOCATE  = "openai-code/gpt-5.4"
+
+
+def call_model(prompt: str, model_key: str, system_prompt: str = "") -> str:
+    """通过直接 HTTP API 调用模型"""
+    config = MODEL_CONFIGS.get(model_key)
+    if not config:
+        print(f"[WARN] Unknown model: {model_key}, falling back to MiniMax-M2.7")
+        config = MODEL_CONFIGS[DEFAULT_STRATEGIST]
+
+    headers = {
+        "Authorization": f"Bearer {config['api_key']}",
+        "Content-Type": "application/json",
+        "anthropic-version": "2023-06-01",
+        "x-api-key": config['api_key'],
+    }
+
+    if config["format"] == "anthropic":
+        body = {
+            "model": config["model"],
+            "max_tokens": 4096,
+            "messages": [
+                {"role": "user", "content": prompt}
+            ]
+        }
+        if system_prompt:
+            body["system"] = system_prompt
+        resp = requests.post(config["base_url"], headers=headers, json=body, timeout=120)
+        if resp.ok:
+            data = resp.json()
+            content = data.get("content", [])
+            # Extract text from blocks (skip thinking blocks)
+            for block in content:
+                if block.get("type") == "text":
+                    return block.get("text", "")
+            return ""
+    else:
+        # OpenAI-compatible format
+        body = {
+            "model": config["model"],
+            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": 4096,
+        }
+        if system_prompt:
+            body["messages"].insert(0, {"role": "system", "content": system_prompt})
+        resp = requests.post(config["base_url"], headers=headers, json=body, timeout=120)
+
+        if resp.ok:
+            data = resp.json()
+            return data.get("choices", [{}])[0].get("message", {}).get("content", "")
+
+    print(f"[ERROR] API call failed: {resp.status_code} {resp.text[:200]}")
+    return None
+
 # ── 工具函数 ──────────────────────────────────────────────
 
 def get_feishu_token():
@@ -214,7 +303,7 @@ def run_triangle_debate(project: str, round_num: int) -> dict:
 （量化描述这个提议如果成功落地，能带来什么具体收益）
 """
 
-    strategist_resp = call_model(strategist_prompt, "minimax-cn/MiniMax-M2.7")
+    strategist_resp = call_model(strategist_prompt, DEFAULT_STRATEGIST)
     print(f"\n📊 策略师提议: {strategist_resp[:100] if strategist_resp else 'FAILED'}...")
     strategist_text = strategist_resp or "（策略师提议生成失败）"
 
@@ -236,7 +325,7 @@ def run_triangle_debate(project: str, round_num: int) -> dict:
 （量化描述这个提议如果成功落地，能带来什么具体收益）
 """
 
-    product_resp = call_model(product_prompt, "kimi-coding/k2p5")
+    product_resp = call_model(product_prompt, DEFAULT_PRODUCT)
     print(f"\n🎯 产品官提议: {str(product_resp[:100]) if product_resp else 'FAILED'}...")
     product_text = product_resp or "（产品官提议生成失败）"
 
@@ -258,7 +347,7 @@ def run_triangle_debate(project: str, round_num: int) -> dict:
 （量化描述这个提议如果成功落地，能带来什么具体收益）
 """
 
-    advocate_resp = call_model(advocate_prompt, "openai-code/gpt-5.4")
+    advocate_resp = call_model(advocate_prompt, DEFAULT_ADVOCATE)
     print(f"\n⚔️ 批评者提议: {str(advocate_resp[:100]) if advocate_resp else 'FAILED'}...")
     advocate_text = advocate_resp or "（批评者提议生成失败）"
 
@@ -290,7 +379,7 @@ def run_triangle_debate(project: str, round_num: int) -> dict:
 每条建议不超过3句话。
 """
 
-    final_resp = call_model(debate_prompt, "minimax-cn/MiniMax-M2.7")
+    final_resp = call_model(debate_prompt, DEFAULT_STRATEGIST)
     print(f"\n📝 最终Memo: {str(final_resp[:100]) if final_resp else 'FAILED'}...")
     final_memo = final_resp or "（最终Memo生成失败，请人工整理）"
 

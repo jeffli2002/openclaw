@@ -50,12 +50,63 @@ def send_feishu_message(token, user_id, text):
     )
     return resp.json()
 
-def call_llm(prompt, model="minimax-cn/MiniMax-M2.7"):
-    cmd = ["openclaw", "chat", "--model", model, "--json", prompt]
+MODEL_CONFIGS = {
+    "minimax-cn/MiniMax-M2.7": {
+        "base_url": "https://api.minimaxi.com/anthropic/v1/messages",
+        "api_key": "minimax-oauth",
+        "model": "MiniMax-M2.7",
+        "format": "anthropic",
+    },
+    "minimax-cn/MiniMax-M2.5": {
+        "base_url": "https://api.minimaxi.com/anthropic/v1/messages",
+        "api_key": "sk-cp-cMqGihpXu1XQ7CnFGLKP5kUORqrva1RJ_MDdrOSF5DXD4dmijK1aoHUhD6glH1qJUMBXts8PntThJNMdkiIdEGcBB9WKn9M4-_2zaE29N1-w3R8RsFchavo",
+        "model": "MiniMax-M2.5",
+        "format": "anthropic",
+    },
+    "kimi-coding/k2p5": {
+        "base_url": "https://api.kimi.com/coding/v1/chat/completions",
+        "api_key": "sk-kimi-X2PdPbADTlW5YKB4r1oNBlqA2mT_GCYy0Z8vT9ZqL3Xc",
+        "model": "k2p5",
+        "format": "openai",
+    },
+    "openai-code/gpt-5.4": {
+        "base_url": "https://capi.quan2go.com/openai/v1/chat/completions",
+        "api_key": "012807E3-BF31-422B-8E6F-6D8B5A3F7C1E",
+        "model": "gpt-5.4",
+        "format": "openai",
+    },
+}
+
+def call_llm(prompt, model="minimax-cn/MiniMax-M2.5"):
+    config = MODEL_CONFIGS.get(model, MODEL_CONFIGS["minimax-cn/MiniMax-M2.5"])
+    headers = {
+        "Authorization": f"Bearer {config['api_key']}",
+        "Content-Type": "application/json",
+        "anthropic-version": "2023-06-01",
+    }
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=180, cwd=WORKSPACE)
-        if result.returncode == 0:
-            return result.stdout.strip()
+        if config["format"] == "anthropic":
+            body = {
+                "model": config["model"],
+                "max_tokens": 4096,
+                "messages": [{"role": "user", "content": prompt}]
+            }
+            resp = requests.post(config["base_url"], headers=headers, json=body, timeout=120)
+            if resp.ok:
+                data = resp.json()
+                for block in data.get("content", []):
+                    if block.get("type") == "text":
+                        return block.get("text", "")
+                return ""
+        else:
+            body = {
+                "model": config["model"],
+                "messages": [{"role": "user", "content": prompt}],
+                "max_tokens": 4096,
+            }
+            resp = requests.post(config["base_url"], headers=headers, json=body, timeout=120)
+            if resp.ok:
+                return resp.json().get("choices", [{}])[0].get("message", {}).get("content", "")
     except Exception as e:
         print(f"[WARN] LLM call failed: {e}", file=sys.stderr)
     return None
