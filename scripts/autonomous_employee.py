@@ -98,45 +98,16 @@ def get_feishu_user_info(token, user_id):
         return resp.json()
     return {}
 
-def create_feishu_doc(token, title, content):
-    """在飞书云文档创建一篇文档"""
-    # 1. 创建文档
-    doc_resp = requests.post(
-        "https://open.feishu.cn/open-apis/docx/v1/documents",
-        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
-        json={"title": title},
-        timeout=15
-    )
-    if not doc_resp.ok:
-        return None, doc_resp.text
-
-    doc_data = doc_resp.json()
-    doc_token = doc_data.get("data", {}).get("document", {}).get("document_id")
-    if not doc_token:
-        return None, "No document_id in response"
-
-    # 2. 写入内容（使用 blocks API）
-    blocks_payload = []
-    for para in content.split("\n"):
-        if para.strip():
-            blocks_payload.append({
-                "block_type": 2,  # paragraph
-                "paragraph": {
-                    "elements": [{"type": "text_run", "text_run": {"content": para}}],
-                    "style": {}
-                }
-            })
-
-    if blocks_payload:
-        block_resp = requests.post(
-            f"https://open.feishu.cn/open-apis/docx/v1/documents/{doc_token}/blocks/{doc_token}/children",
-            headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
-            json={"children": blocks_payload, "index": -1},
-            timeout=15
-        )
-
-    doc_url = f"https://my.feishu.cn/docx/{doc_token}"
-    return doc_url, None
+def create_feishu_doc(title, content):
+    """通过 openclaw agent 调用飞书工具创建云文档（已知限制：子进程无法加载 feishu_doc tool）"""
+    # 方案：内容完整写入本地日志，飞书消息发送完整内容
+    # 用户可复制消息内容发布到任何平台
+    # 未来优化：可通过 sessions_send 触发带 feishu_doc tool 的 agent 来创建文档
+    doc_log_path = f"{WORKSPACE}/autonomous-employee/articles/{datetime.date.today().strftime('%Y-%m-%d')}.md"
+    os.makedirs(os.path.dirname(doc_log_path), exist_ok=True)
+    with open(doc_log_path, "w") as f:
+        f.write(f"# {title}\n\n{content}\n")
+    return f"📄 内容已存入本地：{doc_log_path}", None
 
 def get_week_of_cycle(date_obj):
     """计算这是第几周（4周循环）"""
@@ -777,12 +748,11 @@ P0: AI培训 / AI咨询 / AI陪跑
     except Exception as e:
         print(f"❌ 日志写入失败: {e}")
 
-    # Step 5: 内容任务 → 内容已写入本地日志，可直接在飞书消息中查看完整内容
-    # 飞书云文档创建需额外权限（docx:document:create），暂通过消息推送替代
+    # Step 5: 内容任务 → 文章完整内容随飞书消息发送，无需额外创建文档
     feishu_doc_url = None
 
     # Step 6: 推送飞书
-    doc_line = f"\n📄 飞书文档: {feishu_doc_url}" if feishu_doc_url else ""
+    doc_line = f"\n📄 本地存档: {feishu_doc_url}" if feishu_doc_url else ""
     summary = f"""🤖 Autonomous Employee 夜班报告 | {now_str}
 
 📅 {theme_name} | {['周一','周二','周三','周四','周五','周六','周日'][day_of_week]}
