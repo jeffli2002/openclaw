@@ -2,13 +2,19 @@
 """
 Autonomous Employee — 每天凌晨2点自动执行
 角色：黎镭的 autonomous AI employee
-职责：主动思考 + 自主执行一个对业务有实际推进的任务
+职责：主动推进 AI培训/AI咨询/AI陪跑 三个P0业务
 
-每天流程：
-  Step 1 → 读取业务上下文（Supabase memory + 项目状态 + 今日进展）
-  Step 2 → 分析当前最需要推进的方向
-  Step 3 → 选择1个高优先级任务并执行
-  Step 4 → 把执行结果写入日志 + 推送飞书
+周循环制度：
+  第1周 → 🔥 获客引擎（内容 + Cold Outreach）
+  第2周 → 📦 产品设计（咨询/陪跑产品标准化）
+  第3周 → ⚙️ 交付系统（培训SOP + 客户案例）
+  第4周 → 📊 战略复盘（数据分析 + 下一步）
+
+每次流程：
+  1 → 读取业务上下文
+  2 → 判断周主题和今日任务
+  3 → 执行并产出
+  4 → 写入日志 + 推送飞书
 """
 
 import subprocess
@@ -17,7 +23,6 @@ import sys
 import os
 import requests
 import datetime
-import random
 from pathlib import Path
 
 # ── 配置 ──────────────────────────────────────────────────
@@ -28,7 +33,39 @@ FEISHU_APP_ID     = "cli_a93a60e4ae795cee"
 FEISHU_APP_SECRET = "ObQFsvOOT8aUWtV62kneIhWyyo2XLIuG"
 FEISHU_USER_ID = "ou_aeb3984fc66ae7c78e396255f7c7a11b"
 
-P0_PROJECTS = ["AI培训", "AI咨询", "AI陪跑"]
+# ── 模型配置 ──────────────────────────────────────────────
+MODEL_CONFIGS = {
+    "minimax-cn/MiniMax-M2.5": {
+        "base_url": "https://api.minimaxi.com/anthropic/v1/messages",
+        "api_key": "sk-cp-cMqGihpXu1XQ7CnFGLKP5kUORqrva1RJ_MDdrOSF5DXD4dmijK1aoHUhD6glH1qJUMBXts8PntThJNMdkiIdEGcBB9WKn9M4-_2zaE29N1-w3R8RsFchavo",
+        "model": "MiniMax-M2.5",
+        "format": "anthropic",
+    },
+}
+
+def call_llm(prompt, model="minimax-cn/MiniMax-M2.5"):
+    config = MODEL_CONFIGS.get(model, MODEL_CONFIGS["minimax-cn/MiniMax-M2.5"])
+    headers = {
+        "Authorization": f"Bearer {config['api_key']}",
+        "Content-Type": "application/json",
+        "anthropic-version": "2023-06-01",
+    }
+    try:
+        body = {
+            "model": config["model"],
+            "max_tokens": 4096,
+            "messages": [{"role": "user", "content": prompt}]
+        }
+        resp = requests.post(config["base_url"], headers=headers, json=body, timeout=120)
+        if resp.ok:
+            data = resp.json()
+            for block in data.get("content", []):
+                if block.get("type") == "text":
+                    return block.get("text", "")
+            return ""
+    except Exception as e:
+        print(f"[WARN] LLM call failed: {e}", file=sys.stderr)
+    return None
 
 # ── 工具函数 ──────────────────────────────────────────────
 
@@ -50,87 +87,38 @@ def send_feishu_message(token, user_id, text):
     )
     return resp.json()
 
-MODEL_CONFIGS = {
-    "minimax-cn/MiniMax-M2.7": {
-        "base_url": "https://api.minimaxi.com/anthropic/v1/messages",
-        "api_key": "minimax-oauth",
-        "model": "MiniMax-M2.7",
-        "format": "anthropic",
-    },
-    "minimax-cn/MiniMax-M2.5": {
-        "base_url": "https://api.minimaxi.com/anthropic/v1/messages",
-        "api_key": "sk-cp-cMqGihpXu1XQ7CnFGLKP5kUORqrva1RJ_MDdrOSF5DXD4dmijK1aoHUhD6glH1qJUMBXts8PntThJNMdkiIdEGcBB9WKn9M4-_2zaE29N1-w3R8RsFchavo",
-        "model": "MiniMax-M2.5",
-        "format": "anthropic",
-    },
-    "kimi-coding/k2p5": {
-        "base_url": "https://api.kimi.com/coding/v1/chat/completions",
-        "api_key": "sk-kimi-X2PdPbADTlW5YKB4r1oNBlqA2mT_GCYy0Z8vT9ZqL3Xc",
-        "model": "k2p5",
-        "format": "openai",
-    },
-    "openai-code/gpt-5.4": {
-        "base_url": "https://capi.quan2go.com/openai/v1/chat/completions",
-        "api_key": "012807E3-BF31-422B-8E6F-6D8B5A3F7C1E",
-        "model": "gpt-5.4",
-        "format": "openai",
-    },
-}
+def get_week_of_cycle(date_obj):
+    """计算这是第几周（4周循环）"""
+    # 以2026-03-23为第1周第1天（周一）基准
+    cycle_start = datetime.date(2026, 3, 23)
+    days_since = (date_obj - cycle_start).days
+    week_index = (days_since // 7) % 4  # 0=第1周, 1=第2周, 2=第3周, 3=第4周
+    return week_index
 
-def call_llm(prompt, model="minimax-cn/MiniMax-M2.5"):
-    config = MODEL_CONFIGS.get(model, MODEL_CONFIGS["minimax-cn/MiniMax-M2.5"])
-    headers = {
-        "Authorization": f"Bearer {config['api_key']}",
-        "Content-Type": "application/json",
-        "anthropic-version": "2023-06-01",
-    }
-    try:
-        if config["format"] == "anthropic":
-            body = {
-                "model": config["model"],
-                "max_tokens": 4096,
-                "messages": [{"role": "user", "content": prompt}]
-            }
-            resp = requests.post(config["base_url"], headers=headers, json=body, timeout=120)
-            if resp.ok:
-                data = resp.json()
-                for block in data.get("content", []):
-                    if block.get("type") == "text":
-                        return block.get("text", "")
-                return ""
-        else:
-            body = {
-                "model": config["model"],
-                "messages": [{"role": "user", "content": prompt}],
-                "max_tokens": 4096,
-            }
-            resp = requests.post(config["base_url"], headers=headers, json=body, timeout=120)
-            if resp.ok:
-                return resp.json().get("choices", [{}])[0].get("message", {}).get("content", "")
-    except Exception as e:
-        print(f"[WARN] LLM call failed: {e}", file=sys.stderr)
-    return None
+def get_day_of_week(date_obj):
+    """0=周一, 6=周日"""
+    return date_obj.weekday()
 
-def read_memory_files():
-    """读取关键记忆文件"""
+def get_business_context():
+    """读取业务上下文"""
     files = {
-        "daily_today": f"{WORKSPACE}/memory/daily/{datetime.date.today().strftime('%Y-%m-%d')}.md",
+        "daily": f"{WORKSPACE}/memory/daily/{datetime.date.today().strftime('%Y-%m-%d')}.md",
         "strategic": f"{WORKSPACE}/memory/global/strategic.md",
-        "agents": f"{WORKSPACE}/AGENTS.md",
+        "system": f"{WORKSPACE}/autonomous-employee/SYSTEM.md",
     }
-    content = {}
+    ctx = {}
     for key, path in files.items():
         try:
             with open(path, "r") as f:
-                content[key] = f.read()[-3000:]  # 最后3000字
+                ctx[key] = f.read()[-4000:]
         except:
-            content[key] = ""
-    return content
+            ctx[key] = ""
+    return ctx
 
-def get_supabase_recent_docs():
-    """获取最近的生产内容"""
+def get_recent_memos():
+    """获取最近的R&D Memo"""
     resp = requests.get(
-        f"{SUPABASE_URL}/rest/v1/documents?select=id,title,date,type&order=date.desc&limit=10",
+        f"{SUPABASE_URL}/rest/v1/documents?type=eq.rd_memo&select=id,title,date,content&order=date.desc&limit=5",
         headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
         timeout=10
     )
@@ -138,144 +126,110 @@ def get_supabase_recent_docs():
         return resp.json()
     return []
 
-def get_cron_status():
-    """检查今天的cron执行情况"""
-    result = subprocess.run(
-        ["openclaw", "cron", "list", "--json"],
-        capture_output=True, text=True, timeout=15
-    )
-    if result.returncode == 0:
-        try:
-            data = json.loads(result.stdout)
-            today = datetime.date.today().strftime("%Y-%m-%d")
-            running = []
-            for job in data.get("jobs", []):
-                last = job.get("lastRun", "")
-                if today in last or not last:
-                    running.append(job.get("name", ""))
-            return running
-        except:
-            pass
-    return []
+# ── 周主题任务池 ──────────────────────────────────────────
 
-# ── 任务池 — 自主员工可选择的高价值任务 ────────────────────
+WEEK_THEMES = {
+    0: {
+        "name": "🔥 获客引擎",
+        "theme_prompt": "本周主题是「获客引擎」：内容创作 + Cold Outreach。重点是生产可以在LinkedIn/朋友圈传播的内容，以及可以持续复用的Cold Email序列。",
+        "tasks": [
+            {
+                "id": "li_monday",
+                "day": 0,  # 周一
+                "name": "LinkedIn长文",
+                "description": "写一篇有观点、有案例、有态度的LinkedIn文章，聚焦AI培训和OpenClaw生态",
+                "prompt": """你是黎镭的LinkedIn内容策划师。
 
-TASK_POOL = [
-    {
-        "id": "content_research",
-        "name": "内容调研 — AI培训潜在客户案例",
-        "description": "搜索并整理3个AI培训成功案例（国内/海外），分析可借鉴点，为培训内容增加真实案例素材",
-        "model": "minimax-cn/MiniMax-M2.7",
-        "prompt_template": """你是黎镭的AI培训业务内容研究员。
+黎镭的背景：
+- AI培训专家，OpenClaw生态核心推手
+- 做企业AI培训、咨询陪跑、商业教练
+- 目标客户：B端企业决策者、中小企业主
+- 风格：实战、犀利、有态度，不废话
 
-业务背景：
-- P0方向：AI培训（OpenClaw生态）、AI咨询、AI陪跑
-- 目标客户：B端企业、中小企业主、职业人士
-- 核心差异化：不是卖课，是真正帮企业落地AI能力
-
-任务：搜索并整理3个AI培训/企业AI教练的成功案例，要求：
-1. 有具体数字和效果描述
-2. 涵盖不同行业（制造/零售/金融/医疗等）
-3. 包含可量化的成果（如效率提升%、成本降低、营收增长）
-
-输出格式（直接输出，不要解释）：
-## 案例1：[行业/公司名]
-- 背景痛点：（1-2句话）
-- 解决方案：（核心动作）
-- 量化成果：（数字说话）
-
-## 案例2：[行业/公司名]
-...
-
-## 可借鉴点
-（3条，黎镭可以用在自己的AI培训设计里）
-"""
-    },
-    {
-        "id": "messaging_audit",
-        "name": "文案审计 — 优化朋友圈/群发文案",
-        "description": "审查最近的朋友圈或群发内容，分析转化率和吸引力，提出改进建议",
-        "model": "minimax-cn/MiniMax-M2.7",
-        "prompt_template": """你是黎镭的AI培训业务增长顾问。
-
-业务背景：
-- P0方向：AI培训（OpenClaw生态线下课）、AI咨询、AI陪跑
-- 目标客户：B端企业决策者、中小企业主、职场人士
-- 定位：不是知识付费，是实战型AI能力培训+陪跑
-
-任务：基于以下业务信息，写3条朋友圈/群发文案草稿，要求：
-1. 每条<100字，直击痛点
-2. 有明确的行动号召（不是问句，是明确让对方做什么）
-3. 体现"实战、落地、陪跑"差异化，不谈概念
-4. 语气像真实的人说话，不是广告
-
-目标客户最痛的3个点：
-- 知道AI重要，但不知道从哪里开始
-- 上了很多课，落地不了
-- 团队不会用AI，工作效率没变化
-
-输出（直接输出，不要解释）：
-文案1：（主题：开场痛点）
-文案2：（主题：成果展示）
-文案3：（主题：紧迫感/限时）
-"""
-    },
-    {
-        "id": "offer_design",
-        "name": "产品设计 — AI咨询标准化交付件",
-        "description": "为AI咨询产品设计一套标准化的交付物清单，让咨询产品更可感知、更有价值感",
-        "model": "minimax-cn/MiniMax-M2.7",
-        "prompt_template": """你是黎镭的AI咨询业务产品经理。
-
-业务背景：
-- AI咨询陪跑：帮助企业建立内部AI工作流，周期通常1-3个月
-- 客户：B端企业负责人
-- 痛点：咨询交付依赖个人经验，客户感知不到价值，续费难
-
-任务：设计一套"咨询交付物清单"，让客户每个阶段都清楚得到了什么。
+本周主题：获客引擎（内容创作）
+今日任务：写一篇LinkedIn长文
 
 要求：
-1. 分3个阶段（诊断期/落地期/陪跑期）
-2. 每个阶段产出3-5个具体交付物（文件名+简要描述）
-3. 每个交付物有明确的"客户感知价值"（客户看到/用到的感觉）
-4. 体现黎镭的OpenClaw生态优势
+1. 有明确的观点（不是泛泛而谈）
+2. 有具体例子或数据支撑
+3. 结尾有明确的CTA（不是"欢迎交流"，是明确让读者做什么）
+4. 语气真实，像人写的不像AI
+5. 长度：600-1000字
+6. 标题要吸引人，让人想点进来
 
-输出格式（直接输出，不要解释）：
-## 第一阶段：诊断与规划（第1-2周）
-| 交付物 | 内容说明 | 客户感知价值 |
-|--------|----------|--------------|
-| ...    | ...      | ...          |
+文章主题方向（选择一个，或自己提一个更好的）：
+选项A：「为什么你上了那么多AI课，还是落不了地？」
+选项B：「OpenClaw生态最被低估的能力：自动化工作流」
+选项C：「企业AI转型最大的障碍不是技术，是这个」
 
-## 第二阶段：落地执行（第3-8周）
-...
+输出格式（直接输出文章全文）：
+---
+标题：（1句话）
+正文：（600-1000字）
+标签：（3-5个相关话题标签）
+---"""
+            },
+            {
+                "id": "cold_email_tuesday",
+                "day": 1,  # 周二
+                "name": "Cold Email序列",
+                "description": "写5条Cold Email，针对5个不同画像的潜在客户",
+                "prompt": """你是黎镭的获客策略师。
 
-## 第三阶段：陪跑与迭代（第9-12周）
-...
-"""
-    },
-    {
-        "id": "competitor_research",
-        "name": "竞品研究 — 同类AI培训课程分析",
-        "description": "搜索3-5个同类AI培训课程，分析它们的定价、卖点、用户评价，找差异化机会",
-        "model": "minimax-cn/MiniMax-M2.7",
-        "prompt_template": """你是黎镭的AI培训业务竞品分析师。
+黎镭的业务：
+- AI培训（OpenClaw生态，面向B端企业/中小企业主）
+- AI咨询陪跑（帮助企业真正落地AI能力）
+- AI商业教练（创始人/核心团队长期陪跑）
 
-任务：搜索并分析当前市面上3-5个同类AI培训课程/工作坊
+目标：写5条Cold Email开场白，每条针对不同画像的客户
 
-需要分析维度：
+客户画像：
+1. 中小制造企业老板（50-200人）→ 关注降本增效、合规、交付周期
+2. 电商/新媒体公司负责人 → 关注流量、内容生产效率、ROI
+3. 传统企业IT负责人 → 关注内部流程自动化、数据打通
+4. 创业公司CEO → 关注用AI降低人力成本、竞争壁垒
+5. 连锁品牌运营负责人 → 关注门店标准化、AI辅助决策
+
+每条邮件要求：
+- 第一句：直接点出对方痛点（不要废话铺垫）
+- 第二句：给出黎镭帮过谁的例子（数字说话）
+- 第三句：开放性问题，让对方回复
+- 全程<80字
+- 不要用"想了解更多"、"如需"、"期待交流"等废话
+
+输出格式（直接输出5封邮件）：
+---
+邮件1【中小制造企业老板】：
+（80字以内）
+
+---
+邮件2【电商/新媒体公司】：
+... """
+            },
+            {
+                "id": "competitor_wednesday",
+                "day": 2,  # 周三
+                "name": "竞品研究",
+                "description": "搜索并分析3-5个同类AI培训课程",
+                "prompt": """你是黎镭的竞品分析师。
+
+任务：搜索并分析3-5个市面上同类AI培训课程/工作坊
+
+分析维度：
 1. 课程名称和机构
 2. 定价（原价/优惠价）
-3. 核心卖点（用1句话概括）
+3. 核心卖点（1句话）
 4. 用户真实评价（从公开渠道找）
 5. 黎镭可以借鉴或差异化的地方
 
 黎镭的课程特点：
-- OpenClaw生态（自动化工作流）
+- OpenClaw生态（自动化工作流，不是概念课）
 - 线下为主
 - 包含陪跑服务
 - 面向B端和中小企业
 
-输出格式（直接输出，不要解释）：
+输出格式（直接输出分析全文）：
+---
 ## 竞品1：[课程名/机构]
 - 定价：
 - 核心卖点：
@@ -288,203 +242,479 @@ TASK_POOL = [
 - 市场定价区间：
 - 最大差异化机会：
 - 黎镭最应该强调的3个卖点：
-"""
-    },
-    {
-        "id": "email_outreach",
-        "name": "cold_email — 5条潜在客户开场白",
-        "description": "为AI培训写5条不同角度的Cold Email开场白，针对5类不同画像的潜在客户",
-        "model": "minimax-cn/MiniMax-M2.7",
-        "prompt_template": """你是黎镭的AI培训获客策略师。
+---"""
+            },
+            {
+                "id": "case_study_thursday",
+                "day": 3,  # 周四
+                "name": "客户成功案例",
+                "description": "写1-2个客户成功案例，用于销售素材",
+                "prompt": """你是黎镭的内容写作师。
 
-业务背景：
-- 黎镭做AI培训和咨询陪跑，目标客户是企业决策者/老板
-- 需要主动拓展客户，不能只靠自然流量
-- Cold Email是核心获客渠道之一
+任务：写1-2个客户成功案例（可以是真实经历或基于真实背景的虚构案例，但要有说服力）
 
-任务：写5条Cold Email开场白，每条针对不同画像的客户：
+格式要求：
+- 有具体行业/公司背景
+- 有具体的痛点描述
+- 有明确的结果（数字）
+- 有黎镭具体做了什么
+- 结尾有 CTA
 
-客户画像：
-1. 中小制造企业老板（50-200人）— 关注降本增效
-2. 电商/新媒体公司负责人 — 关注流量和内容生产效率
-3. 传统企业IT负责人 — 关注内部流程自动化
-4. 创业公司CEO — 关注用AI降低人力成本
-5. 连锁品牌运营负责人 — 关注门店标准化和AI辅助决策
+案例类型（选一个写）：
+选项A：「某制造企业通过AI工作流，3个月内将重复性人力减少40%」
+选项B：「某电商团队用OpenClaw实现内容生产自动化，人效提升3倍」
+选项C：「某创始人通过AI陪跑，3个月内建立了自己的AI工作流，节省20小时/周」
 
-要求每条邮件：
-- 第一句话直接点出对方的痛点（不要废话）
-- 第二句话给出黎镭帮过谁的例子（数字说话）
-- 第三句话是开放性提问，让对方回复
-- 全程<80字
-- 不要用"想了解更多"、"如需""等废话
-
-输出格式（直接输出，不要解释）：
-邮件1【中小制造企业老板】：
-（80字以内）
+输出格式（直接输出案例全文）：
 ---
-邮件2【电商/新媒体公司】：
+## 案例标题
+**行业：** xx | **公司规模：** xx | **耗时：** xx
+
+### 来之前的问题
+（2-3句话）
+
+### 做了什么
+（黎镭的具体动作，1-2句话）
+
+### 量化成果
+（数字：效率提升%、成本降低%、营收变化等）
+
+### 客户评价
+（引用1-2句话）
+
+---
+**如果你想了解如何复制这个成果，欢迎聊一聊：**
+[联系黎镭]
+---"""
+            },
+            {
+                "id": "product_friday",
+                "day": 4,  # 周五
+                "name": "培训产品设计",
+                "description": "设计或更新AI培训的标准课程模块和定价",
+                "prompt": """你是黎镭的产品经理。
+
+任务：基于本周获客引擎的洞察，更新AI培训的产品设计
+
+背景：
+- 黎镭的AI培训以OpenClaw生态为核心
+- 目标客户：B端企业决策者、中小企业主
+- 核心差异化：不是概念课，是真正能落地的工作坊
+
+要求：
+1. 将现有培训内容拆分为4-6个独立模块
+2. 每个模块有明确的学习目标和产出
+3. 提出2-3个定价方案（引流课/标准课/高单价课）
+4. 每个方案有明确的目标客户
+
+输出格式（直接输出设计文档）：
+---
+## AI培训产品手册 v1
+
+### 模块设计
+| 模块 | 学习目标 | 核心产出 | 建议时长 |
+|------|----------|----------|----------|
+| ...  | ...      | ...      | ...      |
+
+### 定价方案
+
+**方案A：[名称]**
+- 目标客户：
+- 定价：
+- 包含内容：
+- 交付形式：
+
+（以此类推）
+
+### 本周获客洞察
+（基于本周内容/竞品分析，总结对产品设计的启发）
+---"""
+            },
+            {
+                "id": "sunday_reflect",
+                "day": 6,  # 周日
+                "name": "周报与下周计划",
+                "description": "写本周工作总结和下周详细计划",
+                "prompt": """你是黎镭的 Autonomous AI Employee。
+
+任务：写本周工作总结和下周详细计划
+
+本周主题：🔥 获客引擎（内容创作 + Cold Outreach）
+
+请结合本周业务上下文，输出一份周报：
+
+输出格式（直接输出报告）：
+---
+## 本周工作总结
+
+### 完成产出
+1. （列出具体产出，不要说"写了文章"，要说"发布了《xxx》文章，全文xxx字，获得xxx互动"）
+2. ...
+
+### 关键洞察
+（3条以内，基于本周工作得出的可执行洞察）
+
+### 存在的差距
+（什么没有做到，为什么）
+
+---
+
+## 下周详细计划
+
+### 下周主题
+（根据本周复盘，决定下周主题）
+
+### 每日任务
+周一：
+周二：
 ...
-"""
+
+### 需要黎镭决策的事
+（列出需要他确认/参与的事情）
+---"""
+            },
+        ]
     },
-    {
-        "id": "second_brain_research",
-        "name": "Second Brain — 研究竞品功能改进",
-        "description": "查看Second Brain现有功能，分析哪些功能可以增加用户粘性和付费意愿",
-        "model": "minimax-cn/MiniMax-M2.7",
-        "prompt_template": """你是Second Brain的产品研究员。
+    1: {
+        "name": "📦 产品设计",
+        "theme_prompt": "本周主题是「产品设计」：把AI咨询和陪跑服务标准化、产品化，让它们可以规模化交付。",
+        "tasks": [
+            {
+                "id": "advisory_handbook",
+                "day": 0,
+                "name": "AI咨询产品手册",
+                "description": "设计AI咨询服务的标准交付清单和定价体系",
+                "prompt": """你是黎镭的产品设计师。
 
-Second Brain是什么：
-- 黎镭的AI知识管理+智能体协同工具
-- 基于Next.js + Supabase
-- 用户可以看到记忆、文档、任务、Agent状态
+任务：设计「AI咨询服务」的标准产品手册
 
-任务：基于对Second Brain现状的理解（记忆系统+文档+Agent协同），提出3个可以显著提升用户价值感的功能建议。
+背景：
+- AI咨询：帮助企业建立内部AI工作流，诊断+落地+陪跑
+- 客户：B端企业负责人
+- 痛点：咨询交付依赖个人经验，客户感知不到价值
 
-分析维度：
-1. 用户最常用的功能是什么？哪些地方最可能流失用户？
-2. 哪些功能竞品有但Second Brain没有？
-3. 哪些功能是黎镭的独特优势，可以放大？
+要求：
+1. 分3个阶段：诊断期/落地期/陪跑期
+2. 每个阶段产出3-5个具体交付物（文件名+简要描述）
+3. 每个交付物有明确的"客户感知价值"
+4. 提出2-3个定价方案（按项目/按月/按年）
+5. 体现OpenClaw生态优势
 
-输出格式（直接输出，不要解释）：
-## 功能建议1：[功能名]
-- 用户价值：（为什么用户会想要这个）
-- 实现思路：（1-2句话）
-- 优先级：（高/中/低）理由
+输出格式：
+---
+## AI咨询服务产品手册 v1
 
-## 功能建议2：...
+### 服务阶段
+## 第一阶段：诊断与规划（第1-2周）
+| 交付物 | 内容说明 | 客户感知价值 |
+|--------|----------|--------------|
+| ...    | ...      | ...          |
 
-## 功能建议3：...
-"""
-    },
-    {
-        "id": "linkedin_content",
-        "name": "LinkedIn选题 — 本周3篇内容规划",
-        "description": "围绕AI培训和OpenClaw，写3个适合LinkedIn发布的内容选题",
-        "model": "minimax-cn/MiniMax-M2.7",
-        "prompt_template": """你是黎镭的LinkedIn内容策划师。
-
-业务背景：
-- 黎镭在LinkedIn展示AI培训和OpenClaw生态的专业形象
-- 目标：建立专业认知，吸引B端决策者
-- 内容风格：实战、犀利、不废话、不卖课感
-
-任务：为本周规划3篇LinkedIn内容选题，要求：
-1. 每个选题有明确的"钩子"（让人想点进来的理由）
-2. 每篇有具体角度，不是泛泛而谈
-3. 体现黎镭的真实经验和观点，不是AI生成感
-4. 适合B端决策者阅读
-
-本周时间：{today}
-
-输出格式（直接输出，不要解释）：
-## 选题1：【标题】（发布日：周一）
-- 角度：
-- 核心观点（3句）：
-- 结尾行动号召：
-
-## 选题2：【标题】（发布日：周三）
+## 第二阶段：落地执行（第3-8周）
 ...
 
-## 选题3：【标题】（发布日：周五/周六）
+## 定价方案
+**方案A：[名称]**
+- 定价：
+- 适合客户：
+- 包含内容：
+...---"""
+            },
+            {
+                "id": "running_handbook",
+                "day": 1,
+                "name": "AI陪跑产品手册",
+                "description": "设计AI陪跑（商业教练）服务的标准和定价",
+                "prompt": """你是黎镭的产品设计师。
+
+任务：设计「AI陪跑」（商业教练）服务的标准产品手册
+
+背景：
+- AI陪跑：持续陪伴创始人/团队AI转型，按月交付
+- 黎镭的核心差异化：OpenClaw生态 + 实战经验 + 长期陪伴
+- 目标客户：B端创始人、核心决策者
+
+要求：
+1. 明确陪跑的核心价值主张（为什么比普通教练值钱）
+2. 设计3档服务（入门/标准/深度）
+3. 每档有明确的交付内容和交付节奏
+4. 包含具体的"里程碑"（客户在哪些节点能看到进展）
+5. 定价透明，有明确的ROI说明
+
+输出格式：
+---
+## AI陪跑服务产品手册 v1
+
+### 价值主张
+（为什么企业需要AI陪跑，而不是自己学/请顾问）
+
+### 服务档位
+
+**入门陪跑（1个月）**
+- 定价：
+- 适合客户：
+- 每周交付：
+- 第1个月里程碑：
+- 客户感知价值：
+
+**标准陪跑（3个月）**
 ...
-"""
+
+**深度陪跑（6-12个月）**
+...
+
+### 立即行动CTA
+（让潜在客户想开始的设计）
+---"""
+            },
+            {
+                "id": "training_sop",
+                "day": 3,
+                "name": "培训SOP",
+                "description": "建立AI培训的标准操作流程（课前/课中/课后）",
+                "prompt": """你是黎镭的运营负责人。
+
+任务：建立AI培训的标准SOP，让培训可复制、可持续
+
+要求：
+1. 课前：如何准备、内容如何发送、学员需要什么前置条件
+2. 课中：标准流程、时间分配、互动设计、常见问题处理
+3. 课后：跟进动作、学员作业、效果追踪、转介绍机制
+4. 每个环节有明确的"完成标准"
+5. 用表格和清单形式，方便执行
+
+输出格式：
+---
+## AI培训标准SOP v1
+
+### 课前（培训前7天→培训当天）
+| 动作 | 负责人 | 完成标准 | 工具/模板 |
+|------|--------|----------|------------|
+| ...  | ...    | ...      | ...        |
+
+### 课中（培训当天）
+| 时间段 | 动作 | 负责人 | 完成标准 |
+|--------|------|--------|----------|
+| ...    | ...  | ...    | ...      |
+
+### 课后（培训结束→30天）
+| 时间点 | 动作 | 负责人 | 完成标准 |
+|--------|------|--------|----------|
+| ...    | ...  | ...    | ...      |
+---"""
+            },
+            {
+                "id": "advisory_deliverable",
+                "day": 4,
+                "name": "咨询启动包",
+                "description": "为AI咨询设计首次诊断的标准问卷和流程",
+                "prompt": """你是黎镭的咨询顾问。
+
+任务：设计「AI咨询首次诊断」的标准启动包
+
+要求：
+1. 首次咨询前的预填问卷（让客户提前思考，也让你提前了解情况）
+2. 首次咨询的标准议程（60分钟如何分配）
+3. 首次咨询后的共识文档模板（让客户明确下一步）
+4. 诊断报告模板（让客户感知到专业性）
+
+输出格式：
+---
+## AI咨询首次诊断 启动包
+
+### 预填问卷（发送时间：预约后/培训前）
+问题1：[帮助了解xx]
+问题2：[帮助了解xx]
+...
+（总共8-12个问题，涵盖：业务现状/痛点/已有AI尝试/预算/决策链）
+
+### 首次咨询标准议程（60分钟）
+| 时间 | 环节 | 目的 |
+|------|------|------|
+| 0-5min | 开场+目标确认 | 共识 |
+| ...    | ...  | ...  |
+
+### 共识文档模板
+---
+**本次咨询共识**
+客户：
+日期：
+主要发现：[3个核心问题]
+建议方向：[优先级排序]
+下一步：[3个具体行动]
+承诺：[双方约定的事项]
+---
+
+### 诊断报告模板
+（标准格式，让每次诊断有可比性）
+---"""
+            },
+            {
+                "id": "sunday_review_p2",
+                "day": 6,
+                "name": "周报与下周计划",
+                "description": "写本周工作总结和下周详细计划",
+                "prompt": """你是黎镭的 Autonomous AI Employee。
+
+任务：写本周工作总结和下周详细计划
+
+本周主题：📦 产品设计（AI咨询/陪跑/培训产品标准化）
+
+请结合本周业务上下文，输出一份周报：
+
+输出格式：
+---
+## 本周工作总结
+
+### 完成产出
+1. （具体产出名称和描述）
+2. ...
+
+### 关键洞察
+（基于产品设计得出的3条以内可执行洞察）
+
+### 存在的差距
+
+---
+
+## 下周详细计划
+
+### 下周主题
+（根据本周产品设计的完成情况决定）
+
+### 每日任务
+周一：
+周二：
+...
+
+### 需要黎镭决策的事
+---"""
+            },
+        ]
     },
-]
+    # 第3周和第4周的任务池暂时留空，后续由AI自主填充
+    2: {
+        "name": "⚙️ 交付系统",
+        "theme_prompt": "本周主题是「交付系统」：建立培训SOP、客户成功案例、追踪工具，让交付质量可控制。",
+        "tasks": []
+    },
+    3: {
+        "name": "📊 战略复盘",
+        "theme_prompt": "本周主题是「战略复盘」：分析数据、回顾进展、规划下一步。",
+        "tasks": []
+    },
+}
 
 # ── 主流程 ────────────────────────────────────────────────
 
 def main():
-    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-    today_str = datetime.date.today().strftime("%Y-%m-%d")
+    now = datetime.datetime.now()
+    today = now.date()
+    today_str = today.strftime("%Y-%m-%d")
+    now_str = now.strftime("%Y-%m-%d %H:%M")
+
     print(f"\n{'#'*60}")
-    print(f"# 🤖 Autonomous Employee 上线 | {now}")
+    print(f"# 🤖 Autonomous Employee 上线 | {now_str}")
     print(f"{'#'*60}")
 
-    # Step 1: 收集业务上下文
-    print("\n📋 收集业务上下文...")
-    mem = read_memory_files()
-    docs = get_supabase_recent_docs()
-    crons = get_cron_status()
+    # Step 1: 收集上下文
+    print("\n📋 读取业务上下文...")
+    ctx = get_business_context()
+    memos = get_recent_memos()
 
-    context = f"""
-今天是 {today_str}。以下是当前业务上下文：
+    context_brief = f"""
+今天是 {today_str} {now.strftime('%A')}。
 
-【今日记忆摘要】
-{mem.get('daily_today', '无')[-1500:]}
+【系统设计目标】
+P0: AI培训 / AI咨询 / AI陪跑
 
-【战略记忆】
-{mem.get('strategic', '无')[-1000:]}
+【本周记忆摘要】
+{ctx.get('daily', '')[:1500]}
 
-【最近生产内容】
-{docs}
+【最近R&D Memo产出】
+{memos[:3]}
 
-【今天已跑的Cron任务】
-{crons}
-
-【P0业务方向】
-- AI培训（OpenClaw生态线下课）
-- AI咨询（长期陪跑）
-- AI陪跑（商业教练）
+【系统设计】
+{ctx.get('system', '')[:1000]}
 """
 
-    # Step 2: 选择任务
-    print("\n🧠 分析业务状态，选择最优任务...")
-    selection_prompt = f"""你是黎镭的Autonomous AI Employee。
+    # Step 2: 判断周主题和今日任务
+    week_index = get_week_of_cycle(today)
+    day_of_week = get_day_of_week(today)
+    week_data = WEEK_THEMES.get(week_index, WEEK_THEMES[0])
+    theme_name = week_data["name"]
 
-{context}
+    print(f"\n📅 周主题: {theme_name}（第{week_index+1}周/共4周）")
+    print(f"📆 今天是: {['周一','周二','周三','周四','周五','周六','周日'][day_of_week]}")
 
-今天已经有很多任务在跑了。作为 autonomous employee，你需要选择1个高价值的任务来执行。
+    # 找到今天应该执行的任务
+    today_task = None
+    for task in week_data["tasks"]:
+        if task["day"] == day_of_week:
+            today_task = task
+            break
 
-任务池（只能选1个）：
-{tasks_json}
+    # 周日缓冲日：如果没有特定任务，做周报
+    if not today_task:
+        if day_of_week == 6:
+            today_task = week_data["tasks"][-1] if week_data["tasks"] else None
+        else:
+            # 找有没有任何未完成的重要任务可以补做
+            today_task = None
 
-选择标准：
-1. 哪个任务对当前业务推进最有直接价值？
-2. 哪个任务还没有被今天其他cron覆盖？
-3. 执行结果能直接产生可交付的成果（文案/文档/分析/建议）？
+    if not today_task:
+        print("\n📝 今日无特定任务（周六缓冲日）")
+        print("💤 本周进展良好，继续保持")
+        # 推送简洁的缓冲日报告
+        try:
+            token = get_feishu_token()
+            msg = f"""🤖 Autonomous Employee 夜班 | {now_str}
 
-请只输出选中的任务ID，不要解释：
-"""
-    
-    tasks_json = "\n".join([f"- {t['id']}: {t['name']} — {t['description']}" for t in TASK_POOL])
-    selection_prompt = selection_prompt.replace("{tasks_json}", tasks_json)
-    selection_prompt = selection_prompt.replace("{today}", today_str)
+📅 {theme_name} | {['周一','周二','周三','周四','周五','周六','周日'][day_of_week]}
 
-    chosen_id = call_llm(selection_prompt, "minimax-cn/MiniMax-M2.7")
-    chosen_task = next((t for t in TASK_POOL if t["id"] == (chosen_id or "").strip()), None)
-    
-    if not chosen_task:
-        # Fallback: random
-        chosen_task = random.choice(TASK_POOL)
-        print(f"[WARN] LLM selection failed, randomly chose: {chosen_task['name']}")
-    else:
-        print(f"✅ 选择任务: {chosen_task['name']}")
+📊 本周任务执行良好，缓冲日自动休整。
+明天继续推进。
+
+💡 如有紧急事项，可在飞书直接告知。"""
+            send_feishu_message(token, FEISHU_USER_ID, msg)
+        except Exception as e:
+            print(f"飞书推送失败: {e}")
+        return
+
+    print(f"\n🚀 执行任务: {today_task['name']}")
+    print(f"   {today_task['description']}")
 
     # Step 3: 执行任务
-    print(f"\n🚀 执行任务: {chosen_task['name']}")
-    prompt = chosen_task["prompt_template"].replace("{today}", today_str)
-    result = call_llm(prompt, chosen_task["model"])
-    
+    full_prompt = f"""{week_data['theme_prompt']}
+
+业务上下文：
+{context_brief}
+
+今日任务：{today_task['name']}
+{today_task['description']}
+
+请直接执行任务，输出完整的交付内容。不要解释你在做什么，直接输出结果。
+"""
+    result = call_llm(full_prompt)
+
     if result:
-        print(f"✅ 任务完成，结果长度: {len(result)}字")
+        print(f"\n✅ 任务完成，产出长度: {len(result)}字")
     else:
         result = "（任务执行失败，请检查日志）"
-        print(f"❌ 任务执行失败")
+        print(f"\n❌ 任务执行失败")
 
     # Step 4: 写入日志
     log_entry = f"""
 ---
-## 🤖 Autonomous Employee | {now}
+## 🤖 Autonomous Employee | {now_str}
+**周主题**: {theme_name}（第{week_index+1}周/4周）
+**任务**: {today_task['name']}
 
-**任务**: {chosen_task['name']}
-**任务ID**: {chosen_task['id']}
-
-**执行结果**:
+**产出**:
 {result}
 
 ---
 """
-    
     log_path = f"{WORKSPACE}/memory/daily/{today_str}.md"
     try:
         with open(log_path, "a") as f:
@@ -494,25 +724,27 @@ def main():
         print(f"❌ 日志写入失败: {e}")
 
     # Step 5: 推送飞书
-    summary = f"""🤖 Autonomous Employee 夜班报告 | {now}
+    summary = f"""🤖 Autonomous Employee 夜班报告 | {now_str}
 
-**今夜任务**: {chosen_task['name']}
+📅 {theme_name} | {['周一','周二','周三','周四','周五','周六','周日'][day_of_week]}
+
+**今夜任务**: {today_task['name']}
 
 **产出摘要**:
-{result[:800]}{'...' if len(result) > 800 else ''}
+{result[:1000]}{'...' if len(result) > 1000 else ''}
 
 ---
-💡 明天继续推进。"""
+💡 明晚02:00继续推进。"""
 
     try:
-        feishu_token = get_feishu_token()
-        send_feishu_message(feishu_token, FEISHU_USER_ID, summary)
+        token = get_feishu_token()
+        send_feishu_message(token, FEISHU_USER_ID, summary)
         print("✅ 飞书推送成功")
     except Exception as e:
         print(f"❌ 飞书推送失败: {e}")
 
     print(f"\n{'='*60}")
-    print(f"# ✅ Autonomous Employee 夜班完成 | {chosen_task['name']}")
+    print(f"# ✅ 夜班完成 | {today_task['name']}")
     print(f"{'='*60}")
 
 if __name__ == "__main__":
