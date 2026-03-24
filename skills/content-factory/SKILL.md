@@ -167,7 +167,9 @@ Always inform user of tool status:
 - "Optionally run scripts" means "use if available", NOT "skip if inconvenient"
 - Local scripts are PRIMARY method, WebFetch is FALLBACK
 - Never assume tools are unavailable without checking first
-- **Web search credentials MUST be verified by checking /root/.openclaw/credentials/ — do NOT assume unavailability without checking**
+- **Web Search: Always use smart_search.py via exec FIRST (Tavily → Brave fallback)**
+  - Test: `python3 /root/.openclaw/workspace/scripts/smart_search.py "test" --max-results 1`
+  - Do NOT use OpenClaw built-in `web_search` tool as primary (it has separate Brave key config)
 
 ## Workflow
 
@@ -201,7 +203,7 @@ Always inform user of tool status:
    **FALLBACK METHOD (If scripts fail):**
    - Try WebFetch on YouTube video pages
    - If WebFetch blocked, request user to provide video URLs manually
-   - Use WebSearch to find YouTube video links, then extract metadata
+   - Use smart_search.py via exec to find YouTube video links, then extract metadata
 
    **LAST RESORT (If all YouTube access fails):**
    - Proceed with other sources (articles, reports, blogs)
@@ -285,6 +287,40 @@ Always inform user of tool status:
 
 - Load `references/wechat_viral_frameworks.md` to diversify angles and hooks.
 - Generate 3-5 potential article topics based on **multi-source web research** (YouTube, blogs, reports, discussions).
+
+### 4.5) Write Research to Shared Memory (MANDATORY)
+
+**CRITICAL: Before presenting options to user, write full research context to shared memory.**
+
+This is required because: the cron job runs in an isolated session. After presenting options via Feishu, the session ends. When the user responds with "选X" in the main session, Chief Agent must be able to retrieve the research context.
+
+**Write to this file:**
+```
+/root/.openclaw/workspace/memory/daily/research-YYYY-MM-DD.md
+```
+
+**File must include:**
+- All candidate topics with titles, target readers, core promises
+- **Every YouTube/video URL** (this is the most commonly missing field)
+- Full outlines for each topic
+- Source URLs for all references
+- Which topic is recommended as Option 1 and why
+
+**Format:**
+```markdown
+# Research - YYYY-MM-DD
+
+## Candidate 1 (Recommended)
+**Title:** ...
+**Target:** ...
+**Source URLs:** https://youtube.com/... (CRITICAL - include all)
+**Outline:** ...
+
+## Candidate 2
+...
+```
+
+**After writing memory, THEN present options to user (Step 5).**
 <<<<<<< HEAD
 =======
 

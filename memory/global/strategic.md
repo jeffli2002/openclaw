@@ -11,6 +11,10 @@
 - 技术栈：Supabase(documents表) + 飞书Bitable + Next.js前端
 - 飞书API权限注意：直接HTTP调用会403，需走OpenClaw内置工具或用户身份代理
 - 仓库地址已纠正：https://github.com/jeffli2002/2ndbrain（之前一直推错仓库）
+**Autonomous Employee 系统上线**
+- 每晚02:00自动运行，分析业务上下文 + 自主选择1个高价值任务执行
+- 任务池：内容调研/文案审计/产品设计/竞品研究/ColdEmail/LinkedIn选题/SecondBrain改进
+- 每次执行后写入日志 + 推送飞书报告
 
 ---
 

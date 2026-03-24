@@ -52,19 +52,16 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 - `trash` > `rm` (recoverable beats gone forever)
 - When in doubt, ask.
 
-## External vs Internal
+## Web Search 工具优先级
 
-**Safe to do freely:**
+**第一优先：** `scripts/smart_search.py`
+- Tavily API（免费，高质量）
+- 失败时自动 fallback 到 Brave API
+- 调用方式：`python3 /root/.openclaw/workspace/scripts/smart_search.py "查询内容" --max-results N`
 
-- Read files, explore, organize, learn
-- Search the web, check calendars
-- Work within this workspace
+**禁止：** 不要直接用 OpenClaw 内置 `web_search` 工具（Brave API 需要额外 key，质量不如 Tavily）
 
-**Ask first:**
-
-- Sending emails, tweets, public posts
-- Anything that leaves the machine
-- Anything you're uncertain about
+**例外：** 只有当 smart_search.py 不可用（文件丢失/依赖问题）时，才用内置 web_search。
 
 ## Group Chats
 

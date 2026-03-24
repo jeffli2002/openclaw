@@ -1,0 +1,10 @@
+2026-03-22 12:56:39,657 - INFO - Starting publication for: /root/.openclaw/workspace/output/2026-03-22-wechat-openclaw-support.html
+2026-03-22 12:56:40,133 - INFO - Access token obtained successfully
+2026-03-22 12:56:40,136 - INFO - Found 0 images in HTML
+2026-03-22 12:56:40,139 - INFO - Extracted and converted content from HTML: 微信急了，终于支持OpenClaw
+2026-03-22 12:56:40,139 - INFO - Using default cover image: WOr7ZIAYNpvYmON1V3ZQwcJJM5-5tgg8B2WMeN-oQF6R3PSE5lrtwOhwvcAOc_ZC
+2026-03-22 12:56:42,663 - INFO - Draft article created with media_id: WOr7ZIAYNpvYmON1V3ZQwf_G5HdXs8zUb7sOzjh5aeep9GTiUtqVv7bVKnuCDKPs
+2026-03-22 12:56:42,885 - WARNING - Preview submission: api unauthorized rid: 69bf768a-3f6bcbc7-4276afe3
+2026-03-22 12:56:42,885 - INFO - Draft created with media_id: WOr7ZIAYNpvYmON1V3ZQwf_G5HdXs8zUb7sOzjh5aeep9GTiUtqVv7bVKnuCDKPs
+2026-03-22 12:56:42,885 - INFO - Please login to WeChat Official Account backend to publish manually:
+2026-03-22 12:56:42,885 - INFO - https://mp.weixin.qq.com/
