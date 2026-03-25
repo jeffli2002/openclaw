@@ -1,6 +1,6 @@
 # 战略记忆 - 虾仔的长期记忆
 
-> 最后更新: 2026-03-23 04:06
+> 最后更新: 2026-03-25 00:03
 
 ---
 
@@ -1889,3 +1889,134 @@ openclaw gateway restart
 - 影响：所有依赖图片分析的 skill（封面生成、内容配图等）降级
 - 恢复：18:00 后陆续恢复
 - 战略含义：MiniMax VLM 作为图片分析主力时有单点风险；重要图片任务建议同时配置 GLM/其他模型作为 fallback，避免服务不可用时完全卡死
+
+## 📊 Memory 提炼 | 2026-03-24 16:08
+
+### 今日新增长期有效信息（2026-03-24）
+
+**1. Jeff 对短视频交付的明确偏好已成稳定工作约束**
+- 当 Jeff 提到“remotion skill”时，默认就是 `remotion-best-practices` skill
+- 短视频工作流默认优先 **本地 / 无 API** 方案，不依赖外部视频生成 API
+- 交付偏好从“长口播解释型”切换为：**竖屏移动端、1 分钟以内、画面信息更丰富、动态 streaming 展示、口播更短更克制**
+- 战略含义：后续所有 OpenClaw 场景类短视频，应优先走“短时长 + 强节奏 + 强画面 + 弱口播”的内容包装，而不是长讲解型视频
+
+**2. 今日两类 cron 错误确认属于模型侧瞬时 rate limit，而非任务配置损坏**
+- 受影响任务：`openclaw-news-monitor`、`sync-github-15-00`
+- 共同报错：`MiniMax-M2.5` 与 `kimi-coding/k2p5` 同时出现 `rate_limit`
+- 处置结果：人工 `openclaw cron run <id>` 复跑后恢复正常，说明任务逻辑和 cron 配置本身无结构性损坏
+- 战略含义：遇到单次 `rate_limit` 型 cron error，优先判断为模型容量瞬时波动，先复跑验证；不要在第一次报错时就误判成任务配置错误或立即大改 cron 配置
+
+---
+
+## 📊 Memory 提炼 | 2026-03-24 18:10
+
+### 今日新增（2026-03-24）
+
+**1. Remotion 短视频工作流的 Jeff 偏好已明确为稳定创作约束**
+- 视频定位：竖屏移动端(9:16)、1分钟以内、动态 streaming 展示、弱口播强画面
+- 关键技术路径：`edge-tts --write-subtitles` 生成精准时间戳 SRT → `parseSrt` + `startFrame/endFrame` 逐帧映射实现字幕与口播同步
+- 常见翻车点（已实测）：
+  1. 场景时长与口播内容不匹配：口播说 A 场景，画面切到 B 场景 → 修复：每段场景严格按 SRT 时间轴分配
+  2. 字幕跨场景残留/循环：旧代码字幕用独立计时，不随场景切换清空 → 修复：字幕按 SRT 全局帧号匹配，当前场景结束即消失
+  3. 画面内容偏上不居中：Remotion 默认 absolute fill 从顶部堆放 → 修复：外层 flexbox justify-content:center + align-items:center
+- `remotion-best-practices` skill 位置：`/root/.openclaw/workspace/skills/remotion-best-practices/`
+- 当前项目路径：`/root/.openclaw/workspace/projects/remotion-openclaw-video/`
+- 战略含义：短视频是 Jeff 品牌内容的重要形态，Remotion 本地链路已验证可跑通；后续类似需求优先复用此工作流
+
+**2. OpenClaw 版本升级后 cron 状态显示"running"是假状态，不影响实际调度**
+- 现象：版本 2026.3.11 → 2026.3.13 升级后，`cron-health-check`、`daily-memory-extractor`、`openclaw-news-monitor` 在 `openclaw cron list` 中持续显示 "running" 状态
+- 根因：cron scheduler 在版本升级后未清理历史状态，导致 session 不存在但 status 未更新
+- 验证方法：sessions_list 显示无对应 cron 会话 → 判定为过时假状态
+- 不影响：实际 cron 调度正常，下次触发时会正确更新状态
+- 战略含义：cron 巡检时遇到"session 不存在但显示 running"，应优先查 sessions_list 核实，不立即判定为系统故障
+
+**3. Remotion 渲染预估时间的新参考基准（2026-03-24 实测）**
+- 测试场景：1533帧(51秒) @ 1080×1920，嵌套场景、渐变、streaming 光带动效
+- 渲染速度：初期约 0.5-1 fps，稳定后约 5-8 fps
+- 总耗时参考：15-20 分钟（bundling + 渲染 + 编码）
+- 之前 1 小时以上的案例使用了重特效（信息卡数量过多），当前轻量方案可控制在 20 分钟内
+- 战略含义：评估 Remotion 任务时长时，以 1533帧@30fps 轻量方案为基准；超过 30 分钟需检查是否特效过重
+
+---
+
+## Remotion stitch-frames-to-video SIGTERM 问题（2026-03-24 实测）
+- 症状：渲染到 final stitch 阶段时被 SIGTERM kill，导致输出文件损坏或仅有几百 KB
+- 根因：Remotion 在 stitch 阶段 ChromeHeap 内存超出限制，被系统 OOM Killer 或 exec 上下文发 SIGTERM 终止
+- 解法：**必须使用 `nohup + 文件重定向` 启动渲染**，不使用 exec pty 模式：
+  ```bash
+  cd /path/to/project && nohup env NODE_OPTIONS="--max-old-space-size=4096" \
+    node_modules/.bin/remotion render src/index.tsx Root \
+    --output-dir out --codec h264 --crf 23 --overwrite \
+    > /tmp/remotion_render.log 2>&1 &
+  ```
+- 监控：`tail -f /tmp/remotion_render.log`
+- 验证完整性：`ffprobe out/Root.mp4`（必须能读取 duration）
+- 经验：每次重新渲染前先 `rm -f out/Root.mp4` 避免残留损坏文件
+
+---
+
+## 📊 Memory 提炼 | 2026-03-25 00:03
+
+### 新增（来自 2026-03-24 下午-晚间迭代）
+
+**Jeff 短视频终版偏好（已验证满意）**
+- 结尾：只说"关注视频号"，不能出现 Alex Finn（Jeff 品牌是黎镭本人）
+- 竖线进度光带：不要（Jeff 明确要求去掉）
+- 每页视觉丰富度：需要更丰富（动态环、浮动Dot、角括号、网格背景）
+- 轻量特效原则仍然有效（>30分钟渲染需检查特效是否过重）
+
+**Remotion 长渲染稳定性进一步验证**
+- nohup 方式已连续多次成功完成 1500+ 帧渲染（20+ 分钟）
+- 渲染完成后务必用 ffprobe 验证输出完整性，不能只看文件存在
+- 损坏文件特征：文件大小异常小（如 786KB），或 ffprobe 报错
+
+**音频/TTS 注意事项**
+- edge-tts 生成 SRT 时，内容必须与旁白文本完全一致
+- 任何一处文案改动（如本次的"关注视频号"去掉 Alex Finn），必须整体重新生成音频+SRT，再重新计算帧分配
+- 部分替换音频会导致时间轴错位
+
+---
+
+## 📊 Memory 提炼 | 2026-03-25 02:07
+
+### Remotion 短视频终版偏好（已稳定固化）
+- Jeff 最终确认：结尾引导 = **"关注视频号"**（本人品牌，不提 Alex Finn）
+- 竖线进度光带已去掉
+- 每场景装饰层：浮动点（8个）+ 双动态环 + 角标 + 网格背景层
+- 渲染策略：nohup + 文件重定向 绕过 exec SIGTERM；渲染后用 ffprobe 验证文件完整性
+- SRT 时间轴更新（口播内容修改后需同步更新 SRT 并重新计算 TOTAL_FRAMES）
+
+### Jeff 业务推进状态
+- AI 培训报价文档（B2B 机构采购价）：Jeff 持续推进中，具体数字待确认
+- AI 读书会 B2B 口径（HR/培训负责人画像）：已在 Cold Email #2 中验证 Jeff 口径方向，未沉淀为战略（属于 Jeff 自主工作项）
+- 周主题 🔥 获客引擎（第1周）：已产出 Cold Email 序列初稿（5条），Jeff 正在自主润色
+
+---
+
+## 市场竞品四象限框架（2026-03-25 提炼）
+
+**来源**：Autonomous Employee 竞品研究报告（2026-03-25 02:05）
+
+### 四象限定位
+
+| 象限 | 定位 | 典型玩家 | 客单价 | 交付形式 |
+|------|------|----------|--------|----------|
+| A | 大众普及型 | 知乎/小红书免费内容 | 0-199元 | 线上录播 |
+| B | 职业技能型 | 极客时间/三节课 | 500-3000元 | 线上录播+社群 |
+| C | 企业内训型 | 各大咨询公司 | 2-20万/场 | 线下工作坊 |
+| D | 商业陪跑型 | 独立顾问/教练 | 5-50万/年 | 1v1深度陪跑 |
+
+### 竞品对标观察（实测）
+
+- **老胡AI工坊**（竞品D象限）：2980元/人，2天线下工作坊+30天社群陪跑，核心打法：AI效率工具+短视频创作，短平快
+- **黎镭差异化机会**：OpenClaw聚焦企业级场景（非个人用户），定位D象限高端商业陪跑
+
+### 战略含义
+
+- Jeff 的 AI 培训/咨询/陪跑 核心卖点在**企业级场景 + OpenClaw生态**，非C象限的传统企业内训
+- Cold Email 序列已验证 HR/培训负责人 画像方向（Email #2），属于 Jeff 自主工作项
+- 后续竞品分析、产品定位优先对标D象限（独立顾问/教练型），避免被B/C象限的红海竞争稀释定位
+
+---
+
+*提炼时间：2026-03-25 04:06 | 来源：memory/daily/2026-03-25.md autonomous-employee 产出*

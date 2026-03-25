@@ -41,3 +41,9 @@
 - 2026-03-12：`ai-kol-daily-newsletter` 已升级为“严格按 X/Twitter watchlist 出日报”模式；主配置文件为 `config/ai-kol-watchlist.yaml`，默认追踪 15 个 AI KOL（Sam Altman、Elon Musk、Mark Zuckerberg、Dario Amodei、Daniela Amodei、Ilya Sutskever、Andrej Karpathy、Yann LeCun、Demis Hassabis、Jeff Dean、Andrew Ng、Fei-Fei Li、Thomas Wolf、Greg Brockman、Peter Steinberger）。
 - 2026-03-12：KOL 日报硬规则：只写过去24小时内确有 X/Twitter 更新的账号；优先保留 KOL 原观点与一手表达；如果当天无人更新，要明确写“无人更新”，不要拿普通行业新闻硬凑。
 >>>>>>> 8d2abf78b8490403831aae82052e8e107054b856
+
+## 2026-03-25
+- 完成定时内容任务 `daily-content-publish` 的选题研究。
+- 明确从今天开始 9 点选题重点关注 OpenClaw：版本更新、使用玩法、skill 生态、典型场景、创业机会。
+- 研究结论：短期最值得写的主题是 `免费 Web UI / 控制层机会` 与 `3.23/3.22 更新背后的生产级信号`。
+- 上下文沉淀位置：`memory/daily/research-2026-03-25.md`。
