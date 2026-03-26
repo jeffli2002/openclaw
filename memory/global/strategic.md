@@ -2020,3 +2020,112 @@ openclaw gateway restart
 ---
 
 *提炼时间：2026-03-25 04:06 | 来源：memory/daily/2026-03-25.md autonomous-employee 产出*
+
+---
+
+## 📊 Memory 提炼 | 2026-03-25 22:15
+
+### 今日战略更新（2026-03-25）
+
+**1. Dreamina（即梦）CLI 已安装，远程服务器登录需要 SSH 隧道**
+- 安装命令：`curl -fsSL https://jimeng.jianying.com/cli | bash`
+- CLI 路径：`/root/.local/bin/dreamina`
+- 核心问题：服务器是远程云端，`dreamina login` 的 callback URL 是 `127.0.0.1:60713`，浏览器无法直接访问
+- 解法：用 SSH 隧道 `ssh -L 60713:127.0.0.1:60713 root@服务器IP -N` 把本地端口映射到服务器；或者在本地电脑安装 dreamina 登录后复制 session 文件到服务器
+- API 限制：即梦目前没有开放 Seedance 2.0 API，只有 Seedance 1.5
+- Skill 路径：`/root/.dremina_cli/dreamina/SKILL.md`
+
+**2. Chief Agent 的 agent_registry.yaml 存在 YAML 多文档格式问题**
+- 文件：`/root/.openclaw/workspace/agents/config/agent_registry.yaml`
+- 错误：`yaml.composer.ComposerError: expected a single document in the stream...found another document`
+- 根因：文件中第7行和第20行都出现了 `---` YAML 文档分隔符，导致 `yaml.safe_load()` 解析失败
+- 影响：`python3 tool.py --agent chief` 无法使用，所有经过 Chief 分发的任务都会失败
+- 状态：暂未修复，需要把多文档 YAML 拆分为单文档或合并为一个 YAML 多文档流
+
+**3. Cron 健康检查——6 个配置问题已修复**
+- `autonomous-employee-night-shift`：补上缺失的 failureAlert ✅
+- `rd-triangle-debate-am`：补上缺失的 failureAlert ✅
+- `rd-triangle-debate-pm`：补上缺失的 failureAlert ✅
+- `cron-health-check`、`daily-memory-extractor`、`ai-daily-delivery-guard`：补上缺失的 delivery ✅（已直接写文件）
+- 遗留：3个 systemEvent 类型任务的 delivery 已写入 `/root/.openclaw/cron/jobs.json`，需要 gateway 重启才能让配置在内存中生效
+
+**4. Remotion 短视频工作流已成为稳定可复用链路**
+- 关键约定："remotion skill" = `remotion-best-practices` skill（Jeff 明确约定）
+- 视频偏好（Jeff 最终确认）：竖屏 9:16 / 1分钟以内 / 关注视频号（不提 Alex Finn）/ 无竖线进度光带 / 每页更丰富装饰（浮动点、双动态环、角标、网格背景）
+- 渲染策略：nohup + 文件重定向绕过 exec SIGTERM；渲染后用 ffprobe 验证文件完整性
+- SRT 时间轴更新原则：任何口播/文案修改后必须整体重新生成音频+SRT，再重新计算 TOTAL_FRAMES
+
+---
+
+*提炼时间：2026-03-25 22:15 | 来源：memory/daily/2026-03-25.md & 本次会话*
+
+---
+
+## 📊 Memory 提炼 | 2026-03-26 00:04
+
+### 今日战略更新（2026-03-26）
+
+**1. Dreamina CLI 权限问题已定位——账号不在功能体验范围内**
+- 根因不是 SSH 隧道或登录流程，而是 jimeng 账号没有 Dreamina CLI 白名单权限
+- 错误日志（22:11:26）：`login callback reported failure err=当前用户不在功能体验范围内`
+- 状态：dreamina 已在服务器安装，SSH 隧道方案已验证可行（`curl http://127.0.0.1:60713/` 返回 404，证明隧道通畅），仅缺账号权限
+- 解决：需联系即梦客服或在其网页端申请 CLI 内测资格
+- 战略含义：Dreamina CLI 登录问题的排查路径已完整记录——先查权限，再查网络，不在权限层面反复重试
+
+**2. ComfyUI vs 主流视频模型对比（Seedance/可灵/Veo）已整理**
+- ComfyUI 是工作流框架（跑其他模型），非独立视频生成服务
+- 可灵（Kling）：人物动作最自然，物理仿真最强，3-5分钟长视频
+- Google Veo 2：画面质量最高，电影感强，8秒/片段
+- Seedance 1.5：字节云服务，集成图文音视频，但效果弱于可灵和 Veo
+- Dreamina/Seedance 目前只有 1.5 API，2.0 尚未开放
+- 战略含义：商业视频生产首选可灵（人物动作），追求电影感选 Veo；Dreamina/Seedance 适合字节生态快速集成
+
+---
+
+*提炼时间：2026-03-26 00:04 | 来源：memory/daily/2026-03-25.md & 本次会话*
+
+---
+
+## 📊 Memory 提炼 | 2026-03-26 04:05（凌晨）
+
+### 近2日战略性更新（2026-03-24 深夜 ~ 2026-03-26 凌晨）
+
+**1. Cron delivery 配置直写 jobs.json 后需 gateway 重启才能在运行时生效**
+- 2026-03-25 修复 `cron-health-check`、`daily-memory-extractor`、`ai-daily-delivery-guard` 的 delivery 配置（直写 `/root/.openclaw/cron/jobs.json`），但 gateway 进程内存中仍是旧配置。
+- 正确修复路径：修改 jobs.json → `openclaw gateway restart` → 验证新 run delivery 是否正常。
+- 战略含义：cron 配置行为与 jobs.json 不一致时，优先尝试 gateway 重启，不要立刻继续改配置或误判配置损坏。
+
+**2. 5 个 DISABLED 废弃 cron 任务建议清理（last run 全为 03-07 或 03-20）**
+| 任务 | ID | 上次运行 | 备注 |
+|------|-----|---------|------|
+| `sync-supabase-12/15/18/21-00` | 多个 | 03-07 | 已被 `sync-supabase-30m` 取代 |
+| `sync-agent-status` | 593bebaf | 03-20 08:05 | 用途不明，已废弃 |
+
+**3. OpenClaw 版本落后（2026.3.11 < 配置写入版 2026.3.13 < 最新 2026.3.23-2）**
+- 当前运行版本 2026.3.11，GitHub 最新 2026.3.23-2，建议尽快升级。
+- openclaw-news-monitor 已在监控版本动态，可关注但不紧急。
+
+**4. Dreamina CLI 权限问题排查路径完整沉淀（账号无白名单，非网络问题）**
+- 根因已确认为账号权限（`当前用户不在功能体验范围内`），SSH 隧道已验证通畅，无需继续重试登录。
+- 视频 API 现状：Seedance 2.0 尚未开放，可灵（Kling）为人物视频首选。
+
+*提炼时间：2026-03-26 04:05 | 来源：memory/daily/2026-03-24.md & 2026-03-25.md*
+
+---
+
+## 📊 Memory 提炼 | 2026-03-26 10:03
+
+### 今日内容研究发现（来源：daily-content-publish research）
+
+**OpenClaw 2026.3.24-beta.1 已发布，内容运营有强素材可用**
+- Content Agent（小文）已完成 2026-03-26 的 research，候选 Top 1 选题：《ClawHub 会成为 AI Agent 的 App Store 吗？》
+- 核心证据：GitHub releases（2026.3.24 更新）、日韩开发者 X 讨论、YouTube 教程生态（"史上最大更新"等）
+- 战略含义：ClawHub + Skills Install Metadata = Skill 分发层成熟，适合做"AI Agent 创业机会"类内容
+
+**OpenClaw `status=error` 但 `action=finished` + `deliveryStatus=delivered` 属于已知假阳性模式**
+- Content Agent 执行 ai-daily-newsletter 时报"⚠️ ✉️ Message failed"（status=error），但消息实际送达成功（deliveryStatus=delivered）
+- 根因：Agent 内部某个非投递步骤报错，不影响最终投递
+- 已有 3 次以上类似记录（见 03-26 08:07 轮次）
+- 战略含义：cron 监控判断"投递是否成功"应只看 `deliveryStatus`，不应看 `status` 字段
+
+*提炼时间：2026-03-26 10:03 | 来源：memory/daily/research-2026-03-26.md*
