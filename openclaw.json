@@ -1,0 +1,646 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.4.10",
+    "lastTouchedAt": "2026-04-11T06:11:31.070Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-03-29T04:06:17.184Z",
+    "lastRunVersion": "2026.3.24",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "browser": {
+    "executablePath": "/opt/google/chrome/chrome",
+    "noSandbox": true,
+    "extraArgs": []
+  },
+  "auth": {
+    "profiles": {
+      "minimax-cn:default": {
+        "provider": "minimax-cn",
+        "mode": "api_key"
+      },
+      "kimi-coding:default": {
+        "provider": "kimi-coding",
+        "mode": "api_key"
+      },
+      "minimax-portal:default": {
+        "provider": "minimax-portal",
+        "mode": "oauth"
+      }
+    }
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "minimax-cn": {
+        "baseUrl": "https://api.minimaxi.com/anthropic",
+        "apiKey": "minimax-oauth",
+        "api": "anthropic-messages",
+        "models": [
+          {
+            "id": "MiniMax-M2.5",
+            "name": "MiniMax M2.5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "MiniMax-M2.7",
+            "name": "MiniMax M2.7",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "MiniMax-M2.5-highspeed",
+            "name": "MiniMax M2.5 Highspeed",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "MiniMax-M2.5-Lightning",
+            "name": "MiniMax M2.5 Lightning",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "kimi-coding": {
+        "baseUrl": "https://api.kimi.com/coding/",
+        "api": "anthropic-messages",
+        "models": [
+          {
+            "id": "k2p5",
+            "name": "Kimi for Coding",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 262144,
+            "maxTokens": 32768
+          }
+        ]
+      },
+      "openai-code": {
+        "baseUrl": "https://capi.quan2go.com/openai",
+        "apiKey": "D8061057-7D4E-443B-B299-FD6BD39352CA",
+        "api": "openai-responses",
+        "models": [
+          {
+            "id": "gpt-5.4",
+            "name": "gpt-5.4"
+          }
+        ]
+      },
+      "minimax": {
+        "baseUrl": "https://api.minimaxi.com/anthropic",
+        "apiKey": "sk-cp-cMqGihpXu1XQ7CnFGLKP5kUORqrva1RJ_MDdrOSF5DXD4dmijK1aoHUhD6glH1qJUMBXts8PntThJNMdkiIdEGcBB9WKn9M4-_2zaE29N1-w3R8RsFchavo",
+        "api": "anthropic-messages",
+        "models": [
+          {
+            "id": "MiniMax-M2.7",
+            "name": "MiniMax M2.7"
+          },
+          {
+            "id": "MiniMax-M2.5",
+            "name": "MiniMax M2.5"
+          },
+          {
+            "id": "MiniMax-M2.5-highspeed",
+            "name": "MiniMax M2.5 Highspeed"
+          },
+          {
+            "id": "MiniMax-M2.5-Lightning",
+            "name": "MiniMax M2.5 Lightning"
+          },
+          {
+            "id": "MiniMax-M2.1",
+            "name": "MiniMax M2.1"
+          },
+          {
+            "id": "MiniMax-M2.1-lightning",
+            "name": "MiniMax M2.1 Lightning"
+          },
+          {
+            "id": "MiniMax-M2",
+            "name": "MiniMax M2"
+          }
+        ]
+      },
+      "minimax-portal": {
+        "baseUrl": "https://api.minimaxi.com/anthropic",
+        "api": "anthropic-messages",
+        "models": [
+          {
+            "id": "MiniMax-M2.7",
+            "name": "MiniMax M2.7"
+          },
+          {
+            "id": "MiniMax-M2.7-highspeed",
+            "name": "MiniMax M2.7 Highspeed"
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "minimax-portal/MiniMax-M2.7",
+        "fallbacks": [
+          "minimax-cn/MiniMax-M2.5",
+          "kimi-coding/k2p5",
+          "openai-code/gpt-5.4",
+          "minimax-cn/MiniMax-M2.5-highspeed",
+          "minimax-cn/MiniMax-M2.5-Lightning"
+        ]
+      },
+      "models": {
+        "minimax-cn/MiniMax-M2.5": {
+          "alias": "minimax-m2.5"
+        },
+        "kimi-coding/k2p5": {
+          "alias": "Kimi for Coding"
+        },
+        "openai-code/gpt-5.4": {
+          "alias": "GPT-5.4"
+        },
+        "minimax-cn/MiniMax-M2.5-highspeed": {
+          "alias": "minimax-m2.5-highspeed"
+        },
+        "minimax-cn/MiniMax-M2.5-Lightning": {
+          "alias": "minimax-m2.5-lightning"
+        },
+        "minimax-cn/MiniMax-M2.7": {
+          "alias": "MiniMax-M2.7"
+        }
+      },
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "typingIntervalSeconds": 4,
+      "typingMode": "instant",
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "name": "Chief Agent",
+        "workspace": "/root/.openclaw/workspace",
+        "model": {
+          "primary": "minimax-cn/MiniMax-M2.7",
+          "fallbacks": [
+            "kimi-coding/k2p5",
+            "openai-code/gpt-5.4"
+          ]
+        },
+        "identity": {
+          "name": "虾仔",
+          "emoji": "🦐"
+        },
+        "subagents": {
+          "allowAgents": [
+            "content",
+            "growth",
+            "coding",
+            "product",
+            "finance",
+            "training",
+            "ceshi"
+          ]
+        }
+      },
+      {
+        "id": "content",
+        "name": "Content Agent",
+        "workspace": "/root/.openclaw/workspace-content",
+        "model": {
+          "primary": "minimax-cn/MiniMax-M2.7",
+          "fallbacks": [
+            "minimax-cn/MiniMax-M2.5",
+            "openai-code/gpt-5.4"
+          ]
+        },
+        "identity": {
+          "name": "小文",
+          "emoji": "✍️"
+        }
+      },
+      {
+        "id": "growth",
+        "name": "Growth Agent",
+        "workspace": "/root/.openclaw/workspace-growth",
+        "model": {
+          "primary": "minimax-cn/MiniMax-M2.7",
+          "fallbacks": [
+            "kimi-coding/k2p5"
+          ]
+        },
+        "identity": {
+          "name": "增长",
+          "emoji": "📈"
+        }
+      },
+      {
+        "id": "coding",
+        "name": "Coding Agent",
+        "workspace": "/root/.openclaw/workspace-coding",
+        "model": {
+          "primary": "minimax-cn/MiniMax-M2.7",
+          "fallbacks": [
+            "kimi-coding/k2p5"
+          ]
+        },
+        "identity": {
+          "name": "代码",
+          "emoji": "💻"
+        }
+      },
+      {
+        "id": "product",
+        "name": "Product Agent",
+        "workspace": "/root/.openclaw/workspace-product",
+        "model": {
+          "primary": "minimax-cn/MiniMax-M2.7",
+          "fallbacks": [
+            "kimi-coding/k2p5"
+          ]
+        },
+        "identity": {
+          "name": "产品",
+          "emoji": "🎯"
+        }
+      },
+      {
+        "id": "finance",
+        "name": "Finance Agent",
+        "workspace": "/root/.openclaw/workspace-finance",
+        "model": {
+          "primary": "minimax-cn/MiniMax-M2.7",
+          "fallbacks": [
+            "kimi-coding/k2p5"
+          ]
+        },
+        "identity": {
+          "name": "财务",
+          "emoji": "💰"
+        }
+      },
+      {
+        "id": "abe",
+        "name": "阿比",
+        "workspace": "/root/.openclaw/workspace-abe",
+        "model": {
+          "primary": "minimax-cn/MiniMax-M2.7",
+          "fallbacks": [
+            "openai-code/gpt-5.4",
+            "kimi-coding/k2p5"
+          ]
+        },
+        "identity": {
+          "name": "阿比",
+          "emoji": "🤖"
+        }
+      },
+      {
+        "id": "training",
+        "name": "training",
+        "workspace": "/root/.openclaw/workspace-feishu-training",
+        "agentDir": "/root/.openclaw/agents/training/agent",
+        "model": {
+          "primary": "minimax-cn/MiniMax-M2.7",
+          "fallbacks": [
+            "minimax-cn/MiniMax-M2.5",
+            "openai-code/gpt-5.4"
+          ]
+        }
+      },
+      {
+        "id": "ceshi",
+        "name": "ceshi",
+        "workspace": "/root/.openclaw/workspace-ceshi",
+        "agentDir": "/root/.openclaw/agents/ceshi/agent",
+        "model": {
+          "primary": "minimax-cn/MiniMax-M2.7",
+          "fallbacks": [
+            "minimax-cn/MiniMax-M2.5",
+            "kimi-coding/k2p5"
+          ]
+        }
+      }
+    ]
+  },
+  "tools": {
+    "agentToAgent": {
+      "enabled": true,
+      "allow": [
+        "main",
+        "content",
+        "growth",
+        "coding",
+        "product",
+        "finance",
+        "training",
+        "ceshi"
+      ]
+    }
+  },
+  "bindings": [
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "feishu",
+        "peer": {
+          "kind": "group",
+          "id": "oc_76167286d672a4c04e615f053586973a"
+        }
+      }
+    },
+    {
+      "agentId": "content",
+      "match": {
+        "channel": "feishu",
+        "peer": {
+          "kind": "group",
+          "id": "oc_1e781764ad5c3b463eef7d0aee1de2a9"
+        }
+      }
+    },
+    {
+      "agentId": "growth",
+      "match": {
+        "channel": "feishu",
+        "peer": {
+          "kind": "group",
+          "id": "oc_86babca945b808774c67a3ef130f64a5"
+        }
+      }
+    },
+    {
+      "agentId": "coding",
+      "match": {
+        "channel": "feishu",
+        "peer": {
+          "kind": "group",
+          "id": "oc_3eca5aac26f0a945e0b4febc76214066"
+        }
+      }
+    },
+    {
+      "agentId": "product",
+      "match": {
+        "channel": "feishu",
+        "peer": {
+          "kind": "group",
+          "id": "oc_76d55844d04e400ed71327069580be96"
+        }
+      }
+    },
+    {
+      "agentId": "finance",
+      "match": {
+        "channel": "feishu",
+        "peer": {
+          "kind": "group",
+          "id": "oc_e810980541f92c802b8e970f49854381"
+        }
+      }
+    },
+    {
+      "agentId": "training",
+      "match": {
+        "channel": "feishu",
+        "peer": {
+          "kind": "group",
+          "id": "oc_f1a5bdcb42193d400b183805aab5c46a"
+        }
+      }
+    },
+    {
+      "agentId": "ceshi",
+      "match": {
+        "channel": "feishu",
+        "peer": {
+          "kind": "group",
+          "id": "oc_d9e567c9fc3da53b2a3eab4bd107daa9"
+        }
+      }
+    }
+  ],
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "self-improvement": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "feishu": {
+      "enabled": true,
+      "appId": "cli_a9f23d9d667adbca",
+      "appSecret": "V7H7DYF0ksDm8ADIPKix5GYdc2eXHdSA",
+      "connectionMode": "websocket",
+      "groups": {
+        "oc_76167286d672a4c04e615f053586973a": {
+          "requireMention": false
+        },
+        "oc_1e781764ad5c3b463eef7d0aee1de2a9": {
+          "requireMention": false
+        },
+        "oc_86babca945b808774c67a3ef130f64a5": {
+          "requireMention": false
+        },
+        "oc_3eca5aac26f0a945e0b4febc76214066": {
+          "requireMention": false
+        },
+        "oc_76d55844d04e400ed71327069580be96": {
+          "requireMention": false
+        },
+        "oc_e810980541f92c802b8e970f49854381": {
+          "requireMention": false
+        },
+        "oc_f1a5bdcb42193d400b183805aab5c46a": {
+          "requireMention": false
+        },
+        "oc_d9e567c9fc3da53b2a3eab4bd107daa9": {
+          "requireMention": false
+        }
+      },
+      "accounts": {
+        "abe": {
+          "appId": "cli_a93a60e4ae795cee",
+          "appSecret": "ObQFsvOOT8aUWtV62kneIhWyyo2XLIuG"
+        },
+        "default": {
+          "groupPolicy": "allowlist",
+          "groupAllowFrom": [
+            "oc_76167286d672a4c04e615f053586973a",
+            "oc_1e781764ad5c3b463eef7d0aee1de2a9",
+            "oc_86babca945b808774c67a3ef130f64a5",
+            "oc_3eca5aac26f0a945e0b4febc76214066",
+            "oc_76d55844d04e400ed71327069580be96",
+            "oc_e810980541f92c802b8e970f49854381",
+            "oc_f1a5bdcb42193d400b183805aab5c46a",
+            "oc_d9e567c9fc3da53b2a3eab4bd107daa9"
+          ]
+        }
+      },
+      "domain": "feishu",
+      "webhookPath": "/feishu/events",
+      "dmPolicy": "pairing",
+      "groupPolicy": "allowlist",
+      "reactionNotifications": "own",
+      "typingIndicator": true,
+      "resolveSenderNames": true
+    }
+  },
+  "gateway": {
+    "mode": "local",
+    "bind": "auto",
+    "controlUi": {
+      "allowedOrigins": [
+        "http://localhost:18789",
+        "http://127.0.0.1:18789"
+      ]
+    },
+    "auth": {
+      "mode": "token",
+      "token": "ef53d7359ca25c36fbc6d115ef669a4c1634a8d32856a178"
+    }
+  },
+  "plugins": {
+    "entries": {
+      "feishu": {
+        "enabled": true,
+        "config": {}
+      },
+      "openclaw-qqbot": {
+        "enabled": true,
+        "config": {}
+      },
+      "wecom": {
+        "enabled": true,
+        "config": {}
+      },
+      "adp-openclaw": {
+        "enabled": true,
+        "config": {}
+      },
+      "minimax": {
+        "enabled": true,
+        "config": {}
+      },
+      "kimi": {
+        "enabled": true
+      },
+      "browser": {
+        "enabled": true
+      }
+    },
+    "installs": {
+      "openclaw-qqbot": {
+        "source": "npm",
+        "spec": "@tencent-connect/openclaw-qqbot@1.6.3",
+        "installPath": "/root/.openclaw/extensions/openclaw-qqbot",
+        "version": "1.6.3",
+        "installedAt": "2026-03-22T02:32:48.000Z"
+      },
+      "ddingtalk": {
+        "source": "npm",
+        "spec": "@largezhou/ddingtalk",
+        "installPath": "/root/.openclaw/extensions/ddingtalk",
+        "version": "1.4.2",
+        "installedAt": "2026-03-22T02:32:58.000Z"
+      },
+      "wecom": {
+        "source": "npm",
+        "spec": "@mocrane/wecom",
+        "installPath": "/root/.openclaw/extensions/wecom",
+        "version": "2026.3.20",
+        "installedAt": "2026-03-22T02:33:20.000Z"
+      },
+      "adp-openclaw": {
+        "source": "npm",
+        "spec": "adp-openclaw",
+        "installPath": "/root/.openclaw/extensions/adp-openclaw",
+        "version": "0.0.69",
+        "installedAt": "2026-03-22T02:33:24.000Z"
+      },
+      "openclaw-plugin-yuanbao": {
+        "source": "npm",
+        "spec": "openclaw-plugin-yuanbao@1.0.3",
+        "installPath": "/root/.openclaw/extensions/openclaw-plugin-yuanbao",
+        "version": "1.0.3",
+        "installedAt": "2026-03-22T02:33:34.000Z"
+      },
+      "openclaw-weixin": {
+        "source": "npm",
+        "spec": "@tencent-weixin/openclaw-weixin",
+        "installPath": "/root/.openclaw/extensions/openclaw-weixin",
+        "version": "1.0.2",
+        "installedAt": "2026-03-22T02:33:41.000Z"
+      }
+    }
+  }
+}

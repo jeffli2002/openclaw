@@ -1,0 +1,42 @@
+# Credentials - NEVER commit
+credentials/
+auth/
+*.key
+*.pem
+.env
+
+# Agent auth state - contains tokens
+**/auth-state.json
+**/auth-profiles.json
+
+# Session data
+sessions/
+*.jsonl
+*.jsonl.*
+
+# Logs
+*.log
+
+# Temp
+temp/
+tmp/
+.trash/
+
+# Browser
+chrome-profile/
+
+# Lock files
+*.lock
+package-lock.json
+yarn.lock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node modules (if any)
+node_modules/
+
+# Skip everything by default, then re-add specific safe files
+*
+*/

@@ -1,0 +1,27 @@
+{
+  "lastCheckedAt": "2026-04-14T02:24:11.412Z",
+  "latestRelease": "2026-03-18",
+  "version": "2026.3.13-1",
+  "highlights": [
+    "Recovery release v2026.3.13-1 (GitHub immutable release fix)",
+    "Compaction: use full-session token count for post-compaction sanity check",
+    "Telegram: thread media transport policy into SSRF",
+    "Discord: handle gateway metadata fetch failures",
+    "Session: preserve lastAccountId and lastThreadId on session reset",
+    "Default model updated to openai-codex/gpt-5.4",
+    "Android: redesign chat settings UI",
+    "Docker: add OPENCLAW_TZ timezone support",
+    "iOS: add onboarding welcome pager",
+    "Security: prevent gateway token leak in Docker build context",
+    "Cron: prevent isolated cron nested lane deadlocks",
+    "Slack: opt-in interactive reply directives"
+  ],
+  "breaking": [
+    "Onboarding now defaults to messaging tools",
+    "ACP dispatch now defaults to enabled"
+  ],
+  "lastNotifiedVersion": "2026.4.12",
+  "lastNotifiedTag": "latest",
+  "lastAvailableVersion": "2026.4.12",
+  "lastAvailableTag": "latest"
+}
