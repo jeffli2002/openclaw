@@ -1,7 +1,7 @@
 {
   "providers": {
     "kimi-coding": {
-      "baseUrl": "https://api.kimi.com/coding/",
+      "baseUrl": "https://api.kimi.com/coding/v1",
       "api": "anthropic-messages",
       "models": [
         {
@@ -25,7 +25,7 @@
       "apiKey": "sk-kimi-X2PdPbADTlW5YF26e3HTOitTIKzNG5CLhJWagXRUdYQRZC2QPXGnz7dFtXDcfSvF"
     },
     "minimax-cn": {
-      "baseUrl": "https://api.minimaxi.com/anthropic",
+      "baseUrl": "https://api.minimaxi.com/anthropic/v1",
       "api": "anthropic-messages",
       "authHeader": true,
       "models": [
@@ -97,7 +97,7 @@
       "apiKey": "minimax-oauth"
     },
     "openai-code": {
-      "baseUrl": "https://capi.quan2go.com/openai",
+      "baseUrl": "https://capi.quan2go.com/openai/v1",
       "apiKey": "012807E3-BF31-422B-8C62-297FEFF2B30F",
       "api": "openai-responses",
       "models": [
@@ -108,7 +108,7 @@
       ]
     },
     "minimax-portal": {
-      "baseUrl": "https://api.minimaxi.com/anthropic",
+      "baseUrl": "https://api.minimaxi.com/anthropic/v1",
       "api": "anthropic-messages",
       "authHeader": true,
       "models": [
@@ -151,7 +151,7 @@
       "apiKey": "sk-kimi-X2PdPbADTlW5YF26e3HTOitTIKzNG5CLhJWagXRUdYQRZC2QPXGnz7dFtXDcfSvF"
     },
     "minimax": {
-      "baseUrl": "https://api.minimaxi.com/anthropic",
+      "baseUrl": "https://api.minimaxi.com/anthropic/v1",
       "api": "anthropic-messages",
       "authHeader": true,
       "models": [
@@ -188,6 +188,7 @@
     },
     "codex": {
       "baseUrl": "https://chatgpt.com/backend-api",
+      "apiKey": "codex-app-server",
       "auth": "token",
       "api": "openai-codex-responses",
       "models": [
