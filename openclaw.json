@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.4.10",
-    "lastTouchedAt": "2026-04-11T06:11:31.070Z"
+    "lastTouchedVersion": "2026.4.15",
+    "lastTouchedAt": "2026-04-19T09:01:59.420Z"
   },
   "wizard": {
     "lastRunAt": "2026-03-29T04:06:17.184Z",
@@ -610,8 +610,14 @@
         "source": "npm",
         "spec": "@largezhou/ddingtalk",
         "installPath": "/root/.openclaw/extensions/ddingtalk",
-        "version": "1.4.2",
-        "installedAt": "2026-03-22T02:32:58.000Z"
+        "version": "2.0.1",
+        "installedAt": "2026-04-19T08:59:50.827Z",
+        "resolvedName": "@largezhou/ddingtalk",
+        "resolvedVersion": "2.0.1",
+        "resolvedSpec": "@largezhou/ddingtalk@2.0.1",
+        "integrity": "sha512-qKDndqVb6nj1CJ+IX+9DF86qhxrjvJYerk3ooir+TfiQD7RI8/HminvGzXf5g8SRsFF/wWP8vF/Gha5HCNfTJQ==",
+        "shasum": "9a8c22c264691f8a7bd6966cab998847c95dfd4d",
+        "resolvedAt": "2026-04-19T08:57:05.287Z"
       },
       "wecom": {
         "source": "npm",
@@ -632,14 +638,26 @@
         "spec": "openclaw-plugin-yuanbao@1.0.3",
         "installPath": "/root/.openclaw/extensions/openclaw-plugin-yuanbao",
         "version": "1.0.3",
-        "installedAt": "2026-03-22T02:33:34.000Z"
+        "installedAt": "2026-04-19T09:01:09.140Z",
+        "resolvedName": "openclaw-plugin-yuanbao",
+        "resolvedVersion": "1.0.3",
+        "resolvedSpec": "openclaw-plugin-yuanbao@1.0.3",
+        "integrity": "sha512-MXJIxCBJa7Y2zZPd2vA0l4xrM0WZTzjMl+EJgHVkNMvIFoDAJ5S8NYdR+D4GOv5PBKs+ZqVNFjP5Cwl2n79qzA==",
+        "shasum": "f32cb9a60293d09a7df2c592db1f213565995df2",
+        "resolvedAt": "2026-04-19T09:00:13.782Z"
       },
       "openclaw-weixin": {
         "source": "npm",
         "spec": "@tencent-weixin/openclaw-weixin",
         "installPath": "/root/.openclaw/extensions/openclaw-weixin",
-        "version": "1.0.2",
-        "installedAt": "2026-03-22T02:33:41.000Z"
+        "version": "2.1.8",
+        "installedAt": "2026-04-19T09:01:56.656Z",
+        "resolvedName": "@tencent-weixin/openclaw-weixin",
+        "resolvedVersion": "2.1.8",
+        "resolvedSpec": "@tencent-weixin/openclaw-weixin@2.1.8",
+        "integrity": "sha512-YM2fumDI+NvslhFH4gsek+scgCwTdyz7eMDyfNadCTXPjh9hoosn8tcMF0P90gQJEGEud7AJXiKKd8IKGNCfRA==",
+        "shasum": "0eb590449ee94aa852dd9df4f2fb378c46bc7774",
+        "resolvedAt": "2026-04-19T09:01:11.374Z"
       }
     }
   }

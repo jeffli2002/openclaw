@@ -1,5 +1,5 @@
 {
-  "lastCheckedAt": "2026-04-17T14:51:56.123Z",
+  "lastCheckedAt": "2026-04-19T09:03:53.614Z",
   "latestRelease": "2026-03-18",
   "version": "2026.3.13-1",
   "highlights": [
@@ -21,7 +21,5 @@
     "ACP dispatch now defaults to enabled"
   ],
   "lastNotifiedVersion": "2026.4.15",
-  "lastNotifiedTag": "latest",
-  "lastAvailableVersion": "2026.4.15",
-  "lastAvailableTag": "latest"
+  "lastNotifiedTag": "latest"
 }
