@@ -1,12 +1,12 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.4.15",
-    "lastTouchedAt": "2026-04-20T02:13:35.860Z"
+    "lastTouchedVersion": "2026.4.14",
+    "lastTouchedAt": "2026-04-21T14:55:52.824Z"
   },
   "wizard": {
-    "lastRunAt": "2026-03-29T04:06:17.184Z",
-    "lastRunVersion": "2026.3.24",
-    "lastRunCommand": "doctor",
+    "lastRunAt": "2026-04-21T14:55:52.526Z",
+    "lastRunVersion": "2026.4.14",
+    "lastRunCommand": "configure",
     "lastRunMode": "local"
   },
   "browser": {
@@ -198,7 +198,8 @@
           "kimi-coding/k2p5",
           "openai-code/gpt-5.4",
           "minimax-cn/MiniMax-M2.5-highspeed",
-          "minimax-cn/MiniMax-M2.5-Lightning"
+          "minimax-cn/MiniMax-M2.5-Lightning",
+          "minimax-cn/MiniMax-M2.7"
         ]
       },
       "models": {
@@ -219,7 +220,8 @@
         },
         "minimax-cn/MiniMax-M2.7": {
           "alias": "MiniMax-M2.7"
-        }
+        },
+        "minimax-portal/MiniMax-M2.7": {}
       },
       "compaction": {
         "mode": "safeguard"
