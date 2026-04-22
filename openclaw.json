@@ -124,6 +124,23 @@
             },
             "contextWindow": 262144,
             "maxTokens": 32768
+          },
+          {
+            "id": "k2p6",
+            "name": "Kimi for Coding",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 262144,
+            "maxTokens": 32768
           }
         ]
       },
@@ -195,7 +212,7 @@
         "primary": "minimax-portal/MiniMax-M2.7",
         "fallbacks": [
           "minimax-cn/MiniMax-M2.5",
-          "kimi-coding/k2p5",
+          "kimi-coding/k2p6",
           "openai-code/gpt-5.4",
           "minimax-cn/MiniMax-M2.5-highspeed",
           "minimax-cn/MiniMax-M2.5-Lightning",
@@ -241,7 +258,7 @@
         "model": {
           "primary": "minimax-cn/MiniMax-M2.7",
           "fallbacks": [
-            "kimi-coding/k2p5",
+            "kimi-coding/k2p6",
             "openai-code/gpt-5.4"
           ]
         },
@@ -266,10 +283,9 @@
         "name": "Content Agent",
         "workspace": "/root/.openclaw/workspace-content",
         "model": {
-          "primary": "minimax-cn/MiniMax-M2.7",
+          "primary": "kimi-coding/k2p6",
           "fallbacks": [
-            "minimax-cn/MiniMax-M2.5",
-            "openai-code/gpt-5.4"
+            "minimax-cn/MiniMax-M2.7"
           ]
         },
         "identity": {
@@ -284,7 +300,7 @@
         "model": {
           "primary": "minimax-cn/MiniMax-M2.7",
           "fallbacks": [
-            "kimi-coding/k2p5"
+            "kimi-coding/k2p6"
           ]
         },
         "identity": {
@@ -297,9 +313,9 @@
         "name": "Coding Agent",
         "workspace": "/root/.openclaw/workspace-coding",
         "model": {
-          "primary": "minimax-cn/MiniMax-M2.7",
+          "primary": "kimi-coding/k2p6",
           "fallbacks": [
-            "kimi-coding/k2p5"
+            "minimax-cn/MiniMax-M2.7"
           ]
         },
         "identity": {
@@ -314,7 +330,7 @@
         "model": {
           "primary": "minimax-cn/MiniMax-M2.7",
           "fallbacks": [
-            "kimi-coding/k2p5"
+            "kimi-coding/k2p6"
           ]
         },
         "identity": {
@@ -329,7 +345,7 @@
         "model": {
           "primary": "minimax-cn/MiniMax-M2.7",
           "fallbacks": [
-            "kimi-coding/k2p5"
+            "kimi-coding/k2p6"
           ]
         },
         "identity": {
@@ -345,7 +361,7 @@
           "primary": "minimax-cn/MiniMax-M2.7",
           "fallbacks": [
             "openai-code/gpt-5.4",
-            "kimi-coding/k2p5"
+            "kimi-coding/k2p6"
           ]
         },
         "identity": {
@@ -359,10 +375,9 @@
         "workspace": "/root/.openclaw/workspace-feishu-training",
         "agentDir": "/root/.openclaw/agents/training/agent",
         "model": {
-          "primary": "minimax-cn/MiniMax-M2.7",
+          "primary": "kimi-coding/k2p6",
           "fallbacks": [
-            "minimax-cn/MiniMax-M2.5",
-            "openai-code/gpt-5.4"
+            "minimax-cn/MiniMax-M2.7"
           ]
         }
       },
@@ -375,7 +390,7 @@
           "primary": "minimax-cn/MiniMax-M2.7",
           "fallbacks": [
             "minimax-cn/MiniMax-M2.5",
-            "kimi-coding/k2p5"
+            "kimi-coding/k2p6"
           ]
         }
       }
