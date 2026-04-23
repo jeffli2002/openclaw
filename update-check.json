@@ -1,5 +1,5 @@
 {
-  "lastCheckedAt": "2026-04-22T02:15:24.133Z",
+  "lastCheckedAt": "2026-04-23T02:15:24.422Z",
   "latestRelease": "2026-03-18",
   "version": "2026.3.13-1",
   "highlights": [
@@ -20,8 +20,8 @@
     "Onboarding now defaults to messaging tools",
     "ACP dispatch now defaults to enabled"
   ],
-  "lastNotifiedVersion": "2026.4.20",
+  "lastNotifiedVersion": "2026.4.21",
   "lastNotifiedTag": "latest",
-  "lastAvailableVersion": "2026.4.20",
+  "lastAvailableVersion": "2026.4.21",
   "lastAvailableTag": "latest"
 }
