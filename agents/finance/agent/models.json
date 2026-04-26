@@ -20,6 +20,23 @@
           },
           "contextWindow": 262144,
           "maxTokens": 32768
+        },
+        {
+          "id": "k2p6",
+          "name": "Kimi for Coding",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 262144,
+          "maxTokens": 32768
         }
       ],
       "apiKey": "sk-kimi-X2PdPbADTlW5YF26e3HTOitTIKzNG5CLhJWagXRUdYQRZC2QPXGnz7dFtXDcfSvF"
@@ -116,6 +133,23 @@
       "models": [
         {
           "id": "k2p5",
+          "name": "Kimi for Coding",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "k2p6",
           "name": "Kimi for Coding",
           "reasoning": true,
           "input": [
