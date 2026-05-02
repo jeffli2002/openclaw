@@ -22,7 +22,8 @@
             "cacheWrite": 0
           },
           "contextWindow": 262144,
-          "maxTokens": 32768
+          "maxTokens": 32768,
+          "api": "anthropic-messages"
         },
         {
           "id": "k2p6",
@@ -39,7 +40,8 @@
             "cacheWrite": 0
           },
           "contextWindow": 262144,
-          "maxTokens": 32768
+          "maxTokens": 32768,
+          "api": "anthropic-messages"
         }
       ],
       "apiKey": "sk-kimi-X2PdPbADTlW5YF26e3HTOitTIKzNG5CLhJWagXRUdYQRZC2QPXGnz7dFtXDcfSvF"
@@ -51,31 +53,122 @@
       "models": [
         {
           "id": "MiniMax-M2.7",
-          "name": "MiniMax M2.7"
+          "name": "MiniMax M2.7",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         },
         {
           "id": "MiniMax-M2.5",
-          "name": "MiniMax M2.5"
+          "name": "MiniMax M2.5",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         },
         {
           "id": "MiniMax-M2.5-highspeed",
-          "name": "MiniMax M2.5 Highspeed"
+          "name": "MiniMax M2.5 Highspeed",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         },
         {
           "id": "MiniMax-M2.5-Lightning",
-          "name": "MiniMax M2.5 Lightning"
+          "name": "MiniMax M2.5 Lightning",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         },
         {
           "id": "MiniMax-M2.1",
-          "name": "MiniMax M2.1"
+          "name": "MiniMax M2.1",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         },
         {
           "id": "MiniMax-M2.1-lightning",
-          "name": "MiniMax M2.1 Lightning"
+          "name": "MiniMax M2.1 Lightning",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         },
         {
           "id": "MiniMax-M2",
-          "name": "MiniMax M2"
+          "name": "MiniMax M2",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         }
       ],
       "apiKey": "sk-cp-cMqGihpXu1XQ7CnFGLKP5kUORqrva1RJ_MDdrOSF5DXD4dmijK1aoHUhD6glH1qJUMBXts8PntThJNMdkiIdEGcBB9WKn9M4-_2zaE29N1-w3R8RsFchavo"
@@ -87,11 +180,37 @@
       "models": [
         {
           "id": "MiniMax-M2.7",
-          "name": "MiniMax M2.7"
+          "name": "MiniMax M2.7",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         },
         {
           "id": "MiniMax-M2.7-highspeed",
-          "name": "MiniMax M2.7 Highspeed"
+          "name": "MiniMax M2.7 Highspeed",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         }
       ],
       "apiKey": "minimax-oauth"
@@ -115,7 +234,8 @@
             "cacheWrite": 0
           },
           "contextWindow": 200000,
-          "maxTokens": 8192
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         },
         {
           "id": "MiniMax-M2.7",
@@ -131,7 +251,8 @@
             "cacheWrite": 0
           },
           "contextWindow": 200000,
-          "maxTokens": 8192
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         },
         {
           "id": "MiniMax-M2.5-highspeed",
@@ -147,7 +268,8 @@
             "cacheWrite": 0
           },
           "contextWindow": 200000,
-          "maxTokens": 8192
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         },
         {
           "id": "MiniMax-M2.5-Lightning",
@@ -163,7 +285,8 @@
             "cacheWrite": 0
           },
           "contextWindow": 200000,
-          "maxTokens": 8192
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         }
       ],
       "apiKey": "minimax-oauth"
@@ -187,7 +310,8 @@
             "cacheWrite": 0
           },
           "contextWindow": 262144,
-          "maxTokens": 32768
+          "maxTokens": 32768,
+          "api": "anthropic-messages"
         },
         {
           "id": "k2p6",
@@ -204,7 +328,8 @@
             "cacheWrite": 0
           },
           "contextWindow": 262144,
-          "maxTokens": 32768
+          "maxTokens": 32768,
+          "api": "anthropic-messages"
         }
       ],
       "apiKey": "sk-kimi-X2PdPbADTlW5YF26e3HTOitTIKzNG5CLhJWagXRUdYQRZC2QPXGnz7dFtXDcfSvF"
@@ -216,7 +341,20 @@
       "models": [
         {
           "id": "gpt-5.4",
-          "name": "gpt-5.4"
+          "name": "gpt-5.4",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192,
+          "api": "openai-responses"
         }
       ]
     },
@@ -301,11 +439,37 @@
       "models": [
         {
           "id": "MiniMax-M2.7",
-          "name": "MiniMax M2.7"
+          "name": "MiniMax M2.7",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         },
         {
           "id": "MiniMax-M2.7-highspeed",
-          "name": "MiniMax M2.7 Highspeed"
+          "name": "MiniMax M2.7 Highspeed",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192,
+          "api": "anthropic-messages"
         }
       ],
       "apiKey": "minimax-oauth"
