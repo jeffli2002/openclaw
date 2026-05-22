@@ -283,9 +283,9 @@
         "name": "Content Agent",
         "workspace": "/root/.openclaw/workspace-content",
         "model": {
-          "primary": "kimi-coding/k2p6",
+          "primary": "minimax-cn/MiniMax-M2.7",
           "fallbacks": [
-            "minimax-cn/MiniMax-M2.7"
+            "kimi-coding/k2p6"
           ]
         },
         "identity": {
